@@ -3,13 +3,13 @@ using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.DependancyResolver
+namespace ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver
 {
-    public class Resolver : ResolverBase
+    public class ConcreteResolver : ResolverBase
     {
         private readonly IImmutableDictionary<Type, Func<ActorBase>> _factories;
 
-        internal Resolver(TestKitBase testKit, Settings settings) : base(testKit)
+        internal ConcreteResolver(TestKitBase testKit, ConcreteResolverSettings settings) : base(testKit)
         {
             _factories = settings.Factories;
         }

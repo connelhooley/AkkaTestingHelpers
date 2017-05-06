@@ -77,8 +77,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DependancyResolverTests\ResolverTests.cs" />
-    <Compile Include="DependancyResolverTests\TestBase.cs" />
+    <Compile Include="ConcreteResolverTests\CreateSut.cs" />
+    <Compile Include="ConcreteResolverTests\WaitForChildren.cs" />
     <Compile Include="DummyActors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

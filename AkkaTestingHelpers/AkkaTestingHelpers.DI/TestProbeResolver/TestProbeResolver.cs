@@ -5,21 +5,21 @@ using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.TestProbeDependancyResolver
+namespace ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver
 {
-    public class Resolver : ResolverBase
+    public class TestProbeResolver : ResolverBase
     {
         private readonly IImmutableDictionary<Type, Func<object, object>> _handlers;
         private readonly IDictionary<ActorPath, (Type, TestProbe)> _resolvedProbes;
 
-        private Resolver(TestKitBase testKit, Settings settings) : base(testKit)
+        private TestProbeResolver(TestKitBase testKit, TestProbeResolverSettings settings) : base(testKit)
         {
             _handlers = settings.Handlers;
             _resolvedProbes = new ConcurrentDictionary<ActorPath, (Type, TestProbe)>();
         }
 
-        public static Resolver Create(TestKitBase testKit, Settings settings) =>
-            new Resolver(testKit, settings);
+        public static TestProbeResolver Create(TestKitBase testKit, TestProbeResolverSettings settings) =>
+            new TestProbeResolver(testKit, settings);
 
         public TestProbe GetTestProbe(IActorRef parentActor, string childName)
         {
@@ -44,9 +44,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.TestProbeDependancyResolver
         protected override Func<ActorBase> Resolve(Type actorType) => 
             () =>
             {
-                Actor actor = _handlers.ContainsKey(actorType)
-                    ? new Actor(TestKit, _handlers[actorType])
-                    : new Actor(TestKit);
+                TestProbeActor actor = _handlers.ContainsKey(actorType)
+                    ? new TestProbeActor(TestKit, _handlers[actorType])
+                    : new TestProbeActor(TestKit);
                 _resolvedProbes[actor.ActorPath] = (actorType, actor.TestProbe);
                 ResolvedChild();
                 return actor;

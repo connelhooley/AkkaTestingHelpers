@@ -3,22 +3,19 @@ using System.Threading;
 using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.NUnit3;
-using ConnelHooley.AkkaTestingHelpers.DI.DependancyResolver;
+using ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using Settings = ConnelHooley.AkkaTestingHelpers.DI.DependancyResolver.Settings;
 
-//These tests are horrible. Sorry.
-
-namespace AkkaTestingHelpers.DI.Tests.DependancyResolverTests
+namespace AkkaTestingHelpers.DI.Tests.ConcreteResolverTests
 {
-    public class ResolverTests : TestKit {
-
-        public ResolverTests() : base(@"akka.test.timefactor = 0.6") { }
+    public class CreateSut : TestKit
+    {
+        public CreateSut() : base(@"akka.test.timefactor = 0.6") { }
 
         [Test]
-        public void InjectChildWithOutParameterlessConstructor()
+        public void ConcreteResolverTests_CreateSut_SettingsWithFactoryFunc_ChildIsInjectedSuccessfully()
         {
             //arrange
             int count = 0;
@@ -26,11 +23,11 @@ namespace AkkaTestingHelpers.DI.Tests.DependancyResolverTests
             counterMock
                 .Setup(counter => counter.Count())
                 .Callback(() => count++);
-            Resolver sut = Settings
+            ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
                 .Register(() => new ChildActor1(counterMock.Object))
                 .CreateResolver(this);
-            
+
             //act
             TestActorRef<ParentActor1> rootActor = sut.CreateSut<ParentActor1>(
                 Props.Create(() => new ParentActor1()));
@@ -43,10 +40,10 @@ namespace AkkaTestingHelpers.DI.Tests.DependancyResolverTests
         }
 
         [Test]
-        public void InjectChildWithParameterlessConstructor()
+        public void ConcreteResolverTests_CreateSut_SettingsWithGeneric_ChildIsInjectedSuccessfully()
         {
             //arrange
-            Resolver sut = Settings
+            ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
                 .Register<ChildActor2>()
                 .CreateResolver(this);
@@ -63,10 +60,10 @@ namespace AkkaTestingHelpers.DI.Tests.DependancyResolverTests
         }
 
         [Test]
-        public void WaitForMultipleChildren()
+        public void ConcreteResolverTests_CreateSut_ParentThatCreatesMultipleChildren_MethodOnlyReturnsWhenAllChildrenAreCreated()
         {
             //arrange
-            Resolver sut = Settings
+            ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
                 .Register<ChildActor3>()
                 .CreateResolver(this);
@@ -83,16 +80,16 @@ namespace AkkaTestingHelpers.DI.Tests.DependancyResolverTests
         }
 
         [Test]
-        public void ThrowExceptionWhenTooFewChildrenAreCreated()
+        public void ConcreteResolverTests_CreateSut_ExpectedParentCountIsTooLow_ThrowsTimeoutException()
         {
             //arrange
-            Resolver sut = Settings
+            ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
                 .Register<ChildActor3>()
                 .CreateResolver(this);
 
             //act
-            Action act = () => 
+            Action act = () =>
                 sut.CreateSut<ParentActor3>(
                     Props.Create<ParentActor3>(),
                     4);
@@ -102,10 +99,10 @@ namespace AkkaTestingHelpers.DI.Tests.DependancyResolverTests
         }
 
         [Test]
-        public void ThrowExceptionWhenChildTypeIsNotRegisted()
+        public void ConcreteResolverTests_CreateSut_ChildIsNotRegisteredInSettings_ThrowsTimeoutException()
         {
             //arrange
-            Resolver sut = Settings
+            ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
                 .CreateResolver(this);
 
@@ -116,40 +113,6 @@ namespace AkkaTestingHelpers.DI.Tests.DependancyResolverTests
             act.ShouldThrow<TimeoutException>();
             //Akka 'hides' the InvalidOperationException that is thrown from the Resolver
             //But the latch is not counted down so a timeout occurs
-        }
-
-        [Test]
-        public void WaitForChildrenAfterConstruction()
-        {
-            //arrange
-            Resolver sut = Settings
-                .Empty
-                .Register<ChildActor4>()
-                .CreateResolver(this);
-            TestActorRef<ParentActor4> actor = ActorOfAsTestActorRef<ParentActor4>();
-            
-            //act
-            sut.WaitForChildren(() => actor.Tell(3), 3);
-            
-            //assert
-            ChildActor4.Count.Should().Be(3);
-        }
-
-        [Test]
-        public void WaitForChildrenAfterConstructionThrowsWhenTooFewChildrenAreCreated()
-        {
-            //arrange
-            Resolver sut = Settings
-                .Empty
-                .Register<ChildActor4>()
-                .CreateResolver(this);
-            TestActorRef<ParentActor4> actor = ActorOfAsTestActorRef<ParentActor4>();
-
-            //act
-            Action act = () => sut.WaitForChildren(() => actor.Tell(2), 3);
-
-            //assert
-            act.ShouldThrow<TimeoutException>();
         }
     }
 }

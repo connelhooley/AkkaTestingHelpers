@@ -2,15 +2,15 @@
 using Akka.Actor;
 using Akka.TestKit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.TestProbeDependancyResolver
+namespace ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver
 {
-    internal class Actor : ReceiveActor
+    internal class TestProbeActor : ReceiveActor
     {
         public ActorPath ActorPath { get; }
 
         public TestProbe TestProbe { get; }
 
-        public Actor(TestKitBase testKit, Func<object, object> reply = null)
+        public TestProbeActor(TestKitBase testKit, Func<object, object> reply = null)
         {
             ActorPath = Context.Self.Path;
             TestProbe = testKit.CreateTestProbe();
