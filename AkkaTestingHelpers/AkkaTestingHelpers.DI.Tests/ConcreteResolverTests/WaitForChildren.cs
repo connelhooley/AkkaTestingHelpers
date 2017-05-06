@@ -19,7 +19,7 @@ namespace AkkaTestingHelpers.DI.Tests.ConcreteResolverTests
                 .Empty
                 .Register<ChildActor4>()
                 .CreateResolver(this);
-            TestActorRef<ParentActor4> actor = ActorOfAsTestActorRef<ParentActor4>();
+            TestActorRef<ParentActor4> actor = sut.CreateSut<ParentActor4>(0);
 
             //act
             sut.WaitForChildren(() => actor.Tell(3), 3);
@@ -36,7 +36,7 @@ namespace AkkaTestingHelpers.DI.Tests.ConcreteResolverTests
                 .Empty
                 .Register<ChildActor4>()
                 .CreateResolver(this);
-            TestActorRef<ParentActor4> actor = ActorOfAsTestActorRef<ParentActor4>();
+            TestActorRef<ParentActor4> actor = sut.CreateSut<ParentActor4>(0);
 
             //act
             Action act = () => sut.WaitForChildren(() => actor.Tell(2), 3);

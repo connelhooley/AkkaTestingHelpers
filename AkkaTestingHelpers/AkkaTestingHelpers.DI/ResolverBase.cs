@@ -17,7 +17,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             TestKit.Sys.AddDependencyResolver(this);
             _waitLock = new object();
         }
-        
+
+        public TestActorRef<TActor> CreateSut<TActor>(int expectedChildrenCount = 1) where TActor : ActorBase => 
+            CreateSut<TActor>(Props.Create<TActor>(), expectedChildrenCount);
+
         public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount = 1) where TActor : ActorBase
         {
             if (expectedChildrenCount < 1)
