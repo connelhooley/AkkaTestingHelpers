@@ -8,38 +8,49 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
     public abstract class ResolverBase : IDependencyResolver
     {
         protected readonly TestKitBase TestKit;
-        private readonly object _waitingLock;
+        private readonly object _waitLock;
         private TestLatch _waitForChildren;
         
         protected ResolverBase(TestKitBase testKit)
         {
             TestKit = testKit;
-            _waitingLock = new object();
+            TestKit.Sys.AddDependencyResolver(this);
+            _waitLock = new object();
+        }
+        
+        public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount = 1) where TActor : ActorBase
+        {
+            if (expectedChildrenCount < 1)
+            {
+                return TestKit.ActorOfAsTestActorRef<TActor>(props);
+            }
+            lock (_waitLock)
+            {
+                _waitForChildren = TestKit.CreateTestLatch(expectedChildrenCount);
+                TestActorRef<TActor> sut = TestKit.ActorOfAsTestActorRef<TActor>(props);
+                _waitForChildren.Ready();
+                _waitForChildren = null;
+                return sut;
+            }
         }
 
-        public void WaitForAChildToBeResolved() => WaitForChildrenToBeResolved(1);
-
-        public void WaitForChildrenToBeResolved(int expectedCount)
+        public void WaitForChildren(Action act, int expectedChildrenCount)
         {
-            lock (_waitingLock)
+            if (expectedChildrenCount < 1)
             {
-                _waitForChildren = TestKit.CreateTestLatch(expectedCount);
+                throw new ArgumentOutOfRangeException(nameof(expectedChildrenCount), "Cannot be less than 1");
+            }
+            lock (_waitLock)
+            {
+                _waitForChildren = TestKit.CreateTestLatch(expectedChildrenCount);
+                act();
+                _waitForChildren.Ready();
                 _waitForChildren = null;
             }
         }
 
-        public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount = 0) where TActor : ActorBase
-        {
-            TestActorRef<TActor> sut = TestKit.ActorOfAsTestActorRef<TActor>(props);
-            if (expectedChildrenCount > 0)
-            {
-                WaitForChildrenToBeResolved(expectedChildrenCount);
-            }
-            return sut;
-        }
-
         protected void ResolvedChild() => _waitForChildren?.CountDown();
-        
+
         protected abstract Func<ActorBase> Resolve(Type actorType);
 
         #region IDependencyResolver implementation

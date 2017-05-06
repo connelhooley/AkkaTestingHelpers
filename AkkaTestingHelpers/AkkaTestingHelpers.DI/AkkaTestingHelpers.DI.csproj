@@ -63,13 +63,11 @@
   <ItemGroup>
     <Compile Include="DependancyResolver\Resolver.cs" />
     <Compile Include="DependancyResolver\Settings.cs" />
-    <Compile Include="DependancyResolver\TestKitBaseExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResolverBase.cs" />
     <Compile Include="TestProbeDependancyResolver\Actor.cs" />
     <Compile Include="TestProbeDependancyResolver\Resolver.cs" />
     <Compile Include="TestProbeDependancyResolver\Settings.cs" />
-    <Compile Include="TestProbeDependancyResolver\TestKitBaseExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

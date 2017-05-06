@@ -13,7 +13,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.DependancyResolver
         {
             _factories = settings.Factories;
         }
-        
+
         protected override Func<ActorBase> Resolve(Type actorType)
         {
             if (!_factories.ContainsKey(actorType))
@@ -22,8 +22,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.DependancyResolver
             }
             return () =>
             {
+                ActorBase actor = _factories[actorType]();
                 ResolvedChild();
-                return _factories[actorType]();
+                return actor;
             };
         }
     }
