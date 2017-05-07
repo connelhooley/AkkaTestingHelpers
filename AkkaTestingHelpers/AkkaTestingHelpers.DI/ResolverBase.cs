@@ -51,15 +51,18 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 _waitForChildren = null;
             }
         }
-
-        protected void ResolvedChild() => _waitForChildren?.CountDown();
-
-        protected abstract Func<ActorBase> Resolve(Type actorType);
+        
+        protected abstract ActorBase Resolve(Type actorType);
 
         #region IDependencyResolver implementation
 
         Func<ActorBase> IDependencyResolver.CreateActorFactory(Type actorType) => 
-            Resolve(actorType);
+            () =>
+            {
+                ActorBase actor = Resolve(actorType);
+                _waitForChildren?.CountDown();
+                return actor;
+            };
 
         Type IDependencyResolver.GetType(string actorName) => 
             throw new NotImplementedException();

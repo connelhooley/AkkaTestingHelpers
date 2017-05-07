@@ -5,7 +5,7 @@ using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver
+namespace ConnelHooley.AkkaTestingHelpers.DI
 {
     public class TestProbeResolver : ResolverBase
     {
@@ -41,15 +41,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver
             return _resolvedProbes[parentActor.Path.Child(childName)].Item1;
         }
 
-        protected override Func<ActorBase> Resolve(Type actorType) => 
-            () =>
-            {
-                TestProbeActor actor = _handlers.ContainsKey(actorType)
-                    ? new TestProbeActor(TestKit, _handlers[actorType])
-                    : new TestProbeActor(TestKit);
-                _resolvedProbes[actor.ActorPath] = (actorType, actor.TestProbe);
-                ResolvedChild();
-                return actor;
-            };
+        protected override ActorBase Resolve(Type actorType)
+        {
+            TestProbeActor actor = _handlers.ContainsKey(actorType)
+                ? new TestProbeActor(TestKit, _handlers[actorType])
+                : new TestProbeActor(TestKit);
+            _resolvedProbes[actor.ActorPath] = (actorType, actor.TestProbe);
+            return actor;
+        }
     }
 }

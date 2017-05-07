@@ -1,11 +1,12 @@
 ﻿using System;
+using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.NUnit3;
-using ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver;
 using FluentAssertions;
 using NUnit.Framework;
+using static ConnelHooley.AkkaTestingHelpers.DI.Tests.ParentThatCreatesManyChildren;
 
-namespace AkkaTestingHelpers.DI.Tests.ConcreteResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.Tests.ConcreteResolverTests
 {
     public class WaitForChildren : TestKit
     {
@@ -17,29 +18,33 @@ namespace AkkaTestingHelpers.DI.Tests.ConcreteResolverTests
             //arrange
             ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
-                .Register<ChildActor4>()
+                .Register<ChildActor>()
                 .CreateResolver(this);
-            TestActorRef<ParentActor4> actor = sut.CreateSut<ParentActor4>(0);
+            TestActorRef<ParentActor> rootActor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(0)), 0);
 
             //act
-            sut.WaitForChildren(() => actor.Tell(3), 3);
+            sut.WaitForChildren(() => rootActor.Tell(3), 3);
 
             //assert
-            ChildActor4.Count.Should().Be(3);
+            foreach (IActorRef child in rootActor.UnderlyingActor.Children)
+            {
+                child.Tell(new { });
+            }
+            ReceiveN(3);
         }
 
         [Test]
-        public void ConcreteResolverTests_WaitForChildren_ExpectedChildCountIsTooLow_ThrowsTimeoutException()
+        public void ConcreteResolverTests_WaitForChildren_ExpectedChildCountIsTooHigh_ThrowsTimeoutException()
         {
             //arrange
             ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
-                .Register<ChildActor4>()
+                .Register<ChildActor>()
                 .CreateResolver(this);
-            TestActorRef<ParentActor4> actor = sut.CreateSut<ParentActor4>(0);
+            TestActorRef<ParentActor> rootActor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(0)), 0);
 
             //act
-            Action act = () => sut.WaitForChildren(() => actor.Tell(2), 3);
+            Action act = () => sut.WaitForChildren(() => rootActor.Tell(2), 3);
 
             //assert
             act.ShouldThrow<TimeoutException>();

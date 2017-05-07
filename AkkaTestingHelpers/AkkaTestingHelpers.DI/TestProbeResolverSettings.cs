@@ -2,7 +2,7 @@
 using System.Collections.Immutable;
 using Akka.Actor;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver
+namespace ConnelHooley.AkkaTestingHelpers.DI
 {
     public class TestProbeResolverSettings
     {

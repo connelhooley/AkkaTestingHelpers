@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver
+namespace ConnelHooley.AkkaTestingHelpers.DI
 {
     public class ConcreteResolver : ResolverBase
     {
@@ -14,18 +14,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver
             _factories = settings.Factories;
         }
 
-        protected override Func<ActorBase> Resolve(Type actorType)
+        protected override ActorBase Resolve(Type actorType)
         {
             if (!_factories.ContainsKey(actorType))
             {
                 throw new InvalidOperationException($"Please register the type '{actorType.Name}' in the settings");
             }
-            return () =>
-            {
-                ActorBase actor = _factories[actorType]();
-                ResolvedChild();
-                return actor;
-            };
+            return _factories[actorType]();
         }
     }
 }

@@ -2,7 +2,7 @@
 using Akka.Actor;
 using Akka.TestKit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver
+namespace ConnelHooley.AkkaTestingHelpers.DI
 {
     internal class TestProbeActor : ReceiveActor
     {

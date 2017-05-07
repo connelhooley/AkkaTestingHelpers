@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver
+namespace ConnelHooley.AkkaTestingHelpers.DI
 {
     public class ConcreteResolverSettings
     {

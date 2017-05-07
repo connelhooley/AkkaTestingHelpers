@@ -1,98 +1,93 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Akka.Actor;
 using Akka.DI.Core;
 
-namespace AkkaTestingHelpers.DI.Tests
+namespace ConnelHooley.AkkaTestingHelpers.DI.Tests
 {
-    public class ParentActor1 : ReceiveActor
+    public static class ChildWithDependancy
     {
-        public ParentActor1()
+        public class ParentActor : ReceiveActor
         {
-            IActorRef child = Context.ActorOf(Context.DI().Props<ChildActor1>());
-            ReceiveAny(o => child.Tell(o));
-        }
-    }
+            public IActorRef Child { get; }
 
-    public class ChildActor1 : ReceiveActor
-    {
-        public ChildActor1(ICounter counter)
-        {
-            ReceiveAny(o =>
+            public ParentActor()
             {
-                counter.Count();
-            });
+                Child = Context.ActorOf(Context.DI().Props<ChildActor>());
+            }
         }
-    }
 
-    public interface ICounter
-    {
-        void Count();
-    }
-
-    public class ParentActor2 : ReceiveActor
-    {
-        public ParentActor2()
+        public class ChildActor : ReceiveActor
         {
-            IActorRef child = Context.ActorOf(Context.DI().Props<ChildActor2>());
-            ReceiveAny(o => child.Tell(o));
-        }
-    }
-
-    public class ChildActor2 : ReceiveActor
-    {
-        public static int Count { get; private set; }
-
-        public ChildActor2()
-        {
-            ReceiveAny(o => Count++);
-        }
-    }
-
-    public class ParentActor3 : ReceiveActor
-    {
-        public ParentActor3()
-        {
-            IActorRef child1 = Context.ActorOf(Context.DI().Props<ChildActor3>());
-            Context.ActorOf(Context.DI().Props<ChildActor3>());
-            Context.ActorOf(Context.DI().Props<ChildActor3>());
-            ReceiveAny(o => child1.Tell(o));
-        }
-    }
-
-    public class ChildActor3 : ReceiveActor
-    {
-        public static int Count { get; private set; }
-
-        public ChildActor3()
-        {
-            Thread.Sleep(500);
-            ReceiveAny(o => Count++);
-        }
-    }
-
-    public class ParentActor4 : ReceiveActor
-    {
-        public ParentActor4()
-        {
-            Receive<int>(count =>
+            public ChildActor(Guid childId, IDependancy dependancy)
             {
-                for (int i = 0; i < count; i++)
+                Thread.Sleep(500);
+                ReceiveAny(o =>
                 {
-                    Context.ActorOf(Context.DI().Props<ChildActor4>());
-                }
-            });
+                    dependancy.SetResut(childId);
+                });
+            }
+        }
+
+        public interface IDependancy
+        {
+            void SetResut(Guid childId);
         }
     }
 
-    public class ChildActor4 : ReceiveActor
+    public static class ChildWithoutDependancy
     {
-        public static int Count { get; private set; }
-
-        public ChildActor4()
+        public class ParentActor : ReceiveActor
         {
-            Thread.Sleep(500);
-            Count++;
+            public IActorRef Child { get; }
+
+            public ParentActor()
+            {
+                Child = Context.ActorOf(Context.DI().Props<ChildActor>());
+            }
+        }
+
+        public class ChildActor : ReceiveActor
+        {
+            public ChildActor()
+            {
+                Thread.Sleep(500);
+                ReceiveAny(o => Context.Sender.Tell(o));
+            }
+        }
+    }
+    
+    public static class ParentThatCreatesManyChildren
+    {
+        public class ParentActor : ReceiveActor
+        {
+            public List<IActorRef> Children { get; }
+
+            public ParentActor(int initialChildren)
+            {
+                Children = new List<IActorRef>();
+                for (int i = 0; i < initialChildren; i++)
+                {
+                    Children.Add(Context.ActorOf(Context.DI().Props<ChildActor>()));
+                }
+                Receive<int>(newChildren =>
+                {
+                    for (int i = 0; i < newChildren; i++)
+                    {
+                        Children.Add(Context.ActorOf(Context.DI().Props<ChildActor>()));
+                    }
+                });
+            }
+        }
+
+        public class ChildActor : ReceiveActor
+        {
+            public ChildActor()
+            {
+                Thread.Sleep(500);
+                ReceiveAny(o => Context.Sender.Tell(o));
+            }
         }
     }
 }
