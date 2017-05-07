@@ -23,18 +23,19 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
 
         public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount = 1) where TActor : ActorBase
         {
+            TestActorRef<TActor> sut = null;
             if (expectedChildrenCount < 1)
             {
-                return TestKit.ActorOfAsTestActorRef<TActor>(props);
+                sut = TestKit.ActorOfAsTestActorRef<TActor>(props);
             }
-            lock (_waitLock)
+            else
             {
-                _waitForChildren = TestKit.CreateTestLatch(expectedChildrenCount);
-                TestActorRef<TActor> sut = TestKit.ActorOfAsTestActorRef<TActor>(props);
-                _waitForChildren.Ready();
-                _waitForChildren = null;
-                return sut;
+                WaitForChildren(() =>
+                {
+                    sut = TestKit.ActorOfAsTestActorRef<TActor>(props);
+                }, expectedChildrenCount);
             }
+            return sut;
         }
 
         public void WaitForChildren(Action act, int expectedChildrenCount)
