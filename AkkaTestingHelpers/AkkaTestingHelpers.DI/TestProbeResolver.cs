@@ -12,14 +12,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         private readonly IImmutableDictionary<Type, Func<object, object>> _handlers;
         private readonly IDictionary<ActorPath, (Type, TestProbe)> _resolvedProbes;
 
-        private TestProbeResolver(TestKitBase testKit, TestProbeResolverSettings settings) : base(testKit)
+        internal TestProbeResolver(TestKitBase testKit, TestProbeResolverSettings settings) : base(testKit)
         {
             _handlers = settings.Handlers;
             _resolvedProbes = new ConcurrentDictionary<ActorPath, (Type, TestProbe)>();
         }
-
-        public static TestProbeResolver Create(TestKitBase testKit, TestProbeResolverSettings settings) =>
-            new TestProbeResolver(testKit, settings);
 
         public TestProbe GetTestProbe(IActorRef parentActor, string childName)
         {
@@ -28,7 +25,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             {
                 throw new InvalidOperationException($"No child has been resolved for the path '{childPath}'");
             }
-            return _resolvedProbes[parentActor.Path.Child(childName)].Item2;
+            return _resolvedProbes[childPath].Item2;
         }
 
         public Type GetType(IActorRef parentActor, string childName)
@@ -38,7 +35,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             {
                 throw new InvalidOperationException($"No child has been resolved for the path '{childPath}'");
             }
-            return _resolvedProbes[parentActor.Path.Child(childName)].Item1;
+            return _resolvedProbes[childPath].Item1;
         }
 
         protected override ActorBase Resolve(Type actorType)
