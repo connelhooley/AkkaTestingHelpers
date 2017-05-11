@@ -7,9 +7,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
 {
     public class TestProbeResolverSettings
     {
-        internal readonly IImmutableDictionary<Type, Func<object, object>> Handlers;
+        internal readonly IImmutableDictionary<(Type, Type), Func<object, object>> Handlers;
 
-        private TestProbeResolverSettings(IImmutableDictionary<Type, Func<object, object>> handlers)
+        private TestProbeResolverSettings(IImmutableDictionary<(Type, Type), Func<object, object>> handlers)
         {
             Handlers = handlers;
         }
@@ -17,9 +17,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         public TestProbeResolver CreateResolver(TestKitBase testKit) => new TestProbeResolver(testKit, this);
 
         public static TestProbeResolverSettings Empty =>
-            new TestProbeResolverSettings(ImmutableDictionary<Type, Func<object, object>>.Empty);
+            new TestProbeResolverSettings(ImmutableDictionary<(Type, Type), Func<object, object>>.Empty);
 
-        public TestProbeResolverSettings RegisterHandler<T>(Func<object, object> messageHandler) where T : ActorBase =>
-            new TestProbeResolverSettings(Handlers.SetItem(typeof(T), messageHandler));
+        public TestProbeResolverSettings RegisterHandler<TActor, TMessage>(Func<TMessage, object> messageHandler) where TActor : ActorBase => 
+            new TestProbeResolverSettings(Handlers.SetItem(
+                (typeof(TActor), typeof(TMessage)),
+                o => messageHandler((TMessage)o)));
     }
 }

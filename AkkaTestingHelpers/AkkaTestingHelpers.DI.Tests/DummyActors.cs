@@ -1,93 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using Akka.Actor;
 using Akka.DI.Core;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Tests
 {
-    public static class ChildWithDependancy
+    public class ParentActor<TChildActor> : ReceiveActor where TChildActor : ActorBase
     {
-        public class ParentActor : ReceiveActor
+        public ParentActor(params string[] childrenNames)
         {
-            public IActorRef Child { get; }
-
-            public ParentActor()
+            CreateChildren(childrenNames);
+            Receive<IEnumerable<string>>(names => CreateChildren(names));
+            ReceiveAny(o =>
             {
-                Child = Context.ActorOf(Context.DI().Props<ChildActor>());
-            }
-        }
-
-        public class ChildActor : ReceiveActor
-        {
-            public ChildActor(Guid childId, IDependancy dependancy)
-            {
-                Thread.Sleep(500);
-                ReceiveAny(o =>
+                foreach (IActorRef childRef in Context.GetChildren())
                 {
-                    dependancy.SetResut(childId);
-                });
-            }
-        }
-
-        public interface IDependancy
-        {
-            void SetResut(Guid childId);
-        }
-    }
-
-    public static class ChildWithoutDependancy
-    {
-        public class ParentActor : ReceiveActor
-        {
-            public IActorRef Child { get; }
-
-            public ParentActor()
-            {
-                Child = Context.ActorOf(Context.DI().Props<ChildActor>());
-            }
-        }
-
-        public class ChildActor : ReceiveActor
-        {
-            public ChildActor()
-            {
-                Thread.Sleep(500);
-                ReceiveAny(o => Context.Sender.Tell(o));
-            }
-        }
-    }
-    
-    public static class ParentThatCreatesManyChildren
-    {
-        public class ParentActor : ReceiveActor
-        {
-            public List<IActorRef> Children { get; }
-
-            public ParentActor(int initialChildren)
-            {
-                Children = new List<IActorRef>();
-                for (int i = 0; i < initialChildren; i++)
-                {
-                    Children.Add(Context.ActorOf(Context.DI().Props<ChildActor>()));
+                    childRef.Forward(o);
                 }
-                Receive<int>(newChildren =>
-                {
-                    for (int i = 0; i < newChildren; i++)
-                    {
-                        Children.Add(Context.ActorOf(Context.DI().Props<ChildActor>()));
-                    }
-                });
-            }
+            });
         }
-
-        public class ChildActor : ReceiveActor
+        
+        private static void CreateChildren(IEnumerable<string> childrenNames)
         {
-            public ChildActor()
+            foreach (string childName in childrenNames)
             {
-                Thread.Sleep(500);
-                ReceiveAny(o => Context.Sender.Tell(o));
+                Context.ActorOf(Context.DI().Props<TChildActor>(), childName);
             }
         }
+    }
+
+    public class ReplyChildActor : ReceiveActor
+    {
+        public ReplyChildActor()
+        {
+            Thread.Sleep(500);
+            ReceiveAny(o => Context.Sender.Tell(o));
+        }
+    }
+
+    public class DependancyChildActor : ReceiveActor
+    {
+        public DependancyChildActor(IDependancy dependancy)
+        {
+            Thread.Sleep(500);
+            ReceiveAny(dependancy.SetResut);
+        }
+    }
+
+    public interface IDependancy
+    {
+        void SetResut(object message);
     }
 }

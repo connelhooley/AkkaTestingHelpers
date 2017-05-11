@@ -1,36 +1,36 @@
 ﻿using System;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.NUnit3;
 using FluentAssertions;
 using NUnit.Framework;
-using static ConnelHooley.AkkaTestingHelpers.DI.Tests.ParentThatCreatesManyChildren;
+using Ploeh.AutoFixture;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Tests.ConcreteResolverTests
 {
-    public class WaitForChildren : TestKit
+    public class WaitForChildren : TestBase
     {
-        public WaitForChildren() : base(@"akka.test.timefactor = 0.6") { }
-        
         [Test]
         public void ConcreteResolverTests_WaitForChildren_ExpectedChildCountIsCorrect_MethodOnlyReturnsWhenChildrenHaveBeenCreated()
         {
             //arrange
             ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
-                .Register<ChildActor>()
+                .Register<ReplyChildActor>()
                 .CreateResolver(this);
-            TestActorRef<ParentActor> rootActor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(0)), 0);
+            TestActorRef<ParentActor<ReplyChildActor>> rootActor = 
+                sut.CreateSut<ParentActor<ReplyChildActor>>(
+                    Props.Create<ParentActor<ReplyChildActor>>(), 
+                    0);
+            const int childCount = 3;
 
             //act
-            sut.WaitForChildren(() => rootActor.Tell(3), 3);
+            sut.WaitForChildren(
+                () => rootActor.Tell(Fixture.CreateMany<string>(childCount)), 
+                childCount);
 
             //assert
-            foreach (IActorRef child in rootActor.UnderlyingActor.Children)
-            {
-                child.Tell(new { });
-            }
-            ReceiveN(3);
+            rootActor.Tell(Fixture.Create<object>());
+            ReceiveN(childCount);
         }
 
         [Test]
@@ -39,12 +39,18 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Tests.ConcreteResolverTests
             //arrange
             ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
-                .Register<ChildActor>()
+                .Register<ReplyChildActor>()
                 .CreateResolver(this);
-            TestActorRef<ParentActor> rootActor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(0)), 0);
+            TestActorRef<ParentActor<ReplyChildActor>> rootActor =
+                sut.CreateSut<ParentActor<ReplyChildActor>>(
+                    Props.Create<ParentActor<ReplyChildActor>>(),
+                    0);
+            const int childCount = 3;
 
             //act
-            Action act = () => sut.WaitForChildren(() => rootActor.Tell(2), 3);
+            Action act = () => sut.WaitForChildren(
+                () => rootActor.Tell(Fixture.CreateMany<string>(childCount)),
+                childCount+1);
 
             //assert
             act.ShouldThrow<TimeoutException>();

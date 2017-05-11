@@ -1,113 +1,117 @@
 ﻿using System;
+using System.Linq;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.NUnit3;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Tests.ConcreteResolverTests
 {
-    public class CreateSut : TestKit
+    public class CreateSut : TestBase
     {
-        public CreateSut() : base(@"akka.test.timefactor = 0.6") { }
-
         [Test]
-        public void ConcreteResolverTests_CreateSut_SettingsWithFactoryFunc_ChildIsInjected()
+        public void ConcreteResolver_CreateSut_SettingsWithFactoryFunc_ChildIsInjected()
         {
             //arrange
-            Guid childId = Guid.NewGuid();
-            Mock<ChildWithDependancy.IDependancy> dependancyMock = new Mock<ChildWithDependancy.IDependancy>();
+            Mock<IDependancy> dependancyMock = new Mock<IDependancy>();
             ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
-                .Register(() => new ChildWithDependancy.ChildActor(childId, dependancyMock.Object))
+                .Register(() => new DependancyChildActor(dependancyMock.Object))
                 .CreateResolver(this);
+            object message = Fixture.Create<object>();
 
             //act
-            TestActorRef<ChildWithDependancy.ParentActor> rootActor = sut.CreateSut<ChildWithDependancy.ParentActor>(
-                Props.Create(() => new ChildWithDependancy.ParentActor()), 1);
+            TestActorRef <ParentActor<DependancyChildActor>> rootActor = 
+                sut.CreateSut<ParentActor<DependancyChildActor>>(
+                    Props.Create(() => new ParentActor<DependancyChildActor>(Fixture.Create<string>())));
 
             //assert
-            rootActor.UnderlyingActor.Child.Tell(new {});
-            dependancyMock.Verify(dependancy => dependancy.SetResut(It.Is<Guid>(guid => guid == childId)));
+            rootActor.Tell(message);
+            dependancyMock.Verify(dependancy => dependancy.SetResut(It.Is<object>(o => o == message)));
         }
 
         [Test]
-        public void ConcreteResolverTests_CreateSut_SettingsWithGeneric_ChildIsInjected()
+        public void ConcreteResolver_CreateSut_SettingsWithGeneric_ChildIsInjected()
         {
             //arrange
             ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
-                .Register<ChildWithoutDependancy.ChildActor>()
+                .Register<ReplyChildActor>()
                 .CreateResolver(this);
+            object message = Fixture.Create<object>();
 
             //act
-            TestActorRef<ChildWithoutDependancy.ParentActor> rootActor = sut.CreateSut<ChildWithoutDependancy.ParentActor>(
-                Props.Create<ChildWithoutDependancy.ParentActor>(), 1);
+            TestActorRef<ParentActor<ReplyChildActor>> rootActor = 
+                sut.CreateSut<ParentActor<ReplyChildActor>>(
+                    Props.Create(() => new ParentActor<ReplyChildActor>(Fixture.Create<string>())));
 
             //assert
-            rootActor.UnderlyingActor.Child.Tell(new { });
-            ExpectMsg<object>();
+            rootActor.Tell(message);
+            ExpectMsg<object>().Should().BeSameAs(message);
         }
 
         [Test]
-        public void ConcreteResolverTests_CreateSut_ParentThatCreatesMultipleChildren_AllChildrenAreInjected()
+        public void ConcreteResolver_CreateSut_NoProps_ParentIsCreated()
         {
             //arrange
             ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
-                .Register<ParentThatCreatesManyChildren.ChildActor>()
+                .Register<ReplyChildActor>()
                 .CreateResolver(this);
 
             //act
-            TestActorRef<ParentThatCreatesManyChildren.ParentActor> rootActor = sut.CreateSut<ParentThatCreatesManyChildren.ParentActor>(
-                Props.Create(() => new ParentThatCreatesManyChildren.ParentActor(3)),
-                3);
+            TestActorRef<ParentActor<ReplyChildActor>> rootActor = 
+                sut.CreateSut<ParentActor<ReplyChildActor>>(0);
 
             //assert
-            foreach (IActorRef child in rootActor.UnderlyingActor.Children)
-            {
-                child.Tell(new {});
-            }
-            ReceiveN(3);
+            rootActor.UnderlyingActor.Should().BeOfType<ParentActor<ReplyChildActor>>();
         }
 
         [Test]
-        public void ConcreteResolverTests_CreateSut_NoProps_ParentIsCreated()
+        public void ConcreteResolver_CreateSut_ParentThatCreatesMultipleChildren_AllChildrenAreInjected()
         {
             //arrange
             ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
-                .Register<ChildWithoutDependancy.ChildActor>()
+                .Register<ReplyChildActor>()
                 .CreateResolver(this);
+            const int childCount = 5;
 
             //act
-            TestActorRef<ChildWithoutDependancy.ParentActor> rootActor = sut.CreateSut<ChildWithoutDependancy.ParentActor>();
+            TestActorRef<ParentActor<ReplyChildActor>> rootActor =
+                sut.CreateSut<ParentActor<ReplyChildActor>>(
+                    Props.Create(() => new ParentActor<ReplyChildActor>(Fixture.CreateMany<string>(childCount).ToArray())),
+                    childCount);
 
             //assert
-            rootActor.UnderlyingActor.Should().BeOfType<ChildWithoutDependancy.ParentActor>();
+            rootActor.Tell(Fixture.Create<object>());
+            ReceiveN(childCount);
         }
 
         [Test]
-        public void ConcreteResolverTests_CreateSut_ExpectedParentCountIsTooHigh_ThrowsTimeoutException()
+        public void ConcreteResolver_CreateSut_ExpectedParentCountIsTooHigh_ThrowsTimeoutException()
         {
             //arrange
             ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
-                .Register<ParentThatCreatesManyChildren.ChildActor>()
+                .Register<ReplyChildActor>()
                 .CreateResolver(this);
+            const int childCount = 5;
 
             //act
-            Action act = () => sut.CreateSut<ParentThatCreatesManyChildren.ParentActor>(
-                Props.Create(() => new ParentThatCreatesManyChildren.ParentActor(3)),
-                4);
+            Action act = () => 
+                sut.CreateSut<ParentActor<ReplyChildActor>>(
+                    Props.Create(() => new ParentActor<ReplyChildActor>(Fixture.CreateMany<string>(childCount).ToArray())),
+                    childCount+1);
 
             //assert
             act.ShouldThrow<TimeoutException>();
         }
 
         [Test]
-        public void ConcreteResolverTests_CreateSut_ChildIsNotRegisteredInSettings_ThrowsTimeoutException()
+        public void ConcreteResolver_CreateSut_ChildIsNotRegisteredInSettings_ThrowsTimeoutException()
         {
             //arrange
             ConcreteResolver sut = ConcreteResolverSettings
@@ -115,7 +119,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Tests.ConcreteResolverTests
                 .CreateResolver(this);
 
             //act
-            Action act = () => sut.CreateSut<ChildWithoutDependancy.ParentActor>(Props.Create<ChildWithoutDependancy.ParentActor>());
+            Action act = () => sut.CreateSut<ParentActor<ReplyChildActor>>(
+                Props.Create(() => new ParentActor<ReplyChildActor>()));
 
             //assert
             act.ShouldThrow<TimeoutException>();
