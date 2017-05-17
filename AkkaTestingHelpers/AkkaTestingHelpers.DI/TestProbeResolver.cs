@@ -5,17 +5,23 @@ using System.Collections.Immutable;
 using System.Linq;
 using Akka.Actor;
 using Akka.TestKit;
+using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI
 {
-    public class TestProbeResolver : ResolverBase
+    public class TestProbeResolver
     {
+        private readonly ISutCreator _sutCreator;
+        private readonly IChildWaiter _childWaiter;
+        private readonly TestKitBase _testKit;
         private readonly ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> _handlers;
         private readonly IDictionary<ActorPath, (Type, TestProbe)> _resolved;
-        private readonly TestProbe _supervisor;
 
-        internal TestProbeResolver(TestKitBase testKit, TestProbeResolverSettings settings) : base(testKit)
+        internal TestProbeResolver(IDependencyResolverAdder resolverAdder , ISutCreator sutCreator, IChildWaiter childWaiter, TestKitBase testKit, TestProbeResolverSettings settings)
         {
+            _sutCreator = sutCreator;
+            _childWaiter = childWaiter;
+            _testKit = testKit;
             _handlers = settings.Handlers
                 .ToLookup(
                     pair => pair.Key.Item1, 
@@ -25,18 +31,51 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                     grouping => grouping.ToImmutableDictionary(
                         item => item.messageType, item => item.messageHandler));
             _resolved = new ConcurrentDictionary<ActorPath, (Type, TestProbe)>();
-            _supervisor = testKit.CreateTestProbe();
+            Supervisor = testKit.CreateTestProbe();
+            resolverAdder.Add(testKit, Resolve);
         }
+
+        public TestProbe Supervisor { get; }
+
+        public TestProbe ResolvedTestProbe(IActorRef parentActor, string childName) => 
+            FindResolved(parentActor, childName).Item2;
+
+        public Type ResolvedType(IActorRef parentActor, string childName) => 
+            FindResolved(parentActor, childName).Item1;
         
-        public TestProbe GetSupervisor() => _supervisor;
+        public TestActorRef<TActor> CreateSut<TActor>(int expectedChildrenCount = 1) where TActor : ActorBase =>
+            _sutCreator.Create<TActor>(
+                _childWaiter,
+                _testKit,
+                null,
+                Supervisor,
+                expectedChildrenCount);
 
-        public TestProbe GetTestProbe(IActorRef parentActor, string childName) => 
-            GetResolved(parentActor, childName).Item2;
+        public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount = 1) where TActor : ActorBase =>
+            _sutCreator.Create<TActor>(
+                _childWaiter,
+                _testKit,
+                props,
+                Supervisor,
+                expectedChildrenCount);
 
-        public Type GetType(IActorRef parentActor, string childName) => 
-            GetResolved(parentActor, childName).Item1;
+        public void WaitForChildren(Action act, int expectedChildrenCount) =>
+            _childWaiter.Wait(
+                _testKit,
+                act,
+                expectedChildrenCount);
 
-        private (Type, TestProbe) GetResolved(IActorRef parentActor, string childName)
+        private ActorBase Resolve(Type actorType)
+        {
+            TestProbeActor actor = _handlers.ContainsKey(actorType)
+                ? new TestProbeActor(_testKit, _handlers[actorType])
+                : new TestProbeActor(_testKit);
+            _resolved[actor.ActorPath] = (actorType, actor.TestProbe);
+            _childWaiter.ResolvedChild();
+            return actor;
+        }
+
+        private (Type, TestProbe) FindResolved(IActorRef parentActor, string childName)
         {
             ActorPath childPath = parentActor.Path.Child(childName);
             if (!_resolved.ContainsKey(childPath))
@@ -44,15 +83,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 throw new InvalidOperationException($"No child has been resolved for the path '{childPath}'");
             }
             return _resolved[childPath];
-        }
-
-        protected override ActorBase Resolve(Type actorType)
-        {
-            TestProbeActor actor = _handlers.ContainsKey(actorType)
-                ? new TestProbeActor(TestKit, _handlers[actorType])
-                : new TestProbeActor(TestKit);
-            _resolved[actor.ActorPath] = (actorType, actor.TestProbe);
-            return actor;
         }
     }
 }

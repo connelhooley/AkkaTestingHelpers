@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
+using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI
 {
@@ -14,7 +15,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             Handlers = handlers;
         }
 
-        public TestProbeResolver CreateResolver(TestKitBase testKit) => new TestProbeResolver(testKit, this);
+        public TestProbeResolver CreateResolver(TestKitBase testKit) => 
+            new TestProbeResolver(
+                new DependencyResolverAdder(), 
+                new SutCreator(), 
+                new ChildWaiter(), 
+                testKit, 
+                this);
 
         public static TestProbeResolverSettings Empty =>
             new TestProbeResolverSettings(ImmutableDictionary<(Type, Type), Func<object, object>>.Empty);

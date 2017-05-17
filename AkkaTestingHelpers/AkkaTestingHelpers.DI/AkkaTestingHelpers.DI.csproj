@@ -61,10 +61,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Abstract\IChildWaiter.cs" />
+    <Compile Include="Helpers\Abstract\IDependencyResolverAdder.cs" />
+    <Compile Include="Helpers\Abstract\ISutCreator.cs" />
+    <Compile Include="Helpers\Concrete\ChildWaiter.cs" />
+    <Compile Include="Helpers\Concrete\DependencyResolverAdder.cs" />
+    <Compile Include="Helpers\Concrete\SutCreator.cs" />
+    <Compile Include="DependencyResolver.cs" />
     <Compile Include="ConcreteResolver.cs" />
     <Compile Include="ConcreteResolverSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResolverBase.cs" />
     <Compile Include="TestProbeActor.cs" />
     <Compile Include="TestProbeResolver.cs" />
     <Compile Include="TestProbeResolverSettings.cs" />
@@ -73,6 +79,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
+using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI
 {
@@ -14,15 +15,24 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             Factories = factories;
         }
 
-        public ConcreteResolver CreateResolver(TestKitBase testKit) => new ConcreteResolver(testKit, this);
+        public ConcreteResolver CreateResolver(TestKitBase testKit) => 
+            new ConcreteResolver(
+                new DependencyResolverAdder(), 
+                new SutCreator(), 
+                new ChildWaiter(), 
+                testKit, 
+                this);
 
         public static ConcreteResolverSettings Empty => 
-            new ConcreteResolverSettings(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
+            new ConcreteResolverSettings(
+                ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
         public ConcreteResolverSettings Register<T>(Func<T> factory) where T : ActorBase => 
-            new ConcreteResolverSettings(Factories.SetItem(typeof(T), factory));
+            new ConcreteResolverSettings(
+                Factories.SetItem(typeof(T), factory));
         
         public ConcreteResolverSettings Register<T>() where T : ActorBase, new() =>
-            new ConcreteResolverSettings(Factories.SetItem(typeof(T), () => new T()));
+            new ConcreteResolverSettings(
+                Factories.SetItem(typeof(T), () => new T()));
     }
 }
