@@ -6,21 +6,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
     internal class SutCreator : ISutCreator
     {
-        public TestActorRef<TActor> Create<TActor>(IChildWaiter childWaiter, TestKitBase testKit, Props props = null, IActorRef supervisor = null, int expectedChildrenCount = 1) where TActor : ActorBase
+        public TestActorRef<TActor> Create<TActor>(IChildWaiter childWaiter, TestKitBase testKit, Props props, int expectedChildrenCount, IActorRef supervisor = null) where TActor : ActorBase
         {
-            TestActorRef<TActor> Create() => supervisor != null
-                ? testKit.ActorOfAsTestActorRef<TActor>(props ?? Props.Create<TActor>(), supervisor)
-                : testKit.ActorOfAsTestActorRef<TActor>(props ?? Props.Create<TActor>());
-
-            if (expectedChildrenCount < 1)
-            {
-                return Create();
-            }
-            TestActorRef<TActor> sut = null;
-            childWaiter.Wait(testKit, () =>
-            {
-                sut = Create();
-            }, expectedChildrenCount);
+            childWaiter.Start(testKit, expectedChildrenCount);
+            TestActorRef<TActor> sut = supervisor != null
+                ? testKit.ActorOfAsTestActorRef<TActor>(props, supervisor)
+                : testKit.ActorOfAsTestActorRef<TActor>(props);
+            childWaiter.Wait();
             return sut;
         }
     }

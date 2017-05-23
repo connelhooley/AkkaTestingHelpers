@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.DI", "Ak
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.Assertions", "AkkaTestingHelpers.Assertions\AkkaTestingHelpers.Assertions.csproj", "{EAB6CF03-85B8-413D-93E1-BE7B710693CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.DI.Tests", "AkkaTestingHelpers.DI.Tests\AkkaTestingHelpers.DI.Tests.csproj", "{65330EDA-52B9-48A1-8EFD-72A078AF085F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.DI.SmallTests", "AkkaTestingHelpers.DI.SmallTests\AkkaTestingHelpers.DI.SmallTests.csproj", "{307381B8-1DD1-4877-8A09-EB86A91721EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{EAB6CF03-85B8-413D-93E1-BE7B710693CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAB6CF03-85B8-413D-93E1-BE7B710693CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAB6CF03-85B8-413D-93E1-BE7B710693CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65330EDA-52B9-48A1-8EFD-72A078AF085F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65330EDA-52B9-48A1-8EFD-72A078AF085F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65330EDA-52B9-48A1-8EFD-72A078AF085F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65330EDA-52B9-48A1-8EFD-72A078AF085F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Threading;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
@@ -6,22 +6,25 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
     internal class ChildWaiter : IChildWaiter
     {
-        private readonly object _waitLock = new object();
+        private readonly AutoResetEvent _waitingToStart = new AutoResetEvent(true);
         private TestLatch _waitForChildren;
-
-        public void Wait(TestKitBase testKit, Action act, int expectedChildrenCount)
+        
+        public void Start(TestKitBase testKit, int expectedChildrenCount)
         {
-            if (expectedChildrenCount < 1)
+            if (_waitingToStart.WaitOne())
             {
-                throw new ArgumentOutOfRangeException(nameof(expectedChildrenCount), "Cannot be less than 1");
+                _waitForChildren = testKit.CreateTestLatch(
+                    expectedChildrenCount < 0 
+                        ? 0 
+                        : expectedChildrenCount);
             }
-            lock (_waitLock)
-            {
-                _waitForChildren = testKit.CreateTestLatch(expectedChildrenCount);
-                act();
-                _waitForChildren.Ready();
-                _waitForChildren = null;
-            }
+        }
+
+        public void Wait()
+        {
+            _waitForChildren?.Ready();
+            _waitForChildren = null;
+            _waitingToStart.Set();
         }
 
         public void ResolvedChild()

@@ -8,8 +8,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract
         TestActorRef<TActor> Create<TActor>(
             IChildWaiter childWaiter, 
             TestKitBase testKit, 
-            Props props = null,
-            IActorRef supervisor = null, 
-            int expectedChildrenCount = 1) where TActor : ActorBase;
+            Props props,
+            int expectedChildrenCount = 1,
+            IActorRef supervisor = null) where TActor : ActorBase;
     }
 }

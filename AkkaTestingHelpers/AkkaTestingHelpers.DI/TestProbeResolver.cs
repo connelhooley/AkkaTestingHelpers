@@ -42,28 +42,20 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
 
         public Type ResolvedType(IActorRef parentActor, string childName) => 
             FindResolved(parentActor, childName).Item1;
-        
-        public TestActorRef<TActor> CreateSut<TActor>(int expectedChildrenCount = 1) where TActor : ActorBase =>
-            _sutCreator.Create<TActor>(
-                _childWaiter,
-                _testKit,
-                null,
-                Supervisor,
-                expectedChildrenCount);
 
         public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount = 1) where TActor : ActorBase =>
             _sutCreator.Create<TActor>(
                 _childWaiter,
                 _testKit,
                 props,
-                Supervisor,
                 expectedChildrenCount);
 
-        public void WaitForChildren(Action act, int expectedChildrenCount) =>
-            _childWaiter.Wait(
-                _testKit,
-                act,
-                expectedChildrenCount);
+        public void WaitForChildren(Action act, int expectedChildrenCount)
+        {
+            _childWaiter.Start(_testKit, expectedChildrenCount);
+            act();
+            _childWaiter.Wait();
+        }
 
         private ActorBase Resolve(Type actorType)
         {
