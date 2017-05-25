@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.NUnit3;
@@ -13,26 +14,25 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
     {
         protected Mock<IChildWaiter> ChildWaiterMock;
         protected IChildWaiter ChildWaiter;
-        protected Props SutProps;
+        protected Props Props;
         protected int ExpectedChildCount;
         protected IActorRef Supervisor;
-        protected DateTime WhenChildWaiterStart;
-        protected DateTime WhenChildCreated;
-        protected DateTime WhenChildWaiterWait;
+        protected List<string> CallOrder;
 
         [SetUp]
         public void SetUp()
         {
+            CallOrder = new List<string>();
             ChildWaiterMock = new Mock<IChildWaiter>();
             ChildWaiterMock
                 .Setup(waiter => waiter.Start(It.IsAny<TestKitBase>(), It.IsAny<int>()))
-                .Callback(() => WhenChildWaiterStart = DateTime.UtcNow);
+                .Callback(() => CallOrder.Add(nameof(IChildWaiter.Start)));
             ChildWaiterMock
                 .Setup(waiter => waiter.Wait())
-                .Callback(() => WhenChildWaiterWait = DateTime.UtcNow);
+                .Callback(() => CallOrder.Add(nameof(IChildWaiter.Wait)));
             ChildWaiter = ChildWaiterMock.Object;
-            Action updateChildCreated = () => WhenChildCreated = DateTime.UtcNow;
-            SutProps = Props.Create(() => new DummyActor(updateChildCreated));
+            Action updateChildCreated = () => CallOrder.Add("callback");
+            Props = Props.Create(() => new DummyActor(updateChildCreated));
             Supervisor = CreateTestProbe();
             ExpectedChildCount = TestUtils.Create<int>();
         }
@@ -42,7 +42,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
         {
             ChildWaiterMock = null;
             ChildWaiter = null;
-            SutProps = null;
+            CallOrder = null;
+            Props = null;
             ExpectedChildCount = default(int);
             Supervisor = null;
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using Akka.Actor;
+﻿using Akka.Actor;
 using Akka.TestKit.NUnit3;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 

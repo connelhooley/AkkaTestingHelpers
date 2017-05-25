@@ -1,59 +1,79 @@
-﻿using System;
-using Akka.Actor;
-using Akka.TestKit;
+﻿using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using FluentAssertions;
+using Moq;
 using NUnit.Framework;
-using Ploeh.AutoFixture;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
-    public class WaitForChildren : TestBase
+    internal class WaitForChildren : TestBase
     {
         [Test]
-        public void ConcreteResolverTests_WaitForChildren_ExpectedChildCountIsCorrect_MethodOnlyReturnsWhenChildrenHaveBeenCreated()
+        public void ConcreteResolver_WaitForChildren_StartsWaitingForChildren()
         {
             //arrange
-            ConcreteResolver sut = ConcreteResolverSettings
-                .Empty
-                .Register<ReplyChildActor>()
-                .CreateResolver(this);
-            TestActorRef<ParentActor<ReplyChildActor>> rootActor = 
-                sut.CreateSut<ParentActor<ReplyChildActor>>(
-                    Props.Create<ParentActor<ReplyChildActor>>(), 
-                    0);
-            const int childCount = 3;
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
 
             //act
-            sut.WaitForChildren(
-                () => rootActor.Tell(Fixture.CreateMany<string>(childCount)), 
-                childCount);
+            sut.WaitForChildren(() => {}, ExpectedChildrenCount);
 
             //assert
-            rootActor.Tell(Fixture.Create<object>());
-            ReceiveN(childCount);
+            ChildWaiterMock.Verify(
+                waiter => waiter.Start(this, ExpectedChildrenCount),
+                Times.Once);
         }
 
         [Test]
-        public void ConcreteResolverTests_WaitForChildren_ExpectedChildCountIsTooHigh_ThrowsTimeoutException()
+        public void ConcreteResolver_WaitForChildren_WaitsForChildren()
         {
             //arrange
-            ConcreteResolver sut = ConcreteResolverSettings
-                .Empty
-                .Register<ReplyChildActor>()
-                .CreateResolver(this);
-            TestActorRef<ParentActor<ReplyChildActor>> rootActor =
-                sut.CreateSut<ParentActor<ReplyChildActor>>(
-                    Props.Create<ParentActor<ReplyChildActor>>(),
-                    0);
-            const int childCount = 3;
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
 
             //act
-            Action act = () => sut.WaitForChildren(
-                () => rootActor.Tell(Fixture.CreateMany<string>(childCount)),
-                childCount+1);
+            sut.WaitForChildren(() => { }, ExpectedChildrenCount);
 
             //assert
-            act.ShouldThrow<TimeoutException>();
+            ChildWaiterMock.Verify(
+                waiter => waiter.Wait(),
+                Times.Once);
+        }
+
+        [Test]
+        public void ConcreteResolver_WaitForChildren_CallsAction()
+        {
+            //arrange
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            bool isCalled = false;
+
+            //act
+            sut.WaitForChildren(() => isCalled = true, ExpectedChildrenCount);
+
+            //assert
+            isCalled.Should().BeTrue();
+        }
+
+        [Test]
+        public void ConcreteResolver_WaitForChildren_StartsWaitingForChildrenBeforeActionIsCalled()
+        {
+            //arrange
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            //act
+            sut.WaitForChildren(() => CallOrder.Add("callback"), ExpectedChildrenCount);
+
+            //assert
+            CallOrder.Should().ContainInOrder(nameof(IChildWaiter.Start), "callback");
+        }
+        
+        [Test]
+         public void ConcreteResolver_WaitForChildren_WaitsForChildrenAfterActionIsCalled()
+        {
+            //arrange
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+
+            //act
+            sut.WaitForChildren(() => CallOrder.Add("callback"), ExpectedChildrenCount);
+
+            //assert
+            CallOrder.Should().ContainInOrder("callback", nameof(IChildWaiter.Wait));
         }
     }
 }

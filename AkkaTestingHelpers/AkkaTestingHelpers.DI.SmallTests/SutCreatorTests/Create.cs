@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.TestKit;
+using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
 using Moq;
@@ -18,7 +19,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             SutCreator sut = CreateSutCreator();
 
             //act
-            Action act = () => sut.Create<DummyActor>(null, this, SutProps, ExpectedChildCount, Supervisor);
+            Action act = () => sut.Create<DummyActor>(null, this, Props, ExpectedChildCount, Supervisor);
             
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -31,7 +32,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             SutCreator sut = CreateSutCreator();
 
             //act
-            Action act = () => sut.Create<DummyActor>(ChildWaiter, null, SutProps, ExpectedChildCount, Supervisor);
+            Action act = () => sut.Create<DummyActor>(ChildWaiter, null, Props, ExpectedChildCount, Supervisor);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -45,7 +46,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             SutCreator sut = CreateSutCreator();
 
             //act
-            TestActorRef<DummyActor> actor = sut.Create<DummyActor>(ChildWaiter, this, SutProps, ExpectedChildCount);
+            TestActorRef<DummyActor> actor = sut.Create<DummyActor>(ChildWaiter, this, Props, ExpectedChildCount);
 
             //assert
             actor.UnderlyingActor.Supervisor.Should().Be(rootGuardian);
@@ -58,7 +59,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             SutCreator sut = CreateSutCreator();
 
             //act
-            TestActorRef<DummyActor> actor = sut.Create<DummyActor>(ChildWaiter, this, SutProps, ExpectedChildCount, Supervisor);
+            TestActorRef<DummyActor> actor = sut.Create<DummyActor>(ChildWaiter, this, Props, ExpectedChildCount, Supervisor);
 
             //assert
             actor.UnderlyingActor.Supervisor.Should().Be(Supervisor);
@@ -71,7 +72,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             SutCreator sut = CreateSutCreator();
 
             //act
-            sut.Create<DummyActor>(ChildWaiter, this, SutProps, ExpectedChildCount, Supervisor);
+            sut.Create<DummyActor>(ChildWaiter, this, Props, ExpectedChildCount, Supervisor);
 
             //assert
             ChildWaiterMock.Verify(
@@ -86,7 +87,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             SutCreator sut = CreateSutCreator();
 
             //act
-            sut.Create<DummyActor>(ChildWaiter, this, SutProps, ExpectedChildCount, Supervisor);
+            sut.Create<DummyActor>(ChildWaiter, this, Props, ExpectedChildCount, Supervisor);
 
             //assert
             ChildWaiterMock.Verify(
@@ -101,7 +102,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             SutCreator sut = CreateSutCreator();
 
             //act
-            sut.Create<DummyActor>(ChildWaiter, this, SutProps, ExpectedChildCount, Supervisor);
+            sut.Create<DummyActor>(ChildWaiter, this, Props, ExpectedChildCount, Supervisor);
 
             //assert
             ChildWaiterMock.Verify(
@@ -116,10 +117,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             SutCreator sut = CreateSutCreator();
 
             //act
-            sut.Create<DummyActor>(ChildWaiter, this, SutProps, ExpectedChildCount, Supervisor);
+            sut.Create<DummyActor>(ChildWaiter, this, Props, ExpectedChildCount, Supervisor);
 
             //assert
-            WhenChildCreated.Should().BeAfter(WhenChildWaiterStart);
+            CallOrder.Should().ContainInOrder(nameof(IChildWaiter.Start), "callback");
         }
 
         [Test]
@@ -129,10 +130,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             SutCreator sut = CreateSutCreator();
 
             //act
-            sut.Create<DummyActor>(ChildWaiter, this, SutProps, ExpectedChildCount, Supervisor);
+            sut.Create<DummyActor>(ChildWaiter, this, Props, ExpectedChildCount, Supervisor);
 
             //assert
-            WhenChildCreated.Should().BeBefore(WhenChildWaiterWait);
+            CallOrder.Should().ContainInOrder("callback", nameof(IChildWaiter.Wait));
         }
     }
 }

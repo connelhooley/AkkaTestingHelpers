@@ -89,6 +89,7 @@
     <Compile Include="ChildWaiterTests\TestBase.cs" />
     <Compile Include="ChildWaiterTests\Wait.cs" />
     <Compile Include="ConcreteResolverTests\CreateSut.cs" />
+    <Compile Include="ConcreteResolverTests\ResolveChild.cs" />
     <Compile Include="ConcreteResolverTests\TestBase.cs" />
     <Compile Include="ConcreteResolverTests\WaitForChildren.cs" />
     <Compile Include="DependencyResolverAdderTests\Add.cs" />

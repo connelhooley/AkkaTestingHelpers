@@ -42,7 +42,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
         {
             //arrange
             DependencyResolverAdder sut = CreateDependencyResolverAdder();
-            BlackHoleActor actor = new BlackHoleActor();
+            DummyActor actor = new DummyActor();
             
             //act
             sut.Add(this, type => actor);
@@ -57,7 +57,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
         {
             //arrange
             DependencyResolverAdder sut = CreateDependencyResolverAdder();
-            BlackHoleActor actor = new BlackHoleActor();
+            DummyActor actor = new DummyActor();
             Type actual = null;
 
             //act
@@ -68,8 +68,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
             });
 
             //assert
-            ActorOfAsTestActorRef<ActorBase>(Sys.DI().Props<EchoActor>());
-            actual.Should().Be<EchoActor>();
+            ActorOfAsTestActorRef<ActorBase>(Sys.DI().Props<DummyActor>());
+            actual.Should().Be<DummyActor>();
         }
     }
 }
