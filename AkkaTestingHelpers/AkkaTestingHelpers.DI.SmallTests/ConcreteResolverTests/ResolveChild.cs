@@ -26,6 +26,22 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         }
 
         [Test]
+        public void ConcreteResolver_ResolveGenericChildInSettings_ReturnsActor()
+        {
+            //arrange
+            CreateConcreteResolver(ConcreteResolverSettings
+                .Empty
+                .Register<BlackHoleActor>());
+
+            //act
+            ActorBase result = ResolveActor(typeof(BlackHoleActor));
+
+            //assert
+            result.GetType().Should().Be<BlackHoleActor>();
+        }
+
+
+        [Test]
         public void ConcreteResolver_ResolveChildNotInSettings_ThrowsInvalidOperationException()
         {
             //arrange
