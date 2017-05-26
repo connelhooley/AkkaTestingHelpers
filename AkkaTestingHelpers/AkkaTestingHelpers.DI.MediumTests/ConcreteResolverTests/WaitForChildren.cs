@@ -3,11 +3,10 @@ using System.Linq;
 using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.NUnit3;
-using ConnelHooley.AkkaTestingHelpers.DI;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 {
     public class WaitForChildren : TestKit
     {

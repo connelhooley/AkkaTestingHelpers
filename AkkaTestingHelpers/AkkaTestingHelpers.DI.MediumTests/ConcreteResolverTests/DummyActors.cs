@@ -3,7 +3,7 @@ using System.Threading;
 using Akka.Actor;
 using Akka.DI.Core;
 
-namespace AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 {
     public class ParentActor : ReceiveActor
     {
