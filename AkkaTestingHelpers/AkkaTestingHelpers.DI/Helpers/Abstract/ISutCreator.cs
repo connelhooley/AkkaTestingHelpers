@@ -9,7 +9,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract
             IChildWaiter childWaiter, 
             TestKitBase testKit, 
             Props props,
-            int expectedChildrenCount = 1,
+            int expectedChildrenCount,
             IActorRef supervisor = null) where TActor : ActorBase;
     }
 }

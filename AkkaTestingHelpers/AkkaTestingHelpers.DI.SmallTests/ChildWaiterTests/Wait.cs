@@ -88,7 +88,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();
-            sut.Start(this, TestUtils.RandomUnderOrEqualTo(-1));
+            sut.Start(this, TestUtils.RandomBetween(int.MinValue, -1));
 
             //act
             sut.Wait();
@@ -122,7 +122,5 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             //assert
             //timeout attribute
         }
-
-        //todo: Wait allows second start to continue working work properly
     }
 }

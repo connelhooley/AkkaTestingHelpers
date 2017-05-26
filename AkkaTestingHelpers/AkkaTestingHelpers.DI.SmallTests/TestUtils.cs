@@ -23,8 +23,5 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests
         public static List<T> CreateMany<T>(int count) => Fixture.CreateMany<T>(count).ToList();
 
         public static int RandomBetween(int min, int max) => Random.Next(min, max + 1);
-
-        public static int RandomUnderOrEqualTo(int max) => Random.Next(int.MinValue, max + 1);
-        public static int RandomOverOrEqualTo(int min) => Random.Next(min, int.MaxValue);
     }
 }

@@ -27,12 +27,35 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             resolverAdder.Add(testKit, Resolve);
         }
         
-        public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount = 1) where TActor : ActorBase =>
+        public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount) where TActor : ActorBase =>
             _sutCreator.Create<TActor>(
                 _childWaiter, 
                 _testKit, 
                 props,
                 expectedChildrenCount);
+
+        public TestActorRef<TActor> CreateSut<TActor>(Props props, IActorRef supervisor, int expectedChildrenCount) where TActor : ActorBase =>
+            _sutCreator.Create<TActor>(
+                _childWaiter,
+                _testKit,
+                props,
+                expectedChildrenCount,
+                supervisor);
+        
+        public TestActorRef<TActor> CreateSut<TActor>(int expectedChildrenCount) where TActor : ActorBase, new() =>
+            _sutCreator.Create<TActor>(
+                _childWaiter,
+                _testKit,
+                Props.Create<TActor>(),
+                expectedChildrenCount);
+
+        public TestActorRef<TActor> CreateSut<TActor>(IActorRef supervisor, int expectedChildrenCount) where TActor : ActorBase, new() =>
+            _sutCreator.Create<TActor>(
+                _childWaiter,
+                _testKit,
+                Props.Create<TActor>(),
+                expectedChildrenCount,
+                supervisor);
 
         public void WaitForChildren(Action act, int expectedChildrenCount)
         {

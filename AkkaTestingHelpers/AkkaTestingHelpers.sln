@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.Assertio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.DI.SmallTests", "AkkaTestingHelpers.DI.SmallTests\AkkaTestingHelpers.DI.SmallTests.csproj", "{307381B8-1DD1-4877-8A09-EB86A91721EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.DI.MediumTests", "AkkaTestingHelpers.DI.MediumTests\AkkaTestingHelpers.DI.MediumTests.csproj", "{86CE1CF8-FA51-49C7-90F5-7DEA58FABCDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86CE1CF8-FA51-49C7-90F5-7DEA58FABCDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86CE1CF8-FA51-49C7-90F5-7DEA58FABCDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86CE1CF8-FA51-49C7-90F5-7DEA58FABCDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86CE1CF8-FA51-49C7-90F5-7DEA58FABCDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
