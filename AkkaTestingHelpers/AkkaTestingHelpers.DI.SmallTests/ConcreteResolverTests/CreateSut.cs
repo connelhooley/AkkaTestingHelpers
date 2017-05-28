@@ -19,20 +19,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             //assert
             result.Should().BeSameAs(CreatedActor);
         }
-
-        [Test]
-        public void ConcreteResolver_CreateSutWithSupervisor_ReturnsCreatedActor()
-        {
-            //arrange   
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
-
-            //act
-            TestActorRef<BlackHoleActor> result = sut.CreateSut<BlackHoleActor>(Props, Supervisor, ExpectedChildrenCount);
-
-            //assert
-            result.Should().BeSameAs(CreatedSupervisedActor);
-        }
-
+        
         [Test]
         public void ConcreteResolver_CreateSutWithNoProps_ReturnsCreatedActor()
         {
@@ -44,19 +31,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 
             //assert
             result.Should().BeSameAs(CreatedActorNoProps);
-        }
-
-        [Test]
-        public void ConcreteResolver_CreateSutWithSupervisorAndNoProps_ReturnsCreatedActor()
-        {
-            //arrange   
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
-
-            //act
-            TestActorRef<BlackHoleActor> result = sut.CreateSut<BlackHoleActor>(Supervisor, ExpectedChildrenCount);
-
-            //assert
-            result.Should().BeSameAs(CreatedSupervisedActorNoProps);
         }
     }
 }

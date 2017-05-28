@@ -33,14 +33,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 _testKit, 
                 props,
                 expectedChildrenCount);
-
-        public TestActorRef<TActor> CreateSut<TActor>(Props props, IActorRef supervisor, int expectedChildrenCount) where TActor : ActorBase =>
-            _sutCreator.Create<TActor>(
-                _childWaiter,
-                _testKit,
-                props,
-                expectedChildrenCount,
-                supervisor);
         
         public TestActorRef<TActor> CreateSut<TActor>(int expectedChildrenCount) where TActor : ActorBase, new() =>
             _sutCreator.Create<TActor>(
@@ -48,14 +40,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 _testKit,
                 Props.Create<TActor>(),
                 expectedChildrenCount);
-
-        public TestActorRef<TActor> CreateSut<TActor>(IActorRef supervisor, int expectedChildrenCount) where TActor : ActorBase, new() =>
-            _sutCreator.Create<TActor>(
-                _childWaiter,
-                _testKit,
-                Props.Create<TActor>(),
-                expectedChildrenCount,
-                supervisor);
         
         public void TellMessage<TMessage>(IActorRef recipient, TMessage message, int waitForChildrenCount)
         {
