@@ -85,5 +85,26 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
             //assert
             act.ShouldThrow<TimeoutException>();
         }
+
+        [Test]
+        public void ConcreteResolver_UsesLatestFactory()
+        {
+            //arrange
+            const int childCount = 5;
+            Mock<IDependancy> dependancyMock = new Mock<IDependancy>();
+            ConcreteResolver sut = ConcreteResolverSettings
+                .Empty
+                .Register<EmptyChildActor>()
+                .Register<ChildActor>()
+                .Register(() => new ChildActor(dependancyMock.Object))
+                .CreateResolver(this);
+
+            //act
+            TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(childCount)), childCount);
+
+            //assert
+            actor.Tell(new object());
+            dependancyMock.Verify(dependancy => dependancy.SetResut(ChildActor.Token), Times.Exactly(childCount));
+        }
     }
 }
