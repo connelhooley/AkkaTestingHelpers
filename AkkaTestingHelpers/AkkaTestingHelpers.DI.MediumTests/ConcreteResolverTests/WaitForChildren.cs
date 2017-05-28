@@ -10,7 +10,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 {
     public class WaitForChildren : TestKit
     {
-        public WaitForChildren(): base(@"akka.test.timefactor = 0.6") { }
+        public WaitForChildren() : base(@"akka.test.timefactor = 0.6") { }
 
         [Test]
         public void ConcreteResolver_WaitsForChildrenCreatedWhenProcessingMessages()
@@ -26,7 +26,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
             TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(initialChildCount)), initialChildCount);
 
             //act
-            sut.WaitForChildren(() => actor.Tell(moreChildCount), moreChildCount);
+            sut.TellMessage(actor, moreChildCount, moreChildCount);
 
             //assert
             actor.Tell(new object());
@@ -46,7 +46,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
             TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(initialChildCount)), initialChildCount);
 
             //act
-            Action act = () => sut.WaitForChildren(() => actor.Tell(moreChildCount), moreChildCount+1);
+            Action act = () => sut.TellMessage(actor, moreChildCount, moreChildCount + 1);
 
             //assert
             act.ShouldThrow<TimeoutException>();

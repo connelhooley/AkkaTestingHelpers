@@ -57,7 +57,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         }
 
         [Test]
-        public void ConcreteResolver_ResolveChildNotInSettings_ResolvesChildInWaiter()
+        public void ConcreteResolver_ResolveChildInSettings_ResolvesChildInWaiter()
         {
             //arrange
             CreateConcreteResolver(ConcreteResolverSettings
@@ -74,14 +74,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         }
 
         [Test]
-        public void ConcreteResolver_ResolveChildNotInSettings_ResolvesChildInWaiterAfterCallingFactory()
+        public void ConcreteResolver_ResolveChildInSettings_ResolvesChildInWaiterAfterCallingFactory()
         {
             //arrange
             CreateConcreteResolver(ConcreteResolverSettings
                 .Empty
                 .Register(() =>
                 {
-                    CallOrder.Add("callback");
+                    CallOrder.Add("Resolver");
                     return CreatedActor.UnderlyingActor;
                 }));
 
@@ -89,7 +89,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             ResolveActor(typeof(BlackHoleActor));
 
             //assert
-            CallOrder.Should().ContainInOrder("callback", nameof(IChildWaiter.ResolvedChild));
+            CallOrder.Should().ContainInOrder("Resolver", nameof(IChildWaiter.ResolvedChild));
         }
     }
 }

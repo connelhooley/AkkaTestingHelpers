@@ -15,12 +15,15 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         protected Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
         protected Mock<ISutCreator> SutCreatorMock;
         protected Mock<IChildWaiter> ChildWaiterMock;
+        protected Mock<IActorRef> RecipientMock;
         
         protected Func<Type, ActorBase> ResolveActor;
         protected List<string> CallOrder;
 
         protected Props Props;
         protected int ExpectedChildrenCount;
+        protected object Message;
+        protected IActorRef Recipient;
         protected IActorRef Supervisor;
         protected TestActorRef<BlackHoleActor> CreatedActor;
         protected TestActorRef<BlackHoleActor> CreatedSupervisedActor;
@@ -34,16 +37,23 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();
             SutCreatorMock = new Mock<ISutCreator>();
             ChildWaiterMock = new Mock<IChildWaiter>();
+            RecipientMock = new Mock<IActorRef>();
 
-            // Create objects for mocks
+            // Create objects used by mocks
             CallOrder = new List<string>();
+            
+            // Create objects put into mocks
             Props = Props.Create<BlackHoleActor>();
             ExpectedChildrenCount = TestUtils.Create<int>();
             Supervisor = CreateTestProbe();
+            Message = TestUtils.Create<object>();
+            Recipient = RecipientMock.Object;
+
+            // Create objects returned by mocks
             CreatedActor = ActorOfAsTestActorRef<BlackHoleActor>();
-            CreatedSupervisedActor = ActorOfAsTestActorRef<BlackHoleActor>();
+            CreatedSupervisedActor = ActorOfAsTestActorRef<BlackHoleActor>(Supervisor);
             CreatedActorNoProps = ActorOfAsTestActorRef<BlackHoleActor>();
-            CreatedSupervisedActorNoProps = ActorOfAsTestActorRef<BlackHoleActor>();
+            CreatedSupervisedActorNoProps = ActorOfAsTestActorRef<BlackHoleActor>(Supervisor);
 
             // Set up mocks
             DependencyResolverAdderMock
@@ -65,6 +75,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             SutCreatorMock
                 .Setup(creator => creator.Create<BlackHoleActor>(ChildWaiterMock.Object, this, It.Is<Props>(props => !ReferenceEquals(props, Props) && props.Equals(Props.Create<BlackHoleActor>())), ExpectedChildrenCount, Supervisor))
                 .Returns(() => CreatedSupervisedActorNoProps);
+
             ChildWaiterMock
                 .Setup(waiter => waiter.Start(this, ExpectedChildrenCount))
                 .Callback(() => CallOrder.Add(nameof(IChildWaiter.Start)));
@@ -74,6 +85,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             ChildWaiterMock
                 .Setup(waiter => waiter.ResolvedChild())
                 .Callback(() => CallOrder.Add(nameof(IChildWaiter.ResolvedChild)));
+
+            RecipientMock
+                .Setup(waiter => waiter.Tell(Message, TestActor))
+                .Callback(() => CallOrder.Add(nameof(IActorRef.Tell)));
+            RecipientMock
+                .Setup(waiter => waiter.Tell(Message, CreatedActor))
+                .Callback(() => CallOrder.Add(nameof(IActorRef.Tell) + "Sender"));
         }
 
         [TearDown]
@@ -85,6 +103,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             CallOrder = null;
             Props = null;
             ExpectedChildrenCount = default(int);
+            Message = null;
+            Recipient = null;
             Supervisor = null;
             CreatedActor = null;
             CreatedSupervisedActor = null;

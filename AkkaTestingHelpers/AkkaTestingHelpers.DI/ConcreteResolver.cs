@@ -56,14 +56,28 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 Props.Create<TActor>(),
                 expectedChildrenCount,
                 supervisor);
-
-        public void WaitForChildren(Action act, int expectedChildrenCount)
+        
+        public void TellMessage<TMessage>(IActorRef recipient, TMessage message, int expectedChildrenCount)
         {
             _childWaiter.Start(_testKit, expectedChildrenCount);
-            act();
+            recipient.Tell(message);
             _childWaiter.Wait();
         }
 
+        public void TellMessage<TMessage>(IActorRef recipient, TMessage message, IActorRef sender, int expectedChildrenCount)
+        {
+            _childWaiter.Start(_testKit, expectedChildrenCount);
+            recipient.Tell(message, sender);
+            _childWaiter.Wait();
+        }
+        
+        public void ForwardMessage<TMessage>(IActorRef recipient, TMessage message, int expectedChildrenCount)
+        {
+            _childWaiter.Start(_testKit, expectedChildrenCount);
+            recipient.Forward(message);
+            _childWaiter.Wait();
+        }
+        
         private ActorBase Resolve(Type actorType)
         {
             if (!_factories.ContainsKey(actorType))
