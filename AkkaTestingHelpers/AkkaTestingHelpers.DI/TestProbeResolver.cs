@@ -17,7 +17,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         private readonly ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> _handlers;
         private readonly IDictionary<ActorPath, (Type, TestProbe)> _resolved;
 
-        internal TestProbeResolver(IDependencyResolverAdder resolverAdder , ISutCreator sutCreator, IChildWaiter childWaiter, TestKitBase testKit, TestProbeResolverSettings settings)
+        internal TestProbeResolver(IDependencyResolverAdder resolverAdder, ISutCreator sutCreator, IChildWaiter childWaiter, TestKitBase testKit, TestProbeResolverSettings settings)
         {
             _sutCreator = sutCreator;
             _childWaiter = childWaiter;
@@ -43,17 +43,47 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         public Type ResolvedType(IActorRef parentActor, string childName) => 
             FindResolved(parentActor, childName).Item1;
 
-        public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount = 1) where TActor : ActorBase =>
+        public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount) where TActor : ActorBase =>
             _sutCreator.Create<TActor>(
                 _childWaiter,
                 _testKit,
                 props,
                 expectedChildrenCount);
 
-        public void WaitForChildren(Action act, int expectedChildrenCount)
+        public TestActorRef<TActor> CreateSut<TActor>(Props props, IActorRef supervisor, int expectedChildrenCount) where TActor : ActorBase =>
+            _sutCreator.Create<TActor>(
+                _childWaiter,
+                _testKit,
+                props,
+                expectedChildrenCount,
+                supervisor);
+
+        public TestActorRef<TActor> CreateSut<TActor>(int expectedChildrenCount) where TActor : ActorBase, new() =>
+            _sutCreator.Create<TActor>(
+                _childWaiter,
+                _testKit,
+                Props.Create<TActor>(),
+                expectedChildrenCount);
+
+        public TestActorRef<TActor> CreateSut<TActor>(IActorRef supervisor, int expectedChildrenCount) where TActor : ActorBase, new() =>
+            _sutCreator.Create<TActor>(
+                _childWaiter,
+                _testKit,
+                Props.Create<TActor>(),
+                expectedChildrenCount,
+                supervisor);
+
+        public void TellMessage<TMessage>(IActorRef recipient, TMessage message, int waitForChildrenCount)
         {
-            _childWaiter.Start(_testKit, expectedChildrenCount);
-            act();
+            _childWaiter.Start(_testKit, waitForChildrenCount);
+            recipient.Tell(message);
+            _childWaiter.Wait();
+        }
+
+        public void TellMessage<TMessage>(IActorRef recipient, TMessage message, IActorRef sender, int waitForChildrenCount)
+        {
+            _childWaiter.Start(_testKit, waitForChildrenCount);
+            recipient.Tell(message, sender);
             _childWaiter.Wait();
         }
 
