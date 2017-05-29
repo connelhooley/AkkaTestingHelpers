@@ -17,7 +17,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         private readonly ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> _handlers;
         private readonly IDictionary<ActorPath, (Type, TestProbe)> _resolved;
 
-        internal TestProbeResolver(IDependencyResolverAdder resolverAdder, ISutCreator sutCreator, IChildWaiter childWaiter, TestKitBase testKit, TestProbeResolverSettings settings)
+        internal TestProbeResolver(IDependencyResolverAdder resolverAdder, ISutCreator sutCreator, IChildWaiter childWaiter, ITestProbeCreator testProbeCreator, TestKitBase testKit, TestProbeResolverSettings settings)
         {
             _sutCreator = sutCreator;
             _childWaiter = childWaiter;
@@ -31,7 +31,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                     grouping => grouping.ToImmutableDictionary(
                         item => item.messageType, item => item.messageHandler));
             _resolved = new ConcurrentDictionary<ActorPath, (Type, TestProbe)>();
-            Supervisor = testKit.CreateTestProbe();
+            Supervisor = testProbeCreator.Create(testKit);
             resolverAdder.Add(testKit, Resolve);
         }
 
