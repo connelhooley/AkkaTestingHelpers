@@ -1,4 +1,5 @@
-﻿using Akka.Actor;
+﻿using System;
+using Akka.Actor;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using FluentAssertions;
 using Moq;
@@ -8,6 +9,71 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
     internal class TellMessage : TestBase
     {
+        [Test]
+        public void TestProbeResolver_TellMessageWithNullRecipient_ThrowsArgumentNullException()
+        {
+            //arrange
+            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage(null, Message, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void TestProbeResolver_TellMessageWithNullMessage_ThrowsArgumentNullException()
+        {
+            //arrange
+            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage<object>(Recipient, null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void TestProbeResolver_TellMessageWithNullRecipientAndMessage_ThrowsArgumentNullException()
+        {
+            //arrange
+            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage<object>(null, null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void TestProbeResolver_TellMessageWithNullSender_ThrowsArgumentNullException()
+        {
+            //arrange
+            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage(Recipient, Message, null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void TestProbeResolver_TellMessageWithNullRecipientAndMessageAndSender_ThrowsArgumentNullException()
+        {
+            //arrange
+            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage<object>(null, null, null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
         [Test]
         public void TestProbeResolver_TellMessage_StartsWaitingForChildren()
         {

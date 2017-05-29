@@ -103,6 +103,8 @@
     <Compile Include="TestProbeCreatorTests\Create.cs" />
     <Compile Include="TestProbeCreatorTests\TestBase.cs" />
     <Compile Include="TestProbeResolverTests\CreateSut.cs" />
+    <Compile Include="TestProbeResolverTests\ResolvedTestProbe.cs" />
+    <Compile Include="TestProbeResolverTests\ResolvedType.cs" />
     <Compile Include="TestProbeResolverTests\Supervisor.cs" />
     <Compile Include="TestProbeResolverTests\TellMessage.cs" />
     <Compile Include="TestProbeResolverTests\TestBase.cs" />

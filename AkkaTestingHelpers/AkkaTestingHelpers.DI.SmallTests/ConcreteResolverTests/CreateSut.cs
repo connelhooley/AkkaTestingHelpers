@@ -1,4 +1,5 @@
-﻿using Akka.TestKit;
+﻿using System;
+using Akka.TestKit;
 using Akka.TestKit.TestActors;
 using FluentAssertions;
 using NUnit.Framework;
@@ -7,6 +8,19 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
     internal class CreateSut : TestBase
     {
+        [Test]
+        public void ConcreteResolver_CreateSutWithNullProps_ThrowsArgumentNullException()
+        {
+            //arrange   
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.CreateSut<BlackHoleActor>(null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
         [Test]
         public void ConcreteResolver_CreateSut_ReturnsCreatedActor()
         {

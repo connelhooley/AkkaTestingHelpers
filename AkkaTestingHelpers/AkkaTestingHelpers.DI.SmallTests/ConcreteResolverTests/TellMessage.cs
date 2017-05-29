@@ -1,4 +1,5 @@
-﻿using Akka.Actor;
+﻿using System;
+using Akka.Actor;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using FluentAssertions;
 using Moq;
@@ -8,6 +9,71 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
     internal class TellMessage : TestBase
     {
+        [Test]
+        public void ConcreteResolver_TellMessageWithNullRecipient_ThrowsArgumentNullException()
+        {
+            //arrange
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage(null, Message, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ConcreteResolver_TellMessageWithNullMessage_ThrowsArgumentNullException()
+        {
+            //arrange
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage<object>(Recipient, null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+        
+        [Test]
+        public void ConcreteResolver_TellMessageWithNullRecipientAndMessage_ThrowsArgumentNullException()
+        {
+            //arrange
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage<object>(null, null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ConcreteResolver_TellMessageWithNullSender_ThrowsArgumentNullException()
+        {
+            //arrange
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage(Recipient, Message, null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ConcreteResolver_TellMessageWithNullRecipientAndMessageAndSender_ThrowsArgumentNullException()
+        {
+            //arrange
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage<object>(null, null, null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
         [Test]
         public void ConcreteResolver_TellMessage_StartsWaitingForChildren()
         {

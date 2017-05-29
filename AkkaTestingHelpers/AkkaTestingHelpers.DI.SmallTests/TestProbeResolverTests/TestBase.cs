@@ -16,6 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         protected Mock<ISutCreator> SutCreatorMock;
         protected Mock<IChildWaiter> ChildWaiterMock;
         protected Mock<ITestProbeCreator> TestProbeCreatorMock;
+        protected Mock<IResolvedTestProbeStore> ResolvedTestProbeStoreMock;
         protected Mock<IActorRef> RecipientMock;
         
         protected Func<Type, ActorBase> ResolveActor;
@@ -25,9 +26,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         protected int ExpectedChildrenCount;
         protected object Message;
         protected IActorRef Recipient;
+        protected string ChildName;
         protected TestProbe Supervisor;
         protected TestActorRef<BlackHoleActor> CreatedActor;
         protected TestActorRef<BlackHoleActor> CreatedActorNoProps;
+        protected Type ResolvedType;
+        protected TestProbe ResolvedTestProbe;
 
         [SetUp]
         public void Setup()
@@ -37,6 +41,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             SutCreatorMock = new Mock<ISutCreator>();
             ChildWaiterMock = new Mock<IChildWaiter>();
             TestProbeCreatorMock = new Mock<ITestProbeCreator>();
+            ResolvedTestProbeStoreMock = new Mock<IResolvedTestProbeStore>();
             RecipientMock = new Mock<IActorRef>();
 
             // Create objects used by mocks
@@ -48,6 +53,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             ExpectedChildrenCount = TestUtils.Create<int>();
             Message = TestUtils.Create<object>();
             Recipient = RecipientMock.Object;
+            ChildName = TestUtils.Create<string>();
 
             // Create objects returned by mocks
             CreatedActor = ActorOfAsTestActorRef<BlackHoleActor>(Supervisor);
@@ -89,6 +95,16 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 .SetupSequence(creator => creator.Create(this))
                 .Returns(Supervisor)
                 .Throws(new ArithmeticException("Do not call probe creator twice"));
+
+            ResolvedTestProbeStoreMock
+                .Setup(store => store.ResolveProbe(It.IsAny<ActorPath>(), It.IsAny<Type>(), It.IsAny<TestProbe>()))
+                .Callback(() => CallOrder.Add(nameof(IResolvedTestProbeStore.ResolveProbe)));
+            ResolvedTestProbeStoreMock
+                .Setup(store => store.FindResolvedType(TestActor, ChildName))
+                .Returns(() => ResolvedType);
+            ResolvedTestProbeStoreMock
+                .Setup(store => store.FindResolvedTestProbe(TestActor, ChildName))
+                .Returns(() => ResolvedTestProbe);
         }
 
         [TearDown]
@@ -98,6 +114,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             SutCreatorMock = null;
             ChildWaiterMock = null;
             TestProbeCreatorMock = null;
+            ResolvedTestProbeStoreMock = null;
             RecipientMock = null;
             CallOrder = null;
             Supervisor = null;
@@ -105,6 +122,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             ExpectedChildrenCount = default(int);
             Message = null;
             Recipient = null;
+            ChildName = null;
             CreatedActor = null;
             CreatedActorNoProps = null;
         }

@@ -10,6 +10,19 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeCreatorTests
     internal class Create : TestBase
     {
         [Test]
+        public void TestProbeCreator_CreateWithNullTestKitBase_ThrowsArgumentNullException()
+        {
+            //arrange
+            TestProbeCreator sut = CreateTestProbeCreator();
+
+            //act
+            Action act = () => sut.Create(null);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
         public void TestProbeCreator_Create_DoesNotThrowException()
         {
             //arrange

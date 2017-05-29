@@ -10,7 +10,47 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
     internal class FindResolvedType : TestBase
     {
         [Test]
-        public void ResolvedTestProbeStore_NoActorsAreResolved_FindResolvedType_ThrowsNotFoundException()
+        public void ResolvedTestProbeStore_FindResolvedTypeWithNullParentRef_ThrowsArgumentNullException()
+        {
+            //arrange
+            (_, _, _, string name) = CreateChildVariables();
+            ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
+
+            //act
+            Action act = () => sut.FindResolvedType(null, name);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ResolvedTestProbeStore_FindResolvedTypeWithNullChildName_ThrowsArgumentNullException()
+        {
+            //arrange
+            ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
+
+            //act
+            Action act = () => sut.FindResolvedType(TestActor, null);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ResolvedTestProbeStore_FindResolvedTypeWithNullParentRefAndChildName_ThrowsArgumentNullException()
+        {
+            //arrange
+            ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
+
+            //act
+            Action act = () => sut.FindResolvedType(null, null);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ResolvedTestProbeStore_NoActorsAreResolved_FindResolvedType_ThrowsActorNotFoundException()
         {
             //arrange
             (ActorPath path, _, _, string name) = CreateChildVariables();
@@ -24,7 +64,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
         }
 
         [Test]
-        public void ResolvedTestProbeStore_SingleActorIsResolved_FindResolvedTypeWithNameThatHasNotBeenResolved_ThrowsNotFoundException()
+        public void ResolvedTestProbeStore_SingleActorIsResolved_FindResolvedTypeWithNameThatHasNotBeenResolved_ThrowsActorNotFoundException()
         {
             //arrange
             (ActorPath path1, Type type1, TestProbe probe1, _) = CreateChildVariables();
@@ -74,7 +114,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
         }
 
         [Test]
-        public void ResolvedTestProbeStore_MultipleActorsAreResolved_FindResolvedTypeWithNameThatHasNotBeenResolved_ThrowsNotFoundException()
+        public void ResolvedTestProbeStore_MultipleActorsAreResolved_FindResolvedTypeWithNameThatHasNotBeenResolved_ThrowsActorNotFoundException()
         {
             //arrange
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();

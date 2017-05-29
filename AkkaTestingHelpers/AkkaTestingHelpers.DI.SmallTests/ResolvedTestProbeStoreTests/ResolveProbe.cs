@@ -9,6 +9,68 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
     internal class ResolveProbe : TestBase
     {
         [Test]
+        public void ResolvedTestProbeRepository_ResolveProbeWithNullActorPath_ThrowsArgumentNullException()
+        {
+            //arrange
+            ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
+
+            //act
+            Action act = () => sut.ResolveProbe(
+                null,
+                TestUtils.Create<Type>(),
+                CreateTestProbe());
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ResolvedTestProbeRepository_ResolveProbeWithNullType_ThrowsArgumentNullException()
+        {
+            //arrange
+            ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
+
+            //act
+            Action act = () => sut.ResolveProbe(
+                TestUtils.Create<ActorPath>(),
+                null,
+                CreateTestProbe());
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ResolvedTestProbeRepository_ResolveProbeWithNullTestProbe_ThrowsArgumentNullException()
+        {
+            //arrange
+            ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
+
+            //act
+            Action act = () => sut.ResolveProbe(
+                TestUtils.Create<ActorPath>(),
+                TestUtils.Create<Type>(),
+                null);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ResolvedTestProbeRepository_ResolveProbeWithNullActorPathAndTypeAndTestProbe_ThrowsArgumentNullException()
+        {
+            //arrange
+            ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
+
+            //act
+            Action act = () => sut.ResolveProbe(null, null, null);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+
+        [Test]
         public void ResolvedTestProbeRepository_ResolveProbe_DoesNotThrowException()
         {
             //arrange

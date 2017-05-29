@@ -39,6 +39,32 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
         }
 
         [Test]
+        public void SutCreator_CreateWithNullProps_ThrowsArgumentNullException()
+        {
+            //arrange
+            SutCreator sut = CreateSutCreator();
+
+            //act
+            Action act = () => sut.Create<DummyActor>(ChildWaiter, this, null, ExpectedChildCount, Supervisor);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void SutCreator_CreateWithNullChildWaiterAndTestKitBaseAndProps_ThrowsArgumentNullException()
+        {
+            //arrange
+            SutCreator sut = CreateSutCreator();
+
+            //act
+            Action act = () => sut.Create<DummyActor>(null, null, null, ExpectedChildCount, Supervisor);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
         public async Task SutCreator_CreateWithNullSupervisor_CreatesChildWithNoSupervisor()
         {
             //arrange
@@ -46,7 +72,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             SutCreator sut = CreateSutCreator();
 
             //act
-            TestActorRef<DummyActor> actor = sut.Create<DummyActor>(ChildWaiter, this, Props, ExpectedChildCount);
+            TestActorRef<DummyActor> actor = sut.Create<DummyActor>(ChildWaiter, this, Props, ExpectedChildCount, null);
 
             //assert
             actor.UnderlyingActor.Supervisor.Should().Be(rootGuardian);

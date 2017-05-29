@@ -40,6 +40,19 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
         }
 
         [Test]
+        public void DependencyResolverAdder_AddWithNullTestKitBaseAndActorFactory_ThrowsArgumentNullException()
+        {
+            //arrange
+            DependencyResolverAdder sut = CreateDependencyResolverAdder();
+
+            //act
+            Action act = () => sut.Add(null, null);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
         public void DependencyResolverAdder_Add_ResultOfFactoryIsUsedToCreateActors()
         {
             //arrange
