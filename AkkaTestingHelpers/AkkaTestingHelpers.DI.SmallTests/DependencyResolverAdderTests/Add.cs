@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Akka.Actor;
 using Akka.DI.Core;
 using Akka.TestKit;
@@ -70,6 +72,26 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
             //assert
             ActorOfAsTestActorRef<ActorBase>(Sys.DI().Props<DummyActor>());
             actual.Should().Be<DummyActor>();
+        }
+
+        [Test]
+        public void DependencyResolverAdder_Add_LatestFactoryIsUsed()
+        {
+            //arrange
+            DependencyResolverAdder sut = CreateDependencyResolverAdder();
+            List<DummyActor> actors = TestUtils.CreateMany<DummyActor>();
+            foreach (DummyActor actor in actors.Take(actors.Count))
+            {
+                sut.Add(this, type => actor);
+            }
+            DummyActor expected = new DummyActor();
+
+            //act
+            sut.Add(this, type => expected);
+
+            //assert
+            TestActorRef<ActorBase> result = ActorOfAsTestActorRef<ActorBase>(Sys.DI().Props<DummyActor>());
+            result.UnderlyingActor.Should().BeSameAs(expected);
         }
     }
 }
