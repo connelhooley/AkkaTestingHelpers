@@ -3,7 +3,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeRepositoryTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTests
 {
     internal class ResolveProbe : TestBase
     {

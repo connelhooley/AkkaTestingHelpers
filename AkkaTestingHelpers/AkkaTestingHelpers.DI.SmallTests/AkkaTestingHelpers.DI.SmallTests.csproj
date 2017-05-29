@@ -93,12 +93,11 @@
     <Compile Include="ConcreteResolverTests\TestBase.cs" />
     <Compile Include="DependencyResolverAdderTests\Add.cs" />
     <Compile Include="DependencyResolverAdderTests\TestBase.cs" />
-    <Compile Include="DummyActors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResolvedTestProbeRepositoryTests\FindResolvedTestProbe.cs" />
-    <Compile Include="ResolvedTestProbeRepositoryTests\FindResolvedType.cs" />
-    <Compile Include="ResolvedTestProbeRepositoryTests\ResolveProbe.cs" />
-    <Compile Include="ResolvedTestProbeRepositoryTests\TestBase.cs" />
+    <Compile Include="ResolvedTestProbeStoreTests\FindResolvedTestProbe.cs" />
+    <Compile Include="ResolvedTestProbeStoreTests\FindResolvedType.cs" />
+    <Compile Include="ResolvedTestProbeStoreTests\ResolveProbe.cs" />
+    <Compile Include="ResolvedTestProbeStoreTests\TestBase.cs" />
     <Compile Include="SutCreatorTests\Create.cs" />
     <Compile Include="SutCreatorTests\TestBase.cs" />
     <Compile Include="TestProbeCreatorTests\Create.cs" />

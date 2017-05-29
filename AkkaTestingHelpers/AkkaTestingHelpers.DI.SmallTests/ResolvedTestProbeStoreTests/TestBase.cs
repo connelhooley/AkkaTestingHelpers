@@ -5,7 +5,7 @@ using Akka.TestKit.NUnit3;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using NUnit.Framework;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeRepositoryTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTests
 {
     internal class TestBase : TestKit
     {
@@ -17,7 +17,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeReposit
         public void SetUp()
         {
             // Create objects passed into sut
-            ActorPath = ActorPath.Parse($"akka://user/{Guid.NewGuid()}");
+            ActorPath = TestUtils.Create<ActorPath>();
             ActorType = TestUtils.Create<Type>();
             TestProbe = CreateTestProbe();
         }

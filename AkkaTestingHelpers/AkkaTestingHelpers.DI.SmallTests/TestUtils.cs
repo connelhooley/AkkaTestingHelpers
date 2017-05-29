@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Akka.Actor;
 using Ploeh.AutoFixture;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests
@@ -13,6 +14,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests
         static TestUtils()
         {
             Fixture = new Fixture();
+            Fixture.Register(() => ActorPath.Parse($"akka://user/{Guid.NewGuid()}"));
             Random = new Random();
         }
 
