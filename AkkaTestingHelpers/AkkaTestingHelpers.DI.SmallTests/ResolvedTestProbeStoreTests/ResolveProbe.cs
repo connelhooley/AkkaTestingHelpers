@@ -1,4 +1,5 @@
 ﻿using System;
+using Akka.Actor;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
 using NUnit.Framework;
@@ -14,7 +15,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
 
             //act
-            Action act = () => sut.ResolveProbe(ActorPath, ActorType, TestProbe);
+            Action act = () => sut.ResolveProbe(
+                TestUtils.Create<ActorPath>(), 
+                TestUtils.Create<Type>(), 
+                CreateTestProbe());
 
             //assert
             act.ShouldNotThrow();
