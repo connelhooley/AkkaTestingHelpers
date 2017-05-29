@@ -37,7 +37,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         
         [Test]
         [Timeout(2000)]
-        public void ChildWaiter_Start_Started_ShouldBlockThread()
+        public void ChildWaiter_Started_Start_ShouldBlockThread()
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();
@@ -59,7 +59,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 
         [Test]
         [Timeout(2000)]
-        public void ChildWaiter_Start_Started_ShouldUnblockThreadWhenFirstStartsChildrenAreResolved()
+        public void ChildWaiter_Started_Start_ShouldUnblockThreadWhenFirstStartsChildrenAreResolved()
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();

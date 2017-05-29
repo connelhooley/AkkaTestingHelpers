@@ -8,7 +8,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
     internal class ResolveChild : TestBase
     {
         [Test]
-        public void ChildWaiter_ResolveChild_NotStarted_DoesNotThrowAnyExceptions()
+        public void ChildWaiter_NotStarted_ResolveChild_DoesNotThrowAnyExceptions()
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();
@@ -20,7 +20,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             act.ShouldNotThrow();
         }
         [Test]
-        public void ChildWaiter_ResolveChild_Started_DoesNotThrowAnyExceptions()
+        public void ChildWaiter_Started_ResolveChild_DoesNotThrowAnyExceptions()
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();

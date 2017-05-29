@@ -10,7 +10,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
     internal class Wait : TestBase
     {
         [Test]
-        public void ChildWaiter_Wait_NotStarted_DoesNotThrowAnyExceptions()
+        public void ChildWaiter_NotStarted_Wait_DoesNotThrowAnyExceptions()
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();
@@ -23,7 +23,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         }
 
         [Test]
-        public void ChildWaiter_Wait_Started_ThrowsTimeoutExceptionWhenChildrenAreNotResolved()
+        public void ChildWaiter_Started_Wait_ThrowsTimeoutExceptionWhenChildrenAreNotResolved()
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();
@@ -43,7 +43,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         }
 
         [Test]
-        public void ChildWaiter_Wait_Started_BlockThreadUntilChildrenAreResolved()
+        public void ChildWaiter_Started_Wait_BlockThreadUntilChildrenAreResolved()
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();
@@ -69,7 +69,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 
         [Test]
         [Timeout(500)]
-        public void ChildWaiter_Wait_StartedWithNoExpectedChildren_DoesNotBlockThread()
+        public void ChildWaiter_StartedWithNoExpectedChildren_Wait_DoesNotBlockThread()
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();
@@ -84,7 +84,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 
         [Test]
         [Timeout(500)]
-        public void ChildWaiter_Wait_StartedWithNegativeExpectedChildren_DoesNotBlockThread()
+        public void ChildWaiter_StartedWithNegativeExpectedChildren_Wait_DoesNotBlockThread()
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();
@@ -99,7 +99,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 
         [Test]
         [Timeout(500)]
-        public void ChildWaiter_Wait_Waited_BlockThreads()
+        public void ChildWaiter_Waited_Wait_BlockThreads()
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();
