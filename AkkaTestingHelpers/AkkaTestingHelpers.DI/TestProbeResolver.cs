@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using Akka.Actor;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
@@ -13,35 +10,30 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
     {
         private readonly ISutCreator _sutCreator;
         private readonly IChildWaiter _childWaiter;
+        private readonly IResolvedTestProbeStore _resolvedProbeStore;
+        private readonly ITestProbeActorFactory _actorFactory;
         private readonly TestKitBase _testKit;
         private readonly ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> _handlers;
-        private readonly IDictionary<ActorPath, (Type, TestProbe)> _resolved;
 
-        internal TestProbeResolver(IDependencyResolverAdder resolverAdder, ISutCreator sutCreator, IChildWaiter childWaiter, ITestProbeCreator testProbeCreator, TestKitBase testKit, TestProbeResolverSettings settings)
+        internal TestProbeResolver(IDependencyResolverAdder resolverAdder, ISutCreator sutCreator, IChildWaiter childWaiter, IResolvedTestProbeStore resolvedProbeStore, ITestProbeCreator testProbeCreator, ITestProbeActorFactory actorFactory, ITestProbeHandlersMapper handlersMapper, TestKitBase testKit, TestProbeResolverSettings settings)
         {
             _sutCreator = sutCreator;
             _childWaiter = childWaiter;
+            _resolvedProbeStore = resolvedProbeStore;
+            _actorFactory = actorFactory;
             _testKit = testKit;
-            _handlers = settings.Handlers
-                .ToLookup(
-                    pair => pair.Key.Item1, 
-                    pair => new {messageType = pair.Key.Item2, messageHandler = pair.Value})
-                .ToImmutableDictionary(
-                    grouping => grouping.Key,
-                    grouping => grouping.ToImmutableDictionary(
-                        item => item.messageType, item => item.messageHandler));
-            _resolved = new ConcurrentDictionary<ActorPath, (Type, TestProbe)>();
+            _handlers = handlersMapper.Map(settings.Handlers);
             Supervisor = testProbeCreator.Create(testKit);
             resolverAdder.Add(testKit, Resolve);
         }
 
         public TestProbe Supervisor { get; }
 
-        public TestProbe ResolvedTestProbe(IActorRef parentActor, string childName) => 
-            FindResolved(parentActor, childName).Item2;
+        public TestProbe ResolvedTestProbe(IActorRef parentActor, string childName) =>
+            _resolvedProbeStore.FindResolvedTestProbe(parentActor, childName);
 
-        public Type ResolvedType(IActorRef parentActor, string childName) => 
-            FindResolved(parentActor, childName).Item1;
+        public Type ResolvedType(IActorRef parentActor, string childName) =>
+            _resolvedProbeStore.FindResolvedType(parentActor, childName);
 
         public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount) where TActor : ActorBase =>
             _sutCreator.Create<TActor>(
@@ -75,22 +67,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
 
         private ActorBase Resolve(Type actorType)
         {
-            TestProbeActor actor = _handlers.ContainsKey(actorType)
-                ? new TestProbeActor(_testKit, _handlers[actorType])
-                : new TestProbeActor(_testKit);
-            _resolved[actor.ActorPath] = (actorType, actor.TestProbe);
+            (ActorBase actor, ActorPath actorPath, TestProbe testProbe) = _actorFactory.Create(_testKit, actorType, _handlers);
+            _resolvedProbeStore.ResolveProbe(actorPath, actorType, testProbe);
             _childWaiter.ResolvedChild();
             return actor;
-        }
-
-        private (Type, TestProbe) FindResolved(IActorRef parentActor, string childName)
-        {
-            ActorPath childPath = parentActor.Path.Child(childName);
-            if (!_resolved.ContainsKey(childPath))
-            {
-                throw new InvalidOperationException($"No child has been resolved for the path '{childPath}'");
-            }
-            return _resolved[childPath];
         }
     }
 }

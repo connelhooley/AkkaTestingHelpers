@@ -102,6 +102,8 @@
     <Compile Include="SutCreatorTests\TestBase.cs" />
     <Compile Include="TestProbeCreatorTests\Create.cs" />
     <Compile Include="TestProbeCreatorTests\TestBase.cs" />
+    <Compile Include="TestProbeHandlersMapperTests\Map.cs" />
+    <Compile Include="TestProbeHandlersMapperTests\TestBase.cs" />
     <Compile Include="TestProbeResolverTests\CreateSut.cs" />
     <Compile Include="TestProbeResolverTests\ResolvedTestProbe.cs" />
     <Compile Include="TestProbeResolverTests\ResolvedType.cs" />

@@ -19,6 +19,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             //assert
             act.ShouldNotThrow();
         }
+
         [Test]
         public void ChildWaiter_Started_ResolveChild_DoesNotThrowAnyExceptions()
         {

@@ -25,7 +25,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
         {
             for (int i = 0; i < childCount; i++)
             {
-                Context.ActorOf(Context.DI().Props<ChildActor>());
+                Context.ActorOf(Context.DI().Props<ChildActor>(), (i+1).ToString());
             }
         }
     }

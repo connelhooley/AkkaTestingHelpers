@@ -17,6 +17,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         protected Mock<IChildWaiter> ChildWaiterMock;
         protected Mock<ITestProbeCreator> TestProbeCreatorMock;
         protected Mock<IResolvedTestProbeStore> ResolvedTestProbeStoreMock;
+        protected Mock<ITestProbeActorFactory> TestProbeActorFactoryMock;
+        protected Mock<ITestProbeHandlersMapper> TestProbeHandlersMapperMock;
         protected Mock<IActorRef> RecipientMock;
         
         protected Func<Type, ActorBase> ResolveActor;
@@ -42,6 +44,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             ChildWaiterMock = new Mock<IChildWaiter>();
             TestProbeCreatorMock = new Mock<ITestProbeCreator>();
             ResolvedTestProbeStoreMock = new Mock<IResolvedTestProbeStore>();
+            TestProbeActorFactoryMock = new Mock<ITestProbeActorFactory>();
+            TestProbeHandlersMapperMock = new Mock<ITestProbeHandlersMapper>();
             RecipientMock = new Mock<IActorRef>();
 
             // Create objects used by mocks
@@ -115,6 +119,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             ChildWaiterMock = null;
             TestProbeCreatorMock = null;
             ResolvedTestProbeStoreMock = null;
+            TestProbeActorFactoryMock = null;
+            TestProbeHandlersMapperMock = null;
             RecipientMock = null;
             CallOrder = null;
             Supervisor = null;
@@ -132,7 +138,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 DependencyResolverAdderMock.Object,
                 SutCreatorMock.Object,
                 ChildWaiterMock.Object,
+                ResolvedTestProbeStoreMock.Object,
                 TestProbeCreatorMock.Object,
+                TestProbeActorFactoryMock.Object,
+                TestProbeHandlersMapperMock.Object,
                 this,
                 settings);
     }
