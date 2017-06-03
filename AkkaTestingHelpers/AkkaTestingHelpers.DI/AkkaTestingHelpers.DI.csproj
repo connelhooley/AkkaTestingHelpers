@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Abstract\IChildTeller.cs" />
     <Compile Include="Helpers\Abstract\IChildWaiter.cs" />
     <Compile Include="Helpers\Abstract\IDependencyResolverAdder.cs" />
     <Compile Include="Helpers\Abstract\IResolvedTestProbeStore.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Helpers\Abstract\ITestProbeActorFactory.cs" />
     <Compile Include="Helpers\Abstract\ITestProbeCreator.cs" />
     <Compile Include="Helpers\Abstract\ITestProbeHandlersMapper.cs" />
+    <Compile Include="Helpers\Concrete\ChildTeller.cs" />
     <Compile Include="Helpers\Concrete\ChildWaiter.cs" />
     <Compile Include="Helpers\Concrete\DependencyResolverAdder.cs" />
     <Compile Include="Helpers\Concrete\ResolvedTestProbeStore.cs" />

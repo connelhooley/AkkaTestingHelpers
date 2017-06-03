@@ -32,6 +32,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
             actor.Tell(new object());
             ExpectMsgAllOf(Enumerable.Repeat(ChildActor.Token, initialChildCount + moreChildCount).ToArray());
         }
+
         [Test]
         public void ConcreteResolver_TimesoutWhenWaitingForChildrenWithAnExpectedChildCountThatIsTooHigh()
         {

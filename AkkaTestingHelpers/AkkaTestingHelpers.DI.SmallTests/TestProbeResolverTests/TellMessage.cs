@@ -1,6 +1,4 @@
 ﻿using System;
-using Akka.Actor;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -10,7 +8,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
     internal class TellMessage : TestBase
     {
         [Test]
-        public void TestProbeResolver_TellMessageWithNullRecipient_ThrowsArgumentNullException()
+        public void TestProbeResolver_TellMessageNoSenderWithNullRecipient_ThrowsArgumentNullException()
         {
             //arrange
             TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
@@ -23,7 +21,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         }
 
         [Test]
-        public void TestProbeResolver_TellMessageWithNullMessage_ThrowsArgumentNullException()
+        public void TestProbeResolver_TellMessageNoSenderWithNullMessage_ThrowsArgumentNullException()
         {
             //arrange
             TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
@@ -36,7 +34,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         }
 
         [Test]
-        public void TestProbeResolver_TellMessageWithNullRecipientAndMessage_ThrowsArgumentNullException()
+        public void TestProbeResolver_TellMessageNoSenderWithNullRecipientAndMessage_ThrowsArgumentNullException()
         {
             //arrange
             TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
@@ -49,7 +47,59 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         }
 
         [Test]
-        public void TestProbeResolver_TellMessageWithNullSender_ThrowsArgumentNullException()
+        public void TestProbeResolver_TellMessageFromSenderWithNullRecipient_ThrowsArgumentNullException()
+        {
+            //arrange
+            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage(null, Message, Sender, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void TestProbeResolver_TellMessageFromSenderWithNullMessage_ThrowsArgumentNullException()
+        {
+            //arrange
+            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage<object>(Recipient, null, Sender, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void TestProbeResolver_TellMessageFromSenderWithNullSender_ThrowsArgumentNullException()
+        {
+            //arrange
+            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage(Recipient, Message, null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void TestProbeResolver_TellMessageNoSenderWithNullRecipientAndMessageAndSender_ThrowsArgumentNullException()
+        {
+            //arrange
+            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage<object>(null, null, null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void TestProbeResolver_TellMessageSenderWithNullSender_ThrowsArgumentNullException()
         {
             //arrange
             TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
@@ -73,143 +123,35 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             //assert
             act.ShouldThrow<ArgumentNullException>();
         }
-
-        [Test]
-        public void TestProbeResolver_TellMessage_StartsWaitingForChildren()
-        {
-            //arrange
-            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
-
-            //assert
-            ChildWaiterMock.Verify(
-                waiter => waiter.Start(this, ExpectedChildrenCount),
-                Times.Once);
-        }
-
-        [Test]
-        public void TestProbeResolver_TellMessage_WaitsForChildren()
-        {
-            //arrange
-            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
-
-            //assert
-            ChildWaiterMock.Verify(
-                waiter => waiter.Wait(),
-                Times.Once);
-        }
-
-        [Test]
-        public void TestProbeResolver_TellMessage_TellsRecipient()
-        {
-            //arrange
-            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
-
-            //assert
-            RecipientMock.Verify(actorRef => actorRef.Tell(Message, TestActor));
-        }
-
-        [Test]
-        public void TestProbeResolver_TellMessage_StartsWaitingForChildrenBeforeTellingRecipient()
-        {
-            //arrange
-            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
-
-            //assert
-            CallOrder.Should().ContainInOrder(nameof(IChildWaiter.Start), nameof(IActorRef.Tell));
-        }
-
-        [Test]
-        public void TestProbeResolver_TellMessage_WaitsForChildrenAfterTellingRecipient()
-        {
-            //arrange
-            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
-
-            //assert
-            CallOrder.Should().ContainInOrder(nameof(IActorRef.Tell), nameof(IChildWaiter.Wait));
-        }
         
         [Test]
-        public void TestProbeResolver_TellMessageFromSender_StartsWaitingForChildren()
+        public void TestProbeResolver_TellMessageNoSender_TellsChild()
         {
             //arrange
             TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
 
             //act
-            sut.TellMessage(Recipient, Message, CreatedActor, ExpectedChildrenCount);
+            sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
 
             //assert
-            ChildWaiterMock.Verify(
-                waiter => waiter.Start(this, ExpectedChildrenCount),
+            ChildTellerMock.Verify(
+                teller => teller.TellMessage(ChildWaiterMock.Object, this, Recipient, Message, ExpectedChildrenCount, null),
                 Times.Once);
         }
 
         [Test]
-        public void TestProbeResolver_TellMessageFromSender_WaitsForChildren()
+        public void TestProbeResolver_TellMessageSender_TellsChild()
         {
             //arrange
             TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
 
             //act
-            sut.TellMessage(Recipient, Message, CreatedActor, ExpectedChildrenCount);
+            sut.TellMessage(Recipient, Message, Sender, ExpectedChildrenCount);
 
             //assert
-            ChildWaiterMock.Verify(
-                waiter => waiter.Wait(),
+            ChildTellerMock.Verify(
+                teller => teller.TellMessage(ChildWaiterMock.Object, this, Recipient, Message, ExpectedChildrenCount, Sender),
                 Times.Once);
-        }
-
-        [Test]
-        public void TestProbeResolver_TellMessageFromSender_TellsRecipient()
-        {
-            //arrange
-            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, CreatedActor, ExpectedChildrenCount);
-
-            //assert
-            RecipientMock.Verify(actorRef => actorRef.Tell(Message, CreatedActor));
-        }
-
-        [Test]
-        public void TestProbeResolver_TellMessageFromSender_StartsWaitingForChildrenBeforeTellingRecipient()
-        {
-            //arrange
-            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, CreatedActor, ExpectedChildrenCount);
-
-            //assert
-            CallOrder.Should().ContainInOrder(nameof(IChildWaiter.Start), nameof(IActorRef.Tell) + "Sender");
-        }
-
-        [Test]
-        public void TestProbeResolver_TellMessageFromSender_WaitsForChildrenAfterTellingRecipient()
-        {
-            //arrange
-            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, CreatedActor, ExpectedChildrenCount);
-
-            //assert
-            CallOrder.Should().ContainInOrder(nameof(IActorRef.Tell) + "Sender", nameof(IChildWaiter.Wait));
         }
     }
 }

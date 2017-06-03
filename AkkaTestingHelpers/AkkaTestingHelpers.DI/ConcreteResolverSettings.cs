@@ -19,6 +19,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             new ConcreteResolver(
                 new DependencyResolverAdder(), 
                 new SutCreator(), 
+                new ChildTeller(), 
                 new ChildWaiter(), 
                 testKit, 
                 this);

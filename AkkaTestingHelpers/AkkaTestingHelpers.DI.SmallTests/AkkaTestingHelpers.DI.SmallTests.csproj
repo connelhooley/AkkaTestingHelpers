@@ -83,6 +83,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChildTellerTests\TellMessage.cs" />
+    <Compile Include="ChildTellerTests\TestBase.cs" />
     <Compile Include="ChildWaiterTests\ResolveChild.cs" />
     <Compile Include="ChildWaiterTests\Start.cs" />
     <Compile Include="ChildWaiterTests\TestBase.cs" />

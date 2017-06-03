@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using NUnit.Framework;
 
@@ -9,25 +7,24 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
 {
     internal class TestBase
     {
-        private List<Type> _types;
+        private Func<Type> _typeGenerator;
 
         [SetUp]
         public void SetUp()
         {
-            _types = Assembly
-                .GetAssembly(typeof(Type))
-                .GetExportedTypes()
-                .ToList();
+            _typeGenerator = TestUtils.RandomTypeGenerator();
         }
 
         [TearDown]
         public void TearDown()
         {
-            _types = null;
+            _typeGenerator = null;
         }
 
-        protected (Type, Type, Func<object, object>) CreateSettingsHandler() =>
-            (_types.RandomlyTakeItem(), _types.RandomlyTakeItem(), TestUtils.Create<Func<object, object>>());
+        protected (Type, Type, Func<object, object>) CreateSettingsHandler()
+        {
+            return (_typeGenerator(), _typeGenerator(), TestUtils.Create<Func<object, object>>());
+        }
 
         protected TestProbeHandlersMapper CreateTestProbeHandlersMapper() => 
             new TestProbeHandlersMapper();

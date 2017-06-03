@@ -7,6 +7,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 {
     public class ParentActor : ReceiveActor
     {
+        private int _childName;
+
         public ParentActor(int initalCount)
         {
             Thread.Sleep(100);
@@ -21,11 +23,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
             });
         }
         
-        private static void CreateChildren(int childCount)
+        private void CreateChildren(int childCount)
         {
             for (int i = 0; i < childCount; i++)
             {
-                Context.ActorOf(Context.DI().Props<ChildActor>(), (i+1).ToString());
+                Context.ActorOf(Context.DI().Props<ChildActor>(), _childName++.ToString());
             }
         }
     }

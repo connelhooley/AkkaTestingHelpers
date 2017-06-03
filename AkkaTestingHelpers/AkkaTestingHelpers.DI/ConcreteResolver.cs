@@ -9,6 +9,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
     public class ConcreteResolver
     {
         private readonly ISutCreator _sutCreator;
+        private readonly IChildTeller _childTeller;
         private readonly IChildWaiter _childWaiter;
         private readonly TestKitBase _testKit;
         private readonly IImmutableDictionary<Type, Func<ActorBase>> _factories;
@@ -16,11 +17,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         internal ConcreteResolver(
             IDependencyResolverAdder resolverAdder, 
             ISutCreator sutCreator, 
+            IChildTeller childTeller,
             IChildWaiter childWaiter, 
             TestKitBase testKit, 
             ConcreteResolverSettings settings)
         {
             _sutCreator = sutCreator;
+            _childTeller = childTeller;
             _childWaiter = childWaiter;
             _testKit = testKit;
             _factories = settings.Factories;
@@ -41,19 +44,22 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 Props.Create<TActor>(),
                 expectedChildrenCount);
         
-        public void TellMessage<TMessage>(IActorRef recipient, TMessage message, int waitForChildrenCount)
-        {
-            _childWaiter.Start(_testKit, waitForChildrenCount);
-            recipient.Tell(message);
-            _childWaiter.Wait();
-        }
-
-        public void TellMessage<TMessage>(IActorRef recipient, TMessage message, IActorRef sender, int waitForChildrenCount)
-        {
-            _childWaiter.Start(_testKit, waitForChildrenCount);
-            recipient.Tell(message, sender);
-            _childWaiter.Wait();
-        }
+        public void TellMessage<TMessage>(IActorRef recipient, TMessage message, int waitForChildrenCount) =>
+            _childTeller.TellMessage(
+                _childWaiter,
+                _testKit,
+                recipient,
+                message,
+                waitForChildrenCount);
+        
+        public void TellMessage<TMessage>(IActorRef recipient, TMessage message, IActorRef sender, int waitForChildrenCount) => 
+            _childTeller.TellMessage(
+                _childWaiter, 
+                _testKit, 
+                recipient, 
+                message, 
+                waitForChildrenCount, 
+                sender);
 
         private ActorBase Resolve(Type actorType)
         {

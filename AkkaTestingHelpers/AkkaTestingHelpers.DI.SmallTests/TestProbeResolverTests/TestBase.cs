@@ -14,12 +14,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
     {
         protected Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
         protected Mock<ISutCreator> SutCreatorMock;
+        protected Mock<IChildTeller> ChildTellerMock;
         protected Mock<IChildWaiter> ChildWaiterMock;
         protected Mock<ITestProbeCreator> TestProbeCreatorMock;
         protected Mock<IResolvedTestProbeStore> ResolvedTestProbeStoreMock;
         protected Mock<ITestProbeActorFactory> TestProbeActorFactoryMock;
         protected Mock<ITestProbeHandlersMapper> TestProbeHandlersMapperMock;
-        protected Mock<IActorRef> RecipientMock;
         
         protected Func<Type, ActorBase> ResolveActor;
         protected List<string> CallOrder;
@@ -28,6 +28,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         protected int ExpectedChildrenCount;
         protected object Message;
         protected IActorRef Recipient;
+        protected IActorRef Sender;
         protected string ChildName;
         protected TestProbe Supervisor;
         protected TestActorRef<BlackHoleActor> CreatedActor;
@@ -41,12 +42,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             // Create mocks
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();
             SutCreatorMock = new Mock<ISutCreator>();
+            ChildTellerMock = new Mock<IChildTeller>();
             ChildWaiterMock = new Mock<IChildWaiter>();
             TestProbeCreatorMock = new Mock<ITestProbeCreator>();
             ResolvedTestProbeStoreMock = new Mock<IResolvedTestProbeStore>();
             TestProbeActorFactoryMock = new Mock<ITestProbeActorFactory>();
             TestProbeHandlersMapperMock = new Mock<ITestProbeHandlersMapper>();
-            RecipientMock = new Mock<IActorRef>();
 
             // Create objects used by mocks
             CallOrder = new List<string>();
@@ -56,8 +57,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             Props = Props.Create<BlackHoleActor>();
             ExpectedChildrenCount = TestUtils.Create<int>();
             Message = TestUtils.Create<object>();
-            Recipient = RecipientMock.Object;
             ChildName = TestUtils.Create<string>();
+            Recipient = new Mock<IActorRef>().Object;
+            Sender = new Mock<IActorRef>().Object;
+            ResolvedType = TestUtils.RandomTypeGenerator()();
+            ResolvedTestProbe = CreateTestProbe();
 
             // Create objects returned by mocks
             CreatedActor = ActorOfAsTestActorRef<BlackHoleActor>(Supervisor);
@@ -88,13 +92,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 .Setup(waiter => waiter.ResolvedChild())
                 .Callback(() => CallOrder.Add(nameof(IChildWaiter.ResolvedChild)));
 
-            RecipientMock
-                .Setup(waiter => waiter.Tell(Message, TestActor))
-                .Callback(() => CallOrder.Add(nameof(IActorRef.Tell)));
-            RecipientMock
-                .Setup(waiter => waiter.Tell(Message, CreatedActor))
-                .Callback(() => CallOrder.Add(nameof(IActorRef.Tell) + "Sender"));
-
             TestProbeCreatorMock
                 .SetupSequence(creator => creator.Create(this))
                 .Returns(Supervisor)
@@ -116,19 +113,20 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         {
             DependencyResolverAdderMock = null;
             SutCreatorMock = null;
+            ChildTellerMock = null;
             ChildWaiterMock = null;
             TestProbeCreatorMock = null;
             ResolvedTestProbeStoreMock = null;
             TestProbeActorFactoryMock = null;
             TestProbeHandlersMapperMock = null;
-            RecipientMock = null;
             CallOrder = null;
             Supervisor = null;
             Props = null;
             ExpectedChildrenCount = default(int);
             Message = null;
-            Recipient = null;
             ChildName = null;
+            Recipient = null;
+            Sender = null;
             CreatedActor = null;
             CreatedActorNoProps = null;
         }
@@ -137,6 +135,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             new TestProbeResolver(
                 DependencyResolverAdderMock.Object,
                 SutCreatorMock.Object,
+                ChildTellerMock.Object,
                 ChildWaiterMock.Object,
                 ResolvedTestProbeStoreMock.Object,
                 TestProbeCreatorMock.Object,

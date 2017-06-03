@@ -34,11 +34,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
             Props IDependencyResolver.Create(Type actorType) =>
                 throw new NotImplementedException();
 
-            void IDependencyResolver.Release(ActorBase actor)
-            {
+            void IDependencyResolver.Release(ActorBase actor) =>
                 throw new NotImplementedException();
-                //No implementation needed
-            }
         }
     }
 }

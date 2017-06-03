@@ -1,6 +1,4 @@
 ﻿using System;
-using Akka.Actor;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -9,8 +7,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
     internal class TellMessage : TestBase
     {
+        #region null checks
+
         [Test]
-        public void ConcreteResolver_TellMessageWithNullRecipient_ThrowsArgumentNullException()
+        public void ConcreteResolver_TellMessageNoSenderWithNullRecipient_ThrowsArgumentNullException()
         {
             //arrange
             ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
@@ -23,7 +23,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         }
 
         [Test]
-        public void ConcreteResolver_TellMessageWithNullMessage_ThrowsArgumentNullException()
+        public void ConcreteResolver_TellMessageNoSenderWithNullMessage_ThrowsArgumentNullException()
         {
             //arrange
             ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
@@ -36,7 +36,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         }
         
         [Test]
-        public void ConcreteResolver_TellMessageWithNullRecipientAndMessage_ThrowsArgumentNullException()
+        public void ConcreteResolver_TellMessageNoSenderWithNullRecipientAndMessage_ThrowsArgumentNullException()
         {
             //arrange
             ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
@@ -49,7 +49,59 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         }
 
         [Test]
-        public void ConcreteResolver_TellMessageWithNullSender_ThrowsArgumentNullException()
+        public void ConcreteResolver_TellMessageFromSenderWithNullRecipient_ThrowsArgumentNullException()
+        {
+            //arrange
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage(null, Message, Sender, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ConcreteResolver_TellMessageFromSenderWithNullMessage_ThrowsArgumentNullException()
+        {
+            //arrange
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage<object>(Recipient, null, Sender, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ConcreteResolver_TellMessageFromSenderWithNullSender_ThrowsArgumentNullException()
+        {
+            //arrange
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage(Recipient, Message, null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ConcreteResolver_TellMessageNoSenderWithNullRecipientAndMessageAndSender_ThrowsArgumentNullException()
+        {
+            //arrange
+            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+
+            //act
+            Action act = () => sut.TellMessage<object>(null, null, null, ExpectedChildrenCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ConcreteResolver_TellMessageSenderWithNullSender_ThrowsArgumentNullException()
         {
             //arrange
             ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
@@ -74,8 +126,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
+        #endregion
+
         [Test]
-        public void ConcreteResolver_TellMessage_StartsWaitingForChildren()
+        public void ConcreteResolver_TellMessageNoSender_TellsChild()
         {
             //arrange
             ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
@@ -84,132 +138,24 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
 
             //assert
-            ChildWaiterMock.Verify(
-                waiter => waiter.Start(this, ExpectedChildrenCount),
+            ChildTellerMock.Verify(
+                teller => teller.TellMessage(ChildWaiterMock.Object, this, Recipient, Message, ExpectedChildrenCount, null),
                 Times.Once);
-        }
-
-        [Test]
-        public void ConcreteResolver_TellMessage_WaitsForChildren()
-        {
-            //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
-
-            //assert
-            ChildWaiterMock.Verify(
-                waiter => waiter.Wait(),
-                Times.Once);
-        }
-
-        [Test]
-        public void ConcreteResolver_TellMessage_TellsRecipient()
-        {
-            //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
-
-            //assert
-            RecipientMock.Verify(actorRef => actorRef.Tell(Message, TestActor));
-        }
-
-        [Test]
-        public void ConcreteResolver_TellMessage_StartsWaitingForChildrenBeforeTellingRecipient()
-        {
-            //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
-
-            //assert
-            CallOrder.Should().ContainInOrder(nameof(IChildWaiter.Start), nameof(IActorRef.Tell));
-        }
-
-        [Test]
-        public void ConcreteResolver_TellMessage_WaitsForChildrenAfterTellingRecipient()
-        {
-            //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
-
-            //assert
-            CallOrder.Should().ContainInOrder(nameof(IActorRef.Tell), nameof(IChildWaiter.Wait));
         }
         
         [Test]
-        public void ConcreteResolver_TellMessageFromSender_StartsWaitingForChildren()
+        public void ConcreteResolver_TellMessageSender_TellsChild()
         {
             //arrange
             ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
 
             //act
-            sut.TellMessage(Recipient, Message, CreatedActor, ExpectedChildrenCount);
+            sut.TellMessage(Recipient, Message, Sender, ExpectedChildrenCount);
 
             //assert
-            ChildWaiterMock.Verify(
-                waiter => waiter.Start(this, ExpectedChildrenCount),
+            ChildTellerMock.Verify(
+                teller => teller.TellMessage(ChildWaiterMock.Object, this, Recipient, Message, ExpectedChildrenCount, Sender),
                 Times.Once);
-        }
-
-        [Test]
-        public void ConcreteResolver_TellMessageFromSender_WaitsForChildren()
-        {
-            //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, CreatedActor, ExpectedChildrenCount);
-
-            //assert
-            ChildWaiterMock.Verify(
-                waiter => waiter.Wait(),
-                Times.Once);
-        }
-
-        [Test]
-        public void ConcreteResolver_TellMessageFromSender_TellsRecipient()
-        {
-            //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, CreatedActor, ExpectedChildrenCount);
-
-            //assert
-            RecipientMock.Verify(actorRef => actorRef.Tell(Message, CreatedActor));
-        }
-
-        [Test]
-        public void ConcreteResolver_TellMessageFromSender_StartsWaitingForChildrenBeforeTellingRecipient()
-        {
-            //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, CreatedActor, ExpectedChildrenCount);
-
-            //assert
-            CallOrder.Should().ContainInOrder(nameof(IChildWaiter.Start), nameof(IActorRef.Tell) + "Sender");
-        }
-
-        [Test]
-        public void ConcreteResolver_TellMessageFromSender_WaitsForChildrenAfterTellingRecipient()
-        {
-            //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
-
-            //act
-            sut.TellMessage(Recipient, Message, CreatedActor, ExpectedChildrenCount);
-
-            //assert
-            CallOrder.Should().ContainInOrder(nameof(IActorRef.Tell) + "Sender", nameof(IChildWaiter.Wait));
         }
     }
 }

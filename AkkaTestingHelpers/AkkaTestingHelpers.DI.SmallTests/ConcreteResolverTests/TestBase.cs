@@ -14,8 +14,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
     {
         protected Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
         protected Mock<ISutCreator> SutCreatorMock;
+        protected Mock<IChildTeller> ChildTellerMock;
         protected Mock<IChildWaiter> ChildWaiterMock;
-        protected Mock<IActorRef> RecipientMock;
         
         protected Func<Type, ActorBase> ResolveActor;
         protected List<string> CallOrder;
@@ -24,6 +24,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         protected int ExpectedChildrenCount;
         protected object Message;
         protected IActorRef Recipient;
+        protected IActorRef Sender;
+        protected string ChildName;
         protected TestActorRef<BlackHoleActor> CreatedActor;
         protected TestActorRef<BlackHoleActor> CreatedActorNoProps;
 
@@ -33,8 +35,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             // Create mocks
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();
             SutCreatorMock = new Mock<ISutCreator>();
+            ChildTellerMock = new Mock<IChildTeller>();
             ChildWaiterMock = new Mock<IChildWaiter>();
-            RecipientMock = new Mock<IActorRef>();
 
             // Create objects used by mocks
             CallOrder = new List<string>();
@@ -43,7 +45,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             Props = Props.Create<BlackHoleActor>();
             ExpectedChildrenCount = TestUtils.Create<int>();
             Message = TestUtils.Create<object>();
-            Recipient = RecipientMock.Object;
+            ChildName = TestUtils.Create<string>();
+            Recipient = new Mock<IActorRef>().Object;
+            Sender = new Mock<IActorRef>().Object;
 
             // Create objects returned by mocks
             CreatedActor = ActorOfAsTestActorRef<BlackHoleActor>();
@@ -52,10 +56,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             // Set up mocks
             DependencyResolverAdderMock
                 .Setup(adder => adder.Add(this, It.IsNotNull<Func<Type, ActorBase>>()))
-                .Callback((TestKitBase testKit, Func<Type, ActorBase> resolveActor) =>
-                {
-                    ResolveActor = resolveActor;
-                });
+                .Callback((TestKitBase testKit, Func<Type, ActorBase> resolveActor) => 
+                    ResolveActor = resolveActor);
             
             SutCreatorMock
                 .Setup(creator => creator.Create<BlackHoleActor>(ChildWaiterMock.Object, this, Props, ExpectedChildrenCount, null))
@@ -65,21 +67,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
                 .Returns(() => CreatedActorNoProps);
 
             ChildWaiterMock
-                .Setup(waiter => waiter.Start(this, ExpectedChildrenCount))
-                .Callback(() => CallOrder.Add(nameof(IChildWaiter.Start)));
-            ChildWaiterMock
-                .Setup(waiter => waiter.Wait())
-                .Callback(() => CallOrder.Add(nameof(IChildWaiter.Wait)));
-            ChildWaiterMock
                 .Setup(waiter => waiter.ResolvedChild())
                 .Callback(() => CallOrder.Add(nameof(IChildWaiter.ResolvedChild)));
-
-            RecipientMock
-                .Setup(waiter => waiter.Tell(Message, TestActor))
-                .Callback(() => CallOrder.Add(nameof(IActorRef.Tell)));
-            RecipientMock
-                .Setup(waiter => waiter.Tell(Message, CreatedActor))
-                .Callback(() => CallOrder.Add(nameof(IActorRef.Tell) + "Sender"));
         }
 
         [TearDown]
@@ -87,13 +76,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         {
             DependencyResolverAdderMock = null;
             SutCreatorMock = null;
+            ChildTellerMock = null;
             ChildWaiterMock = null;
-            RecipientMock = null;
             CallOrder = null;
             Props = null;
             ExpectedChildrenCount = default(int);
             Message = null;
             Recipient = null;
+            Sender = null;
             CreatedActor = null;
             CreatedActorNoProps = null;
         }
@@ -102,6 +92,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             new ConcreteResolver(
                 DependencyResolverAdderMock.Object,
                 SutCreatorMock.Object,
+                ChildTellerMock.Object,
                 ChildWaiterMock.Object,
                 this,
                 settings);

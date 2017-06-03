@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Akka.Actor;
 using Ploeh.AutoFixture;
 
@@ -34,6 +35,15 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests
             T item = items.ElementAt(randomIndex);
             items.RemoveAt(randomIndex);
             return item;
+        }
+
+        public static Func<Type> RandomTypeGenerator()
+        {
+            List<Type> types = Assembly
+                .GetAssembly(typeof(Type))
+                .GetExportedTypes()
+                .ToList();
+            return () => types.RandomlyPickItem();
         }
     }
 }
