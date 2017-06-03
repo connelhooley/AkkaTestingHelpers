@@ -8,9 +8,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
 {
     public class TestProbeResolverSettings
     {
-        internal readonly IImmutableDictionary<(Type, Type), Func<object, object>> Handlers;
+        internal readonly ImmutableDictionary<(Type, Type), Func<object, object>> Handlers;
 
-        private TestProbeResolverSettings(IImmutableDictionary<(Type, Type), Func<object, object>> handlers)
+        private TestProbeResolverSettings(ImmutableDictionary<(Type, Type), Func<object, object>> handlers)
         {
             Handlers = handlers;
         }
