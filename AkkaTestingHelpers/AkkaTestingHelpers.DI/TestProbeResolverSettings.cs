@@ -23,7 +23,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 new ChildWaiter(), 
                 new ResolvedTestProbeStore(),
                 new TestProbeCreator(),
-                new TestProbeActorFactory(), 
+                new TestProbeActorCreator(), 
                 new TestProbeHandlersMapper(), 
                 testKit,
                 this);

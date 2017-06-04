@@ -102,11 +102,14 @@
     <Compile Include="ResolvedTestProbeStoreTests\TestBase.cs" />
     <Compile Include="SutCreatorTests\Create.cs" />
     <Compile Include="SutCreatorTests\TestBase.cs" />
+    <Compile Include="TestProbeActorCreatorTests\Create.cs" />
+    <Compile Include="TestProbeActorCreatorTests\TestBase.cs" />
     <Compile Include="TestProbeCreatorTests\Create.cs" />
     <Compile Include="TestProbeCreatorTests\TestBase.cs" />
     <Compile Include="TestProbeHandlersMapperTests\Map.cs" />
     <Compile Include="TestProbeHandlersMapperTests\TestBase.cs" />
     <Compile Include="TestProbeResolverTests\CreateSut.cs" />
+    <Compile Include="TestProbeResolverTests\ResolveChild.cs" />
     <Compile Include="TestProbeResolverTests\ResolvedTestProbe.cs" />
     <Compile Include="TestProbeResolverTests\ResolvedType.cs" />
     <Compile Include="TestProbeResolverTests\Supervisor.cs" />

@@ -12,7 +12,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_CreateSutWithNullProps_ThrowsArgumentNullException()
         {
             //arrange   
-            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+            TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
             Action act = () => sut.CreateSut<BlackHoleActor>(null, ExpectedChildrenCount);
@@ -25,7 +25,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_CreateSut_ReturnsCreatedActor()
         {
             //arrange   
-            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+            TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
             TestActorRef<BlackHoleActor> result = sut.CreateSut<BlackHoleActor>(Props, ExpectedChildrenCount);
@@ -38,7 +38,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_CreateSutWithNoProps_ReturnsCreatedActor()
         {
             //arrange   
-            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+            TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
             TestActorRef<BlackHoleActor> result = sut.CreateSut<BlackHoleActor>(ExpectedChildrenCount);

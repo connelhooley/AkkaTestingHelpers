@@ -10,7 +10,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_Supervisor_ReturnsSupervisor()
         {
             //arrange
-            TestProbeResolver sut = CreateTestProbeResolver(TestProbeResolverSettings.Empty);
+            TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
             TestProbe result = sut.Supervisor;

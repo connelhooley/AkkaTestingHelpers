@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
+using ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI
@@ -12,17 +13,17 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         private readonly IChildTeller _childTeller;
         private readonly IChildWaiter _childWaiter;
         private readonly IResolvedTestProbeStore _resolvedProbeStore;
-        private readonly ITestProbeActorFactory _actorFactory;
+        private readonly ITestProbeActorCreator _actorCreator;
         private readonly TestKitBase _testKit;
         private readonly ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> _handlers;
 
-        internal TestProbeResolver(IDependencyResolverAdder resolverAdder, ISutCreator sutCreator, IChildTeller childTeller, IChildWaiter childWaiter, IResolvedTestProbeStore resolvedProbeStore, ITestProbeCreator testProbeCreator, ITestProbeActorFactory actorFactory, ITestProbeHandlersMapper handlersMapper, TestKitBase testKit, TestProbeResolverSettings settings)
+        internal TestProbeResolver(IDependencyResolverAdder resolverAdder, ISutCreator sutCreator, IChildTeller childTeller, IChildWaiter childWaiter, IResolvedTestProbeStore resolvedProbeStore, ITestProbeCreator testProbeCreator, ITestProbeActorCreator testProbeActorCreator, ITestProbeHandlersMapper handlersMapper, TestKitBase testKit, TestProbeResolverSettings settings)
         {
             _sutCreator = sutCreator;
             _childTeller = childTeller;
             _childWaiter = childWaiter;
             _resolvedProbeStore = resolvedProbeStore;
-            _actorFactory = actorFactory;
+            _actorCreator = testProbeActorCreator;
             _testKit = testKit;
             _handlers = handlersMapper.Map(settings.Handlers);
             Supervisor = testProbeCreator.Create(testKit);
@@ -72,10 +73,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
 
         private ActorBase Resolve(Type actorType)
         {
-            (ActorBase actor, ActorPath actorPath, TestProbe testProbe) = _actorFactory.Create(_testKit, actorType, _handlers);
-            _resolvedProbeStore.ResolveProbe(actorPath, actorType, testProbe);
+            ITestProbeActor probeActor = _actorCreator.Create(_testKit);
+            if (_handlers.ContainsKey(actorType))
+            {
+                probeActor.SetHandlers(_handlers[actorType]);
+            }
+            _resolvedProbeStore.ResolveProbe(probeActor.ActorPath, actorType, probeActor.TestProbe);
             _childWaiter.ResolvedChild();
-            return actor;
+            return probeActor.Actor;
         }
     }
 }
