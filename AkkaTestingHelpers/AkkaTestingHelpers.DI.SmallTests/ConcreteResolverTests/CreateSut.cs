@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Immutable;
+using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.TestActors;
 using FluentAssertions;
@@ -12,7 +14,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_CreateSutWithNullProps_ThrowsArgumentNullException()
         {
             //arrange   
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             Action act = () => sut.CreateSut<BlackHoleActor>(null, ExpectedChildrenCount);
@@ -25,7 +27,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_CreateSut_ReturnsCreatedActor()
         {
             //arrange   
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             TestActorRef<BlackHoleActor> result = sut.CreateSut<BlackHoleActor>(Props, ExpectedChildrenCount);
@@ -38,7 +40,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_CreateSutWithNoProps_ReturnsCreatedActor()
         {
             //arrange   
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             TestActorRef<BlackHoleActor> result = sut.CreateSut<BlackHoleActor>(ExpectedChildrenCount);

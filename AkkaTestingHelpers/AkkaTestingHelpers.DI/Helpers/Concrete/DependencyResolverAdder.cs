@@ -6,7 +6,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
-    internal class DependencyResolverAdder : IDependencyResolverAdder
+    internal sealed class DependencyResolverAdder : IDependencyResolverAdder
     {
         public void Add(TestKitBase testKit, Func<Type, ActorBase> actorFactory)
         {

@@ -14,6 +14,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
     internal class TestBase: TestKit
     {
+        protected Func<Type> GenerateType;
+
         protected Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
         protected Mock<ISutCreator> SutCreatorMock;
         protected Mock<IChildTeller> ChildTellerMock;
@@ -28,7 +30,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         protected List<string> CallOrder;
         protected ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> MappedHandlers;
 
-        protected TestProbeResolverSettings Settings;
+        protected ImmutableDictionary<(Type, Type), Func<object, object>> Handlers;
         protected Props Props;
         protected int ExpectedChildrenCount;
         protected object Message;
@@ -48,6 +50,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         [SetUp]
         public void Setup()
         {
+            GenerateType = TestUtils.RandomTypeGenerator();
+
             // Create mocks
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();
             SutCreatorMock = new Mock<ISutCreator>();
@@ -65,14 +69,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             MappedHandlers = ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>>.Empty;
 
             // Create objects passed into sut
-            Settings = TestProbeResolverSettings.Empty;
+            Handlers = ImmutableDictionary<(Type, Type), Func<object, object>>.Empty;
             Props = Props.Create<BlackHoleActor>();
             ExpectedChildrenCount = TestUtils.Create<int>();
             Message = TestUtils.Create<object>();
             ChildName = TestUtils.Create<string>();
             Recipient = new Mock<IActorRef>().Object;
             Sender = new Mock<IActorRef>().Object;
-            ResolvedType = TestUtils.RandomTypeGenerator()();
+            ResolvedType = GenerateType();
             ResolvedTestProbe = CreateTestProbe();
             Actor = new BlackHoleActor();
             ActorPath = TestUtils.Create<ActorPath>();
@@ -118,8 +122,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 .Returns(() => ResolvedTestProbe);
 
             TestProbeHandlersMapperMock
-                .Setup(mapper => mapper.Map(ImmutableDictionary<(Type, Type), Func<object, object>>.Empty))
-                .Returns(() => MappedHandlers);
+                .Setup(mapper => mapper.Map(Handlers))
+                .Returns((ImmutableDictionary<(Type, Type), Func<object, object>> handlers) => MappedHandlers);
 
             TestProbeActorCreatorMock
                 .Setup(creator => creator.Create(this))
@@ -139,6 +143,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         [TearDown]
         public void TearDown()
         {
+            GenerateType = null;
             DependencyResolverAdderMock = null;
             SutCreatorMock = null;
             ChildTellerMock = null;
@@ -173,6 +178,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 TestProbeActorCreatorMock.Object,
                 TestProbeHandlersMapperMock.Object,
                 this,
-                Settings);
+                Handlers);
     }
 }

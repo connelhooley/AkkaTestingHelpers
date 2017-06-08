@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit.TestActors;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
@@ -14,9 +15,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_ResolveChildInSettings_ReturnsActor()
         {
             //arrange
-            CreateConcreteResolver(ConcreteResolverSettings
+            CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>
                 .Empty
-                .Register(() => CreatedActor.UnderlyingActor));
+                .Add(typeof(BlackHoleActor), () => CreatedActor.UnderlyingActor));
 
             //act
             ActorBase result = ResolveActor(typeof(BlackHoleActor));
@@ -24,30 +25,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             //assert
             result.Should().BeSameAs(CreatedActor.UnderlyingActor);
         }
-
-        [Test]
-        public void ConcreteResolver_ResolveGenericChildInSettings_ReturnsActor()
-        {
-            //arrange
-            CreateConcreteResolver(ConcreteResolverSettings
-                .Empty
-                .Register<BlackHoleActor>());
-
-            //act
-            ActorBase result = ResolveActor(typeof(BlackHoleActor));
-
-            //assert
-            result.GetType().Should().Be<BlackHoleActor>();
-        }
-
-
+        
         [Test]
         public void ConcreteResolver_ResolveChildNotInSettings_ThrowsInvalidOperationException()
         {
             //arrange
-            CreateConcreteResolver(ConcreteResolverSettings
+            CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>
                 .Empty
-                .Register(() => CreatedActor.UnderlyingActor));
+                .Add(typeof(BlackHoleActor), () => CreatedActor.UnderlyingActor));
 
             //act
             Action act = () => ResolveActor(typeof(EchoActor));
@@ -60,9 +45,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_ResolveChildInSettings_ResolvesChildInWaiter()
         {
             //arrange
-            CreateConcreteResolver(ConcreteResolverSettings
+            CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>
                 .Empty
-                .Register(() => CreatedActor.UnderlyingActor));
+                .Add(typeof(BlackHoleActor), () => CreatedActor.UnderlyingActor));
 
             //act
             ResolveActor(typeof(BlackHoleActor));
@@ -77,9 +62,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_ResolveChildInSettings_ResolvesChildInWaiterAfterCallingFactory()
         {
             //arrange
-            CreateConcreteResolver(ConcreteResolverSettings
+            CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>
                 .Empty
-                .Register(() =>
+                .Add(typeof(BlackHoleActor), () =>
                 {
                     CallOrder.Add("Resolver");
                     return CreatedActor.UnderlyingActor;

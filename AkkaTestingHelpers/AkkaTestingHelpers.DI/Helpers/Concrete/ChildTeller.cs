@@ -4,7 +4,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
-    internal class ChildTeller : IChildTeller
+    internal sealed class ChildTeller : IChildTeller
     {
         public void TellMessage<TMessage>(IChildWaiter childWaiter, TestKitBase testKit, IActorRef recipient, TMessage message, int waitForChildrenCount, IActorRef sender = null)
         {

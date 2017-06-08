@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Immutable;
+using Akka.Actor;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -13,7 +15,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_TellMessageNoSenderWithNullRecipient_ThrowsArgumentNullException()
         {
             //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             Action act = () => sut.TellMessage(null, Message, ExpectedChildrenCount);
@@ -26,7 +28,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_TellMessageNoSenderWithNullMessage_ThrowsArgumentNullException()
         {
             //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             Action act = () => sut.TellMessage<object>(Recipient, null, ExpectedChildrenCount);
@@ -39,7 +41,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_TellMessageNoSenderWithNullRecipientAndMessage_ThrowsArgumentNullException()
         {
             //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             Action act = () => sut.TellMessage<object>(null, null, ExpectedChildrenCount);
@@ -52,7 +54,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_TellMessageFromSenderWithNullRecipient_ThrowsArgumentNullException()
         {
             //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             Action act = () => sut.TellMessage(null, Message, Sender, ExpectedChildrenCount);
@@ -65,7 +67,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_TellMessageFromSenderWithNullMessage_ThrowsArgumentNullException()
         {
             //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             Action act = () => sut.TellMessage<object>(Recipient, null, Sender, ExpectedChildrenCount);
@@ -78,7 +80,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_TellMessageFromSenderWithNullSender_ThrowsArgumentNullException()
         {
             //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             Action act = () => sut.TellMessage(Recipient, Message, null, ExpectedChildrenCount);
@@ -91,7 +93,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_TellMessageNoSenderWithNullRecipientAndMessageAndSender_ThrowsArgumentNullException()
         {
             //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             Action act = () => sut.TellMessage<object>(null, null, null, ExpectedChildrenCount);
@@ -104,7 +106,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_TellMessageSenderWithNullSender_ThrowsArgumentNullException()
         {
             //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             Action act = () => sut.TellMessage(Recipient, Message, null, ExpectedChildrenCount);
@@ -117,7 +119,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_TellMessageWithNullRecipientAndMessageAndSender_ThrowsArgumentNullException()
         {
             //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             Action act = () => sut.TellMessage<object>(null, null, null, ExpectedChildrenCount);
@@ -132,7 +134,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_TellMessageNoSender_TellsChild()
         {
             //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
@@ -147,7 +149,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         public void ConcreteResolver_TellMessageSender_TellsChild()
         {
             //arrange
-            ConcreteResolver sut = CreateConcreteResolver(ConcreteResolverSettings.Empty);
+            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
             //act
             sut.TellMessage(Recipient, Message, Sender, ExpectedChildrenCount);

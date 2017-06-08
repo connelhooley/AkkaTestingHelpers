@@ -17,7 +17,17 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         private readonly TestKitBase _testKit;
         private readonly ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> _handlers;
 
-        internal TestProbeResolver(IDependencyResolverAdder resolverAdder, ISutCreator sutCreator, IChildTeller childTeller, IChildWaiter childWaiter, IResolvedTestProbeStore resolvedProbeStore, ITestProbeCreator testProbeCreator, ITestProbeActorCreator testProbeActorCreator, ITestProbeHandlersMapper handlersMapper, TestKitBase testKit, TestProbeResolverSettings settings)
+        internal TestProbeResolver(
+            IDependencyResolverAdder resolverAdder, 
+            ISutCreator sutCreator, 
+            IChildTeller childTeller, 
+            IChildWaiter childWaiter, 
+            IResolvedTestProbeStore resolvedProbeStore, 
+            ITestProbeCreator testProbeCreator, 
+            ITestProbeActorCreator testProbeActorCreator, 
+            ITestProbeHandlersMapper handlersMapper, 
+            TestKitBase testKit, 
+            ImmutableDictionary<(Type, Type), Func<object, object>> handlers)
         {
             _sutCreator = sutCreator;
             _childTeller = childTeller;
@@ -25,7 +35,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             _resolvedProbeStore = resolvedProbeStore;
             _actorCreator = testProbeActorCreator;
             _testKit = testKit;
-            _handlers = handlersMapper.Map(settings.Handlers);
+            _handlers = handlersMapper.Map(handlers);
             Supervisor = testProbeCreator.Create(testKit);
             resolverAdder.Add(testKit, Resolve);
         }

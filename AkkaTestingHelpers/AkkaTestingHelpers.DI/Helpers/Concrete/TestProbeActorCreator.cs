@@ -5,7 +5,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
-    internal class TestProbeActorCreator : ITestProbeActorCreator
+    internal sealed class TestProbeActorCreator : ITestProbeActorCreator
     {
         public ITestProbeActor Create(TestKitBase testKit) => 
             new TestProbeActor(testKit);

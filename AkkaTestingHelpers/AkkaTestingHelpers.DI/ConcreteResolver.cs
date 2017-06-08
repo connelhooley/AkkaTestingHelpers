@@ -12,7 +12,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         private readonly IChildTeller _childTeller;
         private readonly IChildWaiter _childWaiter;
         private readonly TestKitBase _testKit;
-        private readonly IImmutableDictionary<Type, Func<ActorBase>> _factories;
+        private readonly ImmutableDictionary<Type, Func<ActorBase>> _factories;
 
         internal ConcreteResolver(
             IDependencyResolverAdder resolverAdder, 
@@ -20,13 +20,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             IChildTeller childTeller,
             IChildWaiter childWaiter, 
             TestKitBase testKit, 
-            ConcreteResolverSettings settings)
+            ImmutableDictionary<Type, Func<ActorBase>> factories)
         {
             _sutCreator = sutCreator;
             _childTeller = childTeller;
             _childWaiter = childWaiter;
             _testKit = testKit;
-            _factories = settings.Factories;
+            _factories = factories;
+
             resolverAdder.Add(testKit, Resolve);
         }
         

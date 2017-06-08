@@ -7,7 +7,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
-    internal class ResolvedTestProbeStore : IResolvedTestProbeStore
+    internal sealed class ResolvedTestProbeStore : IResolvedTestProbeStore
     {
         private readonly IDictionary<ActorPath, (Type, TestProbe)> _resolved;
 

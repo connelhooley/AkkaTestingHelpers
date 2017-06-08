@@ -26,7 +26,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 new TestProbeActorCreator(), 
                 new TestProbeHandlersMapper(), 
                 testKit,
-                this);
+                Handlers);
 
         public static TestProbeResolverSettings Empty =>
             new TestProbeResolverSettings(ImmutableDictionary<(Type, Type), Func<object, object>>.Empty);

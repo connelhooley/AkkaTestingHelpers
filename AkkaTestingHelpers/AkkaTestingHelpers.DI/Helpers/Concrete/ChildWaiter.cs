@@ -4,7 +4,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
-    internal class ChildWaiter : IChildWaiter
+    internal sealed class ChildWaiter : IChildWaiter
     {
         private readonly AutoResetEvent _waitingToStart = new AutoResetEvent(true);
         private TestLatch _waitForChildren;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.NUnit3;
@@ -19,7 +20,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         
         protected Func<Type, ActorBase> ResolveActor;
         protected List<string> CallOrder;
-
+        
         protected Props Props;
         protected int ExpectedChildrenCount;
         protected object Message;
@@ -88,13 +89,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             CreatedActorNoProps = null;
         }
 
-        public ConcreteResolver CreateConcreteResolver(ConcreteResolverSettings settings) => 
+        public ConcreteResolver CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>> factories) => 
             new ConcreteResolver(
                 DependencyResolverAdderMock.Object,
                 SutCreatorMock.Object,
                 ChildTellerMock.Object,
                 ChildWaiterMock.Object,
                 this,
-                settings);
+                factories);
     }
 }

@@ -4,7 +4,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
-    internal class SutCreator : ISutCreator
+    internal sealed class SutCreator : ISutCreator
     {
         public TestActorRef<TActor> Create<TActor>(IChildWaiter childWaiter, TestKitBase testKit, Props props, int expectedChildrenCount, IActorRef supervisor = null) where TActor : ActorBase
         {

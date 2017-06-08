@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using Akka.Actor;
@@ -15,7 +16,28 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests
         static TestUtils()
         {
             Fixture = new Fixture();
+            // ActorPath
             Fixture.Register(() => ActorPath.Parse($"akka://user/{Guid.NewGuid()}"));
+            
+            // Unmapped handlers
+            Fixture.Register(() => Fixture
+                .Create<Dictionary<(Type, Type), Func<object, object>>>()
+                .ToImmutableDictionary());
+
+            //Mapped handlers
+            Fixture.Register(() => Fixture
+                .Create<Dictionary<Type, Dictionary<Type, Func<object, object>>>>()
+                .Select(pair => new KeyValuePair<Type, ImmutableDictionary<Type, Func<object, object>>>(
+                    pair.Key, 
+                    pair.Value.ToImmutableDictionary()))
+                .ToImmutableDictionary());
+            Random = new Random();
+
+            //Just actor handlers
+            Fixture.Register(() => Fixture
+                .Create<Dictionary<Type, Func<object, object>>>()
+                .ToImmutableDictionary());
+
             Random = new Random();
         }
 

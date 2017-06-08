@@ -8,9 +8,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
 {
     public class ConcreteResolverSettings
     {
-        internal readonly IImmutableDictionary<Type, Func<ActorBase>> Factories;
+        internal readonly ImmutableDictionary<Type, Func<ActorBase>> Factories;
         
-        private ConcreteResolverSettings(IImmutableDictionary<Type, Func<ActorBase>> factories)
+        internal ConcreteResolverSettings(ImmutableDictionary<Type, Func<ActorBase>> factories)
         {
             Factories = factories;
         }
@@ -22,7 +22,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 new ChildTeller(), 
                 new ChildWaiter(), 
                 testKit, 
-                this);
+                Factories);
 
         public static ConcreteResolverSettings Empty => 
             new ConcreteResolverSettings(

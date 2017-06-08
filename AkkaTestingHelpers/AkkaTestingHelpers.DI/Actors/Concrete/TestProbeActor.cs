@@ -6,7 +6,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete
 {
-    internal class TestProbeActor : ReceiveActor, ITestProbeActor
+    internal sealed class TestProbeActor : ReceiveActor, ITestProbeActor
     {
         public TestProbeActor(TestKitBase testKit)
         {

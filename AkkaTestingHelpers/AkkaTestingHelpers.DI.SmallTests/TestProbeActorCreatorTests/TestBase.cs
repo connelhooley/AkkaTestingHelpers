@@ -9,7 +9,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorCreatorTes
     {
         protected Func<Type> GenerateType;
         protected Type ActorType;
-        protected Func<object, object> MessageHandler;
 
         [SetUp]
         public void SetUp()
@@ -22,6 +21,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorCreatorTes
         public void TearDown()
         {
             GenerateType = null;
+            ActorType = null;
         }
 
         protected TestProbeActorCreator CreateTestProbeActorFactory() => new TestProbeActorCreator();
