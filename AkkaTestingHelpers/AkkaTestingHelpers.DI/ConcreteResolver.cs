@@ -6,7 +6,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI
 {
-    public class ConcreteResolver
+    public sealed class ConcreteResolver
     {
         private readonly ISutCreator _sutCreator;
         private readonly IChildTeller _childTeller;

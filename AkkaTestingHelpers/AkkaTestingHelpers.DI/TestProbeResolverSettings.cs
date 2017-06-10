@@ -6,7 +6,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI
 {
-    public class TestProbeResolverSettings
+    public sealed class TestProbeResolverSettings
     {
         internal readonly ImmutableDictionary<(Type, Type), Func<object, object>> Handlers;
 

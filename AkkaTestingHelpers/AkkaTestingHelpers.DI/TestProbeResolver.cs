@@ -7,7 +7,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI
 {
-    public class TestProbeResolver
+    public sealed class TestProbeResolver
     {
         private readonly ISutCreator _sutCreator;
         private readonly IChildTeller _childTeller;
@@ -37,6 +37,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             _testKit = testKit;
             _handlers = handlersMapper.Map(handlers);
             Supervisor = testProbeCreator.Create(testKit);
+
             resolverAdder.Add(testKit, Resolve);
         }
 

@@ -6,7 +6,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI
 {
-    public class ConcreteResolverSettings
+    public sealed class ConcreteResolverSettings
     {
         internal readonly ImmutableDictionary<Type, Func<ActorBase>> Factories;
         

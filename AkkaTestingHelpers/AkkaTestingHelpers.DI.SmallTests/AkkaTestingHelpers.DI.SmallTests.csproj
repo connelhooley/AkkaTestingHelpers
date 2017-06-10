@@ -104,6 +104,11 @@
     <Compile Include="SutCreatorTests\TestBase.cs" />
     <Compile Include="TestProbeActorCreatorTests\Create.cs" />
     <Compile Include="TestProbeActorCreatorTests\TestBase.cs" />
+    <Compile Include="TestProbeActorTests\Actor.cs" />
+    <Compile Include="TestProbeActorTests\ActorPath.cs" />
+    <Compile Include="TestProbeActorTests\SetHandlers.cs" />
+    <Compile Include="TestProbeActorTests\TestBase.cs" />
+    <Compile Include="TestProbeActorTests\TestProbe.cs" />
     <Compile Include="TestProbeCreatorTests\Create.cs" />
     <Compile Include="TestProbeCreatorTests\TestBase.cs" />
     <Compile Include="TestProbeHandlersMapperTests\Map.cs" />
