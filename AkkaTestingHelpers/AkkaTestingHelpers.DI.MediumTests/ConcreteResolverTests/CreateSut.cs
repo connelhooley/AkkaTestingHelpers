@@ -49,7 +49,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 
             //assert
             actor.Tell(new object());
-            dependancyMock.Verify(dependancy => dependancy.SetResut(ChildActor.Token), Times.Exactly(childCount));
+            AwaitAssert(() =>
+                dependancyMock.Verify(
+                    dependancy => dependancy.SetResut(ChildActor.Token), 
+                    Times.Exactly(childCount)));
         }
 
         [Test]
@@ -104,7 +107,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 
             //assert
             actor.Tell(new object());
-            dependancyMock.Verify(dependancy => dependancy.SetResut(ChildActor.Token), Times.Exactly(childCount));
+            AwaitAssert(() => 
+                dependancyMock.Verify(
+                    dependancy => dependancy.SetResut(ChildActor.Token), 
+                    Times.Exactly(childCount)));
         }
     }
 }
