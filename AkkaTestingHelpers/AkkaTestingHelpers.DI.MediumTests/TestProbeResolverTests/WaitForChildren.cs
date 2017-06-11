@@ -1,7 +1,58 @@
-﻿namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
+﻿using System;
+using System.Linq;
+using Akka.Actor;
+using Akka.TestKit;
+using Akka.TestKit.NUnit3;
+using FluentAssertions;
+using NUnit.Framework;
+
+namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 {
-    public class WaitForChildren
+    public class WaitForChildren : TestKit
     {
-        
+        public WaitForChildren() : base(@"akka.test.timefactor = 0.6") { }
+
+        [Test]
+        public void TestProbeResolver_WaitsForChildrenCreatedWhenProcessingMessages()
+        {
+            //arrange
+            const int initialChildCount = 2;
+            const int additionalChildCount = 5;
+            Type childType = typeof(ReplyChildActor1);
+            Guid message = Guid.NewGuid();
+            TestProbeResolver sut = TestProbeResolverSettings
+                .Empty
+                .RegisterHandler<ReplyChildActor1, Guid>(guid => guid)
+                .CreateResolver(this);
+            TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(childType, initialChildCount)), initialChildCount);
+
+            //act
+            sut.TellMessage(actor, new CreateChildren(childType, additionalChildCount), additionalChildCount);
+
+            //assert
+            actor.Tell(new TellAllChildren(message));
+            ExpectMsgAllOf(Enumerable
+                .Repeat(message, initialChildCount + additionalChildCount)
+                .ToArray());
+        }
+
+        [Test]
+        public void TestProbeResolver_TimesoutWhenWaitingForChildrenWithAnExpectedChildCountThatIsTooHigh()
+        {
+            //arrange
+            const int initialChildCount = 2;
+            const int moreChildCount = 5;
+            Type childType = typeof(ReplyChildActor1);
+            TestProbeResolver sut = TestProbeResolverSettings
+                .Empty
+                .CreateResolver(this);
+            TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(childType, initialChildCount)), initialChildCount);
+            
+            //act
+            Action act = () => sut.TellMessage(actor, new CreateChildren(childType, moreChildCount), moreChildCount + 1);
+
+            //assert
+            act.ShouldThrow<TimeoutException>();
+        }
     }
 }

@@ -70,7 +70,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
         }
 
         [Test]
-        public void ConcreteResolver_TimesOutWhenCHildrenCountIsTooHigh()
+        public void ConcreteResolver_TimesOutWhenChildrenCountIsTooHigh()
         {
             //arrange
             const int childCount = 5;

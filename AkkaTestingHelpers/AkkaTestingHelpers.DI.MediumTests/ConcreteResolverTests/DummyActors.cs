@@ -5,6 +5,8 @@ using Akka.DI.Core;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 {
+    #region Parent actor to be resolved by resolver
+
     public class ParentActor : ReceiveActor
     {
         private int _childName;
@@ -32,6 +34,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
         }
     }
 
+    #endregion
+
+    #region Child actors to be resolved by resolver
+
     public class ChildActor : ReceiveActor
     {
         public static Guid Token = Guid.NewGuid();
@@ -51,8 +57,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 
     public class EmptyChildActor : ReceiveActor { }
 
+    #endregion
+
+    #region Interface to be mocked and injected into children
+
     public interface IDependancy
     {
         void SetResut(object message);
     }
+
+    #endregion
 }
