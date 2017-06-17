@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26228.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.DI", "AkkaTestingHelpers.DI\AkkaTestingHelpers.DI.csproj", "{9D580F8E-32C5-48F7-B3A9-4BFEC3F5AD79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.Assertions", "AkkaTestingHelpers.Assertions\AkkaTestingHelpers.Assertions.csproj", "{EAB6CF03-85B8-413D-93E1-BE7B710693CA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.DI.SmallTests", "AkkaTestingHelpers.DI.SmallTests\AkkaTestingHelpers.DI.SmallTests.csproj", "{307381B8-1DD1-4877-8A09-EB86A91721EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.DI.MediumTests", "AkkaTestingHelpers.DI.MediumTests\AkkaTestingHelpers.DI.MediumTests.csproj", "{86CE1CF8-FA51-49C7-90F5-7DEA58FABCDB}"
@@ -21,10 +19,6 @@ Global
 		{9D580F8E-32C5-48F7-B3A9-4BFEC3F5AD79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D580F8E-32C5-48F7-B3A9-4BFEC3F5AD79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D580F8E-32C5-48F7-B3A9-4BFEC3F5AD79}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EAB6CF03-85B8-413D-93E1-BE7B710693CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAB6CF03-85B8-413D-93E1-BE7B710693CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAB6CF03-85B8-413D-93E1-BE7B710693CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAB6CF03-85B8-413D-93E1-BE7B710693CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
