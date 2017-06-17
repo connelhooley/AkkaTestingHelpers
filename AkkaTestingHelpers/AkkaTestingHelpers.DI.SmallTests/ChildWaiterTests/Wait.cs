@@ -74,10 +74,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             sut.Start(this, 0);
 
             //act
-            sut.Wait();
+            Action act = () => sut.Wait();
 
             //assert
-            //timeout attribute
+            Within(TestKitSettings.DefaultTimeout, act);
         }
 
         [Test, Timeout(2000)]
@@ -88,10 +88,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             sut.Start(this, TestUtils.RandomBetween(int.MinValue, -1));
 
             //act
-            sut.Wait();
+            Action act = () => sut.Wait();
 
             //assert
-            //timeout attribute
+            Within(TestKitSettings.DefaultTimeout, act);
         }
         
         [Test, Timeout(2000)]
@@ -111,13 +111,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
                     sut.ResolvedChild();
                 });
             });
-
-
-            //act
-            sut.Wait();
             
+            //act
+            Action act = () => sut.Wait();
+
             //assert
-            //timeout attribute
+            Within(TestKitSettings.DefaultTimeout, act);
         }
     }
 }
