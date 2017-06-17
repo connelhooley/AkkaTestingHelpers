@@ -51,7 +51,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             });
 
             //assert
-            AwaitAssert(() => isSecondStartRan.Should().BeFalse());
+            this.Sleep(TestKitSettings.DefaultTimeout);
+            isSecondStartRan.Should().BeFalse();
         }
 
         [Test, Timeout(2000)]
@@ -60,6 +61,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             //arrange
             ChildWaiter sut = CreateChildWaiter();
             int expectedChildrenCount = TestUtils.RandomBetween(0, 5);
+            //int expectedChildrenCount = 5;
             bool isSecondStartRan = false;
             sut.Start(this, expectedChildrenCount);
 
@@ -69,11 +71,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
                 sut.Start(this, TestUtils.RandomBetween(0, 5));
                 isSecondStartRan = true;
             });
-            
+            this.Sleep(50); //ensures start is called before continuing
+
             //assert
             Task.Run(() =>
             {
-                this.Sleep(new TimeSpan(TestKitSettings.DefaultTimeout.Ticks / 3));
                 Parallel.For(0, expectedChildrenCount, i =>
                 {
                     sut.ResolvedChild();
