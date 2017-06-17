@@ -18,6 +18,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         protected object Reply2;
         protected Dictionary<Type, Func<object, object>> Handlers;
 
+        public TestBase() : base(AkkaConfig.Config) { }
+
         [SetUp]
         public void SetUp()
         {

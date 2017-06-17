@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using NUnit.Framework;
 
@@ -8,7 +7,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
     internal class TestBase
     {
         private Func<Type> _typeGenerator;
-
+        
         [SetUp]
         public void SetUp()
         {

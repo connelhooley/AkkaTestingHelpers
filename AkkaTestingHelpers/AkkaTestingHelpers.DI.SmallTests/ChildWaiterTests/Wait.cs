@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
@@ -9,7 +8,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 {
     internal class Wait : TestBase
     {
-        [Test]
+        [Test, Timeout(2000)]
         public void ChildWaiter_NotStarted_Wait_DoesNotThrowAnyExceptions()
         {
             //arrange
@@ -22,7 +21,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             act.ShouldNotThrow();
         }
 
-        [Test]
+        [Test, Timeout(2000)]
         public void ChildWaiter_Started_Wait_ThrowsTimeoutExceptionWhenChildrenAreNotResolved()
         {
             //arrange
@@ -31,7 +30,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             sut.Start(this, expectedChildrenCount);
             Task.Run(() =>
             {
-                Thread.Sleep(100);
+                this.Sleep(new TimeSpan(TestKitSettings.DefaultTimeout.Ticks / 2));
                 Parallel.For(0, expectedChildrenCount-1, i => sut.ResolvedChild());
             });
 
@@ -42,7 +41,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             act.ShouldThrow<TimeoutException>();
         }
 
-        [Test]
+        [Test, Timeout(2000)]
         public void ChildWaiter_Started_Wait_BlockThreadUntilChildrenAreResolved()
         {
             //arrange
@@ -52,7 +51,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             sut.Start(this, expectedChildrenCount);
             Task.Run(() =>
             {
-                Thread.Sleep(100);
+                this.Sleep(new TimeSpan(TestKitSettings.DefaultTimeout.Ticks / 2));
                 Parallel.For(0, expectedChildrenCount, i =>
                 {
                     resolvedChildrenCount++;
@@ -67,8 +66,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             resolvedChildrenCount.Should().Be(expectedChildrenCount);
         }
 
-        [Test]
-        [Timeout(500)]
+        [Test, Timeout(2000)]
         public void ChildWaiter_StartedWithNoExpectedChildren_Wait_DoesNotBlockThread()
         {
             //arrange
@@ -82,8 +80,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             //timeout attribute
         }
 
-        [Test]
-        [Timeout(500)]
+        [Test, Timeout(2000)]
         public void ChildWaiter_StartedWithNegativeExpectedChildren_Wait_DoesNotBlockThread()
         {
             //arrange
@@ -96,9 +93,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             //assert
             //timeout attribute
         }
-
-        [Test]
-        [Timeout(500)]
+        
+        [Test, Timeout(2000)]
         public void ChildWaiter_Waited_Wait_BlockThreads()
         {
             //arrange
@@ -109,12 +105,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             sut.Start(this, expectedChildrenCount);
             Task.Run(() =>
             {
-                Thread.Sleep(100);
+                this.Sleep(new TimeSpan(TestKitSettings.DefaultTimeout.Ticks / 2));
                 Parallel.For(0, expectedChildrenCount, i =>
                 {
                     sut.ResolvedChild();
                 });
             });
+
 
             //act
             sut.Wait();

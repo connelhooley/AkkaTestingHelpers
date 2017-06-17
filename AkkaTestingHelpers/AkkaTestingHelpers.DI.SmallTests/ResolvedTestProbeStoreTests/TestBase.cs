@@ -8,6 +8,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
 {
     internal class TestBase : TestKit
     {
+        public TestBase() : base(AkkaConfig.Config) { }
+
         public ResolvedTestProbeStore CreateResolvedTestProbeStore() => new ResolvedTestProbeStore();
 
         public (ActorPath, Type, TestProbe, string) CreateChildVariables()

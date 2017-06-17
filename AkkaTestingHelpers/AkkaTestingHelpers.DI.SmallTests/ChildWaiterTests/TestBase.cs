@@ -5,7 +5,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 {
     internal class TestBase : TestKit
     {
-        public TestBase(): base(@"akka.test.timefactor = 0.6") { }
+        public TestBase() : base(AkkaConfig.Config) { }
 
         protected ChildWaiter CreateChildWaiter() => new ChildWaiter();
     }

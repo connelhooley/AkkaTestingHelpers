@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
@@ -9,7 +8,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 {
     internal class Start : TestBase
     {
-        [Test]
+        [Test, Timeout(2000)]
         public void ChildWaiter_StartWithNullTestKitBase_ThrowsArgumentNullException()
         {
             //arrange
@@ -22,7 +21,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Test, Timeout(2000)]
         public void ChildWaiter_Start_DoesNotThrowAnyExceptions()
         {
             //arrange
@@ -35,8 +34,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             act.ShouldNotThrow();
         }
         
-        [Test]
-        [Timeout(2000)]
+        [Test, Timeout(2000)]
         public void ChildWaiter_Started_Start_ShouldBlockThread()
         {
             //arrange
@@ -51,14 +49,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
                 sut.Start(this, TestUtils.RandomBetween(0, 5));
                 isSecondStartRan = true;
             });
-            
+
             //assert
-            Thread.Sleep(100);
-            isSecondStartRan.Should().BeFalse();
+            AwaitAssert(() => isSecondStartRan.Should().BeFalse());
         }
 
-        [Test]
-        [Timeout(2000)]
+        [Test, Timeout(2000)]
         public void ChildWaiter_Started_Start_ShouldUnblockThreadWhenFirstStartsChildrenAreResolved()
         {
             //arrange
@@ -77,15 +73,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             //assert
             Task.Run(() =>
             {
-                Thread.Sleep(100);
+                this.Sleep(new TimeSpan(TestKitSettings.DefaultTimeout.Ticks / 2));
                 Parallel.For(0, expectedChildrenCount, i =>
                 {
                     sut.ResolvedChild();
                 });
             }); 
             sut.Wait();
-            Thread.Sleep(50);
-            isSecondStartRan.Should().BeTrue();
+            AwaitAssert(() => isSecondStartRan.Should().BeTrue());
         }
     }
 }

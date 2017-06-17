@@ -46,7 +46,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         protected ActorBase Actor;
         protected ActorPath ActorPath;
         protected TestProbe ActorTestProbe;
-        
+
+        public TestBase() : base(AkkaConfig.Config) { }
+
         [SetUp]
         public void Setup()
         {

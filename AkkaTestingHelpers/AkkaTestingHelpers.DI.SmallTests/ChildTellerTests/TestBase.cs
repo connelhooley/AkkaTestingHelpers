@@ -21,6 +21,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         protected IActorRef Recipient;
         protected IActorRef Sender;
 
+        public TestBase(): base(AkkaConfig.Config) { }
+
         [SetUp]
         public void Setup()
         {

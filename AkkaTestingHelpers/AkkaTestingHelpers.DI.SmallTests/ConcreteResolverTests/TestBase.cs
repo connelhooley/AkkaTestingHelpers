@@ -30,6 +30,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         protected TestActorRef<BlackHoleActor> CreatedActor;
         protected TestActorRef<BlackHoleActor> CreatedActorNoProps;
 
+        public TestBase() : base(AkkaConfig.Config) { }
+
         [SetUp]
         public void Setup()
         {

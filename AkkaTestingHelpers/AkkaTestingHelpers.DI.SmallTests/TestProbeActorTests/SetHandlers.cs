@@ -47,7 +47,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
 
             //assert
             sut.Tell(TestUtils.Create<object>());
-            ExpectNoMsg(100);
+            ExpectNoMsg();
         }
 
         [Test]

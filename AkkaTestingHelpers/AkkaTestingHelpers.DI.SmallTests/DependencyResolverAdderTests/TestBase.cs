@@ -6,6 +6,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
 {
     internal class TestBase : TestKit
     {
+        public TestBase() : base(AkkaConfig.Config) { }
+
         protected DependencyResolverAdder CreateDependencyResolverAdder() => new DependencyResolverAdder();
 
         protected class DummyActor : ReceiveActor { }

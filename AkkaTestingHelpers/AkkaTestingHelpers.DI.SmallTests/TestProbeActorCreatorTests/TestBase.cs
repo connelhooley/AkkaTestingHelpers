@@ -5,6 +5,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorCreatorTes
 {
     internal class TestBase : TestKit
     {
+        public TestBase() : base(AkkaConfig.Config) { }
+
         protected TestProbeActorCreator CreateTestProbeActorFactory() => new TestProbeActorCreator();
     }
 }

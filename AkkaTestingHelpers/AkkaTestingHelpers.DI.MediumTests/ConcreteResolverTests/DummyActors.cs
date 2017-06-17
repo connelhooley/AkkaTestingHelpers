@@ -6,7 +6,7 @@ using Akka.DI.Core;
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 {
     #region Parent actor to be resolved by resolver
-
+    
     public class ParentActor : ReceiveActor
     {
         private int _childName;

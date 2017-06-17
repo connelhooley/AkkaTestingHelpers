@@ -19,6 +19,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
         protected IActorRef Supervisor;
         protected List<string> CallOrder;
 
+        public TestBase() : base(AkkaConfig.Config) { }
+
         [SetUp]
         public void SetUp()
         {
