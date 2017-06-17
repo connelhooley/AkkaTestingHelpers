@@ -73,12 +73,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             //assert
             Task.Run(() =>
             {
-                this.Sleep(new TimeSpan(TestKitSettings.DefaultTimeout.Ticks / 2));
+                this.Sleep(new TimeSpan(TestKitSettings.DefaultTimeout.Ticks / 3));
                 Parallel.For(0, expectedChildrenCount, i =>
                 {
                     sut.ResolvedChild();
                 });
-            }); 
+            });
             sut.Wait();
             AwaitAssert(() => isSecondStartRan.Should().BeTrue());
         }
