@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>ConnelHooley.AkkaTestingHelpers.DI</id>
+    <id>$id$</id>
     <version>$version$</version>
-    <title>Akka TestKit Dependancy Injection Helpers</title>
-    <authors>Connel Hooley</authors>
-    <owners>Connel Hooley</owners>
+    <title>$title$</title>
+    <authors>$author$</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Akka DependencyResolver that mocks child Actors into Stubs or TestProbes.</description>
-    <copyright>Copyright Connel Hooley 2017</copyright>
+    <description>$description$</description>
+    <copyright>$copyright$</copyright>
     <tags>akka unit testing ioc dependancy injection</tags>
   </metadata>
 </package>
