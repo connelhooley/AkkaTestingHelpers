@@ -8,10 +8,9 @@ using NUnit.Framework;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 {
-    [Ignore("Needs fixing for build server")]
-    public class CreateSut : TestKit
+    internal class CreateSut : TestKit
     {
-        public CreateSut() : base(@"akka.test.timefactor = 0.6") { }
+        public CreateSut() : base(AkkaConfig.Config) { }
         
         [Test]
         public void TestProbeResolver_CreatesChildrenWithNoReplies()

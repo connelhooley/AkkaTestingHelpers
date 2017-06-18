@@ -8,10 +8,9 @@ using NUnit.Framework;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 {
-    [Ignore("Needs fixing for build server")]
-    public class WaitForChildren : TestKit
+    internal class WaitForChildren : TestKit
     {
-        public WaitForChildren() : base(@"akka.test.timefactor = 0.6") { }
+        public WaitForChildren() : base(AkkaConfig.Config) { }
 
         [Test]
         public void TestProbeResolver_WaitsForChildrenCreatedWhenProcessingMessages()

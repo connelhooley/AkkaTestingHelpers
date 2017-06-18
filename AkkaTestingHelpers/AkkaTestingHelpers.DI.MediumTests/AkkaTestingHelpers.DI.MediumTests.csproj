@@ -80,6 +80,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AkkaConfig.cs" />
     <Compile Include="ConcreteResolverTests\CreateSut.cs" />
     <Compile Include="ConcreteResolverTests\DummyActors.cs" />
     <Compile Include="ConcreteResolverTests\WaitForChildren.cs" />

@@ -61,7 +61,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             //arrange
             ChildWaiter sut = CreateChildWaiter();
             int expectedChildrenCount = TestUtils.RandomBetween(0, 5);
-            //int expectedChildrenCount = 5;
             bool isSecondStartRan = false;
             sut.Start(this, expectedChildrenCount);
 

@@ -32,7 +32,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests
                     pair.Key, 
                     pair.Value.ToImmutableDictionary()))
                 .ToImmutableDictionary());
-            Random = new Random();
 
             //Just actor handlers
             Fixture.Register(() => Fixture

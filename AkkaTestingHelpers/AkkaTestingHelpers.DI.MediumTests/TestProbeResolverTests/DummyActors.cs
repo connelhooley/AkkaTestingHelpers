@@ -7,7 +7,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 {
     #region Parent actor to be resolved by resolver
 
-    public class ParentActor : ReceiveActor
+    internal class ParentActor : ReceiveActor
     {
         public ParentActor()
         {
@@ -45,12 +45,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             }
         }
     }
-    
-    #endregion 
+
+    #endregion
 
     #region Child actors to be resolved by resolver
 
-    public class ReplyChildActor1 : ReceiveActor
+    internal class ReplyChildActor1 : ReceiveActor
     {
         public ReplyChildActor1()
         {
@@ -59,7 +59,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
         }
     }
 
-    public class ReplyChildActor2 : ReceiveActor
+    internal class ReplyChildActor2 : ReceiveActor
     {
         public ReplyChildActor2()
         {
@@ -72,7 +72,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 
     #region Messages to be sent to parent actors to drive tests
 
-    public class CreateChildren
+    internal class CreateChildren
     {
         public Type Type { get; }
         public int Count { get; }
@@ -84,7 +84,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
         }
     }
 
-    public class CreateChild
+    internal class CreateChild
     {
         public string Name { get; }
         public Type Type { get; }
@@ -96,7 +96,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
         }
     }
 
-    public class TellAllChildren
+    internal class TellAllChildren
     {
         public object Message { get; }
 
@@ -106,7 +106,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
         }
     }
 
-    public class TellChild
+    internal class TellChild
     {
         public string Name { get; }
         public object Message { get; }
@@ -118,7 +118,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
         }
     }
 
-    public class TellParent
+    internal class TellParent
     {
         public object Message { get; }
 
