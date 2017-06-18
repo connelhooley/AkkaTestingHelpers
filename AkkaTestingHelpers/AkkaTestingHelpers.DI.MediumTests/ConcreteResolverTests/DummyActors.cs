@@ -13,7 +13,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 
         public ParentActor(int initalCount)
         {
-            Thread.Sleep(100);
+            Thread.Sleep(5);
             CreateChildren(initalCount);
             Receive<int>(count => CreateChildren(count));
             ReceiveAny(o =>
@@ -44,13 +44,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 
         public ChildActor()
         {
-            Thread.Sleep(100);
+            Thread.Sleep(5);
             ReceiveAny(o => Context.Sender.Tell(Token));
         }
 
         public ChildActor(IDependancy dependancy)
         {
-            Thread.Sleep(100);
+            Thread.Sleep(5);
             ReceiveAny(o => dependancy.SetResut(Token));
         }
     }
@@ -61,7 +61,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 
     #region Interface to be mocked and injected into children
 
-    internal interface IDependancy
+    public interface IDependancy
     {
         void SetResut(object message);
     }

@@ -38,10 +38,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
             //arrange
             const int childCount = 5;
             Mock<IDependancy> dependancyMock = new Mock<IDependancy>();
+            IDependancy dependancyMockInstance = dependancyMock.Object;
             ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
                 .Register<EmptyChildActor>()
-                .Register(() => new ChildActor(dependancyMock.Object))
+                .Register(() => new ChildActor(dependancyMockInstance))
                 .CreateResolver(this);
 
             //act
@@ -95,11 +96,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
             //arrange
             const int childCount = 5;
             Mock<IDependancy> dependancyMock = new Mock<IDependancy>();
+            IDependancy dependancyMockInstance = dependancyMock.Object;
             ConcreteResolver sut = ConcreteResolverSettings
                 .Empty
                 .Register<EmptyChildActor>()
                 .Register<ChildActor>()
-                .Register(() => new ChildActor(dependancyMock.Object))
+                .Register(() => new ChildActor(dependancyMockInstance))
                 .CreateResolver(this);
 
             //act
