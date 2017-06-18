@@ -11,13 +11,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
     {
         public ParentActor()
         {
-            Thread.Sleep(100);
+            Thread.Sleep(5);
             Become(Ready);
         }
 
         public ParentActor(Type initalChildrenType, int initalChildrenCount)
         {
-            Thread.Sleep(100);
+            Thread.Sleep(5);
             CreateChildren(initalChildrenType, initalChildrenCount);
             Become(Ready);
         }
@@ -54,7 +54,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
     {
         public ReplyChildActor1()
         {
-            Thread.Sleep(100);
+            Thread.Sleep(5);
             ReceiveAny(o => Context.Sender.Tell(0));
         }
     }
@@ -63,7 +63,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
     {
         public ReplyChildActor2()
         {
-            Thread.Sleep(100);
+            Thread.Sleep(5);
             ReceiveAny(o => Context.Sender.Tell(0));
         }
     }
