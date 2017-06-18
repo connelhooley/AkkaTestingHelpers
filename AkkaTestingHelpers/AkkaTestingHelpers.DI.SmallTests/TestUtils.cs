@@ -16,6 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests
         static TestUtils()
         {
             Fixture = new Fixture();
+
             // ActorPath
             Fixture.Register(() => ActorPath.Parse($"akka://user/{Guid.NewGuid()}"));
             
