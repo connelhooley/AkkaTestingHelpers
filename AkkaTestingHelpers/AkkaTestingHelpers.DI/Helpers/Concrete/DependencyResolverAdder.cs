@@ -39,8 +39,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
                 throw new NotImplementedException();
 
             [ExcludeFromCodeCoverage]
-            void IDependencyResolver.Release(ActorBase actor) =>
-                throw new NotImplementedException();
+            void IDependencyResolver.Release(ActorBase actor) { }
         }
     }
 }
