@@ -5,7 +5,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
 {
-    internal class Actor : TestBase
+    public class Actor : TestBase
     {
         [Fact]
         public void TestProbeActor_Actror_ReturnsActor()

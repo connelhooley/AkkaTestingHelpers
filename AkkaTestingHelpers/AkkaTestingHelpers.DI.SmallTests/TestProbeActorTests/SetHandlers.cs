@@ -7,7 +7,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
 {
-    internal class SetHandlers : TestBase
+    public class SetHandlers : TestBase
     {
         [Fact]
         public void TestProbeActor_SetHandlersWithNullHandlers_ThrowsArgumentNullException()

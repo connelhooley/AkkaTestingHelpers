@@ -5,7 +5,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
 {
-    internal class ActorPath : TestBase
+    public class ActorPath : TestBase
     {
         [Fact]
         public void TestProbeActor_ActorPath_ReturnsCorrectActorPath()

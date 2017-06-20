@@ -4,7 +4,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
-    internal class Supervisor : TestBase
+    public class Supervisor : TestBase
     {
         [Fact]
         public void TestProbeResolver_Supervisor_ReturnsSupervisor()

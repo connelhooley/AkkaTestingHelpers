@@ -4,7 +4,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
-    internal class ResolvedType : TestBase
+    public class ResolvedType : TestBase
     {
         [Fact]
         public void TestProbeResolver_ResolvedTypeWithNullParentActor_ThrowsArgumentNullException()

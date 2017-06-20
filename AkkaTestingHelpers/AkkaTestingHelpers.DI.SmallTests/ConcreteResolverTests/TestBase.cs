@@ -10,24 +10,24 @@ using Moq;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
-    internal class TestBase: TestKit
+    public class TestBase: TestKit
     {
-        protected Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
-        protected Mock<ISutCreator> SutCreatorMock;
-        protected Mock<IChildTeller> ChildTellerMock;
-        protected Mock<IChildWaiter> ChildWaiterMock;
+        internal Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
+        internal Mock<ISutCreator> SutCreatorMock;
+        internal Mock<IChildTeller> ChildTellerMock;
+        internal Mock<IChildWaiter> ChildWaiterMock;
         
-        protected Func<Type, ActorBase> ResolveActor;
-        protected List<string> CallOrder;
+        internal Func<Type, ActorBase> ResolveActor;
+        internal List<string> CallOrder;
         
-        protected Props Props;
-        protected int ExpectedChildrenCount;
-        protected object Message;
-        protected IActorRef Recipient;
-        protected IActorRef Sender;
-        protected string ChildName;
-        protected TestActorRef<BlackHoleActor> CreatedActor;
-        protected TestActorRef<BlackHoleActor> CreatedActorNoProps;
+        internal Props Props;
+        internal int ExpectedChildrenCount;
+        internal object Message;
+        internal IActorRef Recipient;
+        internal IActorRef Sender;
+        internal string ChildName;
+        internal TestActorRef<BlackHoleActor> CreatedActor;
+        internal TestActorRef<BlackHoleActor> CreatedActorNoProps;
 
         public TestBase() : base(AkkaConfig.Config)
         {

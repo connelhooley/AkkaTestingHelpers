@@ -7,7 +7,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeCreatorTests
 {
-    internal class Create : TestBase
+    public class Create : TestBase
     {
         [Fact]
         public void TestProbeCreator_CreateWithNullTestKitBase_ThrowsArgumentNullException()

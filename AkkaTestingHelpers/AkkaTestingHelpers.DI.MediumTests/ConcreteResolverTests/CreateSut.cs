@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 {
-    internal class CreateSut : TestKit
+    public class CreateSut : TestKit
     {
         public CreateSut(): base(AkkaConfig.Config) { }
 

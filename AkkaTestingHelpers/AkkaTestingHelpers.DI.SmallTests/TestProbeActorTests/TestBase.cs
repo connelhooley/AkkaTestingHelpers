@@ -4,19 +4,18 @@ using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete;
-using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
 {
-    internal class TestBase : TestKit
+    public class TestBase : TestKit
     {
-        protected object Message1;
-        protected Type Type1;
-        protected object Reply1;
-        protected object Message2;
-        protected Type Type2;
-        protected object Reply2;
-        protected Dictionary<Type, Func<object, object>> Handlers;
+        internal object Message1;
+        internal Type Type1;
+        internal object Reply1;
+        internal object Message2;
+        internal Type Type2;
+        internal object Reply2;
+        internal Dictionary<Type, Func<object, object>> Handlers;
 
         public TestBase() : base(AkkaConfig.Config)
         {
@@ -34,7 +33,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
             };
         }
         
-        protected TestActorRef<TestProbeActor> CreateTestProbeActor() => 
+        internal TestActorRef<TestProbeActor> CreateTestProbeActor() => 
             ActorOfAsTestActorRef<TestProbeActor>(
                 Props.Create(() => new TestProbeActor(this)),
                 TestUtils.Create<string>());

@@ -6,13 +6,13 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTests
 {
-    internal class TestBase : TestKit
+    public class TestBase : TestKit
     {
         public TestBase() : base(AkkaConfig.Config) { }
 
-        public ResolvedTestProbeStore CreateResolvedTestProbeStore() => new ResolvedTestProbeStore();
+        internal ResolvedTestProbeStore CreateResolvedTestProbeStore() => new ResolvedTestProbeStore();
 
-        public (ActorPath, Type, TestProbe, string) CreateChildVariables()
+        internal (ActorPath, Type, TestProbe, string) CreateChildVariables()
         {
             string name = TestUtils.Create<string>();
             ActorPath path = TestActor.Path.Child(name);

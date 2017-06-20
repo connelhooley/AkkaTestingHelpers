@@ -10,7 +10,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
 {
-    internal class Create : TestBase
+    public class Create : TestBase
     {
         [Fact]
         public void SutCreator_CreateWithNullChildWatcher_ThrowsArgumentNullException()

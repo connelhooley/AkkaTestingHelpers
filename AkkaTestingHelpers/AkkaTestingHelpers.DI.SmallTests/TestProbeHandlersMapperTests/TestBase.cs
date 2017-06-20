@@ -1,10 +1,9 @@
 ﻿using System;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
-using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperTests
 {
-    internal class TestBase
+    public class TestBase
     {
         private readonly Func<Type> _typeGenerator;
 
@@ -13,12 +12,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
             _typeGenerator = TestUtils.RandomTypeGenerator();
         }
 
-        protected (Type, Type, Func<object, object>) CreateSettingsHandler()
+        internal (Type, Type, Func<object, object>) CreateSettingsHandler()
         {
             return (_typeGenerator(), _typeGenerator(), TestUtils.Create<Func<object, object>>());
         }
 
-        protected TestProbeHandlersMapper CreateTestProbeHandlersMapper() => 
+        internal TestProbeHandlersMapper CreateTestProbeHandlersMapper() => 
             new TestProbeHandlersMapper();
     }
 }

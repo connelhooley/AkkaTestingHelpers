@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
-    internal class ResolveChild : TestBase
+    public class ResolveChild : TestBase
     {
         [Fact]
         public void ConcreteResolver_ResolveChildInSettings_ReturnsActor()

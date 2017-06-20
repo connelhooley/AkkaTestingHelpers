@@ -6,7 +6,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 {
-    internal class Wait : TestBase
+    public class Wait : TestBase
     {
         [Fact]
         public void ChildWaiter_NotStarted_Wait_DoesNotThrowAnyExceptions()

@@ -7,18 +7,18 @@ using Moq;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
 {
-    internal class TestBase : TestKit
+    public class TestBase : TestKit
     {
-        protected Mock<IChildWaiter> ChildWaiterMock;
-        protected Mock<IActorRef> RecipientMock;
+        internal Mock<IChildWaiter> ChildWaiterMock;
+        internal Mock<IActorRef> RecipientMock;
 
-        protected List<string> CallOrder;
+        internal List<string> CallOrder;
 
-        protected IChildWaiter ChildWaiter;
-        protected int ExpectedChildrenCount;
-        protected object Message;
-        protected IActorRef Recipient;
-        protected IActorRef Sender;
+        internal IChildWaiter ChildWaiter;
+        internal int ExpectedChildrenCount;
+        internal object Message;
+        internal IActorRef Recipient;
+        internal IActorRef Sender;
 
         public TestBase() : base(AkkaConfig.Config)
         {
@@ -55,6 +55,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
                 .Callback(() => CallOrder.Add(nameof(IActorRef.Tell) + "Sender"));
         }
         
-        protected ChildTeller CreateChildTeller() => new ChildTeller();
+        internal ChildTeller CreateChildTeller() => new ChildTeller();
     }
 }

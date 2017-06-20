@@ -8,7 +8,7 @@ using MappedHandlers = System.Collections.Immutable.ImmutableDictionary<System.T
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperTests
 {
-    internal class Map : TestBase
+    public class Map : TestBase
     {
         [Fact]
         public void TestProbeHandlersMapper_MapWithNullSettingsHandlers_ThrowsArgumentNullException()

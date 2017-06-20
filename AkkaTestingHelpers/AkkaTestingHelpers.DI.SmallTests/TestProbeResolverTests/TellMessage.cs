@@ -5,7 +5,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
-    internal class TellMessage : TestBase
+    public class TellMessage : TestBase
     {
         [Fact]
         public void TestProbeResolver_TellMessageNoSenderWithNullRecipient_ThrowsArgumentNullException()

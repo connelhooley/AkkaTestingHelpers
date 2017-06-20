@@ -9,14 +9,14 @@ using Moq;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
 {
-    internal class TestBase : TestKit
+    public class TestBase : TestKit
     {
-        protected Mock<IChildWaiter> ChildWaiterMock;
-        protected IChildWaiter ChildWaiter;
-        protected Props Props;
-        protected int ExpectedChildCount;
-        protected IActorRef Supervisor;
-        protected List<string> CallOrder;
+        internal Mock<IChildWaiter> ChildWaiterMock;
+        internal IChildWaiter ChildWaiter;
+        internal Props Props;
+        internal int ExpectedChildCount;
+        internal IActorRef Supervisor;
+        internal List<string> CallOrder;
 
         public TestBase() : base(AkkaConfig.Config)
         {
@@ -35,9 +35,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             ExpectedChildCount = TestUtils.Create<int>();
         }
 
-        protected SutCreator CreateSutCreator() => new SutCreator();
+        internal SutCreator CreateSutCreator() => new SutCreator();
 
-        protected class DummyActor: ReceiveActor
+        public class DummyActor: ReceiveActor
         {
             public IActorRef Supervisor { get; }
 

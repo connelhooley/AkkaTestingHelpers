@@ -8,7 +8,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 {
-    internal class WaitForChildren : TestKit
+    public class WaitForChildren : TestKit
     {
         public WaitForChildren() : base(AkkaConfig.Config) { }
 

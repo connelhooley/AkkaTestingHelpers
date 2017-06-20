@@ -10,7 +10,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
-    internal class ResolveChild : TestBase
+    public class ResolveChild : TestBase
     {
         [Fact]
         public void TestProbeResolver_Resolve_ReturnsActorFromTestProbeActor()

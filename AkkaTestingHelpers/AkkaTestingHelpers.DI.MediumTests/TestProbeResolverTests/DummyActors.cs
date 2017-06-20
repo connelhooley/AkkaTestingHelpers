@@ -7,7 +7,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 {
     #region Parent actor to be resolved by resolver
 
-    internal class ParentActor : ReceiveActor
+    public class ParentActor : ReceiveActor
     {
         public ParentActor()
         {
@@ -50,7 +50,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 
     #region Child actors to be resolved by resolver
 
-    internal class ReplyChildActor1 : ReceiveActor
+    public class ReplyChildActor1 : ReceiveActor
     {
         public ReplyChildActor1()
         {
@@ -59,7 +59,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
         }
     }
 
-    internal class ReplyChildActor2 : ReceiveActor
+    public class ReplyChildActor2 : ReceiveActor
     {
         public ReplyChildActor2()
         {
@@ -72,7 +72,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 
     #region Messages to be sent to parent actors to drive tests
 
-    internal class CreateChildren
+    public class CreateChildren
     {
         public Type Type { get; }
         public int Count { get; }
@@ -84,7 +84,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
         }
     }
 
-    internal class CreateChild
+    public class CreateChild
     {
         public string Name { get; }
         public Type Type { get; }
@@ -96,7 +96,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
         }
     }
 
-    internal class TellAllChildren
+    public class TellAllChildren
     {
         public object Message { get; }
 
@@ -106,7 +106,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
         }
     }
 
-    internal class TellChild
+    public class TellChild
     {
         public string Name { get; }
         public object Message { get; }
@@ -118,7 +118,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
         }
     }
 
-    internal class TellParent
+    public class TellParent
     {
         public object Message { get; }
 

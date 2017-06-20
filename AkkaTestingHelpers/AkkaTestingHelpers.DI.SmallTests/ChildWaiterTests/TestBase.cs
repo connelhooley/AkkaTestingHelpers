@@ -3,10 +3,10 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 {
-    internal class TestBase : TestKit
+    public class TestBase : TestKit
     {
         public TestBase() : base(AkkaConfig.Config) { }
 
-        protected ChildWaiter CreateChildWaiter() => new ChildWaiter();
+        internal ChildWaiter CreateChildWaiter() => new ChildWaiter();
     }
 }

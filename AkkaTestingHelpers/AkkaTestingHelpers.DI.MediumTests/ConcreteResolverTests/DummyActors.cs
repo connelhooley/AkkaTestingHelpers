@@ -7,7 +7,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 {
     #region Parent actor to be resolved by resolver
 
-    internal class ParentActor : ReceiveActor
+    public class ParentActor : ReceiveActor
     {
         private int _childName;
 
@@ -38,7 +38,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 
     #region Child actors to be resolved by resolver
 
-    internal class ChildActor : ReceiveActor
+    public class ChildActor : ReceiveActor
     {
         public static Guid Token = Guid.NewGuid();
 
@@ -55,7 +55,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
         }
     }
 
-    internal class EmptyChildActor : ReceiveActor { }
+    public class EmptyChildActor : ReceiveActor { }
 
     #endregion
 

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
-    internal class CreateSut : TestBase
+    public class CreateSut : TestBase
     {
         [Fact]
         public void TestProbeResolver_CreateSutWithNullProps_ThrowsArgumentNullException()

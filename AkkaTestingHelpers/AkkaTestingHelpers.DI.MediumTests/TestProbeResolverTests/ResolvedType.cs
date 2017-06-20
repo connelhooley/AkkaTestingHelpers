@@ -8,7 +8,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 {
-    internal class ResolvedType : TestKit
+    public class ResolvedType : TestKit
     {
         public ResolvedType() : base(AkkaConfig.Config) { }
 

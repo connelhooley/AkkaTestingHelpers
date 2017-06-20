@@ -7,7 +7,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
-    internal class TellMessage : TestBase
+    public class TellMessage : TestBase
     {
         #region null checks
 

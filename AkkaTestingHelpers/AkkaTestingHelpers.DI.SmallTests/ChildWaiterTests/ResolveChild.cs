@@ -5,7 +5,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 {
-    internal class ResolveChild : TestBase
+    public class ResolveChild : TestBase
     {
         [Fact]
         public void ChildWaiter_NotStarted_ResolveChild_DoesNotThrowAnyExceptions()

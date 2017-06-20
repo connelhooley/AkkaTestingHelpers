@@ -6,7 +6,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTests
 {
-    internal class ResolveProbe : TestBase
+    public class ResolveProbe : TestBase
     {
         [Fact]
         public void ResolvedTestProbeRepository_ResolveProbeWithNullActorPath_ThrowsArgumentNullException()

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 {
-    internal class Start : TestBase
+    public class Start : TestBase
     {
         [Fact]
         public void ChildWaiter_StartWithNullTestKitBase_ThrowsArgumentNullException()

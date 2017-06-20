@@ -11,40 +11,40 @@ using Moq;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
-    internal class TestBase: TestKit
+    public class TestBase: TestKit
     {
-        protected Func<Type> GenerateType;
+        internal Func<Type> GenerateType;
 
-        protected Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
-        protected Mock<ISutCreator> SutCreatorMock;
-        protected Mock<IChildTeller> ChildTellerMock;
-        protected Mock<IChildWaiter> ChildWaiterMock;
-        protected Mock<ITestProbeCreator> TestProbeCreatorMock;
-        protected Mock<IResolvedTestProbeStore> ResolvedTestProbeStoreMock;
-        protected Mock<ITestProbeActorCreator> TestProbeActorCreatorMock;
-        protected Mock<ITestProbeHandlersMapper> TestProbeHandlersMapperMock;
-        protected Mock<ITestProbeActor> TestProbeActorMock;
+        internal Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
+        internal Mock<ISutCreator> SutCreatorMock;
+        internal Mock<IChildTeller> ChildTellerMock;
+        internal Mock<IChildWaiter> ChildWaiterMock;
+        internal Mock<ITestProbeCreator> TestProbeCreatorMock;
+        internal Mock<IResolvedTestProbeStore> ResolvedTestProbeStoreMock;
+        internal Mock<ITestProbeActorCreator> TestProbeActorCreatorMock;
+        internal Mock<ITestProbeHandlersMapper> TestProbeHandlersMapperMock;
+        internal Mock<ITestProbeActor> TestProbeActorMock;
         
-        protected Func<Type, ActorBase> ResolveActor;
-        protected List<string> CallOrder;
-        protected ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> MappedHandlers;
+        internal Func<Type, ActorBase> ResolveActor;
+        internal List<string> CallOrder;
+        internal ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> MappedHandlers;
 
-        protected ImmutableDictionary<(Type, Type), Func<object, object>> Handlers;
-        protected Props Props;
-        protected int ExpectedChildrenCount;
-        protected object Message;
-        protected IActorRef Recipient;
-        protected IActorRef Sender;
-        protected string ChildName;
-        protected TestProbe Supervisor;
-        protected TestActorRef<BlackHoleActor> CreatedActor;
-        protected TestActorRef<BlackHoleActor> CreatedActorNoProps;
-        protected Type ResolvedType;
-        protected TestProbe ResolvedTestProbe;
-        protected ITestProbeActor TestProbeActor;
-        protected ActorBase Actor;
-        protected ActorPath ActorPath;
-        protected TestProbe ActorTestProbe;
+        internal ImmutableDictionary<(Type, Type), Func<object, object>> Handlers;
+        internal Props Props;
+        internal int ExpectedChildrenCount;
+        internal object Message;
+        internal IActorRef Recipient;
+        internal IActorRef Sender;
+        internal string ChildName;
+        internal TestProbe Supervisor;
+        internal TestActorRef<BlackHoleActor> CreatedActor;
+        internal TestActorRef<BlackHoleActor> CreatedActorNoProps;
+        internal Type ResolvedType;
+        internal TestProbe ResolvedTestProbe;
+        internal ITestProbeActor TestProbeActor;
+        internal ActorBase Actor;
+        internal ActorPath ActorPath;
+        internal TestProbe ActorTestProbe;
 
         public TestBase() : base(AkkaConfig.Config)
         {
@@ -138,7 +138,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 .Returns(() => Actor);
         }
         
-        public TestProbeResolver CreateTestProbeResolver() => 
+        internal TestProbeResolver CreateTestProbeResolver() => 
             new TestProbeResolver(
                 DependencyResolverAdderMock.Object,
                 SutCreatorMock.Object,

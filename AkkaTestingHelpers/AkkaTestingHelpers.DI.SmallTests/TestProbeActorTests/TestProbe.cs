@@ -5,7 +5,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
 {
-    internal class TestProbe : TestBase
+    public class TestProbe : TestBase
     {
         [Fact]
         public void TestProbeActor_TestProbe_ReturnedTestProbeIsForwardedMessages()

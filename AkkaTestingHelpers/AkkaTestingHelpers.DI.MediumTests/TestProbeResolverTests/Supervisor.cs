@@ -6,7 +6,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 {
-    internal class Supervisor : TestKit
+    public class Supervisor : TestKit
     {
         public Supervisor() : base(AkkaConfig.Config) { }
 

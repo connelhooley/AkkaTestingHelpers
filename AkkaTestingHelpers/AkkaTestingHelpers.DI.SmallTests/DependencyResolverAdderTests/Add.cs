@@ -11,7 +11,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderTests
 {
-    internal class Add : TestBase
+    public class Add : TestBase
     {
         [Fact]
         public void DependencyResolverAdder_AddWithNullTestKitBase_ThrowsArgumentNullException()

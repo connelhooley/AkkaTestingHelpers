@@ -8,7 +8,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
-    internal class CreateSut : TestBase
+    public class CreateSut : TestBase
     {
         [Fact]
         public void ConcreteResolver_CreateSutWithNullProps_ThrowsArgumentNullException()
