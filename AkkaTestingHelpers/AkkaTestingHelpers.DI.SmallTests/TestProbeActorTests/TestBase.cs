@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.NUnit3;
+using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
 {
@@ -18,11 +18,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         protected object Reply2;
         protected Dictionary<Type, Func<object, object>> Handlers;
 
-        public TestBase() : base(AkkaConfig.Config) { }
-
-        [SetUp]
-        public void SetUp()
+        public TestBase() : base(AkkaConfig.Config)
         {
+            
             Message1 = new ExampleMessage1();
             Type1 = typeof(ExampleMessage1);
             Reply1 = TestUtils.Create<object>();
@@ -35,19 +33,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
                 { Type2, o => Reply2 }
             };
         }
-
-        [TearDown]
-        public void TearDown()
-        {
-            Message1 = null;
-            Type1 = null;
-            Reply1 = null;
-            Message2 = null;
-            Type2 = null;
-            Reply2 = null;
-            Handlers = null;
-        }
-
+        
         protected TestActorRef<TestProbeActor> CreateTestProbeActor() => 
             ActorOfAsTestActorRef<TestProbeActor>(
                 Props.Create(() => new TestProbeActor(this)),

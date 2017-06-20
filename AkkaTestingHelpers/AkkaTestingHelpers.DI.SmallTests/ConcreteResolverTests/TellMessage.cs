@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using Akka.Actor;
 using FluentAssertions;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
@@ -11,7 +11,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
     {
         #region null checks
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_TellMessageNoSenderWithNullRecipient_ThrowsArgumentNullException()
         {
             //arrange
@@ -24,7 +24,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_TellMessageNoSenderWithNullMessage_ThrowsArgumentNullException()
         {
             //arrange
@@ -37,7 +37,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
         
-        [Test]
+        [Fact]
         public void ConcreteResolver_TellMessageNoSenderWithNullRecipientAndMessage_ThrowsArgumentNullException()
         {
             //arrange
@@ -50,7 +50,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_TellMessageFromSenderWithNullRecipient_ThrowsArgumentNullException()
         {
             //arrange
@@ -63,7 +63,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_TellMessageFromSenderWithNullMessage_ThrowsArgumentNullException()
         {
             //arrange
@@ -76,7 +76,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_TellMessageFromSenderWithNullSender_ThrowsArgumentNullException()
         {
             //arrange
@@ -89,7 +89,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_TellMessageNoSenderWithNullRecipientAndMessageAndSender_ThrowsArgumentNullException()
         {
             //arrange
@@ -102,7 +102,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_TellMessageSenderWithNullSender_ThrowsArgumentNullException()
         {
             //arrange
@@ -115,7 +115,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_TellMessageWithNullRecipientAndMessageAndSender_ThrowsArgumentNullException()
         {
             //arrange
@@ -130,7 +130,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 
         #endregion
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_TellMessageNoSender_TellsChild()
         {
             //arrange
@@ -145,7 +145,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
                 Times.Once);
         }
         
-        [Test]
+        [Fact]
         public void ConcreteResolver_TellMessageSender_TellsChild()
         {
             //arrange

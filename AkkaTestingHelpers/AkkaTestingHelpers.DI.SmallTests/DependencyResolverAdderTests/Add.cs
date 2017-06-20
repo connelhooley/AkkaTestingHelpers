@@ -7,13 +7,13 @@ using Akka.TestKit;
 using Akka.TestKit.TestActors;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderTests
 {
     internal class Add : TestBase
     {
-        [Test]
+        [Fact]
         public void DependencyResolverAdder_AddWithNullTestKitBase_ThrowsArgumentNullException()
         {
             //arrange
@@ -26,7 +26,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void DependencyResolverAdder_AddWithNullActorFactory_ThrowsArgumentNullException()
         {
             //arrange
@@ -39,7 +39,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void DependencyResolverAdder_AddWithNullTestKitBaseAndActorFactory_ThrowsArgumentNullException()
         {
             //arrange
@@ -52,7 +52,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void DependencyResolverAdder_Add_ResultOfFactoryIsUsedToCreateActors()
         {
             //arrange
@@ -67,7 +67,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
             result.UnderlyingActor.Should().BeSameAs(actor);
         }
 
-        [Test]
+        [Fact]
         public void DependencyResolverAdder_Add_FactoryIsGivenCorrectType()
         {
             //arrange
@@ -87,7 +87,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
             actual.Should().Be<DummyActor>();
         }
 
-        [Test]
+        [Fact]
         public void DependencyResolverAdder_Add_LatestFactoryIsUsed()
         {
             //arrange

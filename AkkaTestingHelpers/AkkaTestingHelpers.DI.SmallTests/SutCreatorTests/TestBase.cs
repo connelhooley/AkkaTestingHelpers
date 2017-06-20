@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.NUnit3;
+using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using Moq;
-using NUnit.Framework;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
 {
@@ -19,10 +18,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
         protected IActorRef Supervisor;
         protected List<string> CallOrder;
 
-        public TestBase() : base(AkkaConfig.Config) { }
-
-        [SetUp]
-        public void SetUp()
+        public TestBase() : base(AkkaConfig.Config)
         {
             CallOrder = new List<string>();
             ChildWaiterMock = new Mock<IChildWaiter>();
@@ -37,17 +33,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             Props = Props.Create(() => new DummyActor(updateChildCreated));
             Supervisor = CreateTestProbe();
             ExpectedChildCount = TestUtils.Create<int>();
-        }
-        
-        [TearDown]
-        public void TearDown()
-        {
-            ChildWaiterMock = null;
-            ChildWaiter = null;
-            CallOrder = null;
-            Props = null;
-            ExpectedChildCount = default(int);
-            Supervisor = null;
         }
 
         protected SutCreator CreateSutCreator() => new SutCreator();

@@ -2,13 +2,13 @@
 using Akka.Actor;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTests
 {
     internal class ResolveProbe : TestBase
     {
-        [Test]
+        [Fact]
         public void ResolvedTestProbeRepository_ResolveProbeWithNullActorPath_ThrowsArgumentNullException()
         {
             //arrange
@@ -24,7 +24,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ResolvedTestProbeRepository_ResolveProbeWithNullType_ThrowsArgumentNullException()
         {
             //arrange
@@ -40,7 +40,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ResolvedTestProbeRepository_ResolveProbeWithNullTestProbe_ThrowsArgumentNullException()
         {
             //arrange
@@ -56,7 +56,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ResolvedTestProbeRepository_ResolveProbeWithNullActorPathAndTypeAndTestProbe_ThrowsArgumentNullException()
         {
             //arrange
@@ -70,7 +70,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
         }
 
 
-        [Test]
+        [Fact]
         public void ResolvedTestProbeRepository_ResolveProbe_DoesNotThrowException()
         {
             //arrange

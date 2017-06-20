@@ -2,9 +2,9 @@
 using System.Linq;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.NUnit3;
+using Akka.TestKit.Xunit2;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 {
@@ -12,7 +12,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
     {
         public CreateSut() : base(AkkaConfig.Config) { }
         
-        [Test]
+        [Fact]
         public void TestProbeResolver_CreatesChildrenWithNoReplies()
         {
             //arrange
@@ -31,7 +31,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             ExpectNoMsg();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_CreatesChildrenWithReplies()
         {
             //arrange
@@ -57,7 +57,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             );
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_TimesOutWhenChildrenCountIsTooHigh()
         {
             //arrange
@@ -74,7 +74,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             act.ShouldThrow<TimeoutException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_UsesLatestHandler()
         {
             //arrange

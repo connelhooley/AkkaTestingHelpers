@@ -3,13 +3,13 @@ using Akka.Actor;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTests
 {
     internal class FindResolvedTestProbe : TestBase
     {
-        [Test]
+        [Fact]
         public void ResolvedTestProbeStore_FindResolvedTestProbeWithNullParentRef_ThrowsArgumentNullException()
         {
             //arrange
@@ -23,7 +23,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ResolvedTestProbeStore_FindResolvedTestProbeWithNullChildName_ThrowsArgumentNullException()
         {
             //arrange
@@ -36,7 +36,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ResolvedTestProbeStore_FindResolvedTestProbeWithNullParentRefAndChildName_ThrowsArgumentNullException()
         {
             //arrange
@@ -49,7 +49,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ResolvedTestProbeStore_NoActorsAreResolved_FindResolvedTestProbe_ThrowsActorNotFoundException()
         {
             //arrange
@@ -63,7 +63,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             act.ShouldThrow<ActorNotFoundException>().WithMessage($"No child has been resolved for the path '{path}'");
         }
 
-        [Test]
+        [Fact]
         public void ResolvedTestProbeStore_SingleActorIsResolved_FindResolvedTestProbeWithNameThatHasNotBeenResolved_ThrowsActorNotFoundException()
         {
             //arrange
@@ -79,7 +79,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             act.ShouldThrow<ActorNotFoundException>().WithMessage($"No child has been resolved for the path '{path2}'");
         }
 
-        [Test]
+        [Fact]
         public void ResolvedTestProbeStore_SingleActorIsResolved_FindResolvedTestProbeWithNameThatHasBeenResolved_ReturnsCorrectTestProbe()
         {
             //arrange
@@ -94,7 +94,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             result.Should().Be(probe);
         }
         
-        [Test]
+        [Fact]
         public void ResolvedTestProbeStore_MultipleActorsAreResolved_FindResolvedTestProbeWithNameThatHasBeenResolved_ReturnsCorrectTestProbe()
         {
             //arrange
@@ -113,7 +113,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             result.Should().Be(probe2);
         }
 
-        [Test]
+        [Fact]
         public void ResolvedTestProbeStore_MultipleActorsAreResolved_FindResolvedTestProbeWithNameThatHasNotBeenResolved_ThrowsActorNotFoundException()
         {
             //arrange

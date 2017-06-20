@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Akka.Actor;
-using Akka.TestKit.NUnit3;
+using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using Moq;
-using NUnit.Framework;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
 {
@@ -21,10 +20,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         protected IActorRef Recipient;
         protected IActorRef Sender;
 
-        public TestBase(): base(AkkaConfig.Config) { }
-
-        [SetUp]
-        public void Setup()
+        public TestBase() : base(AkkaConfig.Config)
         {
             // Create mocks
             ChildWaiterMock = new Mock<IChildWaiter>();
@@ -58,22 +54,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
                 .Setup(waiter => waiter.Tell(Message, Sender))
                 .Callback(() => CallOrder.Add(nameof(IActorRef.Tell) + "Sender"));
         }
-
-        [TearDown]
-        public void TearDown()
-        {
-            ChildWaiterMock = null;
-            RecipientMock = null;
-
-            CallOrder = null;
-
-            ChildWaiter = null;
-            ExpectedChildrenCount = default(int);
-            Message = null;
-            Recipient = null;
-            Sender = null;
-        }
-
+        
         protected ChildTeller CreateChildTeller() => new ChildTeller();
     }
 }

@@ -2,9 +2,9 @@
 using System.Linq;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.NUnit3;
+using Akka.TestKit.Xunit2;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 {
@@ -12,7 +12,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
     {
         public WaitForChildren(): base(AkkaConfig.Config) { }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_WaitsForChildrenCreatedWhenProcessingMessages()
         {
             //arrange
@@ -33,7 +33,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
             ExpectMsgAllOf(Enumerable.Repeat(ChildActor.Token, initialChildCount + moreChildCount).ToArray());
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_TimesoutWhenWaitingForChildrenWithAnExpectedChildCountThatIsTooHigh()
         {
             //arrange

@@ -2,13 +2,13 @@
 using Akka.TestKit;
 using Akka.TestKit.TestActors;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
     internal class CreateSut : TestBase
     {
-        [Test]
+        [Fact]
         public void TestProbeResolver_CreateSutWithNullProps_ThrowsArgumentNullException()
         {
             //arrange   
@@ -21,7 +21,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_CreateSut_ReturnsCreatedActor()
         {
             //arrange   
@@ -34,7 +34,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             result.Should().BeSameAs(CreatedActor);
         }
         
-        [Test]
+        [Fact]
         public void TestProbeResolver_CreateSutWithNoProps_ReturnsCreatedActor()
         {
             //arrange   

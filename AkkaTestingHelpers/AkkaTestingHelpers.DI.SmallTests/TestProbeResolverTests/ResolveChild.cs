@@ -6,13 +6,13 @@ using Akka.TestKit.TestActors;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using FluentAssertions;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
     internal class ResolveChild : TestBase
     {
-        [Test]
+        [Fact]
         public void TestProbeResolver_Resolve_ReturnsActorFromTestProbeActor()
         {
             //arrange
@@ -25,7 +25,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             result.Should().BeSameAs(Actor);
         }
         
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolveChild_ResolvesChildInWaiter()
         {
             //arrange
@@ -40,7 +40,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 Times.Once);
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolveChild_ResolvesChildInStoreBeforeResolvingChildInWaiter()
         {
             //arrange
@@ -53,7 +53,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             CallOrder.Should().ContainInOrder(nameof(IResolvedTestProbeStore.ResolveProbe), nameof(IChildWaiter.ResolvedChild));
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolveChildWithoutHandlers_NoHandlersAreSet()
         {
             //arrange
@@ -77,7 +77,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 Times.Never);
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolveChildWithHandlers_CorrectHandlersAreSet()
         {
             //arrange

@@ -3,13 +3,13 @@ using ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorCreatorTests
 {
     internal class Create : TestBase
     {
-        [Test]
+        [Fact]
         public void TestProbeActorCreator_CreateWithNullTestKitBase_ThrowsArgumentNullException()
         {
             //arrange
@@ -22,7 +22,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorCreatorTes
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeActorCreator_Create_ReturnsTestProbeActor()
         {
             //arrange
@@ -35,7 +35,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorCreatorTes
             result.Should().BeOfType<TestProbeActor>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeActorCreator_Create_UsesCorrectTestKitSettings()
         {
             //arrange

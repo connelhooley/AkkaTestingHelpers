@@ -1,12 +1,12 @@
 ﻿using System;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
     internal class ResolvedType : TestBase
     {
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolvedTypeWithNullParentActor_ThrowsArgumentNullException()
         {
             //arrange
@@ -19,7 +19,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolvedTypeWithNullChildName_ThrowsArgumentNullException()
         {
             //arrange
@@ -32,7 +32,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolvedTypeWithNullParentActorAndChildName_ThrowsArgumentNullException()
         {
             //arrange
@@ -45,7 +45,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolvedType_ReturnsCorrectProbe()
         {
             //arrange

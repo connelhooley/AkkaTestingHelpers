@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.NUnit3;
+using Akka.TestKit.Xunit2;
 using Akka.TestKit.TestActors;
 using ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using Moq;
-using NUnit.Framework;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
@@ -47,10 +46,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         protected ActorPath ActorPath;
         protected TestProbe ActorTestProbe;
 
-        public TestBase() : base(AkkaConfig.Config) { }
-
-        [SetUp]
-        public void Setup()
+        public TestBase() : base(AkkaConfig.Config)
         {
             GenerateType = TestUtils.RandomTypeGenerator();
 
@@ -96,14 +92,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 {
                     ResolveActor = resolveActor;
                 });
-            
+
             SutCreatorMock
                 .Setup(creator => creator.Create<BlackHoleActor>(ChildWaiterMock.Object, this, Props, ExpectedChildrenCount, Supervisor))
                 .Returns(() => CreatedActor);
             SutCreatorMock
                 .Setup(creator => creator.Create<BlackHoleActor>(ChildWaiterMock.Object, this, It.Is<Props>(props => !ReferenceEquals(props, Props) && props.Equals(Props.Create<BlackHoleActor>())), ExpectedChildrenCount, Supervisor))
                 .Returns(() => CreatedActorNoProps);
-            
+
             ChildWaiterMock
                 .Setup(waiter => waiter.ResolvedChild())
                 .Callback(() => CallOrder.Add(nameof(IChildWaiter.ResolvedChild)));
@@ -141,34 +137,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 .SetupGet(actor => actor.Actor)
                 .Returns(() => Actor);
         }
-
-        [TearDown]
-        public void TearDown()
-        {
-            GenerateType = null;
-            DependencyResolverAdderMock = null;
-            SutCreatorMock = null;
-            ChildTellerMock = null;
-            ChildWaiterMock = null;
-            TestProbeCreatorMock = null;
-            ResolvedTestProbeStoreMock = null;
-            TestProbeActorCreatorMock = null;
-            TestProbeHandlersMapperMock = null;
-            CallOrder = null;
-            Supervisor = null;
-            Props = null;
-            ExpectedChildrenCount = default(int);
-            Message = null;
-            ChildName = null;
-            Recipient = null;
-            Sender = null;
-            CreatedActor = null;
-            CreatedActorNoProps = null;
-            Actor = null;
-            ActorPath = null;
-            ActorTestProbe = null;
-        }
-
+        
         public TestProbeResolver CreateTestProbeResolver() => 
             new TestProbeResolver(
                 DependencyResolverAdderMock.Object,

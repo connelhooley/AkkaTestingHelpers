@@ -5,13 +5,13 @@ using Akka.TestKit.TestActors;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using FluentAssertions;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
     internal class ResolveChild : TestBase
     {
-        [Test]
+        [Fact]
         public void ConcreteResolver_ResolveChildInSettings_ReturnsActor()
         {
             //arrange
@@ -26,7 +26,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             result.Should().BeSameAs(CreatedActor.UnderlyingActor);
         }
         
-        [Test]
+        [Fact]
         public void ConcreteResolver_ResolveChildNotInSettings_ThrowsInvalidOperationException()
         {
             //arrange
@@ -41,7 +41,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             act.ShouldThrow<InvalidOperationException>();
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_ResolveChildInSettings_ResolvesChildInWaiter()
         {
             //arrange
@@ -58,7 +58,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
                 Times.Once);
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_ResolveChildInSettings_ResolvesChildInWaiterAfterCallingFactory()
         {
             //arrange

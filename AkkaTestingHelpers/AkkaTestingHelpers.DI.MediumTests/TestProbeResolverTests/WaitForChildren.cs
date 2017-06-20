@@ -2,9 +2,9 @@
 using System.Linq;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.NUnit3;
+using Akka.TestKit.Xunit2;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 {
@@ -12,7 +12,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
     {
         public WaitForChildren() : base(AkkaConfig.Config) { }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_WaitsForChildrenCreatedWhenProcessingMessages()
         {
             //arrange
@@ -36,7 +36,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
                 .ToArray());
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_TimesoutWhenWaitingForChildrenWithAnExpectedChildCountThatIsTooHigh()
         {
             //arrange

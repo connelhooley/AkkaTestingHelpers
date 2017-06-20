@@ -1,7 +1,7 @@
 ﻿using System;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 using SettingsHandlers = System.Collections.Immutable.ImmutableDictionary<(System.Type, System.Type), System.Func<object, object>>;
 using MappedMessageHandlers = System.Collections.Immutable.ImmutableDictionary<System.Type, System.Func<object, object>>;
 using MappedHandlers = System.Collections.Immutable.ImmutableDictionary<System.Type, System.Collections.Immutable.ImmutableDictionary<System.Type, System.Func<object, object>>>;
@@ -10,7 +10,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
 {
     internal class Map : TestBase
     {
-        [Test]
+        [Fact]
         public void TestProbeHandlersMapper_MapWithNullSettingsHandlers_ThrowsArgumentNullException()
         {
             //arrange
@@ -23,7 +23,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
             act.ShouldThrow<ArgumentNullException>();
         }
         
-        [Test]
+        [Fact]
         public void TestProbeHandlersMapper_MapNoActors_ReturnsEmptyResult()
         {
             //arrange
@@ -36,7 +36,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
             result.Should().BeEmpty();
         }
         
-        [Test]
+        [Fact]
         public void TestProbeHandlersMapper_MapASingleActorWithASingleHandler_ReturnsCorrectResult()
         {
             //arrange
@@ -53,7 +53,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
                     .Add(message, handler)));
         }
 
-        [Test]
+        [Fact]
         public void TestProbeHandlersMapper_MapASingleActorWithMultipleHandlers_ReturnsCorrectResult()
         {
             //arrange
@@ -73,7 +73,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
                     .Add(message2, handler2)));
         }
 
-        [Test]
+        [Fact]
         public void TestProbeHandlersMapper_MapMultipleActorsWithSingleHandlers_ReturnsCorrectResult()
         {
             //arrange
@@ -94,7 +94,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
                     .Add(message2, handler2)));
         }
 
-        [Test]
+        [Fact]
         public void TestProbeHandlersMapper_MapMultipleActorsWithMultipleHandlers_ReturnsCorrectResult()
         {
             //arrange
@@ -124,7 +124,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
                     .Add(message5, handler5)));
         }
 
-        [Test]
+        [Fact]
         public void TestProbeHandlersMapper_MapASingleActorWithASingleHandlerAndAnActorWithMultipleHandlers_ReturnsCorrectResult()
         {
             //arrange

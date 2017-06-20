@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.NUnit3;
+using Akka.TestKit.Xunit2;
 using Akka.TestKit.TestActors;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using Moq;
-using NUnit.Framework;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
@@ -30,10 +29,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         protected TestActorRef<BlackHoleActor> CreatedActor;
         protected TestActorRef<BlackHoleActor> CreatedActorNoProps;
 
-        public TestBase() : base(AkkaConfig.Config) { }
-
-        [SetUp]
-        public void Setup()
+        public TestBase() : base(AkkaConfig.Config)
         {
             // Create mocks
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();
@@ -73,24 +69,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
                 .Setup(waiter => waiter.ResolvedChild())
                 .Callback(() => CallOrder.Add(nameof(IChildWaiter.ResolvedChild)));
         }
-
-        [TearDown]
-        public void TearDown()
-        {
-            DependencyResolverAdderMock = null;
-            SutCreatorMock = null;
-            ChildTellerMock = null;
-            ChildWaiterMock = null;
-            CallOrder = null;
-            Props = null;
-            ExpectedChildrenCount = default(int);
-            Message = null;
-            Recipient = null;
-            Sender = null;
-            CreatedActor = null;
-            CreatedActorNoProps = null;
-        }
-
+        
         public ConcreteResolver CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>> factories) => 
             new ConcreteResolver(
                 DependencyResolverAdderMock.Object,

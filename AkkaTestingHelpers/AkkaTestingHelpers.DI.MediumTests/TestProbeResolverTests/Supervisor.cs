@@ -1,8 +1,8 @@
 ﻿using System;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.NUnit3;
-using NUnit.Framework;
+using Akka.TestKit.Xunit2;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 {
@@ -10,7 +10,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
     {
         public Supervisor() : base(AkkaConfig.Config) { }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_SupervisorTestProbeReceivesMessagesSentToParent()
         {
             //arrange

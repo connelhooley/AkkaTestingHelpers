@@ -1,13 +1,13 @@
 ﻿using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
 {
     internal class ActorPath : TestBase
     {
-        [Test]
+        [Fact]
         public void TestProbeActor_ActorPath_ReturnsCorrectActorPath()
         {
             //arrange
@@ -20,7 +20,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
             result.Should().BeSameAs(sut.Path);
         }
 
-        [Test]
+        [Fact]
         public void TestProbeActor_ActorPath__ReturnsSameResultOnEveryCall()
         {
             //arrange

@@ -2,86 +2,98 @@
 using System.Threading.Tasks;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 {
     internal class Start : TestBase
     {
-        [Test, Timeout(2000)]
+        [Fact]
         public void ChildWaiter_StartWithNullTestKitBase_ThrowsArgumentNullException()
         {
-            //arrange
-            ChildWaiter sut = CreateChildWaiter();
+            Within(TimeSpan.FromSeconds(2), () =>
+            {
+                //arrange
+                ChildWaiter sut = CreateChildWaiter();
 
-            //act
-            Action act = () => sut.Start(null, TestUtils.Create<int>());
+                //act
+                Action act = () => sut.Start(null, TestUtils.Create<int>());
 
-            //assert
-            act.ShouldThrow<ArgumentNullException>();
+                //assert
+                act.ShouldThrow<ArgumentNullException>();
+            });
         }
 
-        [Test, Timeout(2000)]
+        [Fact]
         public void ChildWaiter_Start_DoesNotThrowAnyExceptions()
         {
-            //arrange
-            ChildWaiter sut = CreateChildWaiter();
+            Within(TimeSpan.FromSeconds(2), () =>
+            {
+                //arrange
+                ChildWaiter sut = CreateChildWaiter();
 
-            //act
-            Action act = () => sut.Start(this, TestUtils.Create<int>());
+                //act
+                Action act = () => sut.Start(this, TestUtils.Create<int>());
 
-            //assert
-            act.ShouldNotThrow();
+                //assert
+                act.ShouldNotThrow();
+            });
         }
         
-        [Test, Timeout(2000)]
+        [Fact]
         public void ChildWaiter_Started_Start_ShouldBlockThread()
         {
-            //arrange
-            ChildWaiter sut = CreateChildWaiter();
-            int expectedChildrenCount = TestUtils.RandomBetween(0, 5);
-            bool isSecondStartRan = false;
-            sut.Start(this, expectedChildrenCount);
-            
-            Task.Run(() =>
+            Within(TimeSpan.FromSeconds(2), () =>
             {
-                //act
-                sut.Start(this, TestUtils.RandomBetween(0, 5));
-                isSecondStartRan = true;
-            });
+                //arrange
+                ChildWaiter sut = CreateChildWaiter();
+                int expectedChildrenCount = TestUtils.RandomBetween(0, 5);
+                bool isSecondStartRan = false;
+                sut.Start(this, expectedChildrenCount);
 
-            //assert
-            this.Sleep(TestKitSettings.DefaultTimeout);
-            isSecondStartRan.Should().BeFalse();
+                Task.Run(() =>
+                {
+                    //act
+                    sut.Start(this, TestUtils.RandomBetween(0, 5));
+                    isSecondStartRan = true;
+                });
+
+                //assert
+                this.Sleep(TestKitSettings.DefaultTimeout);
+                isSecondStartRan.Should().BeFalse();
+            });
         }
 
-        [Test, Timeout(2000)]
+        [Fact]
         public void ChildWaiter_Started_Start_ShouldUnblockThreadWhenFirstStartsChildrenAreResolved()
         {
-            //arrange
-            ChildWaiter sut = CreateChildWaiter();
-            int expectedChildrenCount = TestUtils.RandomBetween(0, 5);
-            bool isSecondStartRan = false;
-            sut.Start(this, expectedChildrenCount);
-
-            Task.Run(() =>
+            Within(TimeSpan.FromSeconds(2), () =>
             {
-                //act
-                sut.Start(this, TestUtils.RandomBetween(0, 5));
-                isSecondStartRan = true;
-            });
-            this.Sleep(50); //ensures start is called before continuing
+                //arrange
+                ChildWaiter sut = CreateChildWaiter();
+                int expectedChildrenCount = TestUtils.RandomBetween(0, 5);
+                bool isSecondStartRan = false;
+                sut.Start(this, expectedChildrenCount);
 
-            //assert
-            Task.Run(() =>
-            {
-                Parallel.For(0, expectedChildrenCount, i =>
+                Task.Run(() =>
                 {
-                    sut.ResolvedChild();
+                    //act
+                    sut.Start(this, TestUtils.RandomBetween(0, 5));
+                    isSecondStartRan = true;
                 });
+                this.Sleep(50); //ensures start is called before continuing
+
+                //assert
+                Task.Run(() =>
+                {
+                    Parallel.For(0, expectedChildrenCount, i =>
+                    {
+                        sut.ResolvedChild();
+                    });
+                });
+                sut.Wait();
+                AwaitAssert(() => isSecondStartRan.Should().BeTrue());
             });
-            sut.Wait();
-            AwaitAssert(() => isSecondStartRan.Should().BeTrue());
         }
     }
 }

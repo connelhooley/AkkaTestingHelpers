@@ -1,13 +1,13 @@
 ﻿using System;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 {
     internal class ResolveChild : TestBase
     {
-        [Test]
+        [Fact]
         public void ChildWaiter_NotStarted_ResolveChild_DoesNotThrowAnyExceptions()
         {
             //arrange
@@ -20,7 +20,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             act.ShouldNotThrow();
         }
 
-        [Test]
+        [Fact]
         public void ChildWaiter_Started_ResolveChild_DoesNotThrowAnyExceptions()
         {
             //arrange

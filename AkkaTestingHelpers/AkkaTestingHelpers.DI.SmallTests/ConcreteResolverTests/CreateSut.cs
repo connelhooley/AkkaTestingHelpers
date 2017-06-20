@@ -4,13 +4,13 @@ using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.TestActors;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
     internal class CreateSut : TestBase
     {
-        [Test]
+        [Fact]
         public void ConcreteResolver_CreateSutWithNullProps_ThrowsArgumentNullException()
         {
             //arrange   
@@ -23,7 +23,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_CreateSut_ReturnsCreatedActor()
         {
             //arrange   
@@ -36,7 +36,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             result.Should().BeSameAs(CreatedActor);
         }
         
-        [Test]
+        [Fact]
         public void ConcreteResolver_CreateSutWithNoProps_ReturnsCreatedActor()
         {
             //arrange   

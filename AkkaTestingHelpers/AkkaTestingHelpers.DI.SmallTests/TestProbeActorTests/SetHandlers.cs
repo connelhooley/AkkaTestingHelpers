@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
 {
     internal class SetHandlers : TestBase
     {
-        [Test]
+        [Fact]
         public void TestProbeActor_SetHandlersWithNullHandlers_ThrowsArgumentNullException()
         {
             //arrange
@@ -22,7 +22,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeActor_SetHandlers_SendsCorrectReplies()
         {
             //arrange
@@ -36,7 +36,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
             ExpectMsg(Reply2);
         }
 
-        [Test]
+        [Fact]
         public void TestProbeActor_SetHandlers_DoesNotSendReplyWhenNoHandlerMatches()
         {
             //arrange
@@ -50,7 +50,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
             ExpectNoMsg();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeActor_SetHandlers_UsesLatestHandlers()
         {
             //arrange
@@ -70,7 +70,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
             ExpectMsg(newReply);
         }
 
-        [Test]
+        [Fact]
         public void TestProbeActor_SetHandlers_KeepsAutoPilotRunning()
         {
             //arrange

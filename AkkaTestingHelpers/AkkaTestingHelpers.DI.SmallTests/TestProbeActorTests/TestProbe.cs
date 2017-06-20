@@ -1,13 +1,13 @@
 ﻿using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
 {
     internal class TestProbe : TestBase
     {
-        [Test]
+        [Fact]
         public void TestProbeActor_TestProbe_ReturnedTestProbeIsForwardedMessages()
         {
             //arrange
@@ -23,7 +23,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
             result.ExpectMsgFrom(sender, message);
         }
 
-        [Test]
+        [Fact]
         public void TestProbeActor_TestProbe_ReturnsSameResultOnEveryCall()
         {
             //arrange

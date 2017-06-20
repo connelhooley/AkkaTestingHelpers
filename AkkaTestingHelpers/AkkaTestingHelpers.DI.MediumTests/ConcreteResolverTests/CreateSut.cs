@@ -2,10 +2,10 @@
 using System.Linq;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.NUnit3;
+using Akka.TestKit.Xunit2;
 using FluentAssertions;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 {
@@ -13,7 +13,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
     {
         public CreateSut(): base(AkkaConfig.Config) { }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_CreatesChildrenWithoutDependancies()
         {
             //arrange
@@ -32,7 +32,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
             ExpectMsgAllOf(Enumerable.Repeat(ChildActor.Token, childCount).ToArray());
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_CreatesChildrenWithDependancies()
         {
             //arrange
@@ -56,7 +56,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
                     Times.Exactly(childCount)));
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_TimesOutWithChildThatIsNotRegistered()
         {
             //arrange
@@ -73,7 +73,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
             act.ShouldThrow<TimeoutException>(); //Invalid operation exception is swallowed by Akka
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_TimesOutWhenChildrenCountIsTooHigh()
         {
             //arrange
@@ -90,7 +90,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
             act.ShouldThrow<TimeoutException>();
         }
 
-        [Test]
+        [Fact]
         public void ConcreteResolver_UsesLatestFactory()
         {
             //arrange

@@ -1,12 +1,12 @@
 ﻿using Akka.TestKit;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
     internal class Supervisor : TestBase
     {
-        [Test]
+        [Fact]
         public void TestProbeResolver_Supervisor_ReturnsSupervisor()
         {
             //arrange

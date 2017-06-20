@@ -1,13 +1,13 @@
 ﻿using System;
 using Akka.TestKit;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
     internal class ResolvedTestProbe : TestBase
     {
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolvedTestProbeWithNullParentActor_ThrowsArgumentNullException()
         {
             //arrange
@@ -20,7 +20,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolvedTestProbeWithNullChildName_ThrowsArgumentNullException()
         {
             //arrange
@@ -33,7 +33,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolvedTestProbeWithNullParentActorAndChildName_ThrowsArgumentNullException()
         {
             //arrange
@@ -46,7 +46,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolvedTestProbe_ReturnsCorrectProbe()
         {
             //arrange

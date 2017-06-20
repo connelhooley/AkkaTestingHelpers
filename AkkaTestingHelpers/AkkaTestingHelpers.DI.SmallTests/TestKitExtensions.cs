@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using Akka.TestKit.NUnit3;
+using Akka.TestKit.Xunit2;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests
 {

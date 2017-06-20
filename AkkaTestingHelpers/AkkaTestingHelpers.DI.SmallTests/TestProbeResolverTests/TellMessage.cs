@@ -1,13 +1,13 @@
 ﻿using System;
 using FluentAssertions;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
     internal class TellMessage : TestBase
     {
-        [Test]
+        [Fact]
         public void TestProbeResolver_TellMessageNoSenderWithNullRecipient_ThrowsArgumentNullException()
         {
             //arrange
@@ -20,7 +20,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_TellMessageNoSenderWithNullMessage_ThrowsArgumentNullException()
         {
             //arrange
@@ -33,7 +33,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_TellMessageNoSenderWithNullRecipientAndMessage_ThrowsArgumentNullException()
         {
             //arrange
@@ -46,7 +46,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_TellMessageFromSenderWithNullRecipient_ThrowsArgumentNullException()
         {
             //arrange
@@ -59,7 +59,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_TellMessageFromSenderWithNullMessage_ThrowsArgumentNullException()
         {
             //arrange
@@ -72,7 +72,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_TellMessageFromSenderWithNullSender_ThrowsArgumentNullException()
         {
             //arrange
@@ -85,7 +85,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_TellMessageFromSenderWithNullRecipientAndMessageAndSender_ThrowsArgumentNullException()
         {
             //arrange
@@ -98,7 +98,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             act.ShouldThrow<ArgumentNullException>();
         }
         
-        [Test]
+        [Fact]
         public void TestProbeResolver_TellMessageNoSender_TellsChild()
         {
             //arrange
@@ -113,7 +113,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 Times.Once);
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_TellMessageSender_TellsChild()
         {
             //arrange

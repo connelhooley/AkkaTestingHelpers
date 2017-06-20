@@ -1,23 +1,16 @@
 ﻿using System;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperTests
 {
     internal class TestBase
     {
-        private Func<Type> _typeGenerator;
-        
-        [SetUp]
-        public void SetUp()
+        private readonly Func<Type> _typeGenerator;
+
+        public TestBase()
         {
             _typeGenerator = TestUtils.RandomTypeGenerator();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _typeGenerator = null;
         }
 
         protected (Type, Type, Func<object, object>) CreateSettingsHandler()

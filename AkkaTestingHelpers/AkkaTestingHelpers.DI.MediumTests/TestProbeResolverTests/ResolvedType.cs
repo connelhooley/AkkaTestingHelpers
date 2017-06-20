@@ -1,10 +1,10 @@
 ﻿using System;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.NUnit3;
+using Akka.TestKit.Xunit2;
 using Akka.TestKit.TestActors;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
 {
@@ -12,7 +12,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
     {
         public ResolvedType() : base(AkkaConfig.Config) { }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_ResolvedTypesAreStored()
         {
             //arrange
@@ -30,7 +30,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             sut.ResolvedType(actor, childName).Should().Be(childType);
         }
 
-        [Test]
+        [Fact]
         public void TestProbeResolver_ThrownsWhenChildHasNotBeenResolved()
         {
             //arrange

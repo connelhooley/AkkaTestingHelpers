@@ -6,13 +6,13 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
 {
     internal class Create : TestBase
     {
-        [Test]
+        [Fact]
         public void SutCreator_CreateWithNullChildWatcher_ThrowsArgumentNullException()
         {
             //arrange
@@ -25,7 +25,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void SutCreator_CreateWithNullTestKitBase_ThrowsArgumentNullException()
         {
             //arrange
@@ -38,7 +38,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void SutCreator_CreateWithNullProps_ThrowsArgumentNullException()
         {
             //arrange
@@ -51,7 +51,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void SutCreator_CreateWithNullChildWaiterAndTestKitBaseAndProps_ThrowsArgumentNullException()
         {
             //arrange
@@ -64,7 +64,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public async Task SutCreator_CreateWithNullSupervisor_CreatesChildWithNoSupervisor()
         {
             //arrange
@@ -78,7 +78,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             actor.UnderlyingActor.Supervisor.Should().Be(rootGuardian);
         }
 
-        [Test]
+        [Fact]
         public void SutCreator_Create_CreatesChildWithCorrectSupervisor()
         {
             //arrange
@@ -91,7 +91,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             actor.UnderlyingActor.Supervisor.Should().Be(Supervisor);
         }
 
-        [Test]
+        [Fact]
         public void SutCreator_Create_StartsChildWaiterWithCorrectCount()
         {
             //arrange
@@ -106,7 +106,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
                 Times.Once);
         }
 
-        [Test]
+        [Fact]
         public void SutCreator_Create_OnlyStartsChildWaiterOnce()
         {
             //arrange
@@ -121,7 +121,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
                 Times.Once);
         }
 
-        [Test]
+        [Fact]
         public void SutCreator_Create_WaitsForChildrenUsingChildWaiter()
         {
             //arrange
@@ -136,7 +136,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
                 Times.Once);
         }
 
-        [Test]
+        [Fact]
         public void SutCreator_Create_CreatesChildAfterStartingChildWaiter()
         {
             //arrange
@@ -149,7 +149,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
             CallOrder.Should().ContainInOrder(nameof(IChildWaiter.Start), "callback");
         }
 
-        [Test]
+        [Fact]
         public void SutCreator_Create_CreatesChildBeforeWaitingForChildrenUsingTheChildWaiter()
         {
             //arrange
