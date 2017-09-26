@@ -87,7 +87,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
                 .RegisterHandler<ReplyChildActor1, Guid>(guid => (default(Guid), default(int)))
                 .RegisterHandler<ReplyChildActor1, Guid>(guid => (guid, ++replyCount))
                 .CreateResolver(this);
-                
+            
             //act
             TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(childType, childCount)), childCount);
 
@@ -98,7 +98,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
                 .Select(i => (message, i))
                 .ToArray()
             );
-            throw new Exception();
         }
     }
 }
