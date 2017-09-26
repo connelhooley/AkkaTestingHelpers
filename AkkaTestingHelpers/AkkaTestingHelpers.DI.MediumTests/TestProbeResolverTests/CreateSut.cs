@@ -98,6 +98,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
                 .Select(i => (message, i))
                 .ToArray()
             );
+            throw new Exception();
         }
     }
 }
