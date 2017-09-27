@@ -4,7 +4,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract
 {
     internal interface IChildWaiter
     {
-        void Start(TestKitBase teskKit, int expectedChildrenCount);
+        void Start(TestKitBase testKit, int expectedChildrenCount);
         void Wait();
         void ResolvedChild();
     }
