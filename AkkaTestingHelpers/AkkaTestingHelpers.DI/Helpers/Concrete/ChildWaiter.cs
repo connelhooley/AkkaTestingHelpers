@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
@@ -12,11 +13,15 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
         
         public void Start(TestKitBase testKit, int expectedChildrenCount)
         {
-            Debug.Write("Waiting for AutoResetEvent");
+            Console.WriteLine("Waiting for AutoResetEvent");
+            Trace.WriteLine("Waiting for AutoResetEvent");
+            Debug.WriteLine("Waiting for AutoResetEvent");
             if (_waitingToStart.WaitOne())
             {
                 var x = expectedChildrenCount < 0 ? 0 : expectedChildrenCount;
-                Debug.Write($"Creating test latch {x}");
+                Console.WriteLine($"Creating test latch {x}");
+                Trace.WriteLine($"Creating test latch {x}");
+                Debug.WriteLine($"Creating test latch {x}");
                 _waitForChildren = testKit.CreateTestLatch(
                     expectedChildrenCount < 0 
                         ? 0 
@@ -26,7 +31,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 
         public void Wait()
         {
-            Debug.Write("Calling ready on test latch");
+            Console.WriteLine("Calling ready on test latch");
+            Trace.WriteLine("Calling ready on test latch");
+            Debug.WriteLine("Calling ready on test latch");
             _waitForChildren?.Ready();
             _waitForChildren = null;
             _waitingToStart.Set();
@@ -34,6 +41,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 
         public void ResolvedChild()
         {
+            Console.WriteLine("Calling count down test latch");
+            Trace.WriteLine("Calling count down test latch");
             Debug.Write("Calling count down test latch");
             _waitForChildren?.CountDown();
         }
