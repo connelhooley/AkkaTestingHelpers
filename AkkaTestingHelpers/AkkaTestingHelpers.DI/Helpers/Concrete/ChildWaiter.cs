@@ -7,21 +7,21 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
     internal sealed class ChildWaiter : IChildWaiter
     {
-        //private readonly AutoResetEvent _waitingToStart = new AutoResetEvent(true);
+        private readonly AutoResetEvent _waitingToStart = new AutoResetEvent(true);
         private TestLatch _waitForChildren;
         
         public void Start(TestKitBase testKit, int expectedChildrenCount)
         {
             Console.WriteLine("Waiting for AutoResetEvent");
-            //if (_waitingToStart.WaitOne())
-            //{
+            if (_waitingToStart.WaitOne())
+            {
                 var x = expectedChildrenCount < 0 ? 0 : expectedChildrenCount;
                 Console.WriteLine($"Creating test latch {x}");
                 _waitForChildren = testKit.CreateTestLatch(
                     expectedChildrenCount < 0 
                         ? 0 
                         : expectedChildrenCount);
-            //}
+            }
             Console.WriteLine("Leaving start");
         }
 
@@ -31,7 +31,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
             _waitForChildren?.Ready();
             Console.WriteLine("Called ready on test latch");
             _waitForChildren = null;
-            //_waitingToStart.Set();
+            _waitingToStart.Set();
             Console.WriteLine("Leaving wait");
         }
 
