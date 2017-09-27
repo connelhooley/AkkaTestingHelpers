@@ -17,7 +17,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests
 #if DEBUG
                     Timefactor = 1,
 #else
-                    Timefactor = 10,
+                    Timefactor = 40,
 #endif
                 }
             }
