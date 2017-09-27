@@ -97,6 +97,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestProbeResolverTests\CreateSut.cs" />
     <Compile Include="TestProbeResolverTests\DummyActors.cs" />
+    <Compile Include="TestProbeResolverTests\Examples\Examples2.cs" />
+    <Compile Include="TestProbeResolverTests\Examples\Examples1.cs" />
+    <Compile Include="TestProbeResolverTests\Examples\Examples3.cs" />
     <Compile Include="TestProbeResolverTests\ResolvedTestProbe.cs" />
     <Compile Include="TestProbeResolverTests\ResolvedType.cs" />
     <Compile Include="TestProbeResolverTests\Supervisor.cs" />
