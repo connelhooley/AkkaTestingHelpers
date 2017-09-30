@@ -15,7 +15,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests
                     SingleExpectDefault = 100,
                     DefaultTimeout = 100,
 #if DEBUG
-                    Timefactor = 2,
+                    Timefactor = 3,
 #else
                     Timefactor = 40,
 #endif
