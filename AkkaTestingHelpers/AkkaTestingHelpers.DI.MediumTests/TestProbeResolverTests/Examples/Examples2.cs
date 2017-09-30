@@ -65,7 +65,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests.
             sut.Tell(new ParentActor.Save("hello world"));
 
             //assert
-            repoMock.Verify(repo => repo.Save("HELLO WORLD"), Times.Once);
+            AwaitAssert(() => repoMock.Verify(repo => repo.Save("HELLO WORLD"), Times.Once));
         }
     }
 }
