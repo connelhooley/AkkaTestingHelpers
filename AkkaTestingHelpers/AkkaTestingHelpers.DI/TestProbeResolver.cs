@@ -41,14 +41,36 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             resolverAdder.Add(testKit, Resolve);
         }
 
+        /// <summary>
+        /// The TestProbe that is the parent/superivsor for all actors created using the CreateSut method.
+        /// </summary>
         public TestProbe Supervisor { get; }
 
+        /// <summary>
+        /// Finds the test probe created by the given actor ref with the given child name.
+        /// </summary>
+        /// <param name="parentActor">The actor this is parent to the child</param>
+        /// <param name="childName">The name of the child</param>
+        /// <returns></returns>
         public TestProbe ResolvedTestProbe(IActorRef parentActor, string childName) =>
             _resolvedProbeStore.FindResolvedTestProbe(parentActor, childName);
 
+        /// <summary>
+        /// Finds the Type of actor the given actor ref requested for the given child name.
+        /// </summary>
+        /// <param name="parentActor">The actor this is parent to the child</param>
+        /// <param name="childName">The name of the child</param>
+        /// <returns></returns>
         public Type ResolvedType(IActorRef parentActor, string childName) =>
             _resolvedProbeStore.FindResolvedType(parentActor, childName);
 
+        /// <summary>
+        /// Creates an actor whilst waiting for the expected number of children to be resolved before returning.
+        /// </summary>
+        /// <typeparam name="TActor">The type of actor to create</typeparam>
+        /// <param name="props">Props object used to create the actor</param>
+        /// <param name="expectedChildrenCount">The number child actors to wait for</param>
+        /// <returns>The created actor</returns>
         public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount) where TActor : ActorBase =>
             _sutCreator.Create<TActor>(
                 _childWaiter,
@@ -56,7 +78,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 props,
                 expectedChildrenCount,
                 Supervisor);
-        
+
+        /// <summary>
+        /// Creates an actor whilst waiting for the expected number of children to be resolved before returning.
+        /// </summary>
+        /// <typeparam name="TActor">The type of actor to create</typeparam>
+        /// <param name="expectedChildrenCount">The number child actors to wait for</param>
+        /// <returns>The created actor</returns>
         public TestActorRef<TActor> CreateSut<TActor>(int expectedChildrenCount) where TActor : ActorBase, new() =>
             _sutCreator.Create<TActor>(
                 _childWaiter,
@@ -65,6 +93,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 expectedChildrenCount,
                 Supervisor);
 
+        /// <summary>
+        /// Sends an actor a message whilst waiting for the expected number of children to be resolved before returning.
+        /// </summary>
+        /// <typeparam name="TMessage">The type of message to send</typeparam>
+        /// <param name="recipient">The actor to send a message to</param>
+        /// <param name="message">The message to send</param>
+        /// <param name="expectedChildrenCount">The number child actors to wait for</param>
         public void TellMessage<TMessage>(IActorRef recipient, TMessage message, int waitForChildrenCount) =>
             _childTeller.TellMessage(
                 _childWaiter,
@@ -73,6 +108,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 message,
                 waitForChildrenCount);
 
+        /// <summary>
+        /// Sends an actor a message whilst waiting for the expected number of children to be resolved before returning.
+        /// </summary>
+        /// <typeparam name="TMessage"></typeparam>
+        /// <param name="recipient">The actor to send a message to</param>
+        /// <param name="message">The message to send</param>
+        /// <param name="sender">The actor to send the message from</param>
+        /// <param name="expectedChildrenCount">The number child actors to wait for</param>
         public void TellMessage<TMessage>(IActorRef recipient, TMessage message, IActorRef sender, int waitForChildrenCount) =>
             _childTeller.TellMessage(
                 _childWaiter,
