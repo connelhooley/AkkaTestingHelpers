@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActorFake.cs" />
     <Compile Include="Helpers\Abstract\IChildTeller.cs" />
     <Compile Include="Helpers\Abstract\IChildWaiter.cs" />
     <Compile Include="Helpers\Abstract\IDependencyResolverAdder.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Helpers\Concrete\TestProbeActorCreator.cs" />
     <Compile Include="Helpers\Concrete\TestProbeCreator.cs" />
     <Compile Include="Helpers\Concrete\TestProbeHandlersMapper.cs" />
+    <Compile Include="IRegisterableActorFake.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Actors\Concrete\TestProbeActor.cs" />
     <Compile Include="TestProbeResolver.cs" />
