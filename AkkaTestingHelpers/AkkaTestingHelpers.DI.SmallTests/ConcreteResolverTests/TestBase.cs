@@ -5,12 +5,8 @@ using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using Akka.TestKit.TestActors;
-using ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using Moq;
-using EitherSetting = Akka.Util.Either<
-    System.Func<Akka.Actor.ActorBase>, 
-    ConnelHooley.AkkaTestingHelpers.DI.IRegisterableActorFake>;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
@@ -20,9 +16,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         internal Mock<ISutCreator> SutCreatorMock;
         internal Mock<IChildTeller> ChildTellerMock;
         internal Mock<IChildWaiter> ChildWaiterMock;
-        internal Mock<ITestProbeActorCreator> TestProbeActorCreatorMock;
-        internal Mock<ITestProbeActor> TestProbeActorMock;
-        internal Mock<IRegisterableActorFake> RegisterableFakeActorMock;
 
         internal Func<Type, ActorBase> ResolveActor;
         internal List<string> CallOrder;
@@ -35,7 +28,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
         internal string ChildName;
         internal BlackHoleActor ConcreteActorInstance;
         internal BlackHoleActor ResolvedFakeActorInstance;
-        internal TestProbe ResolvedFakeActorTestProbe;
         internal TestActorRef<BlackHoleActor> CreatedActor;
         internal TestActorRef<BlackHoleActor> CreatedActorNoProps;
 
@@ -46,9 +38,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             SutCreatorMock = new Mock<ISutCreator>();
             ChildTellerMock = new Mock<IChildTeller>();
             ChildWaiterMock = new Mock<IChildWaiter>();
-            TestProbeActorCreatorMock = new Mock<ITestProbeActorCreator>();
-            TestProbeActorMock = new Mock<ITestProbeActor>();
-            RegisterableFakeActorMock = new Mock<IRegisterableActorFake>();
             
             // Create objects used by mocks
             CallOrder = new List<string>();
@@ -66,7 +55,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             CreatedActor = ActorOfAsTestActorRef<BlackHoleActor>();
             CreatedActorNoProps = ActorOfAsTestActorRef<BlackHoleActor>();
             ResolvedFakeActorInstance = ActorOfAsTestActorRef<BlackHoleActor>().UnderlyingActor;
-            ResolvedFakeActorTestProbe = CreateTestProbe();
 
             // Set up mocks
             DependencyResolverAdderMock
@@ -84,31 +72,15 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
             ChildWaiterMock
                 .Setup(waiter => waiter.ResolvedChild())
                 .Callback(() => CallOrder.Add(nameof(IChildWaiter.ResolvedChild)));
-
-            TestProbeActorCreatorMock
-                .Setup(creator => creator.Create(this))
-                .Callback(() => CallOrder.Add(nameof(ITestProbeCreator.Create)))
-                .Returns(() => TestProbeActorMock.Object);
-
-            TestProbeActorMock
-                .Setup(actor => actor.Actor)
-                .Returns(() => ResolvedFakeActorInstance);
-            TestProbeActorMock
-                .Setup(actor => actor.TestProbe)
-                .Returns(() => ResolvedFakeActorTestProbe);
-
-            RegisterableFakeActorMock
-                .Setup(actor => actor.RegisterActor(TestProbeActorMock.Object))
-                .Callback(() => CallOrder.Add(nameof(IRegisterableActorFake.RegisterActor)));
+            
         }
         
-        internal ConcreteResolver CreateConcreteResolver(ImmutableDictionary<Type, EitherSetting> factories) => 
+        internal ConcreteResolver CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>> factories) => 
             new ConcreteResolver(
                 DependencyResolverAdderMock.Object,
                 SutCreatorMock.Object,
                 ChildTellerMock.Object,
                 ChildWaiterMock.Object,
-                TestProbeActorCreatorMock.Object,
                 this,
                 factories);
     }

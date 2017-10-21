@@ -114,24 +114,5 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
                     dependancy => dependancy.SetResut(ChildActor.Token),
                     Times.Exactly(childCount)));
         }
-
-        [Fact]
-        public void ConcreteResolver_MessagesForwardedToFakeActorTestProbe()
-        {
-            //arrange
-            ActorFake fakeChildActor = ActorFake.Create();
-                ConcreteResolver resolver = ConcreteResolverSettings
-                .Empty
-                .RegisterFake<ChildActor>(fakeChildActor)
-                .CreateResolver(this);
-            
-            //act
-            TestActorRef<ParentActor> actor = resolver.CreateSut<ParentActor>(Props.Create(() => new ParentActor(2)), 2);
-            
-            //assert
-            object message = new object();
-            actor.Tell(message);
-            fakeChildActor.TestProbe.ExpectMsg(message);
-        }
     }
 }

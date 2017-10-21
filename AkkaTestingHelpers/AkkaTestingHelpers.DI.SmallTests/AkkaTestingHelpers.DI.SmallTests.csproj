@@ -108,12 +108,6 @@
     <Compile Include="AkkaConfig.cs" />
     <Compile Include="DependencyResolverAdderTests\Add.cs" />
     <Compile Include="DependencyResolverAdderTests\TestBase.cs" />
-    <Compile Include="ActorFakeTests\Create.cs" />
-    <Compile Include="ActorFakeTests\RegisterActor.cs" />
-    <Compile Include="ActorFakeTests\RegisterNonReplyingHandler.cs" />
-    <Compile Include="ActorFakeTests\RegisterReplyingHandler.cs" />
-    <Compile Include="ActorFakeTests\TestBase.cs" />
-    <Compile Include="ActorFakeTests\TestProbe.cs" />
     <Compile Include="TestKitExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResolvedTestProbeStoreTests\FindResolvedTestProbe.cs" />
@@ -126,7 +120,6 @@
     <Compile Include="TestProbeActorCreatorTests\TestBase.cs" />
     <Compile Include="TestProbeActorTests\Actor.cs" />
     <Compile Include="TestProbeActorTests\ActorPath.cs" />
-    <Compile Include="ActorFakeTests\ReceiveMessage.cs" />
     <Compile Include="TestProbeActorTests\SetHandlers.cs" />
     <Compile Include="TestProbeActorTests\TestBase.cs" />
     <Compile Include="TestProbeActorTests\TestProbe.cs" />
