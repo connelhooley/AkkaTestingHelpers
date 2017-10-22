@@ -8,8 +8,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
 {
     public class ResolveProbe : TestBase
     {
+        #region Null tests
         [Fact]
-        public void ResolvedTestProbeRepository_ResolveProbeWithNullActorPath_ThrowsArgumentNullException()
+        public void ResolvedTestProbeStore_ResolveProbeWithNullActorPath_ThrowsArgumentNullException()
         {
             //arrange
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
@@ -25,7 +26,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
         }
 
         [Fact]
-        public void ResolvedTestProbeRepository_ResolveProbeWithNullType_ThrowsArgumentNullException()
+        public void ResolvedTestProbeStore_ResolveProbeWithNullType_ThrowsArgumentNullException()
         {
             //arrange
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
@@ -41,7 +42,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
         }
 
         [Fact]
-        public void ResolvedTestProbeRepository_ResolveProbeWithNullTestProbe_ThrowsArgumentNullException()
+        public void ResolvedTestProbeStore_ResolveProbeWithNullTestProbe_ThrowsArgumentNullException()
         {
             //arrange
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
@@ -57,21 +58,24 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
         }
 
         [Fact]
-        public void ResolvedTestProbeRepository_ResolveProbeWithNullActorPathAndTypeAndTestProbe_ThrowsArgumentNullException()
+        public void ResolvedTestProbeStore_ResolveProbeWithNullActorPathAndTypeAndTestProbe_ThrowsArgumentNullException()
         {
             //arrange
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
 
             //act
-            Action act = () => sut.ResolveProbe(null, null, null);
+            Action act = () => sut.ResolveProbe(
+                null, 
+                null, 
+                null);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
         }
-
+        #endregion
 
         [Fact]
-        public void ResolvedTestProbeRepository_ResolveProbe_DoesNotThrowException()
+        public void ResolvedTestProbeStore_ResolveProbe_DoesNotThrowException()
         {
             //arrange
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();

@@ -9,6 +9,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeCreatorTests
 {
     public class Create : TestBase
     {
+        #region Null tests
         [Fact]
         public void TestProbeCreator_CreateWithNullTestKitBase_ThrowsArgumentNullException()
         {
@@ -21,6 +22,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeCreatorTests
             //assert
             act.ShouldThrow<ArgumentNullException>();
         }
+        #endregion
 
         [Fact]
         public void TestProbeCreator_Create_DoesNotThrowException()
@@ -36,6 +38,32 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeCreatorTests
         }
 
         [Fact]
+        public void TestProbeCreator_Create_ReturnsTestProbeWithCorrectSystem()
+        {
+            //arrange
+            TestProbeCreator sut = CreateTestProbeCreator();
+
+            //act
+            TestProbe result = sut.Create(this);
+
+            //assert
+            result.Sys.Should().BeSameAs(Sys);
+        }
+        
+        [Fact]
+        public void TestProbeCreator_Create_ReturnsTestProbeWithCorrectTestKitSettings()
+        {
+            //arrange
+            TestProbeCreator sut = CreateTestProbeCreator();
+
+            //act
+            TestProbe result = sut.Create(this);
+
+            //assert
+            result.TestKitSettings.Should().BeSameAs(TestKitSettings);
+        }
+
+        [Fact]
         public void TestProbeCreator_Create_ReturnsWorkingTestProbe()
         {
             //arrange
@@ -45,9 +73,21 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeCreatorTests
             TestProbe result = sut.Create(this);
 
             //assert
-            Guid guid = Guid.NewGuid();
-            result.Tell(guid);
-            result.ExpectMsg(guid);
+            object message = TestUtils.Create<object>();
+            result.Tell(message);
+            result.ExpectMsg(message);
+        }
+
+        [Fact]
+        public void TestProbeCreator_Create_CreatesTestProbeFromTestkit()
+        {
+            //arrange
+            TestProbeCreator sut = CreateTestProbeCreator();
+
+            //act
+            TestProbe result = sut.Create(this);
+
+            //todo shims
         }
     }
 }

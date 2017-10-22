@@ -8,7 +8,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
     public class Actor : TestBase
     {
         [Fact]
-        public void TestProbeActor_Actror_ReturnsActor()
+        public void TestProbeActor_Actor_ReturnsSelfAsActor()
         {
             //arrange
             TestProbeActor sut = CreateTestProbeActor().UnderlyingActor;
@@ -21,7 +21,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         }
 
         [Fact]
-        public void TestProbeActor_Actror_ReturnsSameResultOnEveryCall()
+        public void TestProbeActor_Actor_ReturnsSameResultOnEveryCall()
         {
             //arrange
             TestProbeActor sut = CreateTestProbeActor().UnderlyingActor;

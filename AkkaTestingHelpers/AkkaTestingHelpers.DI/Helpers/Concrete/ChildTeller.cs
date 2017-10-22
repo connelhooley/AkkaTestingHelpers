@@ -9,8 +9,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
         public void TellMessage<TMessage>(IChildWaiter childWaiter, TestKitBase testKit, IActorRef recipient, TMessage message, int waitForChildrenCount, IActorRef sender = null)
         {
             childWaiter.Start(testKit, waitForChildrenCount);
-            if (sender == null) recipient.Tell(message);
-            else recipient.Tell(message, sender);
+            if (sender == null)
+            {
+                recipient.Tell(message);
+            }
+            else
+            {
+                recipient.Tell(message, sender);
+            }
             childWaiter.Wait();
         }
     }

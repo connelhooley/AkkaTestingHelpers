@@ -9,6 +9,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
 {
     public class FindResolvedType : TestBase
     {
+        #region Null tests
         [Fact]
         public void ResolvedTestProbeStore_FindResolvedTypeWithNullParentRef_ThrowsArgumentNullException()
         {
@@ -48,6 +49,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             //assert
             act.ShouldThrow<ArgumentNullException>();
         }
+        #endregion
 
         [Fact]
         public void ResolvedTestProbeStore_NoActorsAreResolved_FindResolvedType_ThrowsActorNotFoundException()
@@ -60,7 +62,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             Action act = () => sut.FindResolvedType(TestActor, name);
 
             //assert
-            act.ShouldThrow<ActorNotFoundException>().WithMessage($"No child has been resolved for the path '{path}'");
+            act
+                .ShouldThrow<ActorNotFoundException>()
+                .WithMessage($"No child has been resolved for the path '{path}'");
         }
 
         [Fact]
@@ -76,7 +80,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             Action act = () => sut.FindResolvedType(TestActor, name2);
 
             //assert
-            act.ShouldThrow<ActorNotFoundException>().WithMessage($"No child has been resolved for the path '{path2}'");
+            act
+                .ShouldThrow<ActorNotFoundException>()
+                .WithMessage($"No child has been resolved for the path '{path2}'");
         }
 
         [Fact]
@@ -130,7 +136,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             Action act = () => sut.FindResolvedType(TestActor, name4);
 
             //assert
-            act.ShouldThrow<ActorNotFoundException>().WithMessage($"No child has been resolved for the path '{path4}'");
+            act
+                .ShouldThrow<ActorNotFoundException>()
+                .WithMessage($"No child has been resolved for the path '{path4}'");
         }
     }
 }

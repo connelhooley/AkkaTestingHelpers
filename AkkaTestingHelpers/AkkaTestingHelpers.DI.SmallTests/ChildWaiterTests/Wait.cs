@@ -11,7 +11,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         [Fact]
         public void ChildWaiter_NotStarted_Wait_DoesNotThrowAnyExceptions()
         {
-            Within(TimeSpan.FromSeconds(2), () =>
+            Within(TimeSpan.FromMilliseconds(500), () =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
@@ -22,13 +22,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
                 //assert
                 act.ShouldNotThrow();
             });
-
         }
 
         [Fact]
-        public void ChildWaiter_Started_Wait_ThrowsTimeoutExceptionWhenChildrenAreNotResolved()
+        public void ChildWaiter_Started_Wait_ThrowsTimeoutExceptionWhenNotAllChildrenAreResolved()
         {
-            Within(TimeSpan.FromSeconds(2), () =>
+            Within(TimeSpan.FromMilliseconds(500), () =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
@@ -51,7 +50,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         [Fact]
         public void ChildWaiter_Started_Wait_BlockThreadUntilChildrenAreResolved()
         {
-            Within(TimeSpan.FromSeconds(2), () =>
+            Within(TimeSpan.FromMilliseconds(500), () =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
@@ -107,7 +106,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         [Fact]
         public void ChildWaiter_Waited_Wait_BlockThreadUntilChildrenAreResolved()
         {
-            Within(TimeSpan.FromSeconds(2), () =>
+            Within(TimeSpan.FromMilliseconds(500), () =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();

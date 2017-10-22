@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ConnelHooley.AkkaTestingHelpers.DI.Fakes</name>
+    </assembly>
+    <members>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver">
+            <summary>Shim type of ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.#ctor(ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.AllInstances.CreateSutOf1Int32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver,System.Int32,Akka.TestKit.TestActorRef{``0}})">
+            <summary>Sets the shim of ConcreteResolver.CreateSut(Int32 expectedChildrenCount)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.AllInstances.CreateSutOf1PropsInt32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver,Akka.Actor.Props,System.Int32,Akka.TestKit.TestActorRef{``0}})">
+            <summary>Sets the shim of ConcreteResolver.CreateSut(Props props, Int32 expectedChildrenCount)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.AllInstances.TellMessageOf1IActorRefM0IActorRefInt32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Action{ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver,Akka.Actor.IActorRef,``0,Akka.Actor.IActorRef,System.Int32})">
+            <summary>Sets the shim of ConcreteResolver.TellMessage(IActorRef recipient, !!0 message, IActorRef sender, Int32 waitForChildrenCount)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.AllInstances.TellMessageOf1IActorRefM0Int32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Action{ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver,Akka.Actor.IActorRef,``0,System.Int32})">
+            <summary>Sets the shim of ConcreteResolver.TellMessage(IActorRef recipient, !!0 message, Int32 waitForChildrenCount)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.CreateSutOf1Int32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Int32,Akka.TestKit.TestActorRef{``0}})">
+            <summary>Sets the shim of ConcreteResolver.CreateSut(Int32 expectedChildrenCount)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.CreateSutOf1PropsInt32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{Akka.Actor.Props,System.Int32,Akka.TestKit.TestActorRef{``0}})">
+            <summary>Sets the shim of ConcreteResolver.CreateSut(Props props, Int32 expectedChildrenCount)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.TellMessageOf1IActorRefM0IActorRefInt32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Action{Akka.Actor.IActorRef,``0,Akka.Actor.IActorRef,System.Int32})">
+            <summary>Sets the shim of ConcreteResolver.TellMessage(IActorRef recipient, !!0 message, IActorRef sender, Int32 waitForChildrenCount)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver.TellMessageOf1IActorRefM0Int32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Action{Akka.Actor.IActorRef,``0,System.Int32})">
+            <summary>Sets the shim of ConcreteResolver.TellMessage(IActorRef recipient, !!0 message, Int32 waitForChildrenCount)</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings">
+            <summary>Shim type of ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolverSettings</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.#ctor(ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolverSettings)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.AllInstances.CreateResolverTestKitBase">
+            <summary>Sets the shim of ConcreteResolverSettings.CreateResolver(TestKitBase testKit)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.AllInstances.RegisterOf1``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolverSettings,ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolverSettings})">
+            <summary>Sets the shim of ConcreteResolverSettings.Register()</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.AllInstances.RegisterOf1FuncOfM0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolverSettings,System.Func{``0},ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolverSettings})">
+            <summary>Sets the shim of ConcreteResolverSettings.Register(Func`1&lt;!!0&gt; factory)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.ConstructorImmutableDictionaryOfTypeFuncOfActorBase">
+            <summary>Sets the shim of ConcreteResolverSettings.ConcreteResolverSettings(ImmutableDictionary`2&lt;Type,Func`1&lt;ActorBase&gt;&gt; factories)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.CreateResolverTestKitBase">
+            <summary>Sets the shim of ConcreteResolverSettings.CreateResolver(TestKitBase testKit)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.EmptyGet">
+            <summary>Sets the shim of ConcreteResolverSettings.get_Empty()</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.RegisterOf1``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolverSettings})">
+            <summary>Sets the shim of ConcreteResolverSettings.Register()</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.RegisterOf1FuncOfM0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Func{``0},ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolverSettings})">
+            <summary>Sets the shim of ConcreteResolverSettings.Register(Func`1&lt;!!0&gt; factory)</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver">
+            <summary>Shim type of ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.#ctor(ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.AllInstances.CreateSutOf1Int32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver,System.Int32,Akka.TestKit.TestActorRef{``0}})">
+            <summary>Sets the shim of TestProbeResolver.CreateSut(Int32 expectedChildrenCount)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.AllInstances.CreateSutOf1PropsInt32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver,Akka.Actor.Props,System.Int32,Akka.TestKit.TestActorRef{``0}})">
+            <summary>Sets the shim of TestProbeResolver.CreateSut(Props props, Int32 expectedChildrenCount)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.AllInstances.ResolvedTestProbeIActorRefString">
+            <summary>Sets the shim of TestProbeResolver.ResolvedTestProbe(IActorRef parentActor, String childName)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.AllInstances.ResolvedTypeIActorRefString">
+            <summary>Sets the shim of TestProbeResolver.ResolvedType(IActorRef parentActor, String childName)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.AllInstances.SupervisorGet">
+            <summary>Sets the shim of TestProbeResolver.get_Supervisor()</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.AllInstances.TellMessageOf1IActorRefM0IActorRefInt32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Action{ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver,Akka.Actor.IActorRef,``0,Akka.Actor.IActorRef,System.Int32})">
+            <summary>Sets the shim of TestProbeResolver.TellMessage(IActorRef recipient, !!0 message, IActorRef sender, Int32 waitForChildrenCount)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.AllInstances.TellMessageOf1IActorRefM0Int32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Action{ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver,Akka.Actor.IActorRef,``0,System.Int32})">
+            <summary>Sets the shim of TestProbeResolver.TellMessage(IActorRef recipient, !!0 message, Int32 waitForChildrenCount)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.CreateSutOf1Int32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Int32,Akka.TestKit.TestActorRef{``0}})">
+            <summary>Sets the shim of TestProbeResolver.CreateSut(Int32 expectedChildrenCount)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.CreateSutOf1PropsInt32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{Akka.Actor.Props,System.Int32,Akka.TestKit.TestActorRef{``0}})">
+            <summary>Sets the shim of TestProbeResolver.CreateSut(Props props, Int32 expectedChildrenCount)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.ResolvedTestProbeIActorRefString">
+            <summary>Sets the shim of TestProbeResolver.ResolvedTestProbe(IActorRef parentActor, String childName)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.ResolvedTypeIActorRefString">
+            <summary>Sets the shim of TestProbeResolver.ResolvedType(IActorRef parentActor, String childName)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.SupervisorGet">
+            <summary>Sets the shim of TestProbeResolver.get_Supervisor()</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.TellMessageOf1IActorRefM0IActorRefInt32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Action{Akka.Actor.IActorRef,``0,Akka.Actor.IActorRef,System.Int32})">
+            <summary>Sets the shim of TestProbeResolver.TellMessage(IActorRef recipient, !!0 message, IActorRef sender, Int32 waitForChildrenCount)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver.TellMessageOf1IActorRefM0Int32``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Action{Akka.Actor.IActorRef,``0,System.Int32})">
+            <summary>Sets the shim of TestProbeResolver.TellMessage(IActorRef recipient, !!0 message, Int32 waitForChildrenCount)</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings">
+            <summary>Shim type of ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolverSettings</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.#ctor(ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolverSettings)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.AllInstances.CreateResolverTestKitBase">
+            <summary>Sets the shim of TestProbeResolverSettings.CreateResolver(TestKitBase testKit)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.AllInstances.RegisterHandlerOf2FuncOfM1Object``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolverSettings,System.Func{``1,System.Object},ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolverSettings})">
+            <summary>Sets the shim of TestProbeResolverSettings.RegisterHandler(Func`2&lt;!!1,Object&gt; messageHandler)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.ConstructorImmutableDictionaryOfValueTupleOfTypeTypeFuncOfObjectObject">
+            <summary>Sets the shim of TestProbeResolverSettings.TestProbeResolverSettings(ImmutableDictionary`2&lt;ValueTuple`2&lt;Type,Type&gt;,Func`2&lt;Object,Object&gt;&gt; handlers)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.CreateResolverTestKitBase">
+            <summary>Sets the shim of TestProbeResolverSettings.CreateResolver(TestKitBase testKit)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.EmptyGet">
+            <summary>Sets the shim of TestProbeResolverSettings.get_Empty()</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.RegisterHandlerOf2FuncOfM1Object``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Func{``1,System.Object},ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolverSettings})">
+            <summary>Sets the shim of TestProbeResolverSettings.RegisterHandler(Func`2&lt;!!1,Object&gt; messageHandler)</summary>
+        </member>
+    </members>
+</doc>

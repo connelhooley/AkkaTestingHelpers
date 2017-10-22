@@ -12,13 +12,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         private readonly IChildTeller _childTeller;
         private readonly IChildWaiter _childWaiter;
         private readonly TestKitBase _testKit;
-        private readonly ImmutableDictionary<Type, Func<ActorBase>> _factories;
         
         internal ConcreteResolver(
-            IDependencyResolverAdder resolverAdder, 
             ISutCreator sutCreator, 
             IChildTeller childTeller,
             IChildWaiter childWaiter,
+            IDependencyResolverAdder resolverAdder, 
+            IConcreteDependencyResolverAdder concreteDependencyResolverAdder,
             TestKitBase testKit, 
             ImmutableDictionary<Type, Func<ActorBase>> factories)
         {
@@ -26,9 +26,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             _childTeller = childTeller;
             _childWaiter = childWaiter;
             _testKit = testKit;
-            _factories = factories;
 
-            resolverAdder.Add(testKit, Resolve);
+            concreteDependencyResolverAdder.Add(
+                resolverAdder,
+                childWaiter,
+                testKit,
+                factories);
         }
         
         public TestActorRef<TActor> CreateSut<TActor>(Props props, int expectedChildrenCount) where TActor : ActorBase =>
@@ -61,16 +64,5 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 message, 
                 waitForChildrenCount, 
                 sender);
-
-        private ActorBase Resolve(Type actorType)
-        {
-            if (_factories.TryGetValue(actorType, out Func<ActorBase> factory))
-            {
-                ActorBase actor = factory();
-                _childWaiter.ResolvedChild();
-                return actor;
-            }
-            throw new InvalidOperationException($"Please register the type '{actorType.Name}' in the settings");
-        }
     }
 }

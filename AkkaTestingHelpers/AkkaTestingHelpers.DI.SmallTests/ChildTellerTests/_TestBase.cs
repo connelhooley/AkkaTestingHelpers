@@ -4,6 +4,7 @@ using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using Moq;
+// ReSharper disable VirtualMemberCallInConstructor
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
 {
@@ -29,12 +30,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
             // Create objects used by mocks
             CallOrder = new List<string>();
 
-            // Create objects passed into sut
+            // Create objects passed into sut methods
             ChildWaiter = ChildWaiterMock.Object;
             ExpectedChildrenCount = TestUtils.Create<int>();
             Message = TestUtils.Create<object>();
             Recipient = RecipientMock.Object;
-            Sender = CreateTestProbe();
+            Sender = CreateTestProbe(); // Mocking sender breaks Akka so a TestProbe is used
 
             // Set up mocks
             ChildWaiterMock

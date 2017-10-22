@@ -1,10 +1,15 @@
-﻿using Akka.TestKit;
+﻿using System;
+using System.Collections.Generic;
+using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract
 {
     internal interface ITestProbeActorCreator
     {
-        ITestProbeActor Create(TestKitBase testKit);
+        ITestProbeActor Create(
+            ITestProbeCreator testProbeCreator,
+            TestKitBase testKit,
+            IReadOnlyDictionary<Type, Func<object, object>> handlers = null);
     }
 }

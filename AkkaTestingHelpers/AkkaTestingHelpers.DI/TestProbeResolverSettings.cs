@@ -22,12 +22,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         /// <returns>Created resolver that has been added to TestKit</returns>
         public TestProbeResolver CreateResolver(TestKitBase testKit) => 
             new TestProbeResolver(
-                new DependencyResolverAdder(), 
                 new SutCreator(), 
                 new ChildTeller(), 
                 new ChildWaiter(), 
-                new ResolvedTestProbeStore(),
+                new DependencyResolverAdder(), 
+                new TestProbeDependencyResolverAdder(),
                 new TestProbeCreator(),
+                new ResolvedTestProbeStore(),
                 new TestProbeActorCreator(), 
                 new TestProbeHandlersMapper(), 
                 testKit,

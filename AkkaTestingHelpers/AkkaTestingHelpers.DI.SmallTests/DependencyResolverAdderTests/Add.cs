@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Akka.Actor;
 using Akka.DI.Core;
 using Akka.TestKit;
 using Akka.TestKit.TestActors;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderTests
 {
     public class Add : TestBase
     {
+        #region Null tests
         [Fact]
         public void DependencyResolverAdder_AddWithNullTestKitBase_ThrowsArgumentNullException()
         {
@@ -51,20 +51,20 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
             //assert
             act.ShouldThrow<ArgumentNullException>();
         }
+        #endregion
 
         [Fact]
         public void DependencyResolverAdder_Add_ResultOfFactoryIsUsedToCreateActors()
         {
             //arrange
             DependencyResolverAdder sut = CreateDependencyResolverAdder();
-            DummyActor actor = new DummyActor();
             
             //act
-            sut.Add(this, type => actor);
+            sut.Add(this, ActorFactory);
 
             //assert
             TestActorRef<ActorBase> result = ActorOfAsTestActorRef<ActorBase>(Sys.DI().Props<ActorBase>());
-            result.UnderlyingActor.Should().BeSameAs(actor);
+            result.UnderlyingActor.Should().BeSameAs(ReturnedActor);
         }
 
         [Fact]
@@ -72,19 +72,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
         {
             //arrange
             DependencyResolverAdder sut = CreateDependencyResolverAdder();
-            DummyActor actor = new DummyActor();
-            Type actual = null;
 
             //act
-            sut.Add(this, type =>
-            {
-                actual = type;
-                return actor;
-            });
+            sut.Add(this, ActorFactory);
 
             //assert
             ActorOfAsTestActorRef<ActorBase>(Sys.DI().Props<DummyActor>());
-            actual.Should().Be<DummyActor>();
+            TypeGivenToFactory.Should().Be<DummyActor>();
         }
 
         [Fact]
@@ -92,19 +86,17 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderT
         {
             //arrange
             DependencyResolverAdder sut = CreateDependencyResolverAdder();
-            List<DummyActor> actors = TestUtils.CreateMany<DummyActor>();
-            foreach (DummyActor actor in actors.Take(actors.Count))
+            foreach (int i in TestUtils.CreateMany<int>())
             {
-                sut.Add(this, type => actor);
+                sut.Add(this, type => new Mock<ActorBase>().Object);
             }
-            DummyActor expected = new DummyActor();
 
             //act
-            sut.Add(this, type => expected);
+            sut.Add(this, ActorFactory);
 
             //assert
             TestActorRef<ActorBase> result = ActorOfAsTestActorRef<ActorBase>(Sys.DI().Props<DummyActor>());
-            result.UnderlyingActor.Should().BeSameAs(expected);
+            result.UnderlyingActor.Should().BeSameAs(ReturnedActor);
         }
     }
 }

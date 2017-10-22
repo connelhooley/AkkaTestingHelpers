@@ -8,10 +8,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
 {
     public class Start : TestBase
     {
+        #region Null tests
         [Fact]
         public void ChildWaiter_StartWithNullTestKitBase_ThrowsArgumentNullException()
         {
-            Within(TimeSpan.FromSeconds(2), () =>
+            Within(TimeSpan.FromMilliseconds(500), () =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
@@ -23,11 +24,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
                 act.ShouldThrow<ArgumentNullException>();
             });
         }
+        #endregion
 
         [Fact]
         public void ChildWaiter_Start_DoesNotThrowAnyExceptions()
         {
-            Within(TimeSpan.FromSeconds(2), () =>
+            Within(TimeSpan.FromMilliseconds(500), () =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
@@ -43,13 +45,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         [Fact]
         public void ChildWaiter_Started_Start_ShouldBlockThread()
         {
-            Within(TimeSpan.FromSeconds(2), () =>
+            Within(TimeSpan.FromMilliseconds(500), () =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
-                int expectedChildrenCount = TestUtils.RandomBetween(0, 5);
                 bool isSecondStartRan = false;
-                sut.Start(this, expectedChildrenCount);
+                sut.Start(this, TestUtils.RandomBetween(0, 5));
 
                 Task.Run(() =>
                 {
@@ -67,7 +68,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         [Fact]
         public void ChildWaiter_Started_Start_ShouldUnblockThreadWhenFirstStartsChildrenAreResolved()
         {
-            Within(TimeSpan.FromSeconds(2), () =>
+            Within(TimeSpan.FromMilliseconds(500), () =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
@@ -81,7 +82,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
                     sut.Start(this, TestUtils.RandomBetween(0, 5));
                     isSecondStartRan = true;
                 });
-                this.Sleep(50); //ensures start is called before continuing
+                this.Sleep(50); //ensures second start is called before continuing
 
                 //assert
                 Task.Run(() =>

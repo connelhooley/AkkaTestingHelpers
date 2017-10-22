@@ -2,7 +2,6 @@
 using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
-using ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI
@@ -13,17 +12,16 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         private readonly IChildTeller _childTeller;
         private readonly IChildWaiter _childWaiter;
         private readonly IResolvedTestProbeStore _resolvedProbeStore;
-        private readonly ITestProbeActorCreator _actorCreator;
         private readonly TestKitBase _testKit;
-        private readonly ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> _handlers;
 
         internal TestProbeResolver(
-            IDependencyResolverAdder resolverAdder, 
             ISutCreator sutCreator, 
             IChildTeller childTeller, 
             IChildWaiter childWaiter, 
-            IResolvedTestProbeStore resolvedProbeStore, 
-            ITestProbeCreator testProbeCreator, 
+            IDependencyResolverAdder resolverAdder, 
+            ITestProbeDependencyResolverAdder testProbeDependencyResolverAdder,
+            ITestProbeCreator testProbeCreator,
+            IResolvedTestProbeStore resolvedProbeStore,
             ITestProbeActorCreator testProbeActorCreator, 
             ITestProbeHandlersMapper handlersMapper, 
             TestKitBase testKit, 
@@ -33,12 +31,18 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             _childTeller = childTeller;
             _childWaiter = childWaiter;
             _resolvedProbeStore = resolvedProbeStore;
-            _actorCreator = testProbeActorCreator;
             _testKit = testKit;
-            _handlers = handlersMapper.Map(handlers);
+
             Supervisor = testProbeCreator.Create(testKit);
 
-            resolverAdder.Add(testKit, Resolve);
+            testProbeDependencyResolverAdder.Add(
+                resolverAdder,
+                testProbeActorCreator,
+                testProbeCreator,
+                resolvedProbeStore,
+                childWaiter,
+                testKit,
+                handlersMapper.Map(handlers));
         }
 
         /// <summary>
@@ -99,7 +103,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         /// <typeparam name="TMessage">The type of message to send</typeparam>
         /// <param name="recipient">The actor to send a message to</param>
         /// <param name="message">The message to send</param>
-        /// <param name="expectedChildrenCount">The number child actors to wait for</param>
+        /// <param name="waitForChildrenCount">The number child actors to wait for</param>
         public void TellMessage<TMessage>(IActorRef recipient, TMessage message, int waitForChildrenCount) =>
             _childTeller.TellMessage(
                 _childWaiter,
@@ -115,7 +119,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         /// <param name="recipient">The actor to send a message to</param>
         /// <param name="message">The message to send</param>
         /// <param name="sender">The actor to send the message from</param>
-        /// <param name="expectedChildrenCount">The number child actors to wait for</param>
+        /// <param name="waitForChildrenCount">The number child actors to wait for</param>
         public void TellMessage<TMessage>(IActorRef recipient, TMessage message, IActorRef sender, int waitForChildrenCount) =>
             _childTeller.TellMessage(
                 _childWaiter,
@@ -124,17 +128,5 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 message,
                 waitForChildrenCount,
                 sender);
-
-        private ActorBase Resolve(Type actorType)
-        {
-            ITestProbeActor probeActor = _actorCreator.Create(_testKit);
-            if (_handlers.ContainsKey(actorType))
-            {
-                probeActor.SetHandlers(_handlers[actorType]);
-            }
-            _resolvedProbeStore.ResolveProbe(probeActor.ActorPath, actorType, probeActor.TestProbe);
-            _childWaiter.ResolvedChild();
-            return probeActor.Actor;
-        }
     }
 }

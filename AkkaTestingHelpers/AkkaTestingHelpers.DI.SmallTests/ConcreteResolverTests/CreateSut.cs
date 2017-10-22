@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Immutable;
-using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.TestActors;
 using FluentAssertions;
 using Xunit;
 
@@ -10,43 +7,45 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverTests
 {
     public class CreateSut : TestBase
     {
+        #region Null tests
         [Fact]
         public void ConcreteResolver_CreateSutWithNullProps_ThrowsArgumentNullException()
         {
             //arrange   
-            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
+            ConcreteResolver sut = CreateConcreteResolver();
 
             //act
-            Action act = () => sut.CreateSut<BlackHoleActor>(null, ExpectedChildrenCount);
+            Action act = () => sut.CreateSut<DummyActor>(null, ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
         }
+        #endregion
 
         [Fact]
         public void ConcreteResolver_CreateSut_ReturnsCreatedActor()
         {
             //arrange   
-            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
+            ConcreteResolver sut = CreateConcreteResolver();
 
             //act
-            TestActorRef<BlackHoleActor> result = sut.CreateSut<BlackHoleActor>(Props, ExpectedChildrenCount);
+            TestActorRef<DummyActor> result = sut.CreateSut<DummyActor>(Props, ExpectedChildCount);
 
             //assert
-            result.Should().BeSameAs(CreatedActor);
+            result.Should().BeSameAs(CreatedSutWithProps);
         }
         
         [Fact]
         public void ConcreteResolver_CreateSutWithNoProps_ReturnsCreatedActor()
         {
             //arrange   
-            ConcreteResolver sut = CreateConcreteResolver(ImmutableDictionary<Type, Func<ActorBase>>.Empty);
+            ConcreteResolver sut = CreateConcreteResolver();
             
             //act
-            TestActorRef<BlackHoleActor> result = sut.CreateSut<BlackHoleActor>(ExpectedChildrenCount);
+            TestActorRef<DummyActor> result = sut.CreateSut<DummyActor>(ExpectedChildCount);
 
             //assert
-            result.Should().BeSameAs(CreatedActorNoProps);
+            result.Should().BeSameAs(CreatedSutWithoutProps);
         }
     }
 }

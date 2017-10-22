@@ -7,6 +7,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
     public class TellMessage : TestBase
     {
+        #region Null tests
         [Fact]
         public void TestProbeResolver_TellMessageNoSenderWithNullRecipient_ThrowsArgumentNullException()
         {
@@ -14,7 +15,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
-            Action act = () => sut.TellMessage(null, Message, ExpectedChildrenCount);
+            Action act = () => sut.TellMessage(
+                null, 
+                Message, 
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -27,7 +31,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
-            Action act = () => sut.TellMessage<object>(Recipient, null, ExpectedChildrenCount);
+            Action act = () => sut.TellMessage<object>(
+                Recipient, 
+                null, 
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -40,7 +47,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
-            Action act = () => sut.TellMessage<object>(null, null, ExpectedChildrenCount);
+            Action act = () => sut.TellMessage<object>(
+                null, 
+                null, 
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -53,7 +63,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
-            Action act = () => sut.TellMessage(null, Message, Sender, ExpectedChildrenCount);
+            Action act = () => sut.TellMessage(
+                null, 
+                Message, 
+                Sender, 
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -66,7 +80,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
-            Action act = () => sut.TellMessage<object>(Recipient, null, Sender, ExpectedChildrenCount);
+            Action act = () => sut.TellMessage<object>(
+                Recipient, 
+                null, 
+                Sender, 
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -79,7 +97,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
-            Action act = () => sut.TellMessage(Recipient, Message, null, ExpectedChildrenCount);
+            Action act = () => sut.TellMessage(
+                Recipient, 
+                Message, 
+                null, 
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -92,12 +114,17 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
-            Action act = () => sut.TellMessage<object>(null, null, null, ExpectedChildrenCount);
+            Action act = () => sut.TellMessage<object>(
+                null, 
+                null, 
+                null, 
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
         }
-        
+        #endregion
+
         [Fact]
         public void TestProbeResolver_TellMessageNoSender_TellsChild()
         {
@@ -105,11 +132,17 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
-            sut.TellMessage(Recipient, Message, ExpectedChildrenCount);
+            sut.TellMessage(Recipient, Message, ExpectedChildCount);
 
             //assert
             ChildTellerMock.Verify(
-                teller => teller.TellMessage(ChildWaiterMock.Object, this, Recipient, Message, ExpectedChildrenCount, null),
+                teller => teller.TellMessage(
+                    ChildWaiter, 
+                    this, 
+                    Recipient, 
+                    Message, 
+                    ExpectedChildCount, 
+                    null),
                 Times.Once);
         }
 
@@ -120,11 +153,17 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             TestProbeResolver sut = CreateTestProbeResolver();
 
             //act
-            sut.TellMessage(Recipient, Message, Sender, ExpectedChildrenCount);
+            sut.TellMessage(Recipient, Message, Sender, ExpectedChildCount);
 
             //assert
             ChildTellerMock.Verify(
-                teller => teller.TellMessage(ChildWaiterMock.Object, this, Recipient, Message, ExpectedChildrenCount, Sender),
+                teller => teller.TellMessage(
+                    ChildWaiter, 
+                    this, 
+                    Recipient, 
+                    Message, 
+                    ExpectedChildCount, 
+                    Sender),
                 Times.Once);
         }
     }

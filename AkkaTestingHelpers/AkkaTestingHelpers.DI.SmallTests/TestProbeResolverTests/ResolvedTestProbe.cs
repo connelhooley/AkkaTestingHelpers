@@ -7,6 +7,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
 {
     public class ResolvedTestProbe : TestBase
     {
+        #region Null tests
         [Fact]
         public void TestProbeResolver_ResolvedTestProbeWithNullParentActor_ThrowsArgumentNullException()
         {
@@ -34,7 +35,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         }
 
         [Fact]
-        public void TestProbeResolver_ResolvedTestProbeWithNullParentActorAndChildName_ThrowsArgumentNullException()
+        public void TestProbeResolver_ResolvedTestProbeWithAllNulls_ThrowsArgumentNullException()
         {
             //arrange
             TestProbeResolver sut = CreateTestProbeResolver();
@@ -45,6 +46,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             //assert
             act.ShouldThrow<ArgumentNullException>();
         }
+        #endregion
 
         [Fact]
         public void TestProbeResolver_ResolvedTestProbe_ReturnsCorrectProbe()

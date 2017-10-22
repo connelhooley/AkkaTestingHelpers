@@ -10,6 +10,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
 {
     public class Map : TestBase
     {
+        #region Null tests
         [Fact]
         public void TestProbeHandlersMapper_MapWithNullSettingsHandlers_ThrowsArgumentNullException()
         {
@@ -22,7 +23,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
             //assert
             act.ShouldThrow<ArgumentNullException>();
         }
-        
+        #endregion
+
         [Fact]
         public void TestProbeHandlersMapper_MapNoActors_ReturnsEmptyResult()
         {
@@ -87,13 +89,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperT
                 .Add((actor2, message2), handler2));
 
             //assert
-            result.ShouldAllBeEquivalentTo(MappedHandlers.Empty
-                .Add(actor1, MappedMessageHandlers.Empty
-                    .Add(message1, handler1))
-                .Add(actor2, MappedMessageHandlers.Empty
-                    .Add(message2, handler2)));
+            result.ShouldAllBeEquivalentTo(
+                MappedHandlers.Empty
+                    .Add(actor1, MappedMessageHandlers.Empty
+                        .Add(message1, handler1))
+                    .Add(actor2, MappedMessageHandlers.Empty
+                        .Add(message2, handler2)));
         }
-
+        
         [Fact]
         public void TestProbeHandlersMapper_MapMultipleActorsWithMultipleHandlers_ReturnsCorrectResult()
         {

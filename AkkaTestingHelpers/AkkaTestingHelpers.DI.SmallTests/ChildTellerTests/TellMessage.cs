@@ -10,7 +10,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
 {
     public class TellMessage : TestBase
     {
-        #region null checks
+        #region Null tests
         [Fact]
         public void ChildTeller_TellMessageWithNullChildWaiter_ThrowsArgumentNullException()
         {
@@ -18,11 +18,18 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
             ChildTeller sut = CreateChildTeller();
 
             //act
-            Action act = () => sut.TellMessage(null, this, Recipient, Message, ExpectedChildrenCount, Sender);
+            Action act = () => sut.TellMessage(
+                null, 
+                this, 
+                Recipient, 
+                Message, 
+                ExpectedChildrenCount, 
+                Sender);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
         }
+
         [Fact]
         public void ChildTeller_TellMessageWithNullTestKitBase_ThrowsArgumentNullException()
         {
@@ -30,7 +37,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
             ChildTeller sut = CreateChildTeller();
 
             //act
-            Action act = () => sut.TellMessage(ChildWaiter, null, Recipient, Message, ExpectedChildrenCount, Sender);
+            Action act = () => sut.TellMessage(
+                ChildWaiter, 
+                null, 
+                Recipient, 
+                Message, 
+                ExpectedChildrenCount, 
+                Sender);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -43,7 +56,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
             ChildTeller sut = CreateChildTeller();
 
             //act
-            Action act = () => sut.TellMessage(ChildWaiter, this, null, Message, ExpectedChildrenCount, Sender);
+            Action act = () => sut.TellMessage(
+                ChildWaiter, 
+                this, 
+                null, 
+                Message, 
+                ExpectedChildrenCount, 
+                Sender);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -56,7 +75,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
             ChildTeller sut = CreateChildTeller();
 
             //act
-            Action act = () => sut.TellMessage<object>(ChildWaiter, this, Recipient, null, ExpectedChildrenCount, Sender);
+            Action act = () => sut.TellMessage<object>(
+                ChildWaiter, 
+                this, 
+                Recipient, 
+                null, 
+                ExpectedChildrenCount, 
+                Sender);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -69,12 +94,17 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
             ChildTeller sut = CreateChildTeller();
 
             //act
-            Action act = () => sut.TellMessage<object>(null, null, null, null, ExpectedChildrenCount, Sender);
+            Action act = () => sut.TellMessage<object>(
+                null, 
+                null, 
+                null, 
+                null, 
+                ExpectedChildrenCount, 
+                Sender);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
         }
-
         #endregion
 
         [Fact]
@@ -173,7 +203,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount, Sender);
 
             //assert
-            CallOrder.Should().ContainInOrder(nameof(IChildWaiter.Start), nameof(IActorRef.Tell) + "Sender");
+            CallOrder.Should().ContainInOrder(
+                nameof(IChildWaiter.Start), 
+                nameof(IActorRef.Tell) + "Sender");
         }
 
         [Fact]
@@ -186,7 +218,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount);
 
             //assert
-            CallOrder.Should().ContainInOrder(nameof(IChildWaiter.Start), nameof(IActorRef.Tell));
+            CallOrder.Should().ContainInOrder(
+                nameof(IChildWaiter.Start), 
+                nameof(IActorRef.Tell));
         }
 
         [Fact]
@@ -199,7 +233,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount, Sender);
 
             //assert
-            CallOrder.Should().ContainInOrder(nameof(IActorRef.Tell) + "Sender", nameof(IChildWaiter.Wait));
+            CallOrder.Should().ContainInOrder(
+                nameof(IActorRef.Tell) + "Sender", 
+                nameof(IChildWaiter.Wait));
         }
 
         [Fact]
@@ -212,7 +248,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount);
 
             //assert
-            CallOrder.Should().ContainInOrder(nameof(IActorRef.Tell), nameof(IChildWaiter.Wait));
+            CallOrder.Should().ContainInOrder(
+                nameof(IActorRef.Tell), 
+                nameof(IChildWaiter.Wait));
         }
     }
 }

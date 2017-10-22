@@ -9,15 +9,15 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
 {
     public class FindResolvedTestProbe : TestBase
     {
+        #region Null tests
         [Fact]
         public void ResolvedTestProbeStore_FindResolvedTestProbeWithNullParentRef_ThrowsArgumentNullException()
         {
             //arrange
-            (_, _, _, string name) = CreateChildVariables();
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
 
             //act
-            Action act = () => sut.FindResolvedTestProbe(null, name);
+            Action act = () => sut.FindResolvedTestProbe(null, TestUtils.Create<string>());
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -48,6 +48,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             //assert
             act.ShouldThrow<ArgumentNullException>();
         }
+        #endregion
 
         [Fact]
         public void ResolvedTestProbeStore_NoActorsAreResolved_FindResolvedTestProbe_ThrowsActorNotFoundException()
