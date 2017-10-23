@@ -1,5 +1,4 @@
 ﻿using System;
-using Akka.Actor;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
@@ -23,71 +22,58 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeCreatorTests
             act.ShouldThrow<ArgumentNullException>();
         }
         #endregion
-
+        
         [Fact]
-        public void TestProbeCreator_Create_DoesNotThrowException()
+        public void TestProbeCreator_Create_ReturnsTestProbeFromTestKit()
         {
             //arrange
             TestProbeCreator sut = CreateTestProbeCreator();
 
             //act
-            Action act = () => sut.Create(this);
+            TestProbe result = sut.Create(TestKitBase);
 
             //assert
-            act.ShouldNotThrow();
-        }
-
-        [Fact]
-        public void TestProbeCreator_Create_ReturnsTestProbeWithCorrectSystem()
-        {
-            //arrange
-            TestProbeCreator sut = CreateTestProbeCreator();
-
-            //act
-            TestProbe result = sut.Create(this);
-
-            //assert
-            result.Sys.Should().BeSameAs(Sys);
+            result.Should().BeSameAs(TestProbeReturnedFromShim);
         }
         
         [Fact]
-        public void TestProbeCreator_Create_ReturnsTestProbeWithCorrectTestKitSettings()
+        public void TestProbeCreator_Create_CreatesTestProbeWithNoName()
         {
             //arrange
             TestProbeCreator sut = CreateTestProbeCreator();
 
             //act
-            TestProbe result = sut.Create(this);
+            sut.Create(TestKitBase);
 
             //assert
-            result.TestKitSettings.Should().BeSameAs(TestKitSettings);
+            NamePassedIntoShim.Should().BeNull();
         }
 
         [Fact]
-        public void TestProbeCreator_Create_ReturnsWorkingTestProbe()
+        public void TestProbeCreator_Create_OnlyCreatesOneTestProbe()
         {
             //arrange
             TestProbeCreator sut = CreateTestProbeCreator();
 
             //act
-            TestProbe result = sut.Create(this);
+            sut.Create(TestKitBase);
 
             //assert
-            object message = TestUtils.Create<object>();
-            result.Tell(message);
-            result.ExpectMsg(message);
+            CallCount.Should().Be(1);
         }
 
         [Fact]
-        public void TestProbeCreator_Create_CreatesTestProbeFromTestkit()
+        public void TestProbeCreator_Create_CreatesANewTestProbeEveryTime()
         {
             //arrange
             TestProbeCreator sut = CreateTestProbeCreator();
+            TestProbe result1 = sut.Create(TestKitBase);
 
             //act
-            TestProbe result = sut.Create(this);
+            TestProbe result2 = sut.Create(TestKitBase);
 
-            //todo shims
+            //assert
+            result1.Should().NotBeSameAs(result2);
         }
     }
 }

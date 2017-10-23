@@ -35,10 +35,9 @@ using NullGuard;
 [assembly: AssemblyVersion("1.0.*")]
 
 [assembly: NullGuard(ValidationFlags.All)]
-[assembly: InternalsVisibleTo("FileSystem.Fakes")]
-[assembly: InternalsVisibleTo("FileSystem.Tests")]
-[assembly: InternalsVisibleTo("TargetAssembly.Fakes")]
-[assembly: InternalsVisibleTo("TestAssembly")]
+[assembly: InternalsVisibleTo("ConnelHooley.AkkaTestingHelpers.DI.Fakes")]
 [assembly: InternalsVisibleTo("ConnelHooley.AkkaTestingHelpers.DI.SmallTests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
+[assembly: InternalsVisibleTo("FileSystem.Fakes")]
+[assembly: InternalsVisibleTo("FileSystem.Tests")]
 
