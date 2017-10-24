@@ -222,12 +222,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverSettings
             sut.CreateResolver(this);
             
             //assert
-            ImmutableDictionary<Type, Func<ActorBase>> expected = ImmutableDictionary<Type, Func<ActorBase>>
-                .Empty
-                .Add(typeof(DummyActor1), () => actor1)
-                .Add(typeof(DummyActor2), () => actor2);
             FactoriesPassedIntoShim.ShouldAllBeEquivalentTo(
-                expected,
+                ImmutableDictionary<Type, Func<ActorBase>>
+                    .Empty
+                    .Add(typeof(DummyActor1), () => actor1)
+                    .Add(typeof(DummyActor2), () => actor2),
                 options => options
                     .Using<Func<ActorBase>>(context => context.Subject.Invoke().Should().BeSameAs(context.Expectation.Invoke()))
                     .WhenTypeIs<Func<ActorBase>>());
@@ -250,12 +249,36 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverSettings
             sut.CreateResolver(this);
 
             //assert
-            ImmutableDictionary<Type, Func<ActorBase>> expected = ImmutableDictionary<Type, Func<ActorBase>>
-                .Empty
-                .Add(typeof(DummyActor1), () => actor2)
-                .Add(typeof(DummyActor2), () => duplicateActor1);
             FactoriesPassedIntoShim.ShouldAllBeEquivalentTo(
-                expected,
+                ImmutableDictionary<Type, Func<ActorBase>>
+                    .Empty
+                    .Add(typeof(DummyActor1), () => duplicateActor1)
+                    .Add(typeof(DummyActor2), () => actor2),
+                options => options
+                    .Using<Func<ActorBase>>(context => context.Subject.Invoke().Should().BeSameAs(context.Expectation.Invoke()))
+                    .WhenTypeIs<Func<ActorBase>>());
+        }
+
+        [Fact]
+        public void ConcreteResolverSettings_CreateResolverWithDuplicateFuncFactoriesInDifferentInstances_ConstructsConcreteResolverWithCorrectFactories()
+        {
+            //arrange
+            DummyActor1 actor1 = new DummyActor1();
+            DummyActor2 actor2 = new DummyActor2();
+            ConcreteResolverSettings sut = ConcreteResolverSettings
+                .Empty
+                .Register(() => actor1);
+            ConcreteResolverSettings differentInstance = sut
+                .Register(() => actor2);
+
+            //act
+            sut.CreateResolver(this);
+
+            //assert
+            FactoriesPassedIntoShim.ShouldAllBeEquivalentTo(
+                ImmutableDictionary<Type, Func<ActorBase>>
+                    .Empty
+                    .Add(typeof(DummyActor1), () => actor1),
                 options => options
                     .Using<Func<ActorBase>>(context => context.Subject.Invoke().Should().BeSameAs(context.Expectation.Invoke()))
                     .WhenTypeIs<Func<ActorBase>>());
@@ -274,12 +297,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverSettings
             sut.CreateResolver(this);
 
             //assert
-            ImmutableDictionary<Type, Func<ActorBase>> expected = ImmutableDictionary<Type, Func<ActorBase>>
-                .Empty
-                .Add(typeof(DummyActor1), () => new DummyActor1())
-                .Add(typeof(DummyActor2), () => new DummyActor2());
             FactoriesPassedIntoShim.ShouldAllBeEquivalentTo(
-                expected,
+                ImmutableDictionary<Type, Func<ActorBase>>
+                    .Empty
+                    .Add(typeof(DummyActor1), () => new DummyActor1())
+                    .Add(typeof(DummyActor2), () => new DummyActor2()),
                 options => options
                     .Using<Func<ActorBase>>(context => context.Subject.Invoke().GetType().Should().Be(context.Expectation.Invoke().GetType()))
                     .WhenTypeIs<Func<ActorBase>>());
@@ -299,12 +321,34 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverSettings
             sut.CreateResolver(this);
 
             //assert
-            ImmutableDictionary<Type, Func<ActorBase>> expected = ImmutableDictionary<Type, Func<ActorBase>>
-                .Empty
-                .Add(typeof(DummyActor2), () => new DummyActor2())
-                .Add(typeof(DummyActor1), () => new DummyActor1());
             FactoriesPassedIntoShim.ShouldAllBeEquivalentTo(
-                expected,
+                ImmutableDictionary<Type, Func<ActorBase>>
+                    .Empty
+                    .Add(typeof(DummyActor2), () => new DummyActor2())
+                    .Add(typeof(DummyActor1), () => new DummyActor1()),
+                options => options
+                    .Using<Func<ActorBase>>(context => context.Subject.Invoke().GetType().Should().Be(context.Expectation.Invoke().GetType()))
+                    .WhenTypeIs<Func<ActorBase>>());
+        }
+
+        [Fact]
+        public void ConcreteResolverSettings_CreateResolverWithFactoriesInDifferentInstances_ConstructsConcreteResolverWithCorrectFactories()
+        {
+            //arrange
+            ConcreteResolverSettings sut = ConcreteResolverSettings
+                .Empty
+                .Register<DummyActor1>();
+            ConcreteResolverSettings differentInstance = sut
+                .Register<DummyActor2>();
+
+            //act
+            sut.CreateResolver(this);
+
+            //assert
+            FactoriesPassedIntoShim.ShouldAllBeEquivalentTo(
+                ImmutableDictionary<Type, Func<ActorBase>>
+                    .Empty
+                    .Add(typeof(DummyActor1), () => new DummyActor1()),
                 options => options
                     .Using<Func<ActorBase>>(context => context.Subject.Invoke().GetType().Should().Be(context.Expectation.Invoke().GetType()))
                     .WhenTypeIs<Func<ActorBase>>());

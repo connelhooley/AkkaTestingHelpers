@@ -1,6 +1,6 @@
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Xunit;
 
 [assembly: AssemblyTitle("AkkaTestingHelpers.DI.SmallTests")]
 [assembly: AssemblyDescription("")]
@@ -18,3 +18,6 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+// Tests cannot run in parallel due to fakes overridding classes during other tests
+[assembly: CollectionBehavior(CollectionBehavior.CollectionPerAssembly)]

@@ -47,7 +47,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             });
         }
 
-        [Fact]
+        [Fact] //null exception
         public void ChildWaiter_Started_Wait_BlockThreadUntilChildrenAreResolved()
         {
             Within(TimeSpan.FromMilliseconds(500), () =>
@@ -89,7 +89,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             Within(TestKitSettings.DefaultTimeout, act);
         }
 
-        [Fact]
+        [Fact] //todo fix
         public void ChildWaiter_StartedWithNegativeExpectedChildren_Wait_DoesNotBlockThread()
         {
             //arrange

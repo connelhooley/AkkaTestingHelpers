@@ -137,13 +137,29 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverSetting
         protected class DummyActor1 : ReceiveActor { }
 
         protected class DummyActor2 : ReceiveActor { }
-
+        
         protected class Message1 { }
+        
+        protected class Reply1
+        {
+            //public Message1 Message1 { get; }
 
-        protected class Reply1 { }
+            //public Reply1(Message1 message1)
+            //{
+            //    Message1 = message1;
+            //}
+        }
 
         protected class Message2 { }
 
-        protected class Reply2 { }
+        protected class Reply2
+        {
+            //public Message2 Message2 { get; }
+
+            //public Reply2(Message2 message2)
+            //{
+            //    Message2 = message2;
+            //}
+        }
     }
 }

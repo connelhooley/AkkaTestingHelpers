@@ -36,7 +36,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverSetting
             result.Should().BeSameAs(ConstructedTestProbeResolver);
         }
 
-        [Fact]
+        [Fact] //todo fix
         public void TestProbeResolverSettings_CreateResolver_ConstructsOnlyOneTestProbeResolver()
         {
             //arrange
@@ -295,122 +295,139 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverSetting
             //assert
             TestKitPassedIntoShim.Should().BeSameAs(this);
         }
+
+        [Fact]
+        public void TestProbeResolverSettings_CreateResolverWithNoHandlers_ConstructsTestProbeResolverWithEmptyHandlers()
+        {
+            //arrange
+            TestProbeResolverSettings sut = TestProbeResolverSettings.Empty;
+
+            //act
+            sut.CreateResolver(this);
+
+            //assert
+            HandlersPassedIntoShim.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void TestProbeResolverSettings_CreateResolverWithHandlers_ConstructsTestProbeResolverWithCorrectHandlers()
+        {
+            //arrange
+            Reply1 reply1 = new Reply1();
+            Reply2 reply2 = new Reply2();
+            TestProbeResolverSettings sut = TestProbeResolverSettings
+                .Empty
+                .RegisterHandler<DummyActor1, Message1>(message1 => reply1)
+                .RegisterHandler<DummyActor1, Message2>(message2 => reply2)
+                .RegisterHandler<DummyActor2, Message1>(message1 => reply1);
+
+            //act
+            sut.CreateResolver(this);
+
+            //assert
+            HandlersPassedIntoShim.ShouldAllBeEquivalentTo(
+                ImmutableDictionary<(Type, Type), Func<object, object>>
+                    .Empty
+                    .Add((typeof(DummyActor1), typeof(Message1)), message1 => reply1)
+                    .Add((typeof(DummyActor1), typeof(Message2)), message2 => reply2)
+                    .Add((typeof(DummyActor2), typeof(Message1)), message1 => reply1),
+                options => options
+                    .Using<Func<object, object>>(context => context.Subject.Invoke(null).Should().BeSameAs(context.Expectation.Invoke(null)))
+                    .WhenTypeIs<Func<object, object>>());
+        }
+
+        [Fact]
+        public void TestProbeResolverSettings_CreateResolverWithDuplicateHandlers_ConstructsTestProbeResolverWithCorrectHandlers()
+        {
+            //arrange
+            Reply1 reply1 = new Reply1();
+            Reply2 reply2 = new Reply2();
+            Reply1 duplicateReply1 = new Reply1();
+            TestProbeResolverSettings sut = TestProbeResolverSettings
+                .Empty
+                .RegisterHandler<DummyActor1, Message1>(message1 => reply1)
+                .RegisterHandler<DummyActor2, Message2>(message2 => reply2)
+                .RegisterHandler<DummyActor1, Message1>(message1 => duplicateReply1);
+
+            //act
+            sut.CreateResolver(this);
+
+            //assert
+            HandlersPassedIntoShim.ShouldAllBeEquivalentTo(
+                ImmutableDictionary<(Type, Type), Func<object, object>>
+                    .Empty
+                    .Add((typeof(DummyActor1), typeof(Message1)), message1 => duplicateReply1)
+                    .Add((typeof(DummyActor2), typeof(Message2)), message2 => reply2),
+                options => options
+                    .Using<Func<object, object>>(context => context.Subject.Invoke(null).Should().BeSameAs(context.Expectation.Invoke(null)))
+                    .WhenTypeIs<Func<object, object>>());
+        }
+
+        [Fact]
+        public void TestProbeResolverSettings_CreateResolverWithHandlersInDifferentInstances_ConstructsTestProbeResolverWithCorrectHandlers()
+        {
+            //arrange
+            Reply1 reply1 = new Reply1();
+            Reply2 reply2 = new Reply2();
+            Reply1 duplicateReply1 = new Reply1();
+            TestProbeResolverSettings sut = TestProbeResolverSettings
+                .Empty
+                .RegisterHandler<DummyActor1, Message1>(message1 => reply1)
+                .RegisterHandler<DummyActor2, Message2>(message1 => reply2);
+                
+            TestProbeResolverSettings differentInstance = sut
+                .RegisterHandler<DummyActor1, Message1>(message1 => duplicateReply1);
+
+            //act
+            sut.CreateResolver(this);
+
+            //assert
+            HandlersPassedIntoShim.ShouldAllBeEquivalentTo(
+                ImmutableDictionary<(Type, Type), Func<object, object>>
+                    .Empty
+                    .Add((typeof(DummyActor1), typeof(Message1)), message1 => reply1)
+                    .Add((typeof(DummyActor2), typeof(Message2)), message1 => reply2),
+                options => options
+                    .Using<Func<object, object>>(context => context.Subject.Invoke(null).Should().BeSameAs(context.Expectation.Invoke(null)))
+                    .WhenTypeIs<Func<object, object>>());
+        }
         
-        //todo dictionary tests
-        //[Fact]
-        //public void TestProbeResolverSettings_CreateResolverWithNoFactories_ConstructsTestProbeResolverWithEmptyFactories()
-        //{
-        //    //arrange
-        //    TestProbeResolverSettings sut = TestProbeResolverSettings.Empty;
+        [Fact]
+        public void TestProbeResolverSettings_CreateResolverWithHandlers_ConstructsTestProbeResolverWithHandlersThatReceiveTheCorrectMessage()
+        {
+            //arrange
+            Message1 actual = null;
+            TestProbeResolverSettings sut = TestProbeResolverSettings
+                .Empty
+                .RegisterHandler<DummyActor1, Message1>(mess =>
+                {
+                    actual = mess;
+                    return new Reply1();
+                });
+            
+            //act
+            sut.CreateResolver(this);
 
-        //    //act
-        //    sut.CreateResolver(this);
+            //assert
+            Message1 exptectedMessage = new Message1();
+            HandlersPassedIntoShim[(typeof(DummyActor1), typeof(Message1))].Invoke(exptectedMessage);
+            actual.Should().BeSameAs(exptectedMessage);
+        }
 
-        //    //assert
-        //    FactoriesPassedIntoShim.Should().BeEmpty();
-        //}
+        [Fact]
+        public void TestProbeResolverSettings_CreateResolverWithHandlers_ConstructsTestProbeResolverWithHandlersThatThrowWhenGivenTheWrongMessageType()
+        {
+            //arrange
+            TestProbeResolverSettings sut = TestProbeResolverSettings
+                .Empty
+                .RegisterHandler<DummyActor1, Message1>(mess => new Reply1());
 
-        //[Fact]
-        //public void TestProbeResolverSettings_CreateResolverWithFuncFactories_ConstructsTestProbeResolverWithCorrectFactories()
-        //{
-        //    //arrange
-        //    DummyActor1 actor1 = new DummyActor1();
-        //    DummyActor2 actor2 = new DummyActor2();
-        //    TestProbeResolverSettings sut = TestProbeResolverSettings
-        //        .Empty
-        //        .Register(() => actor1)
-        //        .Register(() => actor2);
+            //act
+            sut.CreateResolver(this);
 
-        //    //act
-        //    sut.CreateResolver(this);
-
-        //    //assert
-        //    ImmutableDictionary<Type, Func<ActorBase>> expected = ImmutableDictionary<Type, Func<ActorBase>>
-        //        .Empty
-        //        .Add(typeof(DummyActor1), () => actor1)
-        //        .Add(typeof(DummyActor2), () => actor2);
-        //    FactoriesPassedIntoShim.ShouldAllBeEquivalentTo(
-        //        expected,
-        //        options => options
-        //            .Using<Func<ActorBase>>(context => context.Subject.Invoke().Should().BeSameAs(context.Expectation.Invoke()))
-        //            .WhenTypeIs<Func<ActorBase>>());
-        //}
-
-        //[Fact]
-        //public void TestProbeResolverSettings_CreateResolverWithDuplicateFuncFactories_ConstructsTestProbeResolverWithCorrectFactories()
-        //{
-        //    //arrange
-        //    DummyActor1 actor1 = new DummyActor1();
-        //    DummyActor1 duplicateActor1 = new DummyActor1();
-        //    DummyActor2 actor2 = new DummyActor2();
-        //    TestProbeResolverSettings sut = TestProbeResolverSettings
-        //        .Empty
-        //        .Register(() => actor1)
-        //        .Register(() => actor2)
-        //        .Register(() => duplicateActor1);
-
-        //    //act
-        //    sut.CreateResolver(this);
-
-        //    //assert
-        //    ImmutableDictionary<Type, Func<ActorBase>> expected = ImmutableDictionary<Type, Func<ActorBase>>
-        //        .Empty
-        //        .Add(typeof(DummyActor1), () => actor2)
-        //        .Add(typeof(DummyActor2), () => duplicateActor1);
-        //    FactoriesPassedIntoShim.ShouldAllBeEquivalentTo(
-        //        expected,
-        //        options => options
-        //            .Using<Func<ActorBase>>(context => context.Subject.Invoke().Should().BeSameAs(context.Expectation.Invoke()))
-        //            .WhenTypeIs<Func<ActorBase>>());
-        //}
-
-        //[Fact]
-        //public void TestProbeResolverSettings_CreateResolverWithGenericFactories_ConstructsTestProbeResolverWithCorrectFactories()
-        //{
-        //    //arrange
-        //    TestProbeResolverSettings sut = TestProbeResolverSettings
-        //        .Empty
-        //        .Register<DummyActor1>()
-        //        .Register<DummyActor2>();
-
-        //    //act
-        //    sut.CreateResolver(this);
-
-        //    //assert
-        //    ImmutableDictionary<Type, Func<ActorBase>> expected = ImmutableDictionary<Type, Func<ActorBase>>
-        //        .Empty
-        //        .Add(typeof(DummyActor1), () => new DummyActor1())
-        //        .Add(typeof(DummyActor2), () => new DummyActor2());
-        //    FactoriesPassedIntoShim.ShouldAllBeEquivalentTo(
-        //        expected,
-        //        options => options
-        //            .Using<Func<ActorBase>>(context => context.Subject.Invoke().GetType().Should().Be(context.Expectation.Invoke().GetType()))
-        //            .WhenTypeIs<Func<ActorBase>>());
-        //}
-
-        //[Fact]
-        //public void TestProbeResolverSettings_CreateResolverWithDuplicateGenericFactories_ConstructsTestProbeResolverWithCorrectFactories()
-        //{
-        //    //arrange
-        //    TestProbeResolverSettings sut = TestProbeResolverSettings
-        //        .Empty
-        //        .Register<DummyActor1>()
-        //        .Register<DummyActor2>()
-        //        .Register<DummyActor1>();
-
-        //    //act
-        //    sut.CreateResolver(this);
-
-        //    //assert
-        //    ImmutableDictionary<Type, Func<ActorBase>> expected = ImmutableDictionary<Type, Func<ActorBase>>
-        //        .Empty
-        //        .Add(typeof(DummyActor2), () => new DummyActor2())
-        //        .Add(typeof(DummyActor1), () => new DummyActor1());
-        //    FactoriesPassedIntoShim.ShouldAllBeEquivalentTo(
-        //        expected,
-        //        options => options
-        //            .Using<Func<ActorBase>>(context => context.Subject.Invoke().GetType().Should().Be(context.Expectation.Invoke().GetType()))
-        //            .WhenTypeIs<Func<ActorBase>>());
-        //}
+            //assert
+            Action invokeHandlerWithWrongMessageType = () => HandlersPassedIntoShim[(typeof(DummyActor1), typeof(Message1))].Invoke(new Message2());
+            invokeHandlerWithWrongMessageType.ShouldThrow<InvalidCastException>();
+        }
     }
 }
