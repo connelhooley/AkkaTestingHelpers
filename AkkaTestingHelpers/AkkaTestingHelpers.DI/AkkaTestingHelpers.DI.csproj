@@ -16,6 +16,7 @@
     <PackageProjectUrl>https://github.com/connelhooley/AkkaTestingHelpers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/connelhooley/AkkaTestingHelpers/tree/master/AkkaTestingHelpers</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   
   <ItemGroup>
