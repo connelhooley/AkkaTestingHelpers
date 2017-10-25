@@ -1,13 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
     <RootNamespace>ConnelHooley.AkkaTestingHelpers.DI</RootNamespace>
     <AssemblyName>ConnelHooley.AkkaTestingHelpers.DI</AssemblyName>
+    
     <Authors>Connel Hooley</Authors>
     <Product>Akka TestKit Dependency Injection Helpers</Product>
     <Description>Akka DependencyResolver that mocks child Actors into Stubs or TestProbes.</Description>
     <Copyright>Copyright Connel Hooley 2017</Copyright>
+    <Version Condition=" '$(BUILD_BUILDNUMBER)' == '' ">0.0.1-local</Version>
+    <Version Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    
     <PackageId>ConnelHooley.AkkaTestingHelpers.DI</PackageId>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes></PackageReleaseNotes>
@@ -16,7 +22,6 @@
     <PackageProjectUrl>https://github.com/connelhooley/AkkaTestingHelpers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/connelhooley/AkkaTestingHelpers/tree/master/AkkaTestingHelpers</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   
   <ItemGroup>
