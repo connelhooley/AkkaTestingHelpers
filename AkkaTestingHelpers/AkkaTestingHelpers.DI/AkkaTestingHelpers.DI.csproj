@@ -10,8 +10,13 @@
     <Product>Akka TestKit Dependency Injection Helpers</Product>
     <Description>Akka DependencyResolver that mocks child Actors into Stubs or TestProbes.</Description>
     <Copyright>Copyright Connel Hooley 2017</Copyright>
+    
     <Version Condition=" '$(BUILD_BUILDNUMBER)' == '' ">0.0.1-local</Version>
     <Version Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</Version>
+    <AssemblyVersion Condition=" '$(BUILD_BUILDNUMBER)' == '' ">1.0.0.0</AssemblyVersion>
+    <AssemblyVersion Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</AssemblyVersion>
+    <FileVersion Condition=" '$(BUILD_BUILDNUMBER)' == '' ">1.0.0.0</FileVersion>
+    <FileVersion Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     
     <PackageId>ConnelHooley.AkkaTestingHelpers.DI</PackageId>
