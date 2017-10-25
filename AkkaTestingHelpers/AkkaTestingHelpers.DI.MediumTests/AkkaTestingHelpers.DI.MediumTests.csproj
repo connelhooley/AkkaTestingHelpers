@@ -112,13 +112,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AkkaTestingHelpers.DI\AkkaTestingHelpers.DI.csproj">
-      <Project>{9d580f8e-32c5-48f7-b3a9-4bfec3f5ad79}</Project>
-      <Name>AkkaTestingHelpers.DI</Name>
-    </ProjectReference>
+    <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+    <ProjectReference Include="..\AkkaTestingHelpers.DI\AkkaTestingHelpers.DI.csproj">
+      <Project>{92208278-74ed-42b7-b90b-9cc8de43d329}</Project>
+      <Name>AkkaTestingHelpers.DI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

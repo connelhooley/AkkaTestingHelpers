@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.DI", "AkkaTestingHelpers.DI\AkkaTestingHelpers.DI.csproj", "{9D580F8E-32C5-48F7-B3A9-4BFEC3F5AD79}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.DI.SmallTests", "AkkaTestingHelpers.DI.SmallTests\AkkaTestingHelpers.DI.SmallTests.csproj", "{307381B8-1DD1-4877-8A09-EB86A91721EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.DI.MediumTests", "AkkaTestingHelpers.DI.MediumTests\AkkaTestingHelpers.DI.MediumTests.csproj", "{86CE1CF8-FA51-49C7-90F5-7DEA58FABCDB}"
@@ -14,16 +12,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.runsettings = .runsettings
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaTestingHelpers.DI", "AkkaTestingHelpers.DI\AkkaTestingHelpers.DI.csproj", "{92208278-74ED-42B7-B90B-9CC8DE43D329}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9D580F8E-32C5-48F7-B3A9-4BFEC3F5AD79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D580F8E-32C5-48F7-B3A9-4BFEC3F5AD79}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D580F8E-32C5-48F7-B3A9-4BFEC3F5AD79}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D580F8E-32C5-48F7-B3A9-4BFEC3F5AD79}.Release|Any CPU.Build.0 = Release|Any CPU
 		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{307381B8-1DD1-4877-8A09-EB86A91721EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,6 +28,10 @@ Global
 		{86CE1CF8-FA51-49C7-90F5-7DEA58FABCDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86CE1CF8-FA51-49C7-90F5-7DEA58FABCDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86CE1CF8-FA51-49C7-90F5-7DEA58FABCDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92208278-74ED-42B7-B90B-9CC8DE43D329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92208278-74ED-42B7-B90B-9CC8DE43D329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92208278-74ED-42B7-B90B-9CC8DE43D329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92208278-74ED-42B7-B90B-9CC8DE43D329}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
