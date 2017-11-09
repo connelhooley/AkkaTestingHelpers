@@ -118,6 +118,7 @@
     <Compile Include="ConcreteDependencyResolverAdderTests\Add.cs" />
     <Compile Include="ConcreteDependencyResolverAdderTests\Constructor.cs" />
     <Compile Include="ConcreteDependencyResolverAdderTests\_TestBase.cs" />
+    <Compile Include="Exploratory.cs" />
     <Compile Include="TestProbeResolverSettingsTests\CreateResolver.cs" />
     <Compile Include="TestProbeResolverSettingsTests\Empty.cs" />
     <Compile Include="TestProbeResolverSettingsTests\RegisterHandler.cs" />

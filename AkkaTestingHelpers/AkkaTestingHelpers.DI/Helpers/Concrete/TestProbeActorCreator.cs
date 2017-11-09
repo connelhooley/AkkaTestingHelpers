@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Akka.TestKit;
-using ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract;
-using ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using NullGuard;
 

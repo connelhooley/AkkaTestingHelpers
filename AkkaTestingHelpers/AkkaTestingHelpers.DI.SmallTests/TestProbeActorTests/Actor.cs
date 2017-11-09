@@ -1,5 +1,5 @@
 ﻿using Akka.Actor;
-using ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete;
+using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
 

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.Xunit2;
-using ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
+using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using Moq;
 // ReSharper disable VirtualMemberCallInConstructor
 

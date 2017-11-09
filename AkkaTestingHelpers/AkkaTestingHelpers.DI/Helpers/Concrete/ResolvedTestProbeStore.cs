@@ -23,6 +23,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
         public Type FindResolvedType(IActorRef parentActor, string childName) =>
             FindResolved(parentActor, childName).ResolvedType;
 
+        public SupervisorStrategy FindResolvedSupervisorStratergy(IActorRef parentActor, string childName) =>
+            FindResolved(parentActor, childName).SupervisorStratergy;
+
         private (Type ResolvedType, TestProbe ResolvedTestProbe) FindResolved(IActorRef parentActor, string childName)
         {
             ActorPath childPath = parentActor.Path.Child(childName);

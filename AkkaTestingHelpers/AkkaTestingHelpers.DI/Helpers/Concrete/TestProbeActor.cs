@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using Akka.Actor;
 using Akka.TestKit;
-using ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete
+namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
     internal sealed class TestProbeActor : ReceiveActor, ITestProbeActor
     {

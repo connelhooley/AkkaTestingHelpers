@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Akka.TestKit;
-using ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
 using Akka.TestKit;
-using ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete

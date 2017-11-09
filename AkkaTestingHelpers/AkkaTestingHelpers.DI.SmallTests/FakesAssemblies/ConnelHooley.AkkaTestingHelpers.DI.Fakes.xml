@@ -4,87 +4,6 @@
         <name>ConnelHooley.AkkaTestingHelpers.DI.Fakes</name>
     </assembly>
     <members>
-        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract.Fakes.StubITestProbeActor">
-            <summary>Stub type of ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract.ITestProbeActor</summary>
-        </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract.Fakes.StubITestProbeActor.#ctor">
-            <summary>Initializes a new instance of type StubITestProbeActor</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract.Fakes.StubITestProbeActor.ConnelHooley#AkkaTestingHelpers#DI#Actors#Abstract#ITestProbeActor#Actor">
-            <summary>Sets the stub of ITestProbeActor.get_Actor()</summary>
-        </member>
-        <member name="F:ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract.Fakes.StubITestProbeActor.ActorGet">
-            <summary>Sets the stub of ITestProbeActor.get_Actor()</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract.Fakes.StubITestProbeActor.ConnelHooley#AkkaTestingHelpers#DI#Actors#Abstract#ITestProbeActor#ActorPath">
-            <summary>Sets the stub of ITestProbeActor.get_ActorPath()</summary>
-        </member>
-        <member name="F:ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract.Fakes.StubITestProbeActor.ActorPathGet">
-            <summary>Sets the stub of ITestProbeActor.get_ActorPath()</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract.Fakes.StubITestProbeActor.ConnelHooley#AkkaTestingHelpers#DI#Actors#Abstract#ITestProbeActor#TestProbe">
-            <summary>Sets the stub of ITestProbeActor.get_TestProbe()</summary>
-        </member>
-        <member name="F:ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract.Fakes.StubITestProbeActor.TestProbeGet">
-            <summary>Sets the stub of ITestProbeActor.get_TestProbe()</summary>
-        </member>
-        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor">
-            <summary>Shim type of ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.TestProbeActor</summary>
-        </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.#ctor">
-            <summary>Initializes a new shim instance</summary>
-        </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.#ctor(ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.TestProbeActor)">
-            <summary>Initializes a new shim for the given instance</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.ActorGet">
-            <summary>Sets the shim of TestProbeActor.get_Actor()</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.ActorPathGet">
-            <summary>Sets the shim of TestProbeActor.get_ActorPath()</summary>
-        </member>
-        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.AllInstances">
-            <summary>Define shims for all instances members</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.AllInstances.ActorGet">
-            <summary>Sets the shim of TestProbeActor.get_Actor()</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.AllInstances.ActorPathGet">
-            <summary>Sets the shim of TestProbeActor.get_ActorPath()</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.AllInstances.TestProbeGet">
-            <summary>Sets the shim of TestProbeActor.get_TestProbe()</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.AllInstances._ctorb__0_0Object">
-            <summary>Sets the shim of TestProbeActor.&lt;.ctor&gt;b__0_0(Object o)</summary>
-        </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.BehaveAsCurrent">
-            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
-        </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.BehaveAsNotImplemented">
-            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.Behavior">
-            <summary>Assigns the behavior for all methods of the shimmed type</summary>
-        </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.Bind(Akka.Actor.IInternalActor)">
-            <summary>Binds the members of the interface to the shim.</summary>
-        </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.Bind(Akka.Actor.Internal.IInitializableActor)">
-            <summary>Binds the members of the interface to the shim.</summary>
-        </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.Bind(ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract.ITestProbeActor)">
-            <summary>Binds the members of the interface to the shim.</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.ConstructorITestProbeCreatorTestKitBaseIReadOnlyDictionaryOfTypeFuncOfObjectObject">
-            <summary>Sets the shim of TestProbeActor.TestProbeActor(ITestProbeCreator testProbeCreator, TestKitBase testKit, IReadOnlyDictionary`2&lt;Type,Func`2&lt;Object,Object&gt;&gt; handlers)</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor.TestProbeGet">
-            <summary>Sets the shim of TestProbeActor.get_TestProbe()</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete.Fakes.ShimTestProbeActor._ctorb__0_0Object">
-            <summary>Sets the shim of TestProbeActor.&lt;.ctor&gt;b__0_0(Object o)</summary>
-        </member>
         <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolver">
             <summary>Shim type of ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolver</summary>
         </member>
@@ -177,6 +96,84 @@
         </member>
         <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimConcreteResolverSettings.RegisterOf1FuncOfM0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Func{``0},ConnelHooley.AkkaTestingHelpers.DI.ConcreteResolverSettings})">
             <summary>Sets the shim of ConcreteResolverSettings.Register(Func`1&lt;!!0&gt; factory)</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor">
+            <summary>Shim type of ConnelHooley.AkkaTestingHelpers.DI.FakeActor</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.#ctor(ConnelHooley.AkkaTestingHelpers.DI.FakeActor)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.AllInstances.CreateActor">
+            <summary>Sets the shim of FakeActor.CreateActor()</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.AllInstances.GetNumberOfStartsActorPath">
+            <summary>Sets the shim of FakeActor.GetNumberOfStarts(ActorPath actorPath)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.AllInstances.GetTestProbeProbeActorPath">
+            <summary>Sets the shim of FakeActor.GetTestProbeProbe(ActorPath actorPath)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.AllInstances._CreateActorb__8_0ActorPathTestProbe">
+            <summary>Sets the shim of FakeActor.&lt;CreateActor&gt;b__8_0(ActorPath path, TestProbe testProbe)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.ConstructorITestProbeCreatorTestKitBaseIReadOnlyDictionaryOfTypeFuncOfObjectObject">
+            <summary>Sets the shim of FakeActor.FakeActor(ITestProbeCreator testProbeCreator, TestKitBase testKit, IReadOnlyDictionary`2&lt;Type,Func`2&lt;Object,Object&gt;&gt; handlers)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.CreateActor">
+            <summary>Sets the shim of FakeActor.CreateActor()</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.GetNumberOfStartsActorPath">
+            <summary>Sets the shim of FakeActor.GetNumberOfStarts(ActorPath actorPath)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor.GetTestProbeProbeActorPath">
+            <summary>Sets the shim of FakeActor.GetTestProbeProbe(ActorPath actorPath)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActor._CreateActorb__8_0ActorPathTestProbe">
+            <summary>Sets the shim of FakeActor.&lt;CreateActor&gt;b__8_0(ActorPath path, TestProbe testProbe)</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActorSettings">
+            <summary>Shim type of ConnelHooley.AkkaTestingHelpers.DI.FakeActorSettings</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActorSettings.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActorSettings.#ctor(ConnelHooley.AkkaTestingHelpers.DI.FakeActorSettings)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActorSettings.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActorSettings.AllInstances.CreateTestKitBaseIReadOnlyDictionaryOfTypeFuncOfObjectObject">
+            <summary>Sets the shim of FakeActorSettings.Create(TestKitBase testKit, IReadOnlyDictionary`2&lt;Type,Func`2&lt;Object,Object&gt;&gt; handlers)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActorSettings.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActorSettings.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActorSettings.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActorSettings.Constructor">
+            <summary>Sets the shim of FakeActorSettings.FakeActorSettings()</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimFakeActorSettings.CreateTestKitBaseIReadOnlyDictionaryOfTypeFuncOfObjectObject">
+            <summary>Sets the shim of FakeActorSettings.Create(TestKitBase testKit, IReadOnlyDictionary`2&lt;Type,Func`2&lt;Object,Object&gt;&gt; handlers)</summary>
         </member>
         <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolver">
             <summary>Shim type of ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolver</summary>
@@ -283,6 +280,24 @@
         <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.ShimTestProbeResolverSettings.RegisterHandlerOf2FuncOfM1Object``2(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Func{``1,System.Object},ConnelHooley.AkkaTestingHelpers.DI.TestProbeResolverSettings})">
             <summary>Sets the shim of TestProbeResolverSettings.RegisterHandler(Func`2&lt;!!1,Object&gt; messageHandler)</summary>
         </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Fakes.StubFakeActorSettings">
+            <summary>Stub type of ConnelHooley.AkkaTestingHelpers.DI.FakeActorSettings</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.StubFakeActorSettings.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.StubFakeActorSettings.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Fakes.StubFakeActorSettings.InitializeStub">
+            <summary>Initializes a new instance of type StubFakeActorSettings</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.StubFakeActorSettings.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Fakes.StubFakeActorSettings.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
         <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.Fakes.StubIChildTeller">
             <summary>Stub type of ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.IChildTeller</summary>
         </member>
@@ -378,6 +393,30 @@
         </member>
         <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.Fakes.StubISutCreator.CreateOf1IChildWaiterTestKitBasePropsInt32IActorRef``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.IChildWaiter,Akka.TestKit.TestKitBase,Akka.Actor.Props,System.Int32,Akka.Actor.IActorRef,Akka.TestKit.TestActorRef{``0}})">
             <summary>Sets stubs of Create(IChildWaiter childWaiter, TestKitBase testKit, Props props, Int32 expectedChildrenCount, IActorRef supervisor)</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.Fakes.StubITestProbeActor">
+            <summary>Stub type of ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.ITestProbeActor</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.Fakes.StubITestProbeActor.#ctor">
+            <summary>Initializes a new instance of type StubITestProbeActor</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.Fakes.StubITestProbeActor.ConnelHooley#AkkaTestingHelpers#DI#Helpers#Abstract#ITestProbeActor#Actor">
+            <summary>Sets the stub of ITestProbeActor.get_Actor()</summary>
+        </member>
+        <member name="F:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.Fakes.StubITestProbeActor.ActorGet">
+            <summary>Sets the stub of ITestProbeActor.get_Actor()</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.Fakes.StubITestProbeActor.ConnelHooley#AkkaTestingHelpers#DI#Helpers#Abstract#ITestProbeActor#ActorPath">
+            <summary>Sets the stub of ITestProbeActor.get_ActorPath()</summary>
+        </member>
+        <member name="F:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.Fakes.StubITestProbeActor.ActorPathGet">
+            <summary>Sets the stub of ITestProbeActor.get_ActorPath()</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.Fakes.StubITestProbeActor.ConnelHooley#AkkaTestingHelpers#DI#Helpers#Abstract#ITestProbeActor#TestProbe">
+            <summary>Sets the stub of ITestProbeActor.get_TestProbe()</summary>
+        </member>
+        <member name="F:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.Fakes.StubITestProbeActor.TestProbeGet">
+            <summary>Sets the stub of ITestProbeActor.get_TestProbe()</summary>
         </member>
         <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.Fakes.StubITestProbeActorCreator">
             <summary>Stub type of ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.ITestProbeActorCreator</summary>
@@ -654,6 +693,63 @@
         </member>
         <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimSutCreator.CreateOf1IChildWaiterTestKitBasePropsInt32IActorRef``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.IChildWaiter,Akka.TestKit.TestKitBase,Akka.Actor.Props,System.Int32,Akka.Actor.IActorRef,Akka.TestKit.TestActorRef{``0}})">
             <summary>Sets the shim of SutCreator.Create(IChildWaiter childWaiter, TestKitBase testKit, Props props, Int32 expectedChildrenCount, IActorRef supervisor)</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor">
+            <summary>Shim type of ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.TestProbeActor</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.#ctor(ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.TestProbeActor)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.ActorGet">
+            <summary>Sets the shim of TestProbeActor.get_Actor()</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.ActorPathGet">
+            <summary>Sets the shim of TestProbeActor.get_ActorPath()</summary>
+        </member>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.AllInstances.ActorGet">
+            <summary>Sets the shim of TestProbeActor.get_Actor()</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.AllInstances.ActorPathGet">
+            <summary>Sets the shim of TestProbeActor.get_ActorPath()</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.AllInstances.TestProbeGet">
+            <summary>Sets the shim of TestProbeActor.get_TestProbe()</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.AllInstances._ctorb__0_0Object">
+            <summary>Sets the shim of TestProbeActor.&lt;.ctor&gt;b__0_0(Object o)</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.Bind(Akka.Actor.IInternalActor)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.Bind(Akka.Actor.Internal.IInitializableActor)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.Bind(ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract.ITestProbeActor)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.ConstructorITestProbeCreatorTestKitBaseIReadOnlyDictionaryOfTypeFuncOfObjectObject">
+            <summary>Sets the shim of TestProbeActor.TestProbeActor(ITestProbeCreator testProbeCreator, TestKitBase testKit, IReadOnlyDictionary`2&lt;Type,Func`2&lt;Object,Object&gt;&gt; handlers)</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor.TestProbeGet">
+            <summary>Sets the shim of TestProbeActor.get_TestProbe()</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActor._ctorb__0_0Object">
+            <summary>Sets the shim of TestProbeActor.&lt;.ctor&gt;b__0_0(Object o)</summary>
         </member>
         <member name="T:ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes.ShimTestProbeActorCreator">
             <summary>Shim type of ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.TestProbeActorCreator</summary>

@@ -1,7 +1,7 @@
 ﻿using Akka.Actor;
 using Akka.TestKit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract
+namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract
 {
     internal interface ITestProbeActor
     {

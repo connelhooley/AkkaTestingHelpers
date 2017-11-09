@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Akka.TestKit;
-using ConnelHooley.AkkaTestingHelpers.DI.Actors.Concrete;
+using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests

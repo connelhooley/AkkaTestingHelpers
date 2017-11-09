@@ -14,14 +14,16 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
         {
             Handlers = handlers;
         }
-
+        
         /// <summary>
         /// Creates a resolver instance
         /// </summary>
+        /// <typeparam name="TActor">The type of actor to be created</typeparam>
         /// <param name="testKit">TestKit to add resolver to</param>
-        /// <returns>Created resolver that has been added to TestKit</returns>
-        public TestProbeResolver CreateResolver(TestKitBase testKit) => 
-            new TestProbeResolver(
+        /// <param name="numberOfChildren">Number of children you expect to be created by the SUT actor</param>
+        /// <returns></returns>
+        public TestProbeResolver<TActor> CreateResolver<TActor>(TestKitBase testKit, int numberOfChildren) where TActor : ActorBase, new() => 
+            new TestProbeResolver<TActor>(
                 new SutCreator(), 
                 new ChildTeller(), 
                 new ChildWaiter(), 
@@ -31,8 +33,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 new ResolvedTestProbeStore(),
                 new TestProbeActorCreator(), 
                 new TestProbeHandlersMapper(), 
+                Handlers,
                 testKit,
-                Handlers);
+                Props.Create<TActor>(),
+                numberOfChildren);
         
         /// <summary>
         /// Creates an instance with no handlers

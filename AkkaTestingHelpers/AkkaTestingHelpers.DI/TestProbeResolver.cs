@@ -6,7 +6,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI
 {
-    public sealed class TestProbeResolver
+    public sealed class TestProbeResolver<TActor> where TActor : ActorBase
     {
         private readonly ISutCreator _sutCreator;
         private readonly IChildTeller _childTeller;
@@ -24,17 +24,17 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
             IResolvedTestProbeStore resolvedProbeStore,
             ITestProbeActorCreator testProbeActorCreator, 
             ITestProbeHandlersMapper handlersMapper, 
+            ImmutableDictionary<(Type, Type), Func<object, object>> handlers,
             TestKitBase testKit, 
-            ImmutableDictionary<(Type, Type), Func<object, object>> handlers)
+            Props props,
+            int expectedChildrenCount)
         {
             _sutCreator = sutCreator;
             _childTeller = childTeller;
             _childWaiter = childWaiter;
             _resolvedProbeStore = resolvedProbeStore;
             _testKit = testKit;
-
-            Supervisor = testProbeCreator.Create(testKit);
-
+            
             testProbeDependencyResolverAdder.Add(
                 resolverAdder,
                 testProbeActorCreator,
@@ -43,12 +43,26 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 childWaiter,
                 testKit,
                 handlersMapper.Map(handlers));
+
+            Supervisor = testProbeCreator.Create(testKit);
+
+            Sut = _sutCreator.Create<TActor>(
+                _childWaiter,
+                _testKit,
+                props,
+                expectedChildrenCount,
+                Supervisor);
         }
 
         /// <summary>
         /// The TestProbe that is the parent/superivsor for all actors created using the CreateSut method.
         /// </summary>
         public TestProbe Supervisor { get; }
+
+        /// <summary>
+        /// The Actor that is the subject of your tests.
+        /// </summary>
+        public TestActorRef<TActor> Sut { get; }
 
         /// <summary>
         /// Finds the test probe created by the given actor ref with the given child name.
@@ -128,5 +142,17 @@ namespace ConnelHooley.AkkaTestingHelpers.DI
                 message,
                 waitForChildrenCount,
                 sender);
+
+        public SupervisorStrategy ResolvedSupervisorStratergy<TActor>(TestActorRef<TActor> parentActor, string childName)
+            where TActor : ActorBase
+        {
+            SupervisorStrategy supervisorStrategy = _resolvedProbeStore.FindSupervisorStratergy(parentActor, childName);
+            if (supervisorStrategy == null)
+            {
+                
+            }
+        }
+            
+
     }
 }

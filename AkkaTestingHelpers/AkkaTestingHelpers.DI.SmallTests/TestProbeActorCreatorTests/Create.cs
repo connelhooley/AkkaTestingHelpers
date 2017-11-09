@@ -1,4 +1,4 @@
-﻿using ConnelHooley.AkkaTestingHelpers.DI.Actors.Abstract;
+﻿using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
