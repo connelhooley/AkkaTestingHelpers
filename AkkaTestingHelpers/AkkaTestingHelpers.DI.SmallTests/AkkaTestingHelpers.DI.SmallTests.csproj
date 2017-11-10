@@ -119,10 +119,19 @@
     <Compile Include="ConcreteDependencyResolverAdderTests\Constructor.cs" />
     <Compile Include="ConcreteDependencyResolverAdderTests\_TestBase.cs" />
     <Compile Include="Exploratory.cs" />
-    <Compile Include="TestProbeResolverSettingsTests\CreateResolver.cs" />
-    <Compile Include="TestProbeResolverSettingsTests\Empty.cs" />
-    <Compile Include="TestProbeResolverSettingsTests\RegisterHandler.cs" />
-    <Compile Include="TestProbeResolverSettingsTests\_TestBase.cs" />
+    <Compile Include="UnitTestFrameworkCreatorTests\Constructor.cs" />
+    <Compile Include="UnitTestFrameworkCreatorTests\Create.cs" />
+    <Compile Include="UnitTestFrameworkCreatorTests\_TestBase.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\CreateFrameworkTestKit.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\CreateFrameworkTestKitExpectedChildrenCount.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\CreateFrameworkTestKitHandlersExpectedChildrenCount.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\CreateFrameworkTestKitHandlersPropsExpectedChildrenCount.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\CreateFrameworkTestKitProps.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\CreateFrameworkTestKitPropsExpectedChildrenCount.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\CreateResolver.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\Empty.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\RegisterHandler.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\_TestBase.cs" />
     <Compile Include="ConcreteResolverSettingsTests\CreateResolver.cs" />
     <Compile Include="ConcreteResolverSettingsTests\Empty.cs" />
     <Compile Include="ConcreteResolverSettingsTests\Register.cs" />
@@ -163,13 +172,14 @@
     <Compile Include="TestProbeHandlersMapperTests\Constructor.cs" />
     <Compile Include="TestProbeHandlersMapperTests\Map.cs" />
     <Compile Include="TestProbeHandlersMapperTests\_TestBase.cs" />
-    <Compile Include="TestProbeResolverTests\Constructor.cs" />
-    <Compile Include="TestProbeResolverTests\CreateSut.cs" />
-    <Compile Include="TestProbeResolverTests\ResolvedTestProbe.cs" />
-    <Compile Include="TestProbeResolverTests\ResolvedType.cs" />
-    <Compile Include="TestProbeResolverTests\Supervisor.cs" />
-    <Compile Include="TestProbeResolverTests\TellMessage.cs" />
-    <Compile Include="TestProbeResolverTests\_TestBase.cs" />
+    <Compile Include="UnitTestFrameworkTests\Constructor.cs" />
+    <Compile Include="UnitTestFrameworkTests\ResolvedTestProbe.cs" />
+    <Compile Include="UnitTestFrameworkTests\ResolvedType.cs" />
+    <Compile Include="UnitTestFrameworkTests\Sut.cs" />
+    <Compile Include="UnitTestFrameworkTests\Supervisor.cs" />
+    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForChildrenMessageExpectedChildCount.cs" />
+    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForChildrenMessageSenderExpectedChildCount.cs" />
+    <Compile Include="UnitTestFrameworkTests\_TestBase.cs" />
     <Compile Include="TestUtils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +198,7 @@
       <Name>AkkaTestingHelpers.DI</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

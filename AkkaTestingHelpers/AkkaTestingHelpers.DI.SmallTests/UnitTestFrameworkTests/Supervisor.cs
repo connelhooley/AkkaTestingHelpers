@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
 {
     public class Supervisor : TestBase
     {
@@ -10,7 +10,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_Supervisor_ReturnsSupervisor()
         {
             //arrange
-            TestProbeResolver sut = CreateTestProbeResolver();
+            UnitTestFramework<DummyActor> sut = CreateTestProbeResolver();
 
             //act
             TestProbe result = sut.Supervisor;

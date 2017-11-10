@@ -24,7 +24,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests.
         public void DummyActor_ReceiveStringMessage_SendsUppercaseStringMessageToSupervisor()
         {
             //arrange
-            TestProbeResolver resolver = TestProbeResolverSettings
+            UnitTestFramework<> resolver = TestProbeResolverSettings
                 .Empty
                 .CreateResolver(this);
             TestActorRef<DummmyActor> sut = resolver.CreateSut<DummmyActor>(0);

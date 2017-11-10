@@ -7,7 +7,7 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using Moq;
 // ReSharper disable VirtualMemberCallInConstructor
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
 {
     public class TestBase: TestKit
     {
@@ -31,21 +31,19 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         internal IResolvedTestProbeStore ResolvedTestProbeStore;
         internal ITestProbeActorCreator TestProbeActorCreator;
         internal ITestProbeHandlersMapper TestProbeHandlersMapper;
-
+        
         internal ImmutableDictionary<(Type, Type), Func<object, object>> Handlers;
         internal ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> MappedHandlers;
 
         internal Props Props;
         internal int ExpectedChildCount;
         internal object Message;
-        internal IActorRef Recipient;
         internal IActorRef Sender;
         internal string ChildName;
         internal TestProbe Supervisor;
         internal Type ResolvedType;
         internal TestProbe ResolvedTestProbe;
-        protected TestActorRef<DummyActor> CreatedActor;
-        protected TestActorRef<DummyActor> CreatedActorNoProps;
+        protected TestActorRef<DummyActor> SutActor;
 
         public TestBase() : base(AkkaConfig.Config)
         {
@@ -76,13 +74,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
             Handlers = ImmutableDictionary<(Type, Type), Func<object, object>>
                 .Empty
                 .Add((generateType(), generateType()), message => TestUtils.Create<object>());
-        
-            // Create objects passed into sut methods
             Props = Props.Create<DummyActor>();
             ExpectedChildCount = TestUtils.Create<int>();
+        
+            // Create objects passed into sut methods
             Message = TestUtils.Create<object>();
             ChildName = TestUtils.Create<string>();
-            Recipient = new Mock<IActorRef>().Object;
             Sender = new Mock<IActorRef>().Object;
 
             // Create objects returned by mocks
@@ -92,8 +89,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                     .Empty
                     .Add(generateType(), mess => TestUtils.Create<object>()));
             Supervisor = CreateTestProbe();
-            CreatedActor = ActorOfAsTestActorRef<DummyActor>();
-            CreatedActorNoProps = ActorOfAsTestActorRef<DummyActor>();
+            SutActor = ActorOfAsTestActorRef<DummyActor>();
             ResolvedType = generateType();
             ResolvedTestProbe = CreateTestProbe();
 
@@ -110,23 +106,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                     Props, 
                     ExpectedChildCount, 
                     Supervisor))
-                .Returns(() => CreatedActor);
-            SutCreatorMock
-                .Setup(creator => creator.Create<DummyActor>(
-                    ChildWaiterMock.Object, 
-                    this, 
-                    It.Is<Props>(props => 
-                        !ReferenceEquals(props, Props) && 
-                        props.Equals(Props.Create<DummyActor>())), 
-                    ExpectedChildCount, 
-                    Supervisor))
-                .Returns(() => CreatedActorNoProps);
+                .Returns(() => SutActor);
             
             ResolvedTestProbeStoreMock
-                .Setup(store => store.FindResolvedType(TestActor, ChildName))
+                .Setup(store => store.FindResolvedType(SutActor, ChildName))
                 .Returns(() => ResolvedType);
             ResolvedTestProbeStoreMock
-                .Setup(store => store.FindResolvedTestProbe(TestActor, ChildName))
+                .Setup(store => store.FindResolvedTestProbe(SutActor, ChildName))
                 .Returns(() => ResolvedTestProbe);
 
             TestProbeHandlersMapperMock
@@ -134,8 +120,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 .Returns(() => MappedHandlers);
         }
         
-        internal TestProbeResolver CreateTestProbeResolver() => 
-            new TestProbeResolver(
+        protected UnitTestFramework<DummyActor> CreateTestProbeResolver() => 
+            new UnitTestFramework<DummyActor>(
                 SutCreator,
                 ChildTeller,
                 ChildWaiter,
@@ -145,8 +131,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 ResolvedTestProbeStore,
                 TestProbeActorCreator,
                 TestProbeHandlersMapper,
+                Handlers,
                 this,
-                Handlers);
+                Props,
+                ExpectedChildCount);
 
         protected class DummyActor : ReceiveActor { }
     }

@@ -9,14 +9,19 @@ using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes;
 using Microsoft.QualityTools.Testing.Fakes;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverSettingsTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreatorTests
 {
     public class TestBase : TestKit
     {
         private readonly IDisposable _shimContext;
 
-        internal TestProbeResolver ConstructedTestProbeResolver;
-        internal int TestProbeResolverConstructorCount;
+        internal TestKitBase TestKitPassedIntoSut;
+        internal ImmutableDictionary<(Type, Type), Func<object, object>> HandlersPassedIntoSut;
+        internal Props PropsPassedIntoSut;
+        internal int NumberOfChildrenIntoSut;
+
+        protected UnitTestFramework<DummyActor1> ConstructedUnitTestFramework;
+        internal int UnitTestFrameworkConstructorCount;
         internal SutCreator ConstructedSutCreator;
         internal int SutCreatorConstructorCount;
         internal ChildTeller ConstructedChildTeller;
@@ -48,13 +53,25 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverSetting
 
         internal TestKitBase TestKitPassedIntoShim;
         internal ImmutableDictionary<(Type, Type), Func<object, object>> HandlersPassedIntoShim;
+        internal Props PropsPassedIntoShim;
+        internal int NumberOfChildrenIntoShim;
 
         public TestBase() : base(AkkaConfig.Config)
         {
+            // Create values passed into sut
+            TestKitPassedIntoSut = this;
+            HandlersPassedIntoSut = ImmutableDictionary<(Type, Type), Func<object, object>>
+                .Empty
+                .Add((typeof(DummyActor1), typeof(Message1)), message1 => new Reply1())
+                .Add((typeof(DummyActor1), typeof(Message2)), message1 => new Reply2())
+                .Add((typeof(DummyActor2), typeof(Message1)), message1 => new Reply1());
+            PropsPassedIntoSut = Props.Create<DummyActor1>();
+            NumberOfChildrenIntoSut = TestUtils.Create<int>();
+
             // Create shims
             _shimContext = ShimsContext.Create();
 
-            //Set up shims
+            // Set up shims
             ShimSutCreator.Constructor = @this =>
             {
                 SutCreatorConstructorCount++;
@@ -108,12 +125,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverSetting
                 TestProbeHandlersMapperConstructorCount++;
                 ConstructedTestProbeHandlersMapper = @this;
             };
-            
-            ShimTestProbeResolver.ConstructorISutCreatorIChildTellerIChildWaiterIDependencyResolverAdderITestProbeDependencyResolverAdderITestProbeCreatorIResolvedTestProbeStoreITestProbeActorCreatorITestProbeHandlersMapperTestKitBaseImmutableDictionaryOfValueTupleOfTypeTypeFuncOfObjectObj =
-                (@this, sutCreator, childTeller, childWaiter, dependencyResolverAdder, testProbeDependencyResolverAdder, testProbeCreator, resolvedTestProbeStore, testProbeActorCreator, testProbeHandlersMapper, testKit, handlers) =>
+
+            ShimUnitTestFramework<DummyActor1>.ConstructorISutCreatorIChildTellerIChildWaiterIDependencyResolverAdderITestProbeDependencyResolverAdderITestProbeCreatorIResolvedTestProbeStoreITestProbeActorCreatorITestProbeHandlersMapperImmutableDictionaryOfValueTupleOfTypeTypeFuncOfObjectObjectTestKitB =
+                (@this, sutCreator, childTeller, childWaiter, dependencyResolverAdder, testProbeDependencyResolverAdder, testProbeCreator, resolvedTestProbeStore, testProbeActorCreator, testProbeHandlersMapper, handlers, testKit, props, numberOfChildren) =>
                 {
-                    TestProbeResolverConstructorCount++;
-                    ConstructedTestProbeResolver = @this;
+                    UnitTestFrameworkConstructorCount++;
+                    ConstructedUnitTestFramework = @this;
                     SutCreatorPassedIntoShim = sutCreator;
                     ChildTellerPassedIntoShim = childTeller;
                     ChildWaiterPassedIntoShim = childWaiter;
@@ -123,10 +140,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverSetting
                     ResolvedTestProbeStorePassedIntoShim = resolvedTestProbeStore;
                     TestProbeActorCreatorPassedIntoShim = testProbeActorCreator;
                     TestProbeHandlersMapperPassedIntoShim = testProbeHandlersMapper;
-                    TestKitPassedIntoShim = testKit;
                     HandlersPassedIntoShim = handlers;
+                    TestKitPassedIntoShim = testKit;
+                    PropsPassedIntoShim = props;
+                    NumberOfChildrenIntoShim = numberOfChildren;
                 };
         }
+
+        protected UnitTestFrameworkCreator CreateUnitTestFrameworkCreator() => new UnitTestFrameworkCreator();
 
         protected override void Dispose(bool disposing)
         {
@@ -140,26 +161,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverSetting
         
         protected class Message1 { }
         
-        protected class Reply1
-        {
-            //public Message1 Message1 { get; }
-
-            //public Reply1(Message1 message1)
-            //{
-            //    Message1 = message1;
-            //}
-        }
+        protected class Reply1 { }
 
         protected class Message2 { }
 
-        protected class Reply2
-        {
-            //public Message2 Message2 { get; }
-
-            //public Reply2(Message2 message2)
-            //{
-            //    Message2 = message2;
-            //}
-        }
+        protected class Reply2 { }
     }
 }

@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverSettingsTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkSettingsTests
 {
     public class Empty : TestBase
     {
@@ -10,7 +10,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverSetting
         public void TestProbeResolverSettings_Empty_DoesNotThrow()
         {
             //act
-            Action act = () => { TestProbeResolverSettings sut = TestProbeResolverSettings.Empty; };
+            Action act = () => { UnitTestFrameworkSettings sut = UnitTestFrameworkSettings.Empty; };
 
             //assert
             act.ShouldNotThrow();

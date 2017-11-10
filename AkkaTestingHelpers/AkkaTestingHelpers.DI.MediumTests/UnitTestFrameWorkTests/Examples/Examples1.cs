@@ -28,7 +28,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests.
         public void ParentActor_Constructor_CreatesChildWithCorrectTypeAndName()
         {
             //arrange
-            TestProbeResolver resolver = TestProbeResolverSettings
+            UnitTestFramework<> resolver = TestProbeResolverSettings
                 .Empty
                 .CreateResolver(this);
             
@@ -45,7 +45,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests.
         public void ParentActor_Constructor_SendsChildCorrectMessage()
         {
             //arrange
-            TestProbeResolver resolver = TestProbeResolverSettings
+            UnitTestFramework<> resolver = TestProbeResolverSettings
                 .Empty
                 .CreateResolver(this);
 

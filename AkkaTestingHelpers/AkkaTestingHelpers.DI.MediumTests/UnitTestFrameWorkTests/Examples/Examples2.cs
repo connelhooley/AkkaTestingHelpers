@@ -53,7 +53,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests.
         public void ParentActor_ReceiveSaveMessage_StoresModifiedSaveMessageFromChildInRepo()
         {
             //arrange
-            TestProbeResolver resolver = TestProbeResolverSettings
+            UnitTestFramework<> resolver = TestProbeResolverSettings
                 .Empty
                 .RegisterHandler<ChildActor, ParentActor.Save>(s => new ChildActor.ModifiedSave(s.Value.ToUpper()))
                 .CreateResolver(this);

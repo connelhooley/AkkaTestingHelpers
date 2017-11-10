@@ -4,8 +4,9 @@ using Akka.TestKit;
 using FluentAssertions;
 using Moq;
 using Xunit;
+// ReSharper disable ObjectCreationAsStatement
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
 {
     public class Constructor : TestBase
     {
@@ -14,7 +15,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_ConstructorWithNullSutCreator_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeResolver(
+            Action act = () => new UnitTestFramework<DummyActor>(
                 null,
                 ChildTeller,
                 ChildWaiter,
@@ -24,8 +25,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 ResolvedTestProbeStore,
                 TestProbeActorCreator,
                 TestProbeHandlersMapper,
+                Handlers,
                 this,
-                Handlers);
+                Props,
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -35,7 +38,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_ConstructorWithNullChildTeller_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeResolver(
+            Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
                 null,
                 ChildWaiter,
@@ -45,8 +48,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 ResolvedTestProbeStore,
                 TestProbeActorCreator,
                 TestProbeHandlersMapper,
+                Handlers,
                 this,
-                Handlers);
+                Props,
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -56,7 +61,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_ConstructorWithNullChildWaiter_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeResolver(
+            Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
                 ChildTeller,
                 null,
@@ -66,8 +71,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 ResolvedTestProbeStore,
                 TestProbeActorCreator,
                 TestProbeHandlersMapper,
+                Handlers,
                 this,
-                Handlers);
+                Props,
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -77,7 +84,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_ConstructorWithNullDependencyResolverAdder_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeResolver(
+            Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
                 ChildTeller,
                 ChildWaiter,
@@ -87,8 +94,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 ResolvedTestProbeStore,
                 TestProbeActorCreator,
                 TestProbeHandlersMapper,
+                Handlers,
                 this,
-                Handlers);
+                Props,
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -98,7 +107,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_ConstructorWithNullTestProbeDependencyResolverAdder_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeResolver(
+            Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
                 ChildTeller,
                 ChildWaiter,
@@ -108,8 +117,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 ResolvedTestProbeStore,
                 TestProbeActorCreator,
                 TestProbeHandlersMapper,
+                Handlers,
                 this,
-                Handlers);
+                Props,
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -119,7 +130,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_ConstructorWithNullTestProbeCreator_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeResolver(
+            Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
                 ChildTeller,
                 ChildWaiter,
@@ -129,8 +140,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 ResolvedTestProbeStore,
                 TestProbeActorCreator,
                 TestProbeHandlersMapper,
+                Handlers,
                 this,
-                Handlers);
+                Props,
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -140,7 +153,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_ConstructorWithNullResolvedTestProbeStore_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeResolver(
+            Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
                 ChildTeller,
                 ChildWaiter,
@@ -150,8 +163,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 null,
                 TestProbeActorCreator,
                 TestProbeHandlersMapper,
+                Handlers,
                 this,
-                Handlers);
+                Props,
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -161,7 +176,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_ConstructorWithNullTestProbeActorCreator_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeResolver(
+            Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
                 ChildTeller,
                 ChildWaiter,
@@ -171,8 +186,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 ResolvedTestProbeStore,
                 null,
                 TestProbeHandlersMapper,
+                Handlers,
                 this,
-                Handlers);
+                Props,
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -182,7 +199,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_ConstructorWithNullTestProbeHandlersMapper_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeResolver(
+            Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
                 ChildTeller,
                 ChildWaiter,
@@ -192,29 +209,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 ResolvedTestProbeStore,
                 TestProbeActorCreator,
                 null,
+                Handlers,
                 this,
-                Handlers);
-
-            //assert
-            act.ShouldThrow<ArgumentNullException>();
-        }
-
-        [Fact]
-        public void TestProbeResolver_ConstructorWithNullTestKit_ThrowsArgumentNullException()
-        {
-            //act
-            Action act = () => new TestProbeResolver(
-                SutCreator,
-                ChildTeller,
-                ChildWaiter,
-                DependencyResolverAdder,
-                TestProbeDependencyResolverAdder,
-                TestProbeCreator,
-                ResolvedTestProbeStore,
-                TestProbeActorCreator,
-                TestProbeHandlersMapper,
-                null,
-                Handlers);
+                Props,
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -224,7 +222,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_ConstructorWithNullHandlers_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeResolver(
+            Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
                 ChildTeller,
                 ChildWaiter,
@@ -234,8 +232,56 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 ResolvedTestProbeStore,
                 TestProbeActorCreator,
                 TestProbeHandlersMapper,
+                null,
                 this,
-                null);
+                Props,
+                ExpectedChildCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void TestProbeResolver_ConstructorWithNullTestKit_ThrowsArgumentNullException()
+        {
+            //act
+            Action act = () => new UnitTestFramework<DummyActor>(
+                SutCreator,
+                ChildTeller,
+                ChildWaiter,
+                DependencyResolverAdder,
+                TestProbeDependencyResolverAdder,
+                TestProbeCreator,
+                ResolvedTestProbeStore,
+                TestProbeActorCreator,
+                TestProbeHandlersMapper,
+                Handlers,
+                null,
+                Props,
+                ExpectedChildCount);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void TestProbeResolver_ConstructorWithNullProps_ThrowsArgumentNullException()
+        {
+            //act
+            Action act = () => new UnitTestFramework<DummyActor>(
+                SutCreator,
+                ChildTeller,
+                ChildWaiter,
+                DependencyResolverAdder,
+                TestProbeDependencyResolverAdder,
+                TestProbeCreator,
+                ResolvedTestProbeStore,
+                TestProbeActorCreator,
+                TestProbeHandlersMapper,
+                Handlers,
+                this,
+                null,
+                ExpectedChildCount);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -245,7 +291,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
         public void TestProbeResolver_ConstructorWithAllNulls_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeResolver(
+            Action act = () => new UnitTestFramework<DummyActor>(
                 null,
                 null,
                 null,
@@ -256,7 +302,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeResolverTests
                 null,
                 null,
                 null,
-                null);
+                null,
+                null,
+                0);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();

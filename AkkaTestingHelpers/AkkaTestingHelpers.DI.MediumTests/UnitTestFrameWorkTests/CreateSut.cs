@@ -18,7 +18,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             //arrange
             const int childCount = 5;
             Type childType = typeof(ReplyChildActor1);
-            TestProbeResolver sut = TestProbeResolverSettings
+            UnitTestFramework<> sut = TestProbeResolverSettings
                 .Empty
                 .RegisterHandler<ReplyChildActor2, Guid>(guid => Guid.Empty)
                 .CreateResolver(this);
@@ -39,7 +39,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             Type childType = typeof(ReplyChildActor1);
             Guid message = Guid.NewGuid();
             int replyCount = 0;
-            TestProbeResolver sut = TestProbeResolverSettings
+            UnitTestFramework<> sut = TestProbeResolverSettings
                 .Empty
                 .RegisterHandler<ReplyChildActor2, Guid>(guid => (default(Guid), default(int)))
                 .RegisterHandler<ReplyChildActor1, Guid>(guid => (guid, ++replyCount))
@@ -63,7 +63,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             //arrange
             const int childCount = 5;
             Type childType = typeof(ReplyChildActor1);
-            TestProbeResolver sut = TestProbeResolverSettings
+            UnitTestFramework<> sut = TestProbeResolverSettings
                 .Empty
                 .CreateResolver(this);
 
@@ -82,7 +82,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             Type childType = typeof(ReplyChildActor1);
             Guid message = Guid.NewGuid();
             int replyCount = 0;
-            TestProbeResolver sut = TestProbeResolverSettings
+            UnitTestFramework<> sut = TestProbeResolverSettings
                 .Empty
                 .RegisterHandler<ReplyChildActor1, Guid>(guid => (default(Guid), default(int)))
                 .RegisterHandler<ReplyChildActor1, Guid>(guid => (guid, ++replyCount))

@@ -16,7 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             //arrange
             const int initialChildCount = 0;
             Guid message = Guid.NewGuid();
-            TestProbeResolver sut = TestProbeResolverSettings
+            UnitTestFramework<> sut = TestProbeResolverSettings
                 .Empty
                 .CreateResolver(this);
             TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor()), initialChildCount);

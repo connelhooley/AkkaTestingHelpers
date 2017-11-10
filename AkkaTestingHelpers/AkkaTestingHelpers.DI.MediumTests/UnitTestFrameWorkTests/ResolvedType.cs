@@ -18,7 +18,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             //arrange
             Type childType = typeof(BlackHoleActor);
             string childName = Guid.NewGuid().ToString();
-            TestProbeResolver sut = TestProbeResolverSettings
+            UnitTestFramework<> sut = TestProbeResolverSettings
                 .Empty
                 .CreateResolver(this);
 
@@ -34,7 +34,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
         public void TestProbeResolver_ThrownsWhenChildHasNotBeenResolved()
         {
             //arrange
-            TestProbeResolver sut = TestProbeResolverSettings
+            UnitTestFramework<> sut = TestProbeResolverSettings
                 .Empty
                 .CreateResolver(this);
 

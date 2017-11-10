@@ -20,7 +20,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             const int additionalChildCount = 5;
             Type childType = typeof(ReplyChildActor1);
             Guid message = Guid.NewGuid();
-            TestProbeResolver sut = TestProbeResolverSettings
+            UnitTestFramework<> sut = TestProbeResolverSettings
                 .Empty
                 .RegisterHandler<ReplyChildActor1, Guid>(guid => guid)
                 .CreateResolver(this);
@@ -43,7 +43,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             const int initialChildCount = 2;
             const int moreChildCount = 5;
             Type childType = typeof(ReplyChildActor1);
-            TestProbeResolver sut = TestProbeResolverSettings
+            UnitTestFramework<> sut = TestProbeResolverSettings
                 .Empty
                 .CreateResolver(this);
             TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(childType, initialChildCount)), initialChildCount);
