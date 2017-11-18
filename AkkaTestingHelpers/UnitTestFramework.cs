@@ -92,7 +92,7 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// </summary>
         /// <param name="childName">The name of the child</param>
         /// <returns>The SupervisorStrategy used</returns>
-        public SupervisorStrategy ResolvedSupervisorStratergy(string childName) =>
+        public SupervisorStrategy ResolvedSupervisorStrategy(string childName) =>
             _resolvedProbeStore.FindResolvedSupervisorStrategy(Sut, childName) ?? 
             _sutSupervisorStrategy;
 

@@ -50,7 +50,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
                 .CreateFramework<ParentActor>(this, 2);
             
             //assert
-            framework.ResolvedSupervisorStratergy("child-1")
+            framework.ResolvedSupervisorStrategy("child-1")
                 .Should().BeOfType<OneForOneStrategy>();
         }
 
@@ -63,7 +63,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
                 .CreateFramework<ParentActor>(this, 2);
 
             //assert
-            framework.ResolvedSupervisorStratergy("child-1")
+            framework.ResolvedSupervisorStrategy("child-1")
                 .As<OneForOneStrategy>().MaxNumberOfRetries
                 .Should().Be(1);
         }
@@ -77,7 +77,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
                 .CreateFramework<ParentActor>(this, 2);
 
             //assert
-            framework.ResolvedSupervisorStratergy("child-1")
+            framework.ResolvedSupervisorStrategy("child-1")
                 .As<OneForOneStrategy>().WithinTimeRangeMilliseconds
                 .Should().Be(1000);
         }
@@ -91,7 +91,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
                 .CreateFramework<ParentActor>(this, 2);
 
             //assert
-            framework.ResolvedSupervisorStratergy("child-1")
+            framework.ResolvedSupervisorStrategy("child-1")
                 .As<OneForOneStrategy>().Decider.Decide(new Exception())
                 .Should().Be(Directive.Stop);
         }
@@ -105,7 +105,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
                 .CreateFramework<ParentActor>(this, 2);
 
             //assert
-            framework.ResolvedSupervisorStratergy("child-2")
+            framework.ResolvedSupervisorStrategy("child-2")
                 .Should().BeOfType<AllForOneStrategy>();
         }
 
@@ -118,7 +118,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
                 .CreateFramework<ParentActor>(this, 2);
 
             //assert
-            framework.ResolvedSupervisorStratergy("child-2")
+            framework.ResolvedSupervisorStrategy("child-2")
                 .As<AllForOneStrategy>().MaxNumberOfRetries
                 .Should().Be(3);
         }
@@ -132,7 +132,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
                 .CreateFramework<ParentActor>(this, 2);
 
             //assert
-            framework.ResolvedSupervisorStratergy("child-2")
+            framework.ResolvedSupervisorStrategy("child-2")
                 .As<AllForOneStrategy>().WithinTimeRangeMilliseconds
                 .Should().Be(500);
         }
@@ -146,7 +146,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
                 .CreateFramework<ParentActor>(this, 2);
 
             //assert
-            framework.ResolvedSupervisorStratergy("child-2")
+            framework.ResolvedSupervisorStrategy("child-2")
                 .As<AllForOneStrategy>().Decider.Decide(new Exception())
                 .Should().Be(Directive.Escalate);
         }

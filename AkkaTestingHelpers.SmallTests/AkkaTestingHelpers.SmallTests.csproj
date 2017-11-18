@@ -175,7 +175,7 @@
     <Compile Include="TestProbeHandlersMapperTests\Map.cs" />
     <Compile Include="TestProbeHandlersMapperTests\_TestBase.cs" />
     <Compile Include="UnitTestFrameworkTests\Constructor.cs" />
-    <Compile Include="UnitTestFrameworkTests\ResolvedSupervisorStratergy.cs" />
+    <Compile Include="UnitTestFrameworkTests\ResolvedSupervisorStrategy.cs" />
     <Compile Include="UnitTestFrameworkTests\ResolvedTestProbe.cs" />
     <Compile Include="UnitTestFrameworkTests\ResolvedType.cs" />
     <Compile Include="UnitTestFrameworkTests\Sut.cs" />

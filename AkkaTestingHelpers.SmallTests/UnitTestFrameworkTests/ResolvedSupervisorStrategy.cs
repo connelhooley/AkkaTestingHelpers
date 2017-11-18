@@ -6,7 +6,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 {
-    public class ResolvedSupervisorStratergy : TestBase
+    public class ResolvedSupervisorStrategy : TestBase
     {
         #region Null tests
         [Fact]
@@ -16,7 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
-            Action act = () => sut.ResolvedSupervisorStratergy(null);
+            Action act = () => sut.ResolvedSupervisorStrategy(null);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -30,7 +30,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
-            SupervisorStrategy result = sut.ResolvedSupervisorStratergy(ChildName);
+            SupervisorStrategy result = sut.ResolvedSupervisorStrategy(ChildName);
 
             //assert
             result.Should().BeSameAs(ResolvedSupervisorStrategy);
@@ -43,7 +43,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
-            SupervisorStrategy result = sut.ResolvedSupervisorStratergy(ChildNameWithoutSupervisor);
+            SupervisorStrategy result = sut.ResolvedSupervisorStrategy(ChildNameWithoutSupervisor);
 
             //assert
             result.Should().BeSameAs(SutSupervisorStrategy);
@@ -54,10 +54,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         {
             //arrange
             UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
-            sut.ResolvedSupervisorStratergy(ChildNameWithoutSupervisor);
+            sut.ResolvedSupervisorStrategy(ChildNameWithoutSupervisor);
 
             //act
-            sut.ResolvedSupervisorStratergy(ChildNameWithoutSupervisor);
+            sut.ResolvedSupervisorStrategy(ChildNameWithoutSupervisor);
 
             //assert
             SutSupervisorStrategyGetterMock.Verify(

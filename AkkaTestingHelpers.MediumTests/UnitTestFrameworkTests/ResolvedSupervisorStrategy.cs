@@ -6,12 +6,12 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
 {
-    public class ResolvedSupervisorStratergy : TestKit
+    public class ResolvedSupervisorStrategy : TestKit
     {
-        public ResolvedSupervisorStratergy() : base(AkkaConfig.Config) { }
+        public ResolvedSupervisorStrategy() : base(AkkaConfig.Config) { }
 
         [Fact]
-        public void TestProbeResolver_ResolvedSupervisorStratergiesAreStored()
+        public void UnitTestFramework_ResolvedSupervisorStrategiesAreStored()
         {
             //arrange
             SupervisorStrategy parentSupervisorStrategy = new AllForOneStrategy(exception => Directive.Restart);
@@ -23,14 +23,14 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
                         new ParentActorWithSupervisorStratery(parentSupervisorStrategy, childSupervisorStrategy)), 2);
 
             //act
-            SupervisorStrategy result = sut.ResolvedSupervisorStratergy("ChildWithParentSupervisorStrategy");
+            SupervisorStrategy result = sut.ResolvedSupervisorStrategy("ChildWithParentSupervisorStrategy");
 
             //assert
             result.Should().BeSameAs(parentSupervisorStrategy);
         }
         
         [Fact]
-        public void TestProbeResolver_ParentSupervisorStratergiesAreReturnedWhenChildDoesNotHaveOneSetInItsProps()
+        public void UnitTestFramework_ParentSupervisorStrategiesAreReturnedWhenChildDoesNotHaveOneSetInItsProps()
         {
             //arrange
             SupervisorStrategy parentSupervisorStrategy = new AllForOneStrategy(exception => Directive.Restart);
@@ -43,14 +43,14 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
                         new ParentActorWithSupervisorStratery(parentSupervisorStrategy, childSupervisorStrategy)), 2);
 
             //act
-            SupervisorStrategy result = sut.ResolvedSupervisorStratergy("ChildWithChildSupervisorStrategy");
+            SupervisorStrategy result = sut.ResolvedSupervisorStrategy("ChildWithChildSupervisorStrategy");
 
             //assert
             result.Should().BeSameAs(childSupervisorStrategy);
         }
 
         [Fact]
-        public void TestProbeResolver_ThrownsWhenChildHasNotBeenResolved()
+        public void UnitTestFramework_ThrownsWhenChildHasNotBeenResolved()
         {
             //arrange
             SupervisorStrategy parentSupervisorStrategy = new AllForOneStrategy(exception => Directive.Restart);
@@ -63,7 +63,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
                         new ParentActorWithSupervisorStratery(parentSupervisorStrategy, childSupervisorStrategy)), 2);
 
             //act
-            Action act = () => sut.ResolvedSupervisorStratergy(Guid.NewGuid().ToString());
+            Action act = () => sut.ResolvedSupervisorStrategy(Guid.NewGuid().ToString());
 
             //assert
             act.ShouldThrow<ActorNotFoundException>();
