@@ -1,7 +1,7 @@
 ﻿using Akka.TestKit.Xunit2;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
 {
     public class TestBase : TestKit
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using Akka.TestKit.Xunit2;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTests
 {
     public class TestBase : TestKit
     {

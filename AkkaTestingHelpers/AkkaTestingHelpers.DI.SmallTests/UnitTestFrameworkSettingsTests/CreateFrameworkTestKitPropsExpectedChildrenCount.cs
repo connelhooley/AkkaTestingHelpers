@@ -4,7 +4,7 @@ using Akka.Actor;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkSettingsTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTests
 {
     public class CreateFrameworkTestKitPropsExpectedChildrenCount : TestBase
     {

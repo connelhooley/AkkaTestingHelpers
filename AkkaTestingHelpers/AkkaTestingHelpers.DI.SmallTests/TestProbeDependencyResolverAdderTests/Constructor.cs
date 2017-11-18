@@ -1,9 +1,9 @@
 ﻿using System;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeDependencyResolverAdderTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolverAdderTests
 {
     public class Constructor : TestBase
     {

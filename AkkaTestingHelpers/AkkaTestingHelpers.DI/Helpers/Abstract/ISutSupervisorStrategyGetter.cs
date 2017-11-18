@@ -1,6 +1,6 @@
 ﻿using Akka.Actor;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract
+namespace ConnelHooley.AkkaTestingHelpers.Helpers.Abstract
 {
     internal interface ISutSupervisorStrategyGetter
     {

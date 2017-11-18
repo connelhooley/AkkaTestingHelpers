@@ -3,7 +3,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 {
     public class TellMessageAndWaitForChildrenMessageSenderExpectedChildCount : TestBase
     {

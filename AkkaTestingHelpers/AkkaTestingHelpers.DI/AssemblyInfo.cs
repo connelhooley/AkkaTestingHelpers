@@ -2,9 +2,9 @@
 using NullGuard;
 
 [assembly: NullGuard(ValidationFlags.All)]
-[assembly: InternalsVisibleTo("ConnelHooley.AkkaTestingHelpers.DI.Fakes")]
-[assembly: InternalsVisibleTo("ConnelHooley.AkkaTestingHelpers.DI.SmallTests")]
-[assembly: InternalsVisibleTo("ConnelHooley.AkkaTestingHelpers.DI.MediumTests")]
+[assembly: InternalsVisibleTo("ConnelHooley.AkkaTestingHelpers.Fakes")]
+[assembly: InternalsVisibleTo("ConnelHooley.AkkaTestingHelpers.SmallTests")]
+[assembly: InternalsVisibleTo("ConnelHooley.AkkaTestingHelpers.MediumTests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 [assembly: InternalsVisibleTo("FileSystem.Fakes")]
 [assembly: InternalsVisibleTo("FileSystem.Tests")]

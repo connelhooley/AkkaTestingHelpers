@@ -3,12 +3,12 @@ using Akka.Actor;
 using Akka.DI.Core;
 using Akka.TestKit;
 using Akka.TestKit.TestActors;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.DependencyResolverAdderTests
 {
     public class Add : TestBase
     {

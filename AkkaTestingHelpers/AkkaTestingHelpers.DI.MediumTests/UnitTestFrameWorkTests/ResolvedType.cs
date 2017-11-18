@@ -5,7 +5,7 @@ using Akka.TestKit.Xunit2;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.UnitTestFrameworkTests
+namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
 {
     public class ResolvedType : TestKit
     {

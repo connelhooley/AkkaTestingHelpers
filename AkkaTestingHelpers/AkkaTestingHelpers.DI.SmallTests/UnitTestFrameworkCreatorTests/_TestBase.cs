@@ -3,13 +3,13 @@ using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.Xunit2;
-using ConnelHooley.AkkaTestingHelpers.DI.Fakes;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes;
+using ConnelHooley.AkkaTestingHelpers.Fakes;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes;
 using Microsoft.QualityTools.Testing.Fakes;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreatorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkCreatorTests
 {
     public class TestBase : TestKit
     {
@@ -134,8 +134,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
                 SutSupervisorStrategyGetterConstructorCount++;
                 ConstructedSutSupervisorStrategyGetter = @this;
             };
-
-
+            
             ShimUnitTestFramework<DummyActor1>.ConstructorISutCreatorITellChildWaiterIChildWaiterIDependencyResolverAdderITestProbeDependencyResolverAdderITestProbeCreatorIResolvedTestProbeStoreITestProbeActorCreatorITestProbeHandlersMapperISutSupervisorStrategyGetterImmutableDictionaryOfValueTupleOfTy =
                 (@this, sutCreator, tellChildWaiter, childWaiter, dependencyResolverAdder, testProbeDependencyResolverAdder, testProbeCreator, resolvedTestProbeStore, testProbeActorCreator, testProbeHandlersMapper, sutSupervisorStrategyGetter, handlers, testKit, props, numberOfChildren) =>
                 {

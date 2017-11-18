@@ -1,9 +1,9 @@
 ﻿using System;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreatorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkCreatorTests
 {
     public class Create : TestBase
     {
@@ -97,7 +97,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            SutCreatorPassedIntoShim.Should().BeSameAs(ConstructedSutCreator);
+            AssertionExtensions.Should((object) SutCreatorPassedIntoShim).BeSameAs(ConstructedSutCreator);
         }
 
         [Fact]
@@ -123,7 +123,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            TellChildWaiterPassedIntoShim.Should().BeSameAs(ConstructedTellChildWaiter);
+            AssertionExtensions.Should((object) TellChildWaiterPassedIntoShim).BeSameAs(ConstructedTellChildWaiter);
         }
 
         [Fact]
@@ -149,7 +149,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            ChildWaiterPassedIntoShim.Should().BeSameAs(ConstructedChildWaiter);
+            AssertionExtensions.Should((object) ChildWaiterPassedIntoShim).BeSameAs(ConstructedChildWaiter);
         }
 
         [Fact]
@@ -175,7 +175,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            DependencyResolverAdderPassedIntoShim.Should().BeSameAs(ConstructedDependencyResolverAdder);
+            AssertionExtensions.Should((object) DependencyResolverAdderPassedIntoShim).BeSameAs(ConstructedDependencyResolverAdder);
         }
 
         [Fact]
@@ -201,7 +201,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            TestProbeDependencyResolverAdderPassedIntoShim.Should().BeSameAs(ConstructedTestProbeDependencyResolverAdder);
+            AssertionExtensions.Should((object) TestProbeDependencyResolverAdderPassedIntoShim).BeSameAs(ConstructedTestProbeDependencyResolverAdder);
         }
 
         [Fact]
@@ -227,7 +227,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            TestProbeCreatorPassedIntoShim.Should().BeSameAs(ConstructedTestProbeCreator);
+            AssertionExtensions.Should((object) TestProbeCreatorPassedIntoShim).BeSameAs(ConstructedTestProbeCreator);
         }
 
         [Fact]
@@ -253,7 +253,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            ResolvedTestProbeStorePassedIntoShim.Should().BeSameAs(ConstructedResolvedTestProbeStore);
+            AssertionExtensions.Should((object) ResolvedTestProbeStorePassedIntoShim).BeSameAs(ConstructedResolvedTestProbeStore);
         }
 
         [Fact]
@@ -279,7 +279,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            TestProbeActorCreatorPassedIntoShim.Should().BeSameAs(ConstructedTestProbeActorCreator);
+            AssertionExtensions.Should((object) TestProbeActorCreatorPassedIntoShim).BeSameAs(ConstructedTestProbeActorCreator);
         }
 
         [Fact]
@@ -305,7 +305,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            TestProbeHandlersMapperPassedIntoShim.Should().BeSameAs(ConstructedTestProbeHandlersMapper);
+            AssertionExtensions.Should((object) TestProbeHandlersMapperPassedIntoShim).BeSameAs(ConstructedTestProbeHandlersMapper);
         }
 
         [Fact]
@@ -331,7 +331,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            SutSupervisorStrategyGetterIntoShim.Should().BeSameAs(ConstructedSutSupervisorStrategyGetter);
+            AssertionExtensions.Should((object) SutSupervisorStrategyGetterIntoShim).BeSameAs(ConstructedSutSupervisorStrategyGetter);
         }
 
         [Fact]

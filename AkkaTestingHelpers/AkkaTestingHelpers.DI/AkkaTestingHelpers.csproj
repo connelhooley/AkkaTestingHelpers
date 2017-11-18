@@ -3,12 +3,12 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <RootNamespace>ConnelHooley.AkkaTestingHelpers.DI</RootNamespace>
-    <AssemblyName>ConnelHooley.AkkaTestingHelpers.DI</AssemblyName>
+    <RootNamespace>ConnelHooley.AkkaTestingHelpers</RootNamespace>
+    <AssemblyName>ConnelHooley.AkkaTestingHelpers</AssemblyName>
     
     <Authors>Connel Hooley</Authors>
-    <Product>Akka TestKit Dependency Injection Helpers</Product>
-    <Description>Akka DependencyResolver that mocks child Actors into Stubs or TestProbes.</Description>
+    <Product>Akka Testing Helpers</Product>
+    <Description>Akka testing helpers that help you test the relationships between your actors</Description>
     <Copyright>Copyright Connel Hooley 2017</Copyright>
     <Version Condition=" '$(BUILD_BUILDNUMBER)' == '' ">0.0.1-local</Version>
     <Version Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</Version>
@@ -18,11 +18,11 @@
     <FileVersion Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     
-    <PackageId>ConnelHooley.AkkaTestingHelpers.DI</PackageId>
+    <PackageId>ConnelHooley.AkkaTestingHelpers</PackageId>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageIconUrl>https://avatars2.githubusercontent.com/u/1859799</PackageIconUrl>
-    <PackageTags>akka unit testing test tests ioc dependancy injection testprobe resolver dependancyresolver</PackageTags>
+    <PackageTags>akka unit testing test tests ioc dependancy injection testprobe resolver dependancyresolver supervisorstratergy actor</PackageTags>
     <PackageProjectUrl>https://github.com/connelhooley/AkkaTestingHelpers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/connelhooley/AkkaTestingHelpers/tree/master/AkkaTestingHelpers</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>

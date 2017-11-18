@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 {
     public class Supervisor : TestBase
     {

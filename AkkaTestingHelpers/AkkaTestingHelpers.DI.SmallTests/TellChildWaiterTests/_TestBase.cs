@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Akka.Actor;
 using Akka.TestKit.Xunit2;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using Moq;
 
 // ReSharper disable VirtualMemberCallInConstructor
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TellChildWaiterTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
 {
     public class TestBase : TestKit
     {

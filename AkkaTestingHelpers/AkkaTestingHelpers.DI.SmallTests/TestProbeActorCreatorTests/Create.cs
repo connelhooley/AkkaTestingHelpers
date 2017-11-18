@@ -1,9 +1,9 @@
-﻿using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+﻿using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorCreatorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorCreatorTests
 {
     public class Create : TestBase
     {
@@ -20,7 +20,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorCreatorTes
                 HandlersPassedIntoSut);
 
             //assert
-            result.Should().BeSameAs(TestProbeActorReturnedByShim);
+            AssertionExtensions.Should((object) result).BeSameAs(TestProbeActorReturnedByShim);
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorCreatorTes
                 HandlersPassedIntoSut);
 
             //assert
-            TestProbeCreatorPassedIntoShim.Should().BeSameAs(TestProbeCreatorPassedIntoSut);
+            AssertionExtensions.Should((object) TestProbeCreatorPassedIntoShim).BeSameAs(TestProbeCreatorPassedIntoSut);
         }
 
         [Fact]

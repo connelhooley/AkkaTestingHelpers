@@ -1,10 +1,10 @@
 ﻿using System;
 using Akka.Actor;
 using Akka.TestKit.Xunit2;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using Moq;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.DependencyResolverAdderTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.DependencyResolverAdderTests
 {
     public class TestBase : TestKit
     {

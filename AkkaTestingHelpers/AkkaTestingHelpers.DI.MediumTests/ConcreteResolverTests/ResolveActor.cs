@@ -4,7 +4,7 @@ using Akka.TestKit.Xunit2;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.MediumTests.ConcreteResolverTests
 {
     public class ResolveActor : TestKit
     {

@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.TestKit;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutCreatorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
 {
     public class Create : TestBase
     {

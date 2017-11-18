@@ -6,7 +6,7 @@ using System.Reflection;
 using Akka.Actor;
 using Ploeh.AutoFixture;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests
 {
     internal static class TestUtils
     {

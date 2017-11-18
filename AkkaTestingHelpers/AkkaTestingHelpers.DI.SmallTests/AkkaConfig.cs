@@ -1,7 +1,7 @@
 ﻿using Akka.Configuration;
 using Newtonsoft.Json;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests
 {
     public static class AkkaConfig
     {

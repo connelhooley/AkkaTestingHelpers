@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Akka.TestKit;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
 using NullGuard;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
+namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
 {
     internal sealed class TestProbeActorCreator : ITestProbeActorCreator
     {

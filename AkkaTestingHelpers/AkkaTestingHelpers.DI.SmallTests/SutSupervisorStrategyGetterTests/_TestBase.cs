@@ -1,8 +1,8 @@
 ﻿using Akka.Actor;
 using Akka.TestKit.Xunit2;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutSupervisorStrategyGetterTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutSupervisorStrategyGetterTests
 {
     public class TestBase : TestKit
     {

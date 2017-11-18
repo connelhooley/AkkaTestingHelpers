@@ -1,11 +1,12 @@
 ﻿using System;
 using Akka.Actor;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
+
 // ReSharper disable EmptyGeneralCatchClause
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteDependencyResolverAdderTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteDependencyResolverAdderTests
 {
     public class Add : TestBase
     {

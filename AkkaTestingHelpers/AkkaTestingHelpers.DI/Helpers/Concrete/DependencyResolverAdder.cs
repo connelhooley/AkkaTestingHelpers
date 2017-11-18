@@ -1,13 +1,13 @@
 ﻿using System;
-#if NET45
-using System.Diagnostics.CodeAnalysis;
-#endif
 using Akka.Actor;
 using Akka.DI.Core;
 using Akka.TestKit;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
+#if NET45
+using System.Diagnostics.CodeAnalysis;
+#endif
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
+namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
 {
     internal sealed class DependencyResolverAdder : IDependencyResolverAdder
     {

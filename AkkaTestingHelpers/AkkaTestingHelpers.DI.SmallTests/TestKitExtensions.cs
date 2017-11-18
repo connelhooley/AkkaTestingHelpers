@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Akka.TestKit.Xunit2;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests
 {
     public static class TestKitExtensions
     {

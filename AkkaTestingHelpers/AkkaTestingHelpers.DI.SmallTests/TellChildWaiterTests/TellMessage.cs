@@ -1,12 +1,12 @@
 ﻿using System;
 using Akka.Actor;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TellChildWaiterTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
 {
     public class TellMessage : TestBase
     {

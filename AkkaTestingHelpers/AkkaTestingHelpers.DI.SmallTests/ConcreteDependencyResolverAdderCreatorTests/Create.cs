@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteDependencyResolverAdderCreatorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteDependencyResolverAdderCreatorTests
 {
     public class Create : TestBase
     {
@@ -28,7 +28,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteDependencyResolv
             var result = sut.Create();
 
             //assert
-            result.Should().Be(ConstructedConcreteDependencyResolverAdder);
+            AssertionExtensions.Should((object) result).Be(ConstructedConcreteDependencyResolverAdder);
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteDependencyResolv
             sut.Create();
 
             //assert
-            DependencyResolverAdderPassedIntoShim.Should().BeSameAs(ConstructedDependencyResolverAdder);
+            AssertionExtensions.Should((object) DependencyResolverAdderPassedIntoShim).BeSameAs(ConstructedDependencyResolverAdder);
         }
     }
 }

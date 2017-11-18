@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Immutable;
-using System.Linq;
 using Akka.Actor;
 using Akka.TestKit;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverSettingsTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTests
 {
     public class RegisterResolver : TestBase
     {

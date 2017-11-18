@@ -3,7 +3,7 @@ using Akka.Actor;
 using Akka.TestKit.Xunit2;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.UnitTestFrameworkTests
+namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
 {
     public class Supervisor : TestKit
     {

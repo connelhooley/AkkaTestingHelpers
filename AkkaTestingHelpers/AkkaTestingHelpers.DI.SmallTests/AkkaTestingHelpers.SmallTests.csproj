@@ -6,11 +6,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{86CE1CF8-FA51-49C7-90F5-7DEA58FABCDB}</ProjectGuid>
+    <ProjectGuid>{307381B8-1DD1-4877-8A09-EB86A91721EB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConnelHooley.AkkaTestingHelpers.DI.MediumTests</RootNamespace>
-    <AssemblyName>ConnelHooley.AkkaTestingHelpers.DI.MediumTests</AssemblyName>
+    <RootNamespace>ConnelHooley.AkkaTestingHelpers.SmallTests</RootNamespace>
+    <AssemblyName>ConnelHooley.AkkaTestingHelpers.SmallTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -49,11 +49,20 @@
     <Reference Include="Akka.TestKit, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Akka.TestKit.1.3.2\lib\net45\Akka.TestKit.dll</HintPath>
     </Reference>
+    <Reference Include="Akka.TestKit.1.3.1.0.Fakes">
+      <HintPath>FakesAssemblies\Akka.TestKit.1.3.1.0.Fakes.dll</HintPath>
+    </Reference>
     <Reference Include="Akka.TestKit.Xunit2, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Akka.TestKit.Xunit2.1.3.2\lib\net45\Akka.TestKit.Xunit2.dll</HintPath>
     </Reference>
+    <Reference Include="Akka.TestKit.Xunit2.1.3.1.0.Fakes">
+      <HintPath>FakesAssemblies\Akka.TestKit.Xunit2.1.3.1.0.Fakes.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ConnelHooley.AkkaTestingHelpers.Fakes">
+      <HintPath>FakesAssemblies\ConnelHooley.AkkaTestingHelpers.Fakes.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions, Version=4.19.4.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.19.4\lib\net45\FluentAssertions.dll</HintPath>
@@ -61,11 +70,17 @@
     <Reference Include="FluentAssertions.Core, Version=4.19.4.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.19.4\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Moq, Version=4.7.142.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.7.142\lib\net45\Moq.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture, Version=3.51.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.3.51.0\lib\net40\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections.Immutable, Version=1.2.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -92,36 +107,101 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConcreteDependencyResolverAdderCreatorTests\Constructor.cs" />
+    <Compile Include="ConcreteDependencyResolverAdderCreatorTests\Create.cs" />
+    <Compile Include="ConcreteDependencyResolverAdderCreatorTests\_TestBase.cs" />
+    <Compile Include="ConcreteDependencyResolverAdderTests\Add.cs" />
+    <Compile Include="ConcreteDependencyResolverAdderTests\Constructor.cs" />
+    <Compile Include="ConcreteDependencyResolverAdderTests\_TestBase.cs" />
+    <Compile Include="ConcreteResolverSettingsTests\Empty.cs" />
+    <Compile Include="ConcreteResolverSettingsTests\RegisterActorGeneric.cs" />
+    <Compile Include="ConcreteResolverSettingsTests\RegisterActorFactory.cs" />
+    <Compile Include="ConcreteResolverSettingsTests\RegisterResolver.cs" />
+    <Compile Include="ConcreteResolverSettingsTests\_TestBase.cs" />
+    <Compile Include="ResolvedTestProbeStoreTests\FindResolvedSupervisorStrategy.cs" />
+    <Compile Include="SutSupervisorStrategyGetterTests\Constructor.cs" />
+    <Compile Include="SutSupervisorStrategyGetterTests\Get.cs" />
+    <Compile Include="SutSupervisorStrategyGetterTests\_TestBase.cs" />
+    <Compile Include="TellChildWaiterTests\Constructor.cs" />
+    <Compile Include="TellChildWaiterTests\TellMessage.cs" />
+    <Compile Include="TellChildWaiterTests\_TestBase.cs" />
+    <Compile Include="ChildWaiterTests\Constructor.cs" />
+    <Compile Include="ChildWaiterTests\ResolveChild.cs" />
+    <Compile Include="ChildWaiterTests\Start.cs" />
+    <Compile Include="ChildWaiterTests\_TestBase.cs" />
+    <Compile Include="ChildWaiterTests\Wait.cs" />
+    <Compile Include="Exploratory.cs" />
+    <Compile Include="TestProbeActorTests\PropsSupervisorStratergy.cs" />
+    <Compile Include="UnitTestFrameworkCreatorTests\Constructor.cs" />
+    <Compile Include="UnitTestFrameworkCreatorTests\Create.cs" />
+    <Compile Include="UnitTestFrameworkCreatorTests\_TestBase.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\CreateFrameworkTestKit.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\CreateFrameworkTestKitExpectedChildrenCount.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\CreateFrameworkTestKitProps.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\CreateFrameworkTestKitPropsExpectedChildrenCount.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\Empty.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\RegisterHandler.cs" />
+    <Compile Include="UnitTestFrameworkSettingsTests\_TestBase.cs" />
     <Compile Include="AkkaConfig.cs" />
-    <Compile Include="ConcreteResolverTests\Examples\Examples1.cs" />
-    <Compile Include="ConcreteResolverTests\ResolveActor.cs" />
-    <Compile Include="ConcreteResolverTests\DummyActors.cs" />
+    <Compile Include="DependencyResolverAdderTests\Add.cs" />
+    <Compile Include="DependencyResolverAdderTests\Constructor.cs" />
+    <Compile Include="DependencyResolverAdderTests\_TestBase.cs" />
+    <Compile Include="ResolvedTestProbeStoreTests\Constructor.cs" />
+    <Compile Include="SutCreatorTests\Constructor.cs" />
+    <Compile Include="TestKitExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTestFrameworkTests\Examples\Examples4.cs" />
+    <Compile Include="ResolvedTestProbeStoreTests\FindResolvedTestProbe.cs" />
+    <Compile Include="ResolvedTestProbeStoreTests\FindResolvedType.cs" />
+    <Compile Include="ResolvedTestProbeStoreTests\ResolveProbe.cs" />
+    <Compile Include="ResolvedTestProbeStoreTests\_TestBase.cs" />
+    <Compile Include="SutCreatorTests\Create.cs" />
+    <Compile Include="SutCreatorTests\_TestBase.cs" />
+    <Compile Include="TestProbeActorCreatorTests\Constructor.cs" />
+    <Compile Include="TestProbeActorCreatorTests\Create.cs" />
+    <Compile Include="TestProbeActorCreatorTests\_TestBase.cs" />
+    <Compile Include="TestProbeActorTests\Actor.cs" />
+    <Compile Include="TestProbeActorTests\ActorPath.cs" />
+    <Compile Include="TestProbeActorTests\Constructor.cs" />
+    <Compile Include="TestProbeActorTests\ReceiveMessage.cs" />
+    <Compile Include="TestProbeActorTests\_TestBase.cs" />
+    <Compile Include="TestProbeActorTests\TestProbe.cs" />
+    <Compile Include="TestProbeCreatorTests\Constructor.cs" />
+    <Compile Include="TestProbeCreatorTests\Create.cs" />
+    <Compile Include="TestProbeCreatorTests\_TestBase.cs" />
+    <Compile Include="TestProbeDependencyResolverAdderTests\Add.cs" />
+    <Compile Include="TestProbeDependencyResolverAdderTests\Constructor.cs" />
+    <Compile Include="TestProbeDependencyResolverAdderTests\_TestBase.cs" />
+    <Compile Include="TestProbeHandlersMapperTests\Constructor.cs" />
+    <Compile Include="TestProbeHandlersMapperTests\Map.cs" />
+    <Compile Include="TestProbeHandlersMapperTests\_TestBase.cs" />
+    <Compile Include="UnitTestFrameworkTests\Constructor.cs" />
     <Compile Include="UnitTestFrameworkTests\ResolvedSupervisorStratergy.cs" />
-    <Compile Include="UnitTestFrameworkTests\Sut.cs" />
-    <Compile Include="UnitTestFrameworkTests\DummyActors.cs" />
-    <Compile Include="UnitTestFrameworkTests\Examples\Examples2.cs" />
-    <Compile Include="UnitTestFrameworkTests\Examples\Examples1.cs" />
-    <Compile Include="UnitTestFrameworkTests\Examples\Examples3.cs" />
     <Compile Include="UnitTestFrameworkTests\ResolvedTestProbe.cs" />
     <Compile Include="UnitTestFrameworkTests\ResolvedType.cs" />
+    <Compile Include="UnitTestFrameworkTests\Sut.cs" />
     <Compile Include="UnitTestFrameworkTests\Supervisor.cs" />
-    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForChildren.cs" />
+    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForChildrenMessageExpectedChildCount.cs" />
+    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForChildrenMessageSenderExpectedChildCount.cs" />
+    <Compile Include="UnitTestFrameworkTests\_TestBase.cs" />
+    <Compile Include="TestUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Fakes Include="Fakes\Akka.TestKit.fakes" />
+    <Fakes Include="Fakes\Akka.TestKit.Xunit2.fakes" />
+    <Fakes Include="Fakes\ConnelHooley.AkkaTestingHelpers.fakes" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AkkaTestingHelpers.DI\AkkaTestingHelpers.DI.csproj">
+    <ProjectReference Include="..\AkkaTestingHelpers.DI\AkkaTestingHelpers.csproj">
       <Project>{92208278-74ed-42b7-b90b-9cc8de43d329}</Project>
-      <Name>AkkaTestingHelpers.DI</Name>
+      <Name>AkkaTestingHelpers</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

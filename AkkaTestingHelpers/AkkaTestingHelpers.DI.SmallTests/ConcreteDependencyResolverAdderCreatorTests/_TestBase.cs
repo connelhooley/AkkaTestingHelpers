@@ -1,14 +1,14 @@
 ﻿using System;
 using Akka.TestKit.Xunit2;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes;
 using Microsoft.QualityTools.Testing.Fakes;
 
 // ReSharper disable VirtualMemberCallInConstructor
 // ReSharper disable RedundantAssignment
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteDependencyResolverAdderCreatorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteDependencyResolverAdderCreatorTests
 {
     public class TestBase : TestKit
     {

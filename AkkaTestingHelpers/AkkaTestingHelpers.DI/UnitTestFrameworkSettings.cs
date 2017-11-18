@@ -2,9 +2,9 @@
 using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI
+namespace ConnelHooley.AkkaTestingHelpers
 {
     public sealed class UnitTestFrameworkSettings
     {

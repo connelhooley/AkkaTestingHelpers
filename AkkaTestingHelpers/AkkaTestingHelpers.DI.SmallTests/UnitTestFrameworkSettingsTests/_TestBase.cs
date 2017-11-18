@@ -3,12 +3,13 @@ using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.Xunit2;
-using ConnelHooley.AkkaTestingHelpers.DI.Fakes;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes;
+using ConnelHooley.AkkaTestingHelpers.Fakes;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes;
 using Microsoft.QualityTools.Testing.Fakes;
+
 // ReSharper disable RedundantAssignment
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkSettingsTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTests
 {
     public class TestBase : TestKit
     {
@@ -43,7 +44,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkSetting
             ShimUnitTestFrameworkCreator.Constructor = @this => ++UnitTestFrameworkCreatorConstructorCount;
 
             ShimUnitTestFrameworkCreator.AllInstances
-                .CreateOf1ImmutableDictionaryOfValueTupleOfTypeTypeFuncOfObjectObjectTestKitBasePropsInt32(
+                .CreateOf1ImmutableDictionaryOfValueTupleOfTypeTypeFuncOfObjectObjectTestKitBasePropsInt32<DummyParentActor>(
                     (@this, handlers, testKit, props, numberOfChildrenIntoShim) =>
                     {
                         UnitTestFrameworkCreatorCreateCount++;

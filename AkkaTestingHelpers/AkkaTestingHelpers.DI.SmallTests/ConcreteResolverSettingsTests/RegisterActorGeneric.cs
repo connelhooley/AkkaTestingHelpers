@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverSettingsTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTests
 {
     public class RegisterActorGeneric : TestBase
     {

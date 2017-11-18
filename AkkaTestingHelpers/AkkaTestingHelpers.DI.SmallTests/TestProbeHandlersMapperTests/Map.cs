@@ -1,12 +1,12 @@
 ﻿using System;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
 using SettingsHandlers = System.Collections.Immutable.ImmutableDictionary<(System.Type, System.Type), System.Func<object, object>>;
 using MappedMessageHandlers = System.Collections.Immutable.ImmutableDictionary<System.Type, System.Func<object, object>>;
 using MappedHandlers = System.Collections.Immutable.ImmutableDictionary<System.Type, System.Collections.Immutable.ImmutableDictionary<System.Type, System.Func<object, object>>>;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeHandlersMapperTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTests
 {
     public class Map : TestBase
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Immutable;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract
+namespace ConnelHooley.AkkaTestingHelpers.Helpers.Abstract
 {
     internal interface ITestProbeHandlersMapper
     {

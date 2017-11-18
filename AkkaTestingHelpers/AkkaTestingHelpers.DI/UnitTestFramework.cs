@@ -2,9 +2,9 @@
 using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI
+namespace ConnelHooley.AkkaTestingHelpers
 {
     public sealed class UnitTestFramework<TActor> where TActor : ActorBase
     {

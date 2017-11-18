@@ -1,11 +1,10 @@
-﻿using System;
-using Akka.Actor;
+﻿using Akka.Actor;
 using Akka.DI.Core;
 using Akka.TestKit.Xunit2;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests.Examples
+namespace ConnelHooley.AkkaTestingHelpers.MediumTests.ConcreteResolverTests.Examples
 {
     public class Examples1 : TestKit
     {

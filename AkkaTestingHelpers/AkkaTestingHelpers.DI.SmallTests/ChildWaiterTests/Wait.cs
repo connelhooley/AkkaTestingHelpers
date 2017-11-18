@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
 {
     public class Wait : TestBase
     {

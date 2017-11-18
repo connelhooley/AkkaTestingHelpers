@@ -1,10 +1,11 @@
 ﻿using System;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
+
 // ReSharper disable ObjectCreationAsStatement
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.SutSupervisorStrategyGetterTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutSupervisorStrategyGetterTests
 {
     public class Constructor
     {

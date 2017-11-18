@@ -4,9 +4,10 @@ using Akka.TestKit;
 using FluentAssertions;
 using Moq;
 using Xunit;
+
 // ReSharper disable ObjectCreationAsStatement
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 {
     public class Constructor : TestBase
     {

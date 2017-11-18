@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using Akka.TestKit;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
+namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
 {
     internal sealed class ChildWaiter : IChildWaiter
     {

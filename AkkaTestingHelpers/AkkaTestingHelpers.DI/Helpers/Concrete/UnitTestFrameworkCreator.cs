@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
+namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
 {
     public class UnitTestFrameworkCreator
     {

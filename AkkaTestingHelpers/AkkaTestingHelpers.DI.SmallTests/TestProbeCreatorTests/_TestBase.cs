@@ -3,11 +3,12 @@ using Akka.TestKit;
 using Akka.TestKit.Fakes;
 using Akka.TestKit.Xunit2;
 using Akka.TestKit.Xunit2.Fakes;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
+using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using Microsoft.QualityTools.Testing.Fakes;
+
 // ReSharper disable VirtualMemberCallInConstructor
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeCreatorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeCreatorTests
 {
     public class TestBase : TestKit
     {

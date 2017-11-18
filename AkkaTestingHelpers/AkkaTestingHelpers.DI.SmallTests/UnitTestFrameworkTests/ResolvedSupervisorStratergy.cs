@@ -1,11 +1,10 @@
 ﻿using System;
 using Akka.Actor;
-using Akka.TestKit;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 {
     public class ResolvedSupervisorStratergy : TestBase
     {
