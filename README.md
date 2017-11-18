@@ -1,8 +1,14 @@
 # AkkaTestingHelpers
-This NuGet packages offers helpers for both unit testing and integration testing.
+This NuGet packages offers helper classes for both unit testing and integration testing in Akka.NET.
+
+> Install-Package ConnelHooley.AkkaTestingHelpers
+
+> dotnet add package ConnelHooley.AkkaTestingHelpers
+
+> paket add ConnelHooley.AkkaTestingHelpers
 
 ## Unit testing
-The `UnitTestFramework` in the package allows you to test an Actor in full isolation. The framework creates the actor to be tested (referred to by the framework as SUT: System Under Test) with a TestProbe as its parent. It also replaces its children with TestProbes.
+The `UnitTestFramework` class in the package allows you to test an Actor in full isolation. The framework creates the actor to be tested (referred to by the framework as SUT: System Under Test) with a `TestProbe` as its parent. It also replaces its children with `TestProbe` objects.
 
 It can be used to test the following scenarios:
 - That an actor sends the correct messages to its children
@@ -18,20 +24,20 @@ The framework replaces children with `TestProbe` objects by using `Akka.DI`. Thi
 var child = Context.ActorOf(Context.DI().Props<ChildActor>(), "child-1");
 ```
 
-## Examples
+### Examples
 To see some examples on how to use the `UnitTestFramework`. See the [examples](AkkaTestingHelpers.MediumTests/UnitTestFrameworkTests/Examples) folder.
 
 ### Usage guide
-#### Initiating the framework
+#### Initiating the unit test framework
 To create an instance of the `UnitTestFramework` you must first create an `UnitTestFrameworkSettings` object. This is done using the Empty property of the settings object:
 
 ``` csharp
 var settings = UnitTestFrameworkSettings.Empty;
 ```
 
-The settings object allows you to register message handlers against it. A message handler is a method that is ran when a particular type of child actor receives a particular type of message. The return value of the method is sent back to the actor that sent the message.
+The settings object allows you to register message handlers against it. A message handler is a method that is ran when a particular type of child actor receives a particular type of message. The return value of the method is then sent back to the actor that sent the message.
 
-The following example registers a handler that is invoked whenever any children of the type `ExampleActor` receive a message of the type `int`. The handler doubles the `int` and send it back to the actor who sent it the original message.
+The following example registers a handler that is invoked whenever any children of the type `ExampleActor` receive a message of the type `int`. The handler doubles the `int` and sends it back to the actor who sent it the original message.
 
 ``` csharp
 var settings = UnitTestFrameworkSettings
@@ -39,7 +45,7 @@ var settings = UnitTestFrameworkSettings
     .RegisterHandler<ExampleActor, int>(i => i * 2));
 ```
 
-You can then create the framework object from the settings object. Using the `CreateFramework` method. When creating the framework you must specify the type of actor you wish to test along with a `TestKit` instance. If the actor you wish to test (the SUT actor) does not have a default constructor you must give a `Prop` object to create the actor. If the SUT actor creates children in its constructor you must specify how many children it creates. The `CreateFramework` method only returns once all the children have been created. We'll see why this is done later.
+You can then create the framework object from the settings object by using the `CreateFramework` method. When creating the framework you must specify the type of actor you wish to test along with a `TestKit` instance. If the actor you wish to test (the SUT actor) does not have a default constructor you must give a `Prop` object to create the actor with. If the SUT actor creates children in its constructor you must specify how many children it creates. The `CreateFramework` method only returns once all the children have been created. This will be explained later.
 
 The example below creates a framework with `ParentActor` as the SUT actor and waits for the `ParentActor`'s constructor to create 2 child actors. Note that `this` in the example is an instance of `TestKit`.
 
@@ -50,10 +56,10 @@ var framework = UnitTestFrameworkSettings
     .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(), 2));
 ```
 
-#### Using the framework
+#### Using the unit test framework
 > Note: some of these examples use the `FluentAssertions` NuGet package.
 
-Once you have a framework you send messages to your SUT actor by using the sut property. The following example sends a message of the type `string` to the sut actor.
+Once you have created a framework you can send messages to your SUT actor by using the `Sut` property. The following example sends a message of the type `string` to the sut actor.
 ``` csharp
 framework.Sut.Tell("hello world");
 ```
@@ -69,7 +75,7 @@ If the SUT actor creates a child actor of the type `ExampleActor` with the name 
 framework.ResolvedType("child-1").Should().Be<ExampleActor>()
 ```
 
-> Note: this is the reason the `CreateFramework` waits for children to be resolved before returning. If it did not then the child may not had been resolved when we did our assertion
+> Note: this is the reason the `CreateFramework` waits for children to be resolved before returning. If it did not then the child may not had been resolved when we did our assertion.
 
 If the SUT actor sends `int` messages to a child actor with the name `"child-2"` then you can test this like so:
 ``` csharp
@@ -96,3 +102,4 @@ sut.TellMessageAndWaitForChildren("hello", 2);
 This means you can then go on use the `ResolvedType`, `ResolvedTestProbe` and `ResolvedSupervisorStrategy` methods safely knowing the new actors have been created.
 
 ## Integration testing
+The `ConcreteResolverSettings` class in the package allows you to test how multiple Actors work together. The class works by registering a.
