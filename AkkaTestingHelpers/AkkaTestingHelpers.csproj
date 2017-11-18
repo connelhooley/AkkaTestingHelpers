@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
+    <RootNamespace>ConnelHooley.AkkaTestingHelpers</RootNamespace>
+    <AssemblyName>ConnelHooley.AkkaTestingHelpers</AssemblyName>
+    
+    <Authors>Connel Hooley</Authors>
+    <Product>Akka Testing Helpers</Product>
+    <Description>Akka testing helpers that help you test the relationships between your actors</Description>
+    <Copyright>Copyright Connel Hooley 2017</Copyright>
+    <Version Condition=" '$(BUILD_BUILDNUMBER)' == '' ">0.0.1-local</Version>
+    <Version Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</Version>
+    <AssemblyVersion Condition=" '$(BUILD_BUILDNUMBER)' == '' ">1.0.0.0</AssemblyVersion>
+    <AssemblyVersion Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</AssemblyVersion>
+    <FileVersion Condition=" '$(BUILD_BUILDNUMBER)' == '' ">1.0.0.0</FileVersion>
+    <FileVersion Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</FileVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    
+    <PackageId>ConnelHooley.AkkaTestingHelpers</PackageId>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageIconUrl>https://avatars2.githubusercontent.com/u/1859799</PackageIconUrl>
+    <PackageTags>akka unit testing test tests ioc dependancy injection testprobe resolver dependancyresolver supervisorstratergy actor</PackageTags>
+    <PackageProjectUrl>https://github.com/connelhooley/AkkaTestingHelpers</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/connelhooley/AkkaTestingHelpers/tree/master/AkkaTestingHelpers</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Akka" Version="1.3.2" />
+    <PackageReference Include="Akka.DI.Core" Version="1.3.2" />
+    <PackageReference Include="Akka.TestKit" Version="1.3.2" />
+    <PackageReference Include="Microsoft.Net.Compilers" Version="2.4.0" />
+    <PackageReference Include="NullGuard.Fody" Version="1.6.2" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+  </ItemGroup>
+
+</Project>
