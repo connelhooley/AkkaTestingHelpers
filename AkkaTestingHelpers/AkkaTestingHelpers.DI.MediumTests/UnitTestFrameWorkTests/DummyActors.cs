@@ -3,7 +3,7 @@ using System.Threading;
 using Akka.Actor;
 using Akka.DI.Core;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.UnitTestFrameworkTests
 {
     #region Parent actor to be resolved by resolver
 
@@ -44,6 +44,45 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
                 Context.ActorOf(Context.DI().Props(childType));
             }
         }
+    }
+
+    public class ParentActorWithSupervisorStratery : ReceiveActor
+    {
+        private readonly SupervisorStrategy _supervisorStrategy;
+        
+        public ParentActorWithSupervisorStratery(SupervisorStrategy sutSupervisorStrategy, SupervisorStrategy childSupervisorStrategy)
+        {
+            _supervisorStrategy = sutSupervisorStrategy;
+            Thread.Sleep(5);
+            Context.ActorOf(Context.DI().Props<ReplyChildActor1>(), "ChildWithParentSupervisorStrategy");
+            Context.ActorOf(Context.DI().Props<ReplyChildActor1>().WithSupervisorStrategy(childSupervisorStrategy), "ChildWithChildSupervisorStrategy");
+            Become(Ready);
+        }
+
+        private void Ready()
+        {
+            Receive<CreateChildren>(message => CreateChildren(message.Type, message.Count));
+            Receive<CreateChild>(message => Context.ActorOf(Context.DI().Props(message.Type), message.Name));
+            Receive<TellAllChildren>(message =>
+            {
+                foreach (IActorRef childRef in Context.GetChildren())
+                {
+                    childRef.Forward(message.Message);
+                }
+            });
+            Receive<TellChild>(message => Context.Child(message.Name).Forward(message.Message));
+            Receive<TellParent>(message => Context.Parent.Forward(message.Message));
+        }
+
+        private static void CreateChildren(Type childType, int childCount)
+        {
+            for (int i = 0; i < childCount; i++)
+            {
+                Context.ActorOf(Context.DI().Props(childType));
+            }
+        }
+
+        protected override SupervisorStrategy SupervisorStrategy() => _supervisorStrategy;
     }
 
     #endregion

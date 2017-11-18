@@ -9,28 +9,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.ConcreteResolverTests
 
     public class ParentActor : ReceiveActor
     {
-        private int _childName;
-
-        public ParentActor(int initalCount)
+        public ParentActor()
         {
-            Thread.Sleep(5);
-            CreateChildren(initalCount);
-            Receive<int>(count => CreateChildren(count));
-            ReceiveAny(o =>
-            {
-                foreach (IActorRef childRef in Context.GetChildren())
-                {
-                    childRef.Forward(o);
-                }
-            });
-        }
-        
-        private void CreateChildren(int childCount)
-        {
-            for (int i = 0; i < childCount; i++)
-            {
-                Context.ActorOf(Context.DI().Props<ChildActor>(), _childName++.ToString());
-            }
+            var child = Context.ActorOf(Context.DI().Props<ChildActor>(), "child");
+            ReceiveAny(o => child.Forward(o));
         }
     }
 

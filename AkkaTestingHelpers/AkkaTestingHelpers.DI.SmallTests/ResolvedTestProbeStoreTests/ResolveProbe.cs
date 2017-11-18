@@ -13,13 +13,15 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
         public void ResolvedTestProbeStore_ResolveProbeWithNullActorPath_ThrowsArgumentNullException()
         {
             //arrange
+            var child = CreateChildVariables();
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
 
             //act
             Action act = () => sut.ResolveProbe(
                 null,
-                TestUtils.Create<Type>(),
-                CreateTestProbe());
+                child.Type,
+                child.TestProbe,
+                child.SupervisorStrategy);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -29,13 +31,15 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
         public void ResolvedTestProbeStore_ResolveProbeWithNullType_ThrowsArgumentNullException()
         {
             //arrange
+            var child = CreateChildVariables();
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
 
             //act
             Action act = () => sut.ResolveProbe(
-                TestUtils.Create<ActorPath>(),
+                child.ActorPath,
                 null,
-                CreateTestProbe());
+                child.TestProbe,
+                child.SupervisorStrategy);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -45,29 +49,51 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
         public void ResolvedTestProbeStore_ResolveProbeWithNullTestProbe_ThrowsArgumentNullException()
         {
             //arrange
+            var child = CreateChildVariables();
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
 
             //act
             Action act = () => sut.ResolveProbe(
-                TestUtils.Create<ActorPath>(),
-                TestUtils.Create<Type>(),
-                null);
+                child.ActorPath,
+                child.Type,
+                null,
+                child.SupervisorStrategy);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
+        }
+        
+        [Fact]
+        public void ResolvedTestProbeStore_ResolveProbeWithNullTestProbe_DoesNotThrow()
+        {
+            //arrange
+            var child = CreateChildVariables();
+            ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
+
+            //act
+            Action act = () => sut.ResolveProbe(
+                child.ActorPath,
+                child.Type,
+                child.TestProbe,
+                null);
+
+            //assert
+            act.ShouldNotThrow();
         }
 
         [Fact]
         public void ResolvedTestProbeStore_ResolveProbeWithNullActorPathAndTypeAndTestProbe_ThrowsArgumentNullException()
         {
             //arrange
+            var child = CreateChildVariables();
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
 
             //act
             Action act = () => sut.ResolveProbe(
                 null, 
                 null, 
-                null);
+                null,
+                child.SupervisorStrategy);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -83,8 +109,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
             //act
             Action act = () => sut.ResolveProbe(
                 TestUtils.Create<ActorPath>(), 
-                TestUtils.Create<Type>(), 
-                CreateTestProbe());
+                TestUtils.Create<Type>(),
+                CreateTestProbe(),
+                new AllForOneStrategy(
+                    TestUtils.Create<int>(),
+                    TestUtils.Create<int>(),
+                    exception => TestUtils.Create<Directive>()));
 
             //assert
             act.ShouldNotThrow();

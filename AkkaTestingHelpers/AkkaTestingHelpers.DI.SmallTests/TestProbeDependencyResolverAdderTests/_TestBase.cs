@@ -33,10 +33,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeDependencyResol
         internal readonly ActorBase ResolvedActorWithHandlers;
         internal readonly ActorPath ResolvedActorPathWithHandlers;
         internal readonly TestProbe ResolvedTestProbeWithHandlers;
+        internal readonly SupervisorStrategy ResolvedSupervisorStrategyWithHandlers;
         internal readonly Type ActorWithoutHandlersType;
         internal readonly ActorBase ResolvedActorWithoutHandlers;
         internal readonly ActorPath ResolvedActorPathWithoutHandlers;
         internal readonly TestProbe ResolvedTestProbeWithoutHandlers;
+        internal readonly SupervisorStrategy ResolvedSupervisorStrategyWithoutHandlers;
 
         internal readonly List<string> CallOrder;
         internal Func<Type, ActorBase> ActorFactory;
@@ -78,11 +80,19 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeDependencyResol
             ResolvedActorWithHandlers = new Mock<ActorBase>().Object;
             ResolvedActorPathWithHandlers = ActorPath.Parse($"akka://{TestUtils.Create<string>()}");
             ResolvedTestProbeWithHandlers = CreateTestProbe();
-            
+            ResolvedSupervisorStrategyWithHandlers = new AllForOneStrategy(
+                TestUtils.Create<int>(),
+                TestUtils.Create<int>(),
+                exception => TestUtils.Create<Directive>());
+
             ResolvedActorWithoutHandlers = new Mock<ActorBase>().Object;
             ResolvedActorPathWithoutHandlers = ActorPath.Parse($"akka://{TestUtils.Create<string>()}");
             ResolvedTestProbeWithoutHandlers = CreateTestProbe();
-            
+            ResolvedSupervisorStrategyWithoutHandlers = new OneForOneStrategy(
+                TestUtils.Create<int>(),
+                TestUtils.Create<int>(),
+                exception => TestUtils.Create<Directive>());
+
             // Set up mocks
             TestProbeActorWithHandlersMock
                 .Setup(actor => actor.Actor)
@@ -96,6 +106,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeDependencyResol
                 .Setup(actor => actor.TestProbe)
                 .Returns(() => ResolvedTestProbeWithHandlers);
 
+            TestProbeActorWithHandlersMock
+                .Setup(actor => actor.PropsSupervisorStrategy)
+                .Returns(() => ResolvedSupervisorStrategyWithHandlers);
+
             TestProbeActorWithoutHandlersMock
                 .Setup(actor => actor.Actor)
                 .Returns(() => ResolvedActorWithoutHandlers);
@@ -108,6 +122,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeDependencyResol
                 .Setup(actor => actor.TestProbe)
                 .Returns(() => ResolvedTestProbeWithoutHandlers);
 
+            TestProbeActorWithoutHandlersMock
+                .Setup(actor => actor.PropsSupervisorStrategy)
+                .Returns(() => ResolvedSupervisorStrategyWithoutHandlers);
+
             TestProbeActorCreatorMock
                 .Setup(creator => creator.Create(TestProbeCreator, this, ActorHandlers))
                 .Returns(() => TestProbeActorWithHandlersMock.Object);
@@ -117,7 +135,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeDependencyResol
                 .Returns(() => TestProbeActorWithoutHandlersMock.Object);
 
             ResolvedTestProbeStoreMock
-                .Setup(store => store.ResolveProbe(It.IsAny<ActorPath>(), It.IsAny<Type>(), It.IsAny<TestProbe>()))
+                .Setup(store => store.ResolveProbe(It.IsAny<ActorPath>(), It.IsAny<Type>(), It.IsAny<TestProbe>(), It.IsAny<SupervisorStrategy>()))
                 .Callback(() => CallOrder.Add(nameof(IResolvedTestProbeStore.ResolveProbe)));
             
             ChildWaiterMock

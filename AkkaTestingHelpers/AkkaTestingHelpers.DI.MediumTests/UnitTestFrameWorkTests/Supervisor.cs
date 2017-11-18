@@ -1,10 +1,9 @@
 ﻿using System;
 using Akka.Actor;
-using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.UnitTestFrameworkTests
 {
     public class Supervisor : TestKit
     {
@@ -16,13 +15,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             //arrange
             const int initialChildCount = 0;
             Guid message = Guid.NewGuid();
-            UnitTestFramework<> sut = TestProbeResolverSettings
-                .Empty
-                .CreateResolver(this);
-            TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor()), initialChildCount);
 
+            UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
+                .Empty
+                .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor()), initialChildCount);
+            
             //act
-            actor.Tell(new TellParent(message));
+            sut.Sut.Tell(new TellParent(message));
 
             //assert
             sut.Supervisor.ExpectMsg(message);

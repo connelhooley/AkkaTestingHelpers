@@ -1,11 +1,10 @@
 ﻿using Akka.Actor;
 using Akka.DI.Core;
-using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests.Examples
+namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.UnitTestFrameworkTests.Examples
 {
     public class Examples1 : TestKit
     {
@@ -27,34 +26,28 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests.
         [Fact]
         public void ParentActor_Constructor_CreatesChildWithCorrectTypeAndName()
         {
-            //arrange
-            UnitTestFramework<> resolver = TestProbeResolverSettings
-                .Empty
-                .CreateResolver(this);
-            
             //act
-            TestActorRef<ParentActor> sut = resolver.CreateSut<ParentActor>(2);
+            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+                .Empty
+                .CreateFramework<ParentActor>(this, 2);
             
             //assert
-            resolver
-                .ResolvedType(sut, "child-actor-1")
+            framework
+                .ResolvedType("child-actor-1")
                 .Should().Be<ChildActor>();
         }
 
         [Fact]
         public void ParentActor_Constructor_SendsChildCorrectMessage()
         {
-            //arrange
-            UnitTestFramework<> resolver = TestProbeResolverSettings
-                .Empty
-                .CreateResolver(this);
-
             //act
-            TestActorRef<ParentActor> sut = resolver.CreateSut<ParentActor>(2);
+            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+                .Empty
+                .CreateFramework<ParentActor>(this, 2);
 
             //assert
-            resolver
-                .ResolvedTestProbe(sut, "child-actor-1")
+            framework
+                .ResolvedTestProbe("child-actor-1")
                 .ExpectMsg("hello actor 1");
         }
     }

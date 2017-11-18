@@ -14,7 +14,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverSettings
             ConcreteResolverSettings sut = ConcreteResolverSettings.Empty;
 
             //act
-            Action act = () => sut.Register<DummyActor1>(null);
+            Action act = () => sut.RegisterActor<DummyActor1>(null);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -26,22 +26,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverSettings
         {
             //arrange
             ConcreteResolverSettings sut = ConcreteResolverSettings.Empty;
-            
-            //act
-            ConcreteResolverSettings result = sut.Register(() => new DummyActor1());
-
-            //assert
-            result.Should().NotBe(sut);
-        }
-
-        [Fact]
-        public void ConcreteResolverSettings_RegisterGenericWithoutFactory_ReturnsNewInstance()
-        {
-            //arrange
-            ConcreteResolverSettings sut = ConcreteResolverSettings.Empty;
 
             //act
-            ConcreteResolverSettings result = sut.Register<DummyActor1>();
+            ConcreteResolverSettings result = sut.RegisterActor(() => new DummyActor1());
 
             //assert
             result.Should().NotBe(sut);

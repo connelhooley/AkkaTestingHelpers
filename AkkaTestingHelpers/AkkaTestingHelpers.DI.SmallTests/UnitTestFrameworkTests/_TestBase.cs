@@ -12,7 +12,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
     public class TestBase: TestKit
     {
         internal Mock<ISutCreator> SutCreatorMock;
-        internal Mock<IChildTeller> ChildTellerMock;
+        internal Mock<ITellChildWaiter> ChildTellerMock;
         internal Mock<IChildWaiter> ChildWaiterMock;
         internal Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
         internal Mock<ITestProbeDependencyResolverAdder> TestProbeDependencyResolverAdderMock;
@@ -21,9 +21,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
         internal Mock<ITestProbeActorCreator> TestProbeActorCreatorMock;
         internal Mock<ITestProbeHandlersMapper> TestProbeHandlersMapperMock;
         internal Mock<ITestProbeActor> TestProbeActorMock;
+        internal Mock<ISutSupervisorStrategyGetter> SutSupervisorStrategyGetterMock;
 
         internal ISutCreator SutCreator;
-        internal IChildTeller ChildTeller;
+        internal ITellChildWaiter ChildTeller;
         internal IChildWaiter ChildWaiter;
         internal IDependencyResolverAdder DependencyResolverAdder;
         internal ITestProbeDependencyResolverAdder TestProbeDependencyResolverAdder;
@@ -31,18 +32,23 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
         internal IResolvedTestProbeStore ResolvedTestProbeStore;
         internal ITestProbeActorCreator TestProbeActorCreator;
         internal ITestProbeHandlersMapper TestProbeHandlersMapper;
+        internal ISutSupervisorStrategyGetter SutSupervisorStrategyGetter;
         
         internal ImmutableDictionary<(Type, Type), Func<object, object>> Handlers;
         internal ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> MappedHandlers;
 
         internal Props Props;
+        internal Props PropsWithSupervisorStrategy;
         internal int ExpectedChildCount;
         internal object Message;
         internal IActorRef Sender;
         internal string ChildName;
+        internal string ChildNameWithoutSupervisor;
         internal TestProbe Supervisor;
         internal Type ResolvedType;
         internal TestProbe ResolvedTestProbe;
+        internal SupervisorStrategy ResolvedSupervisorStrategy;
+        internal SupervisorStrategy SutSupervisorStrategy;
         protected TestActorRef<DummyActor> SutActor;
 
         public TestBase() : base(AkkaConfig.Config)
@@ -51,7 +57,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
 
             // Create mocks
             SutCreatorMock = new Mock<ISutCreator>();
-            ChildTellerMock = new Mock<IChildTeller>();
+            ChildTellerMock = new Mock<ITellChildWaiter>();
             ChildWaiterMock = new Mock<IChildWaiter>();
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();
             TestProbeDependencyResolverAdderMock = new Mock<ITestProbeDependencyResolverAdder>();
@@ -60,6 +66,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
             TestProbeCreatorMock = new Mock<ITestProbeCreator>();
             TestProbeHandlersMapperMock = new Mock<ITestProbeHandlersMapper>();
             TestProbeActorMock = new Mock<ITestProbeActor>();
+            SutSupervisorStrategyGetterMock = new Mock<ISutSupervisorStrategyGetter>();
 
             // Create objects passed into sut constructor
             SutCreator = SutCreatorMock.Object;
@@ -71,15 +78,23 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
             ResolvedTestProbeStore = ResolvedTestProbeStoreMock.Object;
             TestProbeActorCreator = TestProbeActorCreatorMock.Object;
             TestProbeHandlersMapper = TestProbeHandlersMapperMock.Object;
+            SutSupervisorStrategyGetter = SutSupervisorStrategyGetterMock.Object;
             Handlers = ImmutableDictionary<(Type, Type), Func<object, object>>
                 .Empty
                 .Add((generateType(), generateType()), message => TestUtils.Create<object>());
             Props = Props.Create<DummyActor>();
+            PropsWithSupervisorStrategy = Props
+                .Create<DummyActor>()
+                .WithSupervisorStrategy(new AllForOneStrategy(
+                    TestUtils.Create<int>(),
+                    TestUtils.Create<int>(),
+                    exception => TestUtils.Create<Directive>()));
             ExpectedChildCount = TestUtils.Create<int>();
         
             // Create objects passed into sut methods
             Message = TestUtils.Create<object>();
             ChildName = TestUtils.Create<string>();
+            ChildNameWithoutSupervisor = TestUtils.Create<string>();
             Sender = new Mock<IActorRef>().Object;
 
             // Create objects returned by mocks
@@ -92,6 +107,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
             SutActor = ActorOfAsTestActorRef<DummyActor>();
             ResolvedType = generateType();
             ResolvedTestProbe = CreateTestProbe();
+            ResolvedSupervisorStrategy = new AllForOneStrategy(
+                TestUtils.Create<int>(), 
+                TestUtils.Create<int>(),
+                exception => TestUtils.Create<Directive>());
+            SutSupervisorStrategy = new OneForOneStrategy(
+                TestUtils.Create<int>(),
+                TestUtils.Create<int>(),
+                exception => TestUtils.Create<Directive>());
 
             // Set up mocks
             TestProbeCreatorMock
@@ -114,13 +137,23 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
             ResolvedTestProbeStoreMock
                 .Setup(store => store.FindResolvedTestProbe(SutActor, ChildName))
                 .Returns(() => ResolvedTestProbe);
+            ResolvedTestProbeStoreMock
+                .Setup(store => store.FindResolvedSupervisorStrategy(SutActor, ChildName))
+                .Returns(() => ResolvedSupervisorStrategy);
+            ResolvedTestProbeStoreMock
+                .Setup(store => store.FindResolvedSupervisorStrategy(SutActor, ChildNameWithoutSupervisor))
+                .Returns(() => null);
 
             TestProbeHandlersMapperMock
                 .Setup(mapper => mapper.Map(Handlers))
                 .Returns(() => MappedHandlers);
+
+            SutSupervisorStrategyGetterMock
+                .Setup(getter => getter.Get(SutActor.UnderlyingActor))
+                .Returns(() => SutSupervisorStrategy);
         }
         
-        protected UnitTestFramework<DummyActor> CreateTestProbeResolver() => 
+        protected UnitTestFramework<DummyActor> CreateUnitTestFramework(Props props = null) => 
             new UnitTestFramework<DummyActor>(
                 SutCreator,
                 ChildTeller,
@@ -131,9 +164,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
                 ResolvedTestProbeStore,
                 TestProbeActorCreator,
                 TestProbeHandlersMapper,
+                SutSupervisorStrategyGetter,
                 Handlers,
                 this,
-                Props,
+                props ?? Props,
                 ExpectedChildCount);
 
         protected class DummyActor : ReceiveActor { }

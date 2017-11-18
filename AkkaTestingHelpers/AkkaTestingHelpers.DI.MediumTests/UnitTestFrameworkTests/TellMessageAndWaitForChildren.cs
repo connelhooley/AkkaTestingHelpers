@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Linq;
 using Akka.Actor;
-using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.UnitTestFrameworkTests
 {
-    public class WaitForChildren : TestKit
+    public class TellMessageAndWaitForChildren : TestKit
     {
-        public WaitForChildren() : base(AkkaConfig.Config) { }
+        public TellMessageAndWaitForChildren() : base(AkkaConfig.Config) { }
 
         [Fact]
         public void TestProbeResolver_WaitsForChildrenCreatedWhenProcessingMessages()
@@ -20,17 +19,16 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             const int additionalChildCount = 5;
             Type childType = typeof(ReplyChildActor1);
             Guid message = Guid.NewGuid();
-            UnitTestFramework<> sut = TestProbeResolverSettings
+            UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
                 .Empty
                 .RegisterHandler<ReplyChildActor1, Guid>(guid => guid)
-                .CreateResolver(this);
-            TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(childType, initialChildCount)), initialChildCount);
+                .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(childType, initialChildCount)), initialChildCount);
 
             //act
-            sut.TellMessage(actor, new CreateChildren(childType, additionalChildCount), additionalChildCount);
+            sut.TellMessageAndWaitForChildren(new CreateChildren(childType, additionalChildCount), additionalChildCount);
 
             //assert
-            actor.Tell(new TellAllChildren(message));
+            sut.Sut.Tell(new TellAllChildren(message));
             ExpectMsgAllOf(Enumerable
                 .Repeat(message, initialChildCount + additionalChildCount)
                 .ToArray());
@@ -43,13 +41,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             const int initialChildCount = 2;
             const int moreChildCount = 5;
             Type childType = typeof(ReplyChildActor1);
-            UnitTestFramework<> sut = TestProbeResolverSettings
+            UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
                 .Empty
-                .CreateResolver(this);
-            TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor(childType, initialChildCount)), initialChildCount);
-
+                .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(childType, initialChildCount)), initialChildCount);
+            
             //act
-            Action act = () => sut.TellMessage(actor, new CreateChildren(childType, moreChildCount), moreChildCount + 1);
+            Action act = () => sut.TellMessageAndWaitForChildren(new CreateChildren(childType, moreChildCount), moreChildCount + 1);
 
             //assert
             act.ShouldThrow<TimeoutException>();

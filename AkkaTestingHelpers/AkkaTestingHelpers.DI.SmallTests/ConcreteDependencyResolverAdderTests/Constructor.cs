@@ -2,16 +2,27 @@
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
+// ReSharper disable ObjectCreationAsStatement
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteDependencyResolverAdderTests
 {
-    public class Constructor
+    public class Constructor : TestBase
     {
+        [Fact]
+        public void ConcreteDependencyResolverAdder_ConstructorWithNullDependencyResolverAdder_ThrowsArgumentNullException()
+        {
+            //act
+            Action act = () => new ConcreteDependencyResolverAdder(null);
+
+            //assert
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
         [Fact]
         public void ConcreteDependencyResolverAdder_Constructor_DoesNotThrow()
         {
             //act
-            Action act = () => new ConcreteDependencyResolverAdder();
+            Action act = () => new ConcreteDependencyResolverAdder(DependencyResolverAdder);
 
             //assert
             act.ShouldNotThrow();

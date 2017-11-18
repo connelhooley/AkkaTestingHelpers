@@ -19,7 +19,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
                 {
                     ImmutableDictionary<Type, Func<object, object>> actorHandlers = handlers.GetValueOrDefault(actorType, null);
                     ITestProbeActor probeActor = testProbeActorCreator.Create(testProbeCreator, testKit, actorHandlers);
-                    resolvedTestProbeStore.ResolveProbe(probeActor.ActorPath, actorType, probeActor.TestProbe);
+                    resolvedTestProbeStore.ResolveProbe(probeActor.ActorPath, actorType, probeActor.TestProbe, probeActor.PropsSupervisorStrategy);
                     childWaiter.ResolvedChild();
                     return probeActor.Actor;
                 });

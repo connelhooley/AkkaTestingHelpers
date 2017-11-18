@@ -6,7 +6,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TellChildWaiterTests
 {
     public class TellMessage : TestBase
     {
@@ -15,7 +15,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessageWithNullChildWaiter_ThrowsArgumentNullException()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             Action act = () => sut.TellMessage(
@@ -34,7 +34,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessageWithNullTestKitBase_ThrowsArgumentNullException()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             Action act = () => sut.TellMessage(
@@ -53,7 +53,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessageWithNullRecipient_ThrowsArgumentNullException()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             Action act = () => sut.TellMessage(
@@ -72,7 +72,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessageWithNullMessage_ThrowsArgumentNullException()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             Action act = () => sut.TellMessage<object>(
@@ -91,7 +91,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessageWithNullChildWaiterAndTestKitBaseAndRecipientAndMessage_ThrowsArgumentNullException()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             Action act = () => sut.TellMessage<object>(
@@ -111,7 +111,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessage_StartsWaitingForChildren()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount, Sender);
@@ -126,7 +126,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessageWithNoSender_StartsWaitingForChildren()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount);
@@ -141,7 +141,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessage_WaitsForChildren()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount, Sender);
@@ -156,7 +156,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessageWithNoSender_WaitsForChildren()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount);
@@ -171,7 +171,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessage_TellsRecipient()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount, Sender);
@@ -184,7 +184,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessageWithNoSender_TellsRecipient()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount);
@@ -197,7 +197,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessage_StartsWaitingForChildrenBeforeTellingRecipient()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount, Sender);
@@ -212,7 +212,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessageWithNoSender_StartsWaitingForChildrenBeforeTellingRecipient()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount);
@@ -227,7 +227,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessage_WaitsForChildrenAfterTellingRecipient()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount, Sender);
@@ -242,7 +242,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
         public void ChildTeller_TellMessageWithNoSender_WaitsForChildrenAfterTellingRecipient()
         {
             //arrange
-            ChildTeller sut = CreateChildTeller();
+            TellChildWaiter sut = CreateTellChildWaiter();
 
             //act
             sut.TellMessage(ChildWaiter, this, Recipient, Message, ExpectedChildrenCount);

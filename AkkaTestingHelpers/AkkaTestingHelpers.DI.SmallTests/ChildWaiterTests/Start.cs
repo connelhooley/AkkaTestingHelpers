@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Threading.Tasks;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
@@ -12,7 +12,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         [Fact]
         public void ChildWaiter_StartWithNullTestKitBase_ThrowsArgumentNullException()
         {
-            Within(TimeSpan.FromMilliseconds(500), () =>
+            this.WithinTimeout(() =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
@@ -29,7 +29,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         [Fact]
         public void ChildWaiter_Start_DoesNotThrowAnyExceptions()
         {
-            Within(TimeSpan.FromMilliseconds(500), () =>
+            this.WithinTimeout(() =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
@@ -45,7 +45,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         [Fact]
         public void ChildWaiter_Started_Start_ShouldBlockThread()
         {
-            Within(TimeSpan.FromMilliseconds(500), () =>
+            this.WithinTimeout(() =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
@@ -60,7 +60,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
                 });
 
                 //assert
-                this.Sleep(TestKitSettings.DefaultTimeout);
+                this.Sleep(this.GetTimeoutHalved());
                 isSecondStartRan.Should().BeFalse();
             });
         }
@@ -68,7 +68,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         [Fact]
         public void ChildWaiter_Started_Start_ShouldUnblockThreadWhenFirstStartsChildrenAreResolved()
         {
-            Within(TimeSpan.FromMilliseconds(500), () =>
+            this.WithinTimeout(() =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();

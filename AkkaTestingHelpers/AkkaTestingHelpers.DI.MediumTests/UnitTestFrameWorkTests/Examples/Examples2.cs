@@ -1,11 +1,10 @@
 ﻿using Akka.Actor;
 using Akka.DI.Core;
-using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests.Examples
+namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.UnitTestFrameworkTests.Examples
 {
     public class Examples2 : TestKit
     {
@@ -53,16 +52,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests.
         public void ParentActor_ReceiveSaveMessage_StoresModifiedSaveMessageFromChildInRepo()
         {
             //arrange
-            UnitTestFramework<> resolver = TestProbeResolverSettings
+            Mock<IRepository> repoMock = new Mock<IRepository>();
+            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
                 .Empty
                 .RegisterHandler<ChildActor, ParentActor.Save>(s => new ChildActor.ModifiedSave(s.Value.ToUpper()))
-                .CreateResolver(this);
-            Mock<IRepository> repoMock = new Mock<IRepository>();
-            Props props = Props.Create(() => new ParentActor(repoMock.Object));
-            TestActorRef<ParentActor> sut = resolver.CreateSut<ParentActor>(props, 1);
+                .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(repoMock.Object)), 1);
 
             //act
-            sut.Tell(new ParentActor.Save("hello world"));
+            framework.Sut.Tell(new ParentActor.Save("hello world"));
 
             //assert
             AwaitAssert(() => repoMock.Verify(repo => repo.Save("HELLO WORLD"), Times.Once));

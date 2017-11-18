@@ -11,7 +11,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         public void TestProbeActor_TestProbe_ReturnsTestProbeFromTestProbeCreator()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActor();
+            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
 
             //act
             Akka.TestKit.TestProbe result = sut.UnderlyingActor.TestProbe;
@@ -24,7 +24,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         public void TestProbeActor_TestProbe_ReturnsSameResultOnEveryCall()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActor();
+            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
 
             //act
             Akka.TestKit.TestProbe result = sut.UnderlyingActor.TestProbe;
@@ -37,7 +37,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         public void TestProbeActor_TestProbe_TestProbeIsForwardedMessages()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActor();
+            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
             object message = TestUtils.Create<object>();
             Akka.TestKit.TestProbe sender = CreateTestProbe();
 

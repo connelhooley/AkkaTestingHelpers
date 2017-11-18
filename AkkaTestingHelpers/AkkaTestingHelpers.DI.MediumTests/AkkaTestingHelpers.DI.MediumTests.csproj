@@ -93,19 +93,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AkkaConfig.cs" />
-    <Compile Include="ConcreteResolverTests\CreateSut.cs" />
+    <Compile Include="ConcreteResolverTests\Examples\Examples1.cs" />
+    <Compile Include="ConcreteResolverTests\ResolveActor.cs" />
     <Compile Include="ConcreteResolverTests\DummyActors.cs" />
-    <Compile Include="ConcreteResolverTests\WaitForChildren.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTestFrameWorkTests\CreateSut.cs" />
-    <Compile Include="UnitTestFrameWorkTests\DummyActors.cs" />
-    <Compile Include="UnitTestFrameWorkTests\Examples\Examples2.cs" />
-    <Compile Include="UnitTestFrameWorkTests\Examples\Examples1.cs" />
-    <Compile Include="UnitTestFrameWorkTests\Examples\Examples3.cs" />
-    <Compile Include="UnitTestFrameWorkTests\ResolvedTestProbe.cs" />
-    <Compile Include="UnitTestFrameWorkTests\ResolvedType.cs" />
-    <Compile Include="UnitTestFrameWorkTests\Supervisor.cs" />
-    <Compile Include="UnitTestFrameWorkTests\WaitForChildren.cs" />
+    <Compile Include="UnitTestFrameworkTests\Examples\Examples4.cs" />
+    <Compile Include="UnitTestFrameworkTests\ResolvedSupervisorStratergy.cs" />
+    <Compile Include="UnitTestFrameworkTests\Sut.cs" />
+    <Compile Include="UnitTestFrameworkTests\DummyActors.cs" />
+    <Compile Include="UnitTestFrameworkTests\Examples\Examples2.cs" />
+    <Compile Include="UnitTestFrameworkTests\Examples\Examples1.cs" />
+    <Compile Include="UnitTestFrameworkTests\Examples\Examples3.cs" />
+    <Compile Include="UnitTestFrameworkTests\ResolvedTestProbe.cs" />
+    <Compile Include="UnitTestFrameworkTests\ResolvedType.cs" />
+    <Compile Include="UnitTestFrameworkTests\Supervisor.cs" />
+    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForChildren.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

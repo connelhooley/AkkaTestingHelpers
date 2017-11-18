@@ -9,10 +9,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
     {
         #region Null tests
         [Fact]
-        public void TestProbeResolver_ResolvedTestProbeWithNullChildName_ThrowsArgumentNullException()
+        public void UnitTestFramework_ResolvedTestProbeWithNullChildName_ThrowsArgumentNullException()
         {
             //arrange
-            UnitTestFramework<DummyActor> sut = CreateTestProbeResolver();
+            UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
             Action act = () => sut.ResolvedTestProbe(null);
@@ -23,10 +23,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
         #endregion
 
         [Fact]
-        public void TestProbeResolver_ResolvedTestProbe_ReturnsCorrectProbe()
+        public void UnitTestFramework_ResolvedTestProbe_ReturnsCorrectProbe()
         {
             //arrange
-            UnitTestFramework<DummyActor> sut = CreateTestProbeResolver();
+            UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
             TestProbe result = sut.ResolvedTestProbe(ChildName);

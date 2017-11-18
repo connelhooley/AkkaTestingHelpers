@@ -13,11 +13,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests
                 Test = new TestJson
                 {
                     SingleExpectDefault = 100,
-                    DefaultTimeout = 100,
+                    DefaultTimeout = 1000,
 #if DEBUG
                     Timefactor = 1,
 #else
-                    Timefactor = 10,
+                    Timefactor = 4,
 #endif
                 }
             }

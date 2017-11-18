@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using Akka.Actor;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
+using NullGuard;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
     internal sealed class ResolvedTestProbeStore : IResolvedTestProbeStore
     {
-        private readonly IDictionary<ActorPath, (Type, TestProbe)> _resolved;
+        private readonly IDictionary<ActorPath, (Type, TestProbe, SupervisorStrategy)> _resolved;
 
         public ResolvedTestProbeStore() => 
-            _resolved = new ConcurrentDictionary<ActorPath, (Type, TestProbe)>();
+            _resolved = new ConcurrentDictionary<ActorPath, (Type, TestProbe, SupervisorStrategy)>();
 
-        public void ResolveProbe(ActorPath actorPath, Type actorType, TestProbe testProbe) => 
-            _resolved[actorPath] = (actorType, testProbe);
+        public void ResolveProbe(ActorPath actorPath, Type actorType, TestProbe testProbe, [AllowNull] SupervisorStrategy supervisorStrategy) => 
+            _resolved[actorPath] = (actorType, testProbe, supervisorStrategy);
 
         public TestProbe FindResolvedTestProbe(IActorRef parentActor, string childName) => 
             FindResolved(parentActor, childName).ResolvedTestProbe;
@@ -23,10 +24,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
         public Type FindResolvedType(IActorRef parentActor, string childName) =>
             FindResolved(parentActor, childName).ResolvedType;
         
-        private (Type ResolvedType, TestProbe ResolvedTestProbe) FindResolved(IActorRef parentActor, string childName)
+        [return: AllowNull]
+        public SupervisorStrategy FindResolvedSupervisorStrategy(IActorRef parentActor, string childName) =>
+            FindResolved(parentActor, childName).ResolvedSupervisorStrategy;
+
+        private (Type ResolvedType, TestProbe ResolvedTestProbe, SupervisorStrategy ResolvedSupervisorStrategy) FindResolved(IActorRef parentActor, string childName)
         {
             ActorPath childPath = parentActor.Path.Child(childName);
-            if (_resolved.TryGetValue(childPath, out (Type, TestProbe) result))
+            if (_resolved.TryGetValue(childPath, out (Type, TestProbe, SupervisorStrategy) result))
             {
                 return result;
             }

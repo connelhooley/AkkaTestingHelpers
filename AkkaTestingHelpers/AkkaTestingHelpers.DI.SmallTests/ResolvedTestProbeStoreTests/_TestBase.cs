@@ -12,13 +12,17 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
 
         internal ResolvedTestProbeStore CreateResolvedTestProbeStore() => new ResolvedTestProbeStore();
 
-        internal (ActorPath, Type, TestProbe, string) CreateChildVariables()
+        internal (ActorPath ActorPath, Type Type, TestProbe TestProbe, SupervisorStrategy SupervisorStrategy, string ActorName) CreateChildVariables()
         {
             string name = TestUtils.Create<string>();
             ActorPath path = TestActor.Path.Child(name);
             Type type = TestUtils.Create<Type>();
             TestProbe testProbe = CreateTestProbe();
-            return (path, type, testProbe, name);
+            AllForOneStrategy supervisorStrategy = new AllForOneStrategy(
+                TestUtils.Create<int>(),
+                TestUtils.Create<int>(),
+                exception => TestUtils.Create<Directive>());
+            return (path, type, testProbe, supervisorStrategy, name);
         }
     }
 }

@@ -9,10 +9,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
     {
         #region Null tests
         [Fact]
-        public void TestProbeResolver_TellMessageAndWaitForChildrenWithNullMessage_ThrowsArgumentNullException()
+        public void UnitTestFramework_TellMessageAndWaitForChildrenWithNullMessage_ThrowsArgumentNullException()
         {
             //arrange
-            UnitTestFramework<DummyActor> sut = CreateTestProbeResolver();
+            UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
             Action act = () => sut.TellMessageAndWaitForChildren<object>(
@@ -25,10 +25,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
         }
 
         [Fact]
-        public void TestProbeResolver_TellMessageAndWaitForChildrenWithNullSender_ThrowsArgumentNullException()
+        public void UnitTestFramework_TellMessageAndWaitForChildrenWithNullSender_ThrowsArgumentNullException()
         {
             //arrange
-            UnitTestFramework<DummyActor> sut = CreateTestProbeResolver();
+            UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
             Action act = () => sut.TellMessageAndWaitForChildren(
@@ -41,10 +41,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
         }
 
         [Fact]
-        public void TestProbeResolver_TellMessageAndWaitForChildrenWithNullMessageAndSender_ThrowsArgumentNullException()
+        public void UnitTestFramework_TellMessageAndWaitForChildrenWithNullMessageAndSender_ThrowsArgumentNullException()
         {
             //arrange
-            UnitTestFramework<DummyActor> sut = CreateTestProbeResolver();
+            UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
             Action act = () => sut.TellMessageAndWaitForChildren<object>(
@@ -58,10 +58,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
         #endregion
 
         [Fact]
-        public void TestProbeResolver_TellMessageAndWaitForChildren_TellsChild()
+        public void UnitTestFramework_TellMessageAndWaitForChildren_TellsChild()
         {
             //arrange
-            UnitTestFramework<DummyActor> sut = CreateTestProbeResolver();
+            UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
             sut.TellMessageAndWaitForChildren(Message, Sender, ExpectedChildCount);

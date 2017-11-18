@@ -1,12 +1,11 @@
 ﻿using System;
 using Akka.Actor;
-using Akka.TestKit;
-using Akka.TestKit.Xunit2;
 using Akka.TestKit.TestActors;
+using Akka.TestKit.Xunit2;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.UnitTestFrameworkTests
 {
     public class ResolvedType : TestKit
     {
@@ -18,30 +17,28 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             //arrange
             Type childType = typeof(BlackHoleActor);
             string childName = Guid.NewGuid().ToString();
-            UnitTestFramework<> sut = TestProbeResolverSettings
+            UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
                 .Empty
-                .CreateResolver(this);
+                .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor()));
 
             //act
-            TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor()), 0);
-            sut.TellMessage(actor, new CreateChild(childName, childType), 1);
+            sut.TellMessageAndWaitForChildren(new CreateChild(childName, childType), 1);
 
             //assert
-            sut.ResolvedType(actor, childName).Should().Be(childType);
+            sut.ResolvedType(childName).Should().Be(childType);
         }
 
         [Fact]
         public void TestProbeResolver_ThrownsWhenChildHasNotBeenResolved()
         {
             //arrange
-            UnitTestFramework<> sut = TestProbeResolverSettings
+            UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
                 .Empty
-                .CreateResolver(this);
+                .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor()));
 
             //act
-            TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor()), 0);
-            sut.TellMessage(actor, new CreateChild(Guid.NewGuid().ToString(), typeof(BlackHoleActor)), 1);
-            Action act = () => sut.ResolvedType(actor, Guid.NewGuid().ToString());
+            sut.TellMessageAndWaitForChildren(new CreateChild(Guid.NewGuid().ToString(), typeof(BlackHoleActor)), 1);
+            Action act = () => sut.ResolvedType(Guid.NewGuid().ToString());
 
             //assert
             act.ShouldThrow<ActorNotFoundException>();

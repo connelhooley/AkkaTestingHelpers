@@ -4,9 +4,10 @@ using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using Moq;
+
 // ReSharper disable VirtualMemberCallInConstructor
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TellChildWaiterTests
 {
     public class TestBase : TestKit
     {
@@ -56,6 +57,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildTellerTests
                 .Callback(() => CallOrder.Add(nameof(IActorRef.Tell) + "Sender"));
         }
         
-        internal ChildTeller CreateChildTeller() => new ChildTeller();
+        internal TellChildWaiter CreateTellChildWaiter() => new TellChildWaiter();
     }
 }

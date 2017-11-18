@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Akka.Actor;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
+using NullGuard;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
@@ -12,6 +13,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
         {
             ActorPath = Context.Self.Path;
             TestProbe = testProbeCreator.Create(testKit);
+            PropsSupervisorStrategy = Context.Props.SupervisorStrategy;
             ReceiveAny(o => TestProbe.Forward(o));
             if (handlers != null)
             {
@@ -31,6 +33,9 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
         public ActorPath ActorPath { get; }
 
         public TestProbe TestProbe { get; }
+
+        [AllowNull]
+        public SupervisorStrategy PropsSupervisorStrategy { get; }
 
         public ActorBase Actor => this;
     }

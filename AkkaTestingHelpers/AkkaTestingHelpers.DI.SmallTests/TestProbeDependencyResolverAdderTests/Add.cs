@@ -236,7 +236,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeDependencyResol
                 store => store.ResolveProbe(
                     ResolvedActorPathWithHandlers,
                     ActorWithHandlersType,
-                    ResolvedTestProbeWithHandlers));
+                    ResolvedTestProbeWithHandlers,
+                    ResolvedSupervisorStrategyWithHandlers));
         }
         
         [Fact]
@@ -261,7 +262,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeDependencyResol
                 store => store.ResolveProbe(
                     ResolvedActorPathWithoutHandlers,
                     ActorWithoutHandlersType,
-                    ResolvedTestProbeWithoutHandlers));
+                    ResolvedTestProbeWithoutHandlers,
+                    ResolvedSupervisorStrategyWithoutHandlers));
         }
         
         [Fact]

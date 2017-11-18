@@ -14,7 +14,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkSetting
             UnitTestFrameworkSettings sut = UnitTestFrameworkSettings.Empty;
 
             //act
-            Action act = () => sut.RegisterHandler<DummyActor1, Message1>(null);
+            Action act = () => sut.RegisterHandler<DummyChildActor1, Message1>(null);
 
             //assert
             act.ShouldThrow<ArgumentNullException>();
@@ -27,10 +27,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkSetting
             //arrange
             UnitTestFrameworkSettings sut = UnitTestFrameworkSettings
                 .Empty
-                .RegisterHandler<DummyActor1, Message1>(message1 => TestUtils.Create<object>());
+                .RegisterHandler<DummyChildActor1, Message1>(message1 => TestUtils.Create<object>());
 
             //act
-            UnitTestFrameworkSettings result = sut.RegisterHandler<DummyActor2, Message1>(message1 => TestUtils.Create<object>());
+            UnitTestFrameworkSettings result = sut.RegisterHandler<DummyChildActor2, Message1>(message1 => TestUtils.Create<object>());
 
             //assert
             result.Should().NotBe(sut);

@@ -1,12 +1,12 @@
 ﻿using System;
 using Akka.Actor;
 using Akka.TestKit;
-using Akka.TestKit.Xunit2;
 using Akka.TestKit.TestActors;
+using Akka.TestKit.Xunit2;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.UnitTestFrameworkTests
 {
     public class ResolvedTestProbe : TestKit
     {
@@ -19,17 +19,16 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
             Type childType = typeof(BlackHoleActor);
             string childName = Guid.NewGuid().ToString();
             Guid message = Guid.NewGuid();
-            UnitTestFramework<> sut = TestProbeResolverSettings
+            UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
                 .Empty
-                .CreateResolver(this);
+                .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor()));
 
             //act
-            TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor()), 0);
-            sut.TellMessage(actor, new CreateChild(childName, childType), 1);
-            TestProbe result = sut.ResolvedTestProbe(actor, childName);
+            sut.TellMessageAndWaitForChildren(new CreateChild(childName, childType), 1);
+            TestProbe result = sut.ResolvedTestProbe(childName);
 
             //assert
-            actor.Tell(new TellChild(childName, message));
+            sut.Sut.Tell(new TellChild(childName, message));
             result.ExpectMsg(message);
         }
 
@@ -37,14 +36,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests
         public void TestProbeResolver_ThrownsWhenChildHasNotBeenResolved()
         {
             //arrange
-            UnitTestFramework<> sut = TestProbeResolverSettings
+            UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
                 .Empty
-                .CreateResolver(this);
+                .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor()));
 
             //act
-            TestActorRef<ParentActor> actor = sut.CreateSut<ParentActor>(Props.Create(() => new ParentActor()), 0);
-            sut.TellMessage(actor, new CreateChild(Guid.NewGuid().ToString(), typeof(EchoActor)), 1);
-            Action act = () => sut.ResolvedTestProbe(actor, Guid.NewGuid().ToString());
+            sut.TellMessageAndWaitForChildren(new CreateChild(Guid.NewGuid().ToString(), typeof(EchoActor)), 1);
+            Action act = () => sut.ResolvedTestProbe(Guid.NewGuid().ToString());
 
             //assert
             act.ShouldThrow<ActorNotFoundException>();

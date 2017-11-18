@@ -2,6 +2,7 @@
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
+// ReSharper disable ObjectCreationAsStatement
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTests
 {

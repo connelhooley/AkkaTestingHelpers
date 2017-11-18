@@ -9,10 +9,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
     {
         #region Null tests
         [Fact]
-        public void TestProbeResolver_TellMessageAndWaitForChildrenNoSenderWithNullMessage_ThrowsArgumentNullException()
+        public void UnitTestFramework_TellMessageAndWaitForChildrenNoSenderWithNullMessage_ThrowsArgumentNullException()
         {
             //arrange
-            UnitTestFramework<DummyActor> sut = CreateTestProbeResolver();
+            UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
             Action act = () => sut.TellMessageAndWaitForChildren<object>(
@@ -25,10 +25,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
         #endregion
 
         [Fact]
-        public void TestProbeResolver_TellMessageAndWaitForChildren_TellsChild()
+        public void UnitTestFramework_TellMessageAndWaitForChildren_TellsChild()
         {
             //arrange
-            UnitTestFramework<DummyActor> sut = CreateTestProbeResolver();
+            UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
             sut.TellMessageAndWaitForChildren(Message, ExpectedChildCount);

@@ -53,9 +53,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
                 .Returns(CreateTestProbe());
         }
         
-        internal TestActorRef<TestProbeActor> CreateTestProbeActor() => 
+        internal TestActorRef<TestProbeActor> CreateTestProbeActorWithoutSupervisorStrategy() => 
             ActorOfAsTestActorRef<TestProbeActor>(Props.Create(() => new TestProbeActor(TestProbeCreator, this, Handlers)));
 
+        internal TestActorRef<TestProbeActor> CreateTestProbeActorWithSupervisorStrategy(SupervisorStrategy supervisorStrategy) =>
+            ActorOfAsTestActorRef<TestProbeActor>(Props
+                .Create(() => new TestProbeActor(TestProbeCreator, this, Handlers))
+                .WithSupervisorStrategy(supervisorStrategy));
+        
         private class ExampleMessage1 { }
         private class ExampleMessage2 { }
     }

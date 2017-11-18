@@ -7,10 +7,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkTests
     public class Sut : TestBase
     {
         [Fact]
-        public void TestProbeResolver_Supervisor_ReturnsSupervisor()
+        public void UnitTestFramework_Supervisor_ReturnsSupervisor()
         {
             //arrange
-            UnitTestFramework<DummyActor> sut = CreateTestProbeResolver();
+            UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
             TestActorRef<DummyActor> result = sut.Sut;

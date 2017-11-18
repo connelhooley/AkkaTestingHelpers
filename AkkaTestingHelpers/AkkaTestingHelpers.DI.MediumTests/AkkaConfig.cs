@@ -12,12 +12,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests
                 SuppressJsonSerializerWarning = true,
                 Test = new TestJson
                 {
-                    SingleExpectDefault = 100,
-                    DefaultTimeout = 100,
+                    SingleExpectDefault = 1000,
+                    DefaultTimeout = 1000,
 #if DEBUG
-                    Timefactor = 3,
+                    Timefactor = 1,
 #else
-                    Timefactor = 40,
+                    Timefactor = 4,
 #endif
                 }
             }

@@ -3,7 +3,7 @@ using Akka.TestKit;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract
 {
-    internal interface IChildTeller
+    internal interface ITellChildWaiter
     {
         void TellMessage<TMessage>(
             IChildWaiter childWaiter, 

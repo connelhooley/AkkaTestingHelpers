@@ -7,6 +7,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract
     {
         ActorPath ActorPath { get; }
         TestProbe TestProbe { get; }
+        SupervisorStrategy PropsSupervisorStrategy { get; }
         ActorBase Actor { get; }
     }
 }

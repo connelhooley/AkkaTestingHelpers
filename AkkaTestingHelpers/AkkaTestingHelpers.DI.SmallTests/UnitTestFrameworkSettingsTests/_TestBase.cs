@@ -16,7 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkSetting
         
         internal int UnitTestFrameworkCreatorConstructorCount;
         internal int UnitTestFrameworkCreatorCreateCount;
-        protected UnitTestFramework<DummyActor1> UnitTestFrameworkReturnedFromShim;
+        protected UnitTestFramework<DummyParentActor> UnitTestFrameworkReturnedFromShim;
 
         internal TestKitBase TestKitPassedIntoShim;
         internal ImmutableDictionary<(Type, Type), Func<object, object>> HandlersPassedIntoShim;
@@ -24,7 +24,6 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkSetting
         internal int ExpectedChildrenCountPassedIntoShim;
 
         internal TestKitBase TestKitPassedIntoSut;
-        internal ImmutableDictionary<(Type, Type), Func<object, object>> HandlersPassedIntoSut;
         internal Props PropsPassedIntoSut;
         internal int ExpectedChildrenCountPassedIntoSut;
 
@@ -32,15 +31,14 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkSetting
         {
             // Create objects passed into sut
             TestKitPassedIntoSut = this;
-            HandlersPassedIntoSut = ImmutableDictionary<(Type, Type), Func<object, object>>.Empty;
-            PropsPassedIntoSut = Props.Create<DummyActor1>();
+            PropsPassedIntoSut = Props.Create<DummyChildActor1>();
             ExpectedChildrenCountPassedIntoSut = TestUtils.Create<int>();
 
             // Create shims
             _shimContext = ShimsContext.Create();
 
             //Set up shims
-            UnitTestFrameworkReturnedFromShim = new ShimUnitTestFramework<DummyActor1>();
+            UnitTestFrameworkReturnedFromShim = new ShimUnitTestFramework<DummyParentActor>();
 
             ShimUnitTestFrameworkCreator.Constructor = @this => ++UnitTestFrameworkCreatorConstructorCount;
 
@@ -63,9 +61,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkSetting
             base.Dispose(disposing);
         }
 
-        protected class DummyActor1 : ReceiveActor { }
+        protected class DummyParentActor : ReceiveActor { }
 
-        protected class DummyActor2 : ReceiveActor { }
+        protected class DummyChildActor1 : ReceiveActor { }
+
+        protected class DummyChildActor2 : ReceiveActor { }
 
         protected class Message1 { }
 

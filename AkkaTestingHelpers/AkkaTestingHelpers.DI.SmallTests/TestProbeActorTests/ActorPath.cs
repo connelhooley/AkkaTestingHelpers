@@ -11,7 +11,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         public void TestProbeActor_ActorPath_ReturnsCorrectActorPath()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActor();
+            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
 
             //act
             Akka.Actor.ActorPath result = sut.UnderlyingActor.ActorPath;
@@ -24,7 +24,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         public void TestProbeActor_ActorPath__ReturnsSameResultOnEveryCall()
         {
             //arrange
-            TestProbeActor sut = CreateTestProbeActor().UnderlyingActor;
+            TestProbeActor sut = CreateTestProbeActorWithoutSupervisorStrategy().UnderlyingActor;
 
             //act
             Akka.Actor.ActorPath result = sut.ActorPath;

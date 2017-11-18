@@ -12,7 +12,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         public void TestProbeActorWithHandlers_ReceivesMessageWithMatchingHandler_SendsCorrectReplies()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActor();
+            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
 
             //act
             sut.Tell(Message2);
@@ -25,7 +25,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         public void TestProbeActorWithHandlers_ReceivesMessageWithMatchingHandler_TestProbeIsForwardedMessages()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActor();
+            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
 
             //act
             sut.Tell(Message2);
@@ -39,7 +39,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         {
             //arrange
             Handlers = new Dictionary<Type, Func<object, object>>();
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActor();
+            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
 
             //act
             sut.Tell(Message2);
@@ -52,7 +52,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         public void TestProbeActorWithHandlers_ReceivesMessageWithNoMatchingHandler_DoesNotReply()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActor();
+            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
 
             //act
             sut.Tell(TestUtils.Create<object>());
@@ -65,7 +65,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         public void TestProbeActorWithHandlers_ReceivesMessageWithMatchingHandler_RepliesToSubsequentMessages()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActor();
+            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
             sut.Tell(Message1);
 
             //act
@@ -79,7 +79,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         public void TestProbeActorWithHandlers_ReceivesMessageWitNohMatchingHandler_RepliesToSubsequentMessages()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActor();
+            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
             sut.Tell(TestUtils.Create<object>());
 
             //act

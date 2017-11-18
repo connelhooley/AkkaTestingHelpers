@@ -11,7 +11,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         [Fact]
         public void ChildWaiter_NotStarted_Wait_DoesNotThrowAnyExceptions()
         {
-            Within(TimeSpan.FromMilliseconds(500), () =>
+            this.WithinTimeout(() =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
@@ -27,7 +27,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
         [Fact]
         public void ChildWaiter_Started_Wait_ThrowsTimeoutExceptionWhenNotAllChildrenAreResolved()
         {
-            Within(TimeSpan.FromMilliseconds(500), () =>
+            this.WithinTimeout(() =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
@@ -35,7 +35,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
                 sut.Start(this, expectedChildrenCount);
                 Task.Run(() =>
                 {
-                    this.Sleep(new TimeSpan(TestKitSettings.DefaultTimeout.Ticks / 2));
+                    this.Sleep(50);
                     Parallel.For(0, expectedChildrenCount - 1, i => sut.ResolvedChild());
                 });
 
@@ -47,10 +47,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             });
         }
 
-        [Fact] //null exception
+        [Fact]
         public void ChildWaiter_Started_Wait_BlockThreadUntilChildrenAreResolved()
         {
-            Within(TimeSpan.FromMilliseconds(500), () =>
+            this.WithinTimeout(() =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
@@ -86,10 +86,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             Action act = () => sut.Wait();
 
             //assert
-            Within(TestKitSettings.DefaultTimeout, act);
+            this.WithinTimeout(act);
         }
 
-        [Fact] //todo fix
+        [Fact]
         public void ChildWaiter_StartedWithNegativeExpectedChildren_Wait_DoesNotBlockThread()
         {
             //arrange
@@ -100,13 +100,13 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ChildWaiterTests
             Action act = () => sut.Wait();
 
             //assert
-            Within(TestKitSettings.DefaultTimeout, act);
+            this.WithinTimeout(act);
         }
         
         [Fact]
         public void ChildWaiter_Waited_Wait_BlockThreadUntilChildrenAreResolved()
         {
-            Within(TimeSpan.FromMilliseconds(500), () =>
+            this.WithinTimeout(() =>
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();

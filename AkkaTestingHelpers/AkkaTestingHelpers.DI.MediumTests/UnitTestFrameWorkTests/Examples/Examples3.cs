@@ -1,9 +1,8 @@
 ﻿using Akka.Actor;
-using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests.Examples
+namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.UnitTestFrameworkTests.Examples
 {
     public class Examples3 : TestKit
     {
@@ -24,16 +23,15 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.MediumTests.TestProbeResolverTests.
         public void DummyActor_ReceiveStringMessage_SendsUppercaseStringMessageToSupervisor()
         {
             //arrange
-            UnitTestFramework<> resolver = TestProbeResolverSettings
+            UnitTestFramework<DummmyActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateResolver(this);
-            TestActorRef<DummmyActor> sut = resolver.CreateSut<DummmyActor>(0);
+                .CreateFramework<DummmyActor>(this);
 
             //act
-            sut.Tell("hello world");
+            framework.Sut.Tell("hello world");
 
             //assert
-            resolver.Supervisor.ExpectMsg("HELLO WORLD");
+            framework.Supervisor.ExpectMsg("HELLO WORLD");
         }
     }
 }

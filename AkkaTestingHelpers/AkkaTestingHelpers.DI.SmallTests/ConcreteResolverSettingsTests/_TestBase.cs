@@ -3,11 +3,10 @@ using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.Xunit2;
-using ConnelHooley.AkkaTestingHelpers.DI.Fakes;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Abstract;
-using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete;
 using ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete.Fakes;
 using Microsoft.QualityTools.Testing.Fakes;
+using Moq;
 
 namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverSettingsTests
 {
@@ -15,76 +14,33 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ConcreteResolverSettings
     {
         private readonly IDisposable _shimContext;
 
-        internal ConcreteResolver ConstructedConcreteResolver;
-        internal int ConcreteResolverConstructorCount;
-        internal SutCreator ConstructedSutCreator;
-        internal int SutCreatorConstructorCount;
-        internal ChildTeller ConstructedChildTeller;
-        internal int ChildTellerConstructorCount;
-        internal ChildWaiter ConstructedChildWaiter;
-        internal int ChildWaiterConstructorCount;
-        internal DependencyResolverAdder ConstructedDependencyResolverAdder;
-        internal int DependencyResolverAdderConstructorCount;
-        internal ConcreteDependencyResolverAdder ConstructedConcreteDependencyResolverAdder;
-        internal int ConcreteDependencyResolverAdderConstructorCount;
+        internal int ConcreteDependencyResolverAdderCreatorConstructorCount;
+        internal readonly Mock<IConcreteDependencyResolverAdder> ConcreteDependencyResolverAdderMock;
+        protected ImmutableDictionary<Type, Func<ActorBase>> HandlersPassedIntoMock;
         
-        internal ISutCreator SutCreatorPassedIntoShim;
-        internal IChildTeller ChildTellerPassedIntoShim;
-        internal IChildWaiter ChildWaiterPassedIntoShim;
-        internal IDependencyResolverAdder DependencyResolverAdderPassedIntoShim;
-        internal IConcreteDependencyResolverAdder ConcreteDependencyResolverAdderPassedIntoShim;
-        internal TestKitBase TestKitPassedIntoShim;
-        internal ImmutableDictionary<Type, Func<ActorBase>> FactoriesPassedIntoShim;
-
         public TestBase() : base(AkkaConfig.Config)
         {
+            // Create mocks
+            ConcreteDependencyResolverAdderMock = new Mock<IConcreteDependencyResolverAdder>();
+
+            ConcreteDependencyResolverAdderMock
+                .Setup(adder => adder.Add(
+                    It.IsAny<TestKitBase>(),
+                    It.IsAny<ImmutableDictionary<Type, Func<ActorBase>>>()))
+                .Callback((TestKitBase testKit, ImmutableDictionary<Type, Func<ActorBase>> handlers) =>
+                    HandlersPassedIntoMock = handlers);
+
             // Create shims
             _shimContext = ShimsContext.Create();
 
             //Set up shims
-            ShimSutCreator.Constructor = @this =>
+            ShimConcreteDependencyResolverAdderCreator.Constructor = @this =>
             {
-                SutCreatorConstructorCount++;
-                ConstructedSutCreator = @this;
+                ConcreteDependencyResolverAdderCreatorConstructorCount++;
             };
 
-            ShimChildTeller.Constructor = @this =>
-            {
-                ChildTellerConstructorCount++;
-                ConstructedChildTeller = @this;
-            };
-
-            ShimChildWaiter.Constructor = @this =>
-            {
-                ChildWaiterConstructorCount++;
-                ConstructedChildWaiter = @this;
-            };
-
-            ShimDependencyResolverAdder.Constructor = @this =>
-            {
-                DependencyResolverAdderConstructorCount++;
-                ConstructedDependencyResolverAdder = @this;
-            };
-
-            ShimConcreteDependencyResolverAdder.Constructor = @this =>
-            {
-                ConcreteDependencyResolverAdderConstructorCount++;
-                ConstructedConcreteDependencyResolverAdder = @this;
-            };
-
-            ShimConcreteResolver.ConstructorISutCreatorIChildTellerIChildWaiterIDependencyResolverAdderIConcreteDependencyResolverAdderTestKitBaseImmutableDictionaryOfTypeFuncOfActorBase =
-                (@this, sutCreator, childTeller, childWaiter, dependencyResolverAdder, concreteDependencyResolverAdder, testKit, factories) =>
-                {
-                    ConcreteResolverConstructorCount++; 
-                    ConstructedConcreteResolver = @this;
-                    SutCreatorPassedIntoShim = sutCreator;
-                    ChildTellerPassedIntoShim = childTeller;
-                    ChildWaiterPassedIntoShim = childWaiter;
-                    DependencyResolverAdderPassedIntoShim = dependencyResolverAdder;
-                    ConcreteDependencyResolverAdderPassedIntoShim = concreteDependencyResolverAdder;
-                    TestKitPassedIntoShim = testKit;
-                    FactoriesPassedIntoShim = factories;
-                };
+            ShimConcreteDependencyResolverAdderCreator.AllInstances.Create = @this => 
+                ConcreteDependencyResolverAdderMock.Object;
         }
 
         protected override void Dispose(bool disposing)

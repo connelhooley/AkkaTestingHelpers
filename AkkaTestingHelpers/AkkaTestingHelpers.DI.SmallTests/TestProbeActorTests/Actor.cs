@@ -11,7 +11,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         public void TestProbeActor_Actor_ReturnsSelfAsActor()
         {
             //arrange
-            TestProbeActor sut = CreateTestProbeActor().UnderlyingActor;
+            TestProbeActor sut = CreateTestProbeActorWithoutSupervisorStrategy().UnderlyingActor;
 
             //act
             ActorBase result = sut.Actor;
@@ -24,7 +24,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.TestProbeActorTests
         public void TestProbeActor_Actor_ReturnsSameResultOnEveryCall()
         {
             //arrange
-            TestProbeActor sut = CreateTestProbeActor().UnderlyingActor;
+            TestProbeActor sut = CreateTestProbeActorWithoutSupervisorStrategy().UnderlyingActor;
 
             //act
             ActorBase result = sut.Actor;

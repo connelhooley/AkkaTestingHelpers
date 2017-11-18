@@ -123,7 +123,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            ChildTellerPassedIntoShim.Should().BeSameAs(ConstructedChildTeller);
+            TellChildWaiterPassedIntoShim.Should().BeSameAs(ConstructedTellChildWaiter);
         }
 
         [Fact]
@@ -136,7 +136,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            ChildTellerConstructorCount.Should().Be(1);
+            TellChildWaiterConstructorCount.Should().Be(1);
         }
 
         [Fact]
@@ -320,7 +320,33 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
             //assert
             TestProbeHandlersMapperConstructorCount.Should().Be(1);
         }
+        
+        [Fact]
+        public void UnitTestFrameworkSettings_Create_ConstructsUnitTestFrameworkWithSutSupervisorStrategyGetter()
+        {
+            //arrange
+            UnitTestFrameworkCreator sut = CreateUnitTestFrameworkCreator();
 
+            //act
+            sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
+
+            //assert
+            SutSupervisorStrategyGetterIntoShim.Should().BeSameAs(ConstructedSutSupervisorStrategyGetter);
+        }
+
+        [Fact]
+        public void UnitTestFrameworkSettings_Create_OnlyConstructsOneSutSupervisorStrategyGetter()
+        {
+            //arrange
+            UnitTestFrameworkCreator sut = CreateUnitTestFrameworkCreator();
+
+            //act
+            sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
+
+            //assert
+            SutSupervisorStrategyGetterConstructorCount.Should().Be(1);
+        }
+        
         [Fact]
         public void UnitTestFrameworkSettings_Create_ConstructsUnitTestFrameworkWithCorrectTestKit()
         {

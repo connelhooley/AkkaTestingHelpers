@@ -54,39 +54,43 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
         public void ResolvedTestProbeStore_NoActorsAreResolved_FindResolvedTestProbe_ThrowsActorNotFoundException()
         {
             //arrange
-            (ActorPath path, _, _, string name) = CreateChildVariables();
+            (ActorPath path, _, _, _, string name) = CreateChildVariables();
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
 
             //act
             Action act = () => sut.FindResolvedTestProbe(TestActor, name);
 
             //assert
-            act.ShouldThrow<ActorNotFoundException>().WithMessage($"No child has been resolved for the path '{path}'");
+            act
+                .ShouldThrow<ActorNotFoundException>()
+                .WithMessage($"No child has been resolved for the path '{path}'");
         }
 
         [Fact]
         public void ResolvedTestProbeStore_SingleActorIsResolved_FindResolvedTestProbeWithNameThatHasNotBeenResolved_ThrowsActorNotFoundException()
         {
             //arrange
-            (ActorPath path1, Type type1, TestProbe probe1, _) = CreateChildVariables();
-            (ActorPath path2, _, _, string name2) = CreateChildVariables();
+            (ActorPath path1, Type type1, TestProbe probe1, SupervisorStrategy supervisorStrategy1, _) = CreateChildVariables();
+            (ActorPath path2, _, _, _, string name2) = CreateChildVariables();
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
-            sut.ResolveProbe(path1, type1, probe1);
+            sut.ResolveProbe(path1, type1, probe1, supervisorStrategy1);
 
             //act
             Action act = () => sut.FindResolvedTestProbe(TestActor, name2);
 
             //assert
-            act.ShouldThrow<ActorNotFoundException>().WithMessage($"No child has been resolved for the path '{path2}'");
+            act
+                .ShouldThrow<ActorNotFoundException>()
+                .WithMessage($"No child has been resolved for the path '{path2}'");
         }
 
         [Fact]
         public void ResolvedTestProbeStore_SingleActorIsResolved_FindResolvedTestProbeWithNameThatHasBeenResolved_ReturnsCorrectTestProbe()
         {
             //arrange
-            (ActorPath path, Type type, TestProbe probe, string name) = CreateChildVariables();
+            (ActorPath path, Type type, TestProbe probe, SupervisorStrategy supervisorStrategy, string name) = CreateChildVariables();
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
-            sut.ResolveProbe(path, type, probe);
+            sut.ResolveProbe(path, type, probe, supervisorStrategy);
 
             //act
             TestProbe result = sut.FindResolvedTestProbe(TestActor, name);
@@ -100,12 +104,12 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
         {
             //arrange
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
-            (ActorPath path1, Type type1, TestProbe probe1, _) = CreateChildVariables();
-            (ActorPath path2, Type type2, TestProbe probe2, string name2) = CreateChildVariables();
-            (ActorPath path3, Type type3, TestProbe probe3, _) = CreateChildVariables();
-            sut.ResolveProbe(path1, type1, probe1);
-            sut.ResolveProbe(path2, type2, probe2);
-            sut.ResolveProbe(path3, type3, probe3);
+            (ActorPath path1, Type type1, TestProbe probe1, SupervisorStrategy supervisorStrategy1, _) = CreateChildVariables();
+            (ActorPath path2, Type type2, TestProbe probe2, SupervisorStrategy supervisorStrategy2, string name2) = CreateChildVariables();
+            (ActorPath path3, Type type3, TestProbe probe3, SupervisorStrategy supervisorStrategy3, _) = CreateChildVariables();
+            sut.ResolveProbe(path1, type1, probe1, supervisorStrategy1);
+            sut.ResolveProbe(path2, type2, probe2, supervisorStrategy2);
+            sut.ResolveProbe(path3, type3, probe3, supervisorStrategy3);
 
             //act
             TestProbe result = sut.FindResolvedTestProbe(TestActor, name2);
@@ -119,19 +123,21 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.ResolvedTestProbeStoreTe
         {
             //arrange
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
-            (ActorPath path1, Type type1, TestProbe probe1, _) = CreateChildVariables();
-            (ActorPath path2, Type type2, TestProbe probe2, _) = CreateChildVariables();
-            (ActorPath path3, Type type3, TestProbe probe3, _) = CreateChildVariables();
-            (ActorPath path4, _, _, string name4) = CreateChildVariables();
-            sut.ResolveProbe(path1, type1, probe1);
-            sut.ResolveProbe(path2, type2, probe2);
-            sut.ResolveProbe(path3, type3, probe3);
+            (ActorPath path1, Type type1, TestProbe probe1, SupervisorStrategy supervisorStrategy1, _) = CreateChildVariables();
+            (ActorPath path2, Type type2, TestProbe probe2, SupervisorStrategy supervisorStrategy2, _) = CreateChildVariables();
+            (ActorPath path3, Type type3, TestProbe probe3, SupervisorStrategy supervisorStrategy3, _) = CreateChildVariables();
+            (ActorPath path4, _, _, _, string name4) = CreateChildVariables();
+            sut.ResolveProbe(path1, type1, probe1, supervisorStrategy1);
+            sut.ResolveProbe(path2, type2, probe2, supervisorStrategy2);
+            sut.ResolveProbe(path3, type3, probe3, supervisorStrategy3);
 
             //act
             Action act = () => sut.FindResolvedTestProbe(TestActor, name4);
 
             //assert
-            act.ShouldThrow<ActorNotFoundException>().WithMessage($"No child has been resolved for the path '{path4}'");
+            act
+                .ShouldThrow<ActorNotFoundException>()
+                .WithMessage($"No child has been resolved for the path '{path4}'");
         }
     }
 }

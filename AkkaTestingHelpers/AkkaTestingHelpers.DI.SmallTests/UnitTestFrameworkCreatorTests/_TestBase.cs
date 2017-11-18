@@ -24,8 +24,8 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
         internal int UnitTestFrameworkConstructorCount;
         internal SutCreator ConstructedSutCreator;
         internal int SutCreatorConstructorCount;
-        internal ChildTeller ConstructedChildTeller;
-        internal int ChildTellerConstructorCount;
+        internal TellChildWaiter ConstructedTellChildWaiter;
+        internal int TellChildWaiterConstructorCount;
         internal ChildWaiter ConstructedChildWaiter;
         internal int ChildWaiterConstructorCount;
         internal DependencyResolverAdder ConstructedDependencyResolverAdder;
@@ -40,9 +40,11 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
         internal int TestProbeActorCreatorConstructorCount;
         internal TestProbeHandlersMapper ConstructedTestProbeHandlersMapper;
         internal int TestProbeHandlersMapperConstructorCount;
+        internal SutSupervisorStrategyGetter ConstructedSutSupervisorStrategyGetter;
+        internal int SutSupervisorStrategyGetterConstructorCount;
 
         internal ISutCreator SutCreatorPassedIntoShim;
-        internal IChildTeller ChildTellerPassedIntoShim;
+        internal ITellChildWaiter TellChildWaiterPassedIntoShim;
         internal IChildWaiter ChildWaiterPassedIntoShim;
         internal IDependencyResolverAdder DependencyResolverAdderPassedIntoShim;
         internal ITestProbeDependencyResolverAdder TestProbeDependencyResolverAdderPassedIntoShim;
@@ -50,6 +52,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
         internal IResolvedTestProbeStore ResolvedTestProbeStorePassedIntoShim;
         internal ITestProbeActorCreator TestProbeActorCreatorPassedIntoShim;
         internal ITestProbeHandlersMapper TestProbeHandlersMapperPassedIntoShim;
+        internal ISutSupervisorStrategyGetter SutSupervisorStrategyGetterIntoShim;
 
         internal TestKitBase TestKitPassedIntoShim;
         internal ImmutableDictionary<(Type, Type), Func<object, object>> HandlersPassedIntoShim;
@@ -78,10 +81,10 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
                 ConstructedSutCreator = @this;
             };
 
-            ShimChildTeller.Constructor = @this =>
+            ShimTellChildWaiter.Constructor = @this =>
             {
-                ChildTellerConstructorCount++;
-                ConstructedChildTeller = @this;
+                TellChildWaiterConstructorCount++;
+                ConstructedTellChildWaiter = @this;
             };
 
             ShimChildWaiter.Constructor = @this =>
@@ -126,13 +129,20 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
                 ConstructedTestProbeHandlersMapper = @this;
             };
 
-            ShimUnitTestFramework<DummyActor1>.ConstructorISutCreatorIChildTellerIChildWaiterIDependencyResolverAdderITestProbeDependencyResolverAdderITestProbeCreatorIResolvedTestProbeStoreITestProbeActorCreatorITestProbeHandlersMapperImmutableDictionaryOfValueTupleOfTypeTypeFuncOfObjectObjectTestKitB =
-                (@this, sutCreator, childTeller, childWaiter, dependencyResolverAdder, testProbeDependencyResolverAdder, testProbeCreator, resolvedTestProbeStore, testProbeActorCreator, testProbeHandlersMapper, handlers, testKit, props, numberOfChildren) =>
+            ShimSutSupervisorStrategyGetter.Constructor = @this =>
+            {
+                SutSupervisorStrategyGetterConstructorCount++;
+                ConstructedSutSupervisorStrategyGetter = @this;
+            };
+
+
+            ShimUnitTestFramework<DummyActor1>.ConstructorISutCreatorITellChildWaiterIChildWaiterIDependencyResolverAdderITestProbeDependencyResolverAdderITestProbeCreatorIResolvedTestProbeStoreITestProbeActorCreatorITestProbeHandlersMapperISutSupervisorStrategyGetterImmutableDictionaryOfValueTupleOfTy =
+                (@this, sutCreator, tellChildWaiter, childWaiter, dependencyResolverAdder, testProbeDependencyResolverAdder, testProbeCreator, resolvedTestProbeStore, testProbeActorCreator, testProbeHandlersMapper, sutSupervisorStrategyGetter, handlers, testKit, props, numberOfChildren) =>
                 {
                     UnitTestFrameworkConstructorCount++;
                     ConstructedUnitTestFramework = @this;
                     SutCreatorPassedIntoShim = sutCreator;
-                    ChildTellerPassedIntoShim = childTeller;
+                    TellChildWaiterPassedIntoShim = tellChildWaiter;
                     ChildWaiterPassedIntoShim = childWaiter;
                     DependencyResolverAdderPassedIntoShim = dependencyResolverAdder;
                     TestProbeDependencyResolverAdderPassedIntoShim = testProbeDependencyResolverAdder;
@@ -140,6 +150,7 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.SmallTests.UnitTestFrameworkCreator
                     ResolvedTestProbeStorePassedIntoShim = resolvedTestProbeStore;
                     TestProbeActorCreatorPassedIntoShim = testProbeActorCreator;
                     TestProbeHandlersMapperPassedIntoShim = testProbeHandlersMapper;
+                    SutSupervisorStrategyGetterIntoShim = sutSupervisorStrategyGetter;
                     HandlersPassedIntoShim = handlers;
                     TestKitPassedIntoShim = testKit;
                     PropsPassedIntoShim = props;

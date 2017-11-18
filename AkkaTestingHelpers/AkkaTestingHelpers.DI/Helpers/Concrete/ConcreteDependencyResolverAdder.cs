@@ -8,18 +8,18 @@ namespace ConnelHooley.AkkaTestingHelpers.DI.Helpers.Concrete
 {
     internal sealed class ConcreteDependencyResolverAdder : IConcreteDependencyResolverAdder
     {
+        private readonly IDependencyResolverAdder _dependencyResolverAdder;
+
+        public ConcreteDependencyResolverAdder(IDependencyResolverAdder dependencyResolverAdder) => _dependencyResolverAdder = dependencyResolverAdder;
+
         public void Add(
-            IDependencyResolverAdder dependencyResolverAdder, 
-            IChildWaiter childWaiter, 
             TestKitBase testKit,
             ImmutableDictionary<Type, Func<ActorBase>> factories) => 
-                dependencyResolverAdder.Add(testKit, actorType =>
+                _dependencyResolverAdder.Add(testKit, actorType =>
                 {
                     if (factories.TryGetValue(actorType, out Func<ActorBase> factory))
                     {
-                        ActorBase actor = factory();
-                        childWaiter.ResolvedChild();
-                        return actor;
+                        return factory();
                     }
                     throw new InvalidOperationException($"Please register the type '{actorType.Name}' in the settings");
                 });
