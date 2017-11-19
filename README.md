@@ -50,7 +50,7 @@ To see some more examples on how to use the `UnitTestFramework`. See the [exampl
 
 ### Usage guide
 #### Initiating the unit test framework
-To create an instance of the `UnitTestFramework` you must first create an `UnitTestFrameworkSettings` object. This is done using the Empty property of the settings object:
+To create an instance of the `UnitTestFramework` you must first create an `UnitTestFrameworkSettings` object. This is done using the `Empty` property of the settings object:
 
 ``` csharp
 var settings = UnitTestFrameworkSettings.Empty;
@@ -125,7 +125,7 @@ This means you can then go on use the `ResolvedType`, `ResolvedTestProbe` and `R
 ## Integration testing
 The `BasicResolverSettings` class in the package allows you configure `Akka.DI`.  This means you can test a series of concrete actors whilst also still being able to limit the scope of your tests to not include every actor in your hierarchy.
 
-###Example
+###Examples
 Here's an example integration test using the resolver:
 
 ``` csharp
@@ -154,4 +154,33 @@ public void ParentActorReceivesMessage_SendsMessageToChild_ChildSendsMessageToGr
 
 To see some more examples on how to use the `BasicResolverSettings`. See the [examples](AkkaTestingHelpers.MediumTests/BasicResolverSettingsTests/Examples) folder.
 
-> Note: some of these examples use the `Moq` NuGet package.
+### Usage guide
+#### Initiating the resolver
+To register the resolver you must first configure one using the `BasicResolverSettings` object. This is done using the `Empty` property of the settings object:
+
+``` csharp
+var settings = BasicResolverSettings.Empty;
+```
+
+The settings object allows you to register actor factories against it. An actor factory is a method that creates an Actor. When registering an actor factory you must specify which actor type you want to assign the factory against. The type of actor you register the factory against, and the type of actor the factory returns, do not have to be the same.
+
+The example below registers a factory that returns a `StubExampleActor` whenever an actor asks `Akka.DI` for an instance of `ExampleActor`:
+
+``` csharp
+BasicResolverSettings
+    .Empty
+    .RegisterActor<ExampleActor>(() => new StubExampleActor());
+```
+
+You can then register the resolver from the settings object by using the `RegisterResolver` method. When registering the resolver you must pass in a `TestKit` instance to register the resolver against.
+
+The example below registers a resolver. Note that `this` in the example is an instance of `TestKit`.
+
+``` csharp
+BasicResolverSettings
+    .Empty
+    .RegisterActor<ExampleActor>(() => new StubExampleActor())
+    .RegisterResolver(this);
+```
+
+Once the resolver is registered any calls to `Context.DI().Props<ExampleActor>()` will be intercepted by the factory that was registered and an `StubExampleActor` will be constructed.
