@@ -1,11 +1,13 @@
 # AkkaTestingHelpers
-This NuGet packages offers helper classes for both unit testing and integration testing in Akka.NET.
+This NuGet package offers helper classes for both unit testing and integration testing with Akka.NET.
 
 > Install-Package ConnelHooley.AkkaTestingHelpers
 
 > dotnet add package ConnelHooley.AkkaTestingHelpers
 
 > paket add ConnelHooley.AkkaTestingHelpers
+
+For a detailed explanation as to why I created the package, along with some explained examples, see my [blog post](http://connelhooley.uk/blog/2017/09/30/introducing-akka-testing-helpers-di).
 
 ## Unit testing
 The `UnitTestFramework` class in the package allows you to test an Actor in full isolation. The framework creates the actor to be tested (referred to by the framework as SUT: System Under Test) with a `TestProbe` as its parent. It also replaces its children with `TestProbe` objects.
@@ -46,7 +48,7 @@ public void ParentActor_ReceivesString_SendsChildUpperCaseValue()
 }
 ```
 
-To see some more examples on how to use the `UnitTestFramework`. See the [examples](AkkaTestingHelpers.MediumTests/UnitTestFrameworkTests/Examples) folder.
+To see some more examples on how to use the `UnitTestFramework`. See the [examples](AkkaTestingHelpers.MediumTests/UnitTestFrameworkTests/Examples) folder. These example are explained in my [blog post](http://connelhooley.uk/blog/2017/09/30/introducing-akka-testing-helpers-di).
 
 ### Usage guide
 #### Initiating the unit test framework
