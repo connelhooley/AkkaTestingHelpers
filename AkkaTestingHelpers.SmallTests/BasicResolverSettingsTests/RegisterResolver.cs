@@ -6,16 +6,16 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.BasicResolverSettingsTests
 {
     public class RegisterResolver : TestBase
     {
         #region Null tests
         [Fact]
-        public void ConcreteResolverSettings_RegisterResolverWithNullTestKit_ThrowsArgumentNullException()
+        public void BasicResolverSettings_RegisterResolverWithNullTestKit_ThrowsArgumentNullException()
         {
             //arrange
-            ConcreteResolverSettings sut = ConcreteResolverSettings.Empty;
+            BasicResolverSettings sut = BasicResolverSettings.Empty;
 
             //act
             Action act = () => sut.RegisterResolver(null);
@@ -26,10 +26,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTes
         #endregion
         
         [Fact]
-        public void ConcreteResolverSettings_RegisterResolver_ConstructsOnlyOneConcreteDependencyResolverAdderCreator()
+        public void BasicResolverSettings_RegisterResolver_ConstructsOnlyOneConcreteDependencyResolverAdderCreator()
         {
             //arrange
-            ConcreteResolverSettings sut = ConcreteResolverSettings.Empty;
+            BasicResolverSettings sut = BasicResolverSettings.Empty;
 
             //act
             sut.RegisterResolver(this);
@@ -39,10 +39,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTes
         }
 
         [Fact]
-        public void ConcreteResolverSettings_RegisterResolver_OnlysAddsOneConcreteDependancyResolver()
+        public void BasicResolverSettings_RegisterResolver_OnlysAddsOneConcreteDependancyResolver()
         {
             //arrange
-            ConcreteResolverSettings sut = ConcreteResolverSettings.Empty;
+            BasicResolverSettings sut = BasicResolverSettings.Empty;
 
             //act
             sut.RegisterResolver(this);
@@ -54,10 +54,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTes
         }
 
         [Fact]
-        public void ConcreteResolverSettings_RegisterResolver_AddsConcreteDependancyResolverWithCorrectTestKit()
+        public void BasicResolverSettings_RegisterResolver_AddsConcreteDependancyResolverWithCorrectTestKit()
         {
             //arrange
-            ConcreteResolverSettings sut = ConcreteResolverSettings.Empty;
+            BasicResolverSettings sut = BasicResolverSettings.Empty;
 
             //act
             sut.RegisterResolver(this);
@@ -68,10 +68,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTes
         }
 
         [Fact]
-        public void ConcreteResolverSettings_RegisterResolverWithNoFactories_AddsConcreteDependancyResolverWithEmptyFactories()
+        public void BasicResolverSettings_RegisterResolverWithNoFactories_AddsConcreteDependancyResolverWithEmptyFactories()
         {
             //arrange
-            ConcreteResolverSettings sut = ConcreteResolverSettings.Empty;
+            BasicResolverSettings sut = BasicResolverSettings.Empty;
 
             //act
             sut.RegisterResolver(this);
@@ -81,12 +81,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTes
         }
 
         [Fact]
-        public void ConcreteResolverSettings_RegisterResolverWithFuncFactories_AddsConcreteDependancyResolverWithCorrectFactories()
+        public void BasicResolverSettings_RegisterResolverWithFuncFactories_AddsConcreteDependancyResolverWithCorrectFactories()
         {
             //arrange
             DummyActor1 actor1 = new DummyActor1();
             DummyActor2 actor2 = new DummyActor2();
-            ConcreteResolverSettings sut = ConcreteResolverSettings
+            BasicResolverSettings sut = BasicResolverSettings
                 .Empty
                 .RegisterActor(() => actor1)
                 .RegisterActor(() => actor2);
@@ -106,13 +106,13 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTes
         }
 
         [Fact]
-        public void ConcreteResolverSettings_RegisterResolverWithDuplicateFuncFactories_AddsConcreteDependancyResolverWithCorrectFactories()
+        public void BasicResolverSettings_RegisterResolverWithDuplicateFuncFactories_AddsConcreteDependancyResolverWithCorrectFactories()
         {
             //arrange
             DummyActor1 actor1 = new DummyActor1();
             DummyActor1 duplicateActor1 = new DummyActor1();
             DummyActor2 actor2 = new DummyActor2();
-            ConcreteResolverSettings sut = ConcreteResolverSettings
+            BasicResolverSettings sut = BasicResolverSettings
                 .Empty
                 .RegisterActor(() => actor1)
                 .RegisterActor(() => actor2)
@@ -133,15 +133,15 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTes
         }
 
         [Fact]
-        public void ConcreteResolverSettings_RegisterResolverWithDuplicateFuncFactoriesInDifferentInstances_AddsConcreteDependancyResolverWithCorrectFactories()
+        public void BasicResolverSettings_RegisterResolverWithDuplicateFuncFactoriesInDifferentInstances_AddsConcreteDependancyResolverWithCorrectFactories()
         {
             //arrange
             DummyActor1 actor1 = new DummyActor1();
             DummyActor2 actor2 = new DummyActor2();
-            ConcreteResolverSettings sut = ConcreteResolverSettings
+            BasicResolverSettings sut = BasicResolverSettings
                 .Empty
                 .RegisterActor(() => actor1);
-            ConcreteResolverSettings differentInstance = sut
+            BasicResolverSettings differentInstance = sut
                 .RegisterActor(() => actor2);
 
             //act
@@ -158,10 +158,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTes
         }
 
         [Fact]
-        public void ConcreteResolverSettings_RegisterResolverWithGenericFactories_AddsConcreteDependancyResolverWithCorrectFactories()
+        public void BasicResolverSettings_RegisterResolverWithGenericFactories_AddsConcreteDependancyResolverWithCorrectFactories()
         {
             //arrange
-            ConcreteResolverSettings sut = ConcreteResolverSettings
+            BasicResolverSettings sut = BasicResolverSettings
                 .Empty
                 .RegisterActor<DummyActor1>()
                 .RegisterActor<DummyActor2>();
@@ -181,10 +181,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTes
         }
 
         [Fact]
-        public void ConcreteResolverSettings_RegisterResolverWithDuplicateGenericFactories_AddsConcreteDependancyResolverWithCorrectFactories()
+        public void BasicResolverSettings_RegisterResolverWithDuplicateGenericFactories_AddsConcreteDependancyResolverWithCorrectFactories()
         {
             //arrange
-            ConcreteResolverSettings sut = ConcreteResolverSettings
+            BasicResolverSettings sut = BasicResolverSettings
                 .Empty
                 .RegisterActor<DummyActor1>()
                 .RegisterActor<DummyActor2>()
@@ -205,13 +205,13 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTes
         }
 
         [Fact]
-        public void ConcreteResolverSettings_RegisterResolverWithFactoriesInDifferentInstances_AddsConcreteDependancyResolverWithCorrectFactories()
+        public void BasicResolverSettings_RegisterResolverWithFactoriesInDifferentInstances_AddsConcreteDependancyResolverWithCorrectFactories()
         {
             //arrange
-            ConcreteResolverSettings sut = ConcreteResolverSettings
+            BasicResolverSettings sut = BasicResolverSettings
                 .Empty
                 .RegisterActor<DummyActor1>();
-            ConcreteResolverSettings differentInstance = sut
+            BasicResolverSettings differentInstance = sut
                 .RegisterActor<DummyActor2>();
 
             //act

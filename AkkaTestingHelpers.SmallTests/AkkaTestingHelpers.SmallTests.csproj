@@ -113,11 +113,11 @@
     <Compile Include="ConcreteDependencyResolverAdderTests\Add.cs" />
     <Compile Include="ConcreteDependencyResolverAdderTests\Constructor.cs" />
     <Compile Include="ConcreteDependencyResolverAdderTests\_TestBase.cs" />
-    <Compile Include="ConcreteResolverSettingsTests\Empty.cs" />
-    <Compile Include="ConcreteResolverSettingsTests\RegisterActorGeneric.cs" />
-    <Compile Include="ConcreteResolverSettingsTests\RegisterActorFactory.cs" />
-    <Compile Include="ConcreteResolverSettingsTests\RegisterResolver.cs" />
-    <Compile Include="ConcreteResolverSettingsTests\_TestBase.cs" />
+    <Compile Include="BasicResolverSettingsTests\Empty.cs" />
+    <Compile Include="BasicResolverSettingsTests\RegisterActorGeneric.cs" />
+    <Compile Include="BasicResolverSettingsTests\RegisterActorFactory.cs" />
+    <Compile Include="BasicResolverSettingsTests\RegisterResolver.cs" />
+    <Compile Include="BasicResolverSettingsTests\_TestBase.cs" />
     <Compile Include="ResolvedTestProbeStoreTests\FindResolvedSupervisorStrategy.cs" />
     <Compile Include="SutSupervisorStrategyGetterTests\Constructor.cs" />
     <Compile Include="SutSupervisorStrategyGetterTests\Get.cs" />

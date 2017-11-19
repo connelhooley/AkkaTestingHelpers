@@ -4,7 +4,7 @@ using Akka.TestKit.Xunit2;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.MediumTests.ConcreteResolverTests.Examples
+namespace ConnelHooley.AkkaTestingHelpers.MediumTests.BasicResolverTests.Examples
 {
     public class Examples1 : TestKit
     {
@@ -46,7 +46,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.ConcreteResolverTests.Exam
         {
             //act
             Mock<IRepo> repoMock = new Mock<IRepo>();
-            ConcreteResolverSettings
+            BasicResolverSettings
                 .Empty
                 .RegisterActor<ChildActor>()
                 .RegisterActor(() => new GrandChildActor(repoMock.Object))

@@ -18,14 +18,35 @@ It can be used to test the following scenarios:
 - What types an actor creates as its children
 - What supervisor strategies an actor creates its children with
 
-The framework replaces children with `TestProbe` objects by using `Akka.DI`. This means you must create child actors like this for the framework to function correctly:
+The framework replaces children with `TestProbe` objects by using `Akka.DI`. This means you must use IOC in your solution for this to work correctly. If you're not creating your child actors like below then this framework will not be able to replace the children with `TestProbe` objects:
 
 ``` csharp
 var child = Context.ActorOf(Context.DI().Props<ChildActor>(), "child-1");
 ```
 
 ### Examples
-To see some examples on how to use the `UnitTestFramework`. See the [examples](AkkaTestingHelpers.MediumTests/UnitTestFrameworkTests/Examples) folder.
+Here's an example unit test using the framework:
+
+``` csharp
+[Fact]
+public void ParentActor_ReceivesString_SendsChildUpperCaseValue()
+{
+    //arrange
+    var framework = UnitTestFrameworkSettings
+        .Empty
+        .CreateFramework<ParentActor>(this, 1);
+
+    //act
+    framework.Sut.Tell("hello world");
+
+    //assert
+    framework
+        .ResolvedTestProbe("child-actor-name")
+        .ExpectMsg("HELLO WORLD");
+}
+```
+
+To see some more examples on how to use the `UnitTestFramework`. See the [examples](AkkaTestingHelpers.MediumTests/UnitTestFrameworkTests/Examples) folder.
 
 ### Usage guide
 #### Initiating the unit test framework
@@ -45,7 +66,7 @@ var settings = UnitTestFrameworkSettings
     .RegisterHandler<ExampleActor, int>(i => i * 2));
 ```
 
-You can then create the framework object from the settings object by using the `CreateFramework` method. When creating the framework you must specify the type of actor you wish to test along with a `TestKit` instance. If the actor you wish to test (the SUT actor) does not have a default constructor you must give a `Prop` object to create the actor with. If the SUT actor creates children in its constructor you must specify how many children it creates. The `CreateFramework` method only returns once all the children have been created. This will be explained later.
+You can then create the framework object from the settings object by using the `CreateFramework` method. When creating the framework you must specify the type of actor you wish to test along with a `TestKit` instance. If the actor you wish to test (the SUT actor) does not have a default constructor you must give a `Props` object to create the actor with. If the SUT actor creates children in its constructor you must specify how many children it creates. The `CreateFramework` method only returns once all the children have been created. This will be explained later.
 
 The example below creates a framework with `ParentActor` as the SUT actor and waits for the `ParentActor`'s constructor to create 2 child actors. Note that `this` in the example is an instance of `TestKit`.
 
@@ -96,10 +117,35 @@ framework.ResolvedSupervisorStrategy("child-1")
 If the SUT actor creates `2` new children when it receives a `string` message, you can wait for those children to be created like so:
 
 ``` csharp
-sut.TellMessageAndWaitForChildren("hello", 2);
+framework.TellMessageAndWaitForChildren("hello", 2);
 ```
 
 This means you can then go on use the `ResolvedType`, `ResolvedTestProbe` and `ResolvedSupervisorStrategy` methods safely knowing the new actors have been created.
 
 ## Integration testing
-The `ConcreteResolverSettings` class in the package allows you to test how multiple Actors work together. The class works by registering a.
+The `ConcreteResolverSettings` class in the package allows you configure Akka.DI to return either the actual implementation of a child actor, or a stub/mocked version. This means you can test a series of concrete actors whilst limiting whilst still being able to limit the scope of your tests to no include every actor in your hierarchy.
+
+###Example
+``` csharp
+[Fact]
+public void ParentActorReceivesMessage_SendsMessageToChild_ChildSendsMessageToGrandChild_GrandChildSavesMessageInRepo()
+{
+    //arrange
+    Mock<IRepo> repoMock = new Mock<IRepo>();
+    ConcreteResolverSettings
+        .Empty
+        .RegisterActor<ChildActor>()
+        .RegisterActor(() => new GrandChildActor(repoMock.Object))
+        .RegisterResolver(this);
+    var sut = ActorOfAsTestActorRef<ParentActor>();
+
+    //act
+    sut.Tell("hello")
+    
+    //assert
+    AwaitAssert(() =>
+        repoMock.Verify(
+            repo => repo.Save("HELLO"),
+            Times.Once()));
+}
+```

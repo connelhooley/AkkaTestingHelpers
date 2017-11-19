@@ -4,17 +4,17 @@ using Akka.TestKit.Xunit2;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.MediumTests.ConcreteResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.MediumTests.BasicResolverTests
 {
     public class ResolveActor : TestKit
     {
         public ResolveActor() : base(AkkaConfig.Config) { }
 
         [Fact]
-        public void ConcreteResolver_CreatesChildrenWithoutDependancies()
+        public void BasicResolverSettings_CreatesChildrenWithoutDependancies()
         {
             //arrange
-            ConcreteResolverSettings
+            BasicResolverSettings
                 .Empty
                 .RegisterActor<EmptyChildActor>()
                 .RegisterActor<ChildActor>()
@@ -29,12 +29,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.ConcreteResolverTests
         }
 
         [Fact]
-        public void ConcreteResolver_CreatesChildrenWithDependancies()
+        public void BasicResolverSettings_CreatesChildrenWithDependancies()
         {
             //arrange
             Mock<IDependancy> dependancyMock = new Mock<IDependancy>();
             IDependancy dependancyMockInstance = dependancyMock.Object;
-            ConcreteResolverSettings
+            BasicResolverSettings
                 .Empty
                 .RegisterActor<EmptyChildActor>()
                 .RegisterActor(() => new ChildActor(dependancyMockInstance))
@@ -52,12 +52,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.ConcreteResolverTests
         }
         
         [Fact]
-        public void ConcreteResolver_UsesLatestFactory()
+        public void BasicResolverSettings_UsesLatestFactory()
         {
             //arrange
             Mock<IDependancy> dependancyMock = new Mock<IDependancy>();
             IDependancy dependancyMockInstance = dependancyMock.Object;
-            ConcreteResolverSettings
+            BasicResolverSettings
                 .Empty
                 .RegisterActor<EmptyChildActor>()
                 .RegisterActor<ChildActor>()

@@ -8,7 +8,7 @@ using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes;
 using Microsoft.QualityTools.Testing.Fakes;
 using Moq;
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteResolverSettingsTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.BasicResolverSettingsTests
 {
     public class TestBase : TestKit
     {

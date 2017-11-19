@@ -6,11 +6,11 @@ using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 
 namespace ConnelHooley.AkkaTestingHelpers
 {
-    public sealed class ConcreteResolverSettings
+    public sealed class BasicResolverSettings
     {
         internal readonly ImmutableDictionary<Type, Func<ActorBase>> Factories;
         
-        internal ConcreteResolverSettings(ImmutableDictionary<Type, Func<ActorBase>> factories) => Factories = factories;
+        internal BasicResolverSettings(ImmutableDictionary<Type, Func<ActorBase>> factories) => Factories = factories;
         
         /// <summary>
         /// Registers a resolver that resolves children using the registered factories.
@@ -24,8 +24,8 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// <summary>
         /// Creates an instance of ConcreteResolverSettings with no factories registered.
         /// </summary>
-        public static ConcreteResolverSettings Empty => 
-            new ConcreteResolverSettings(
+        public static BasicResolverSettings Empty => 
+            new BasicResolverSettings(
                 ImmutableDictionary<Type, Func<ActorBase>>.Empty);
 
         /// <summary>
@@ -34,8 +34,8 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// <typeparam name="T">The type of actor to register</typeparam>
         /// <param name="factory">A method the creates the actor type</param>
         /// <returns>A new instance of ConcreteResolverSettings with the actor type registered</returns>
-        public ConcreteResolverSettings RegisterActor<T>(Func<T> factory) where T : ActorBase => 
-            new ConcreteResolverSettings(
+        public BasicResolverSettings RegisterActor<T>(Func<T> factory) where T : ActorBase => 
+            new BasicResolverSettings(
                 Factories.SetItem(typeof(T), 
                 factory));
 
@@ -44,8 +44,8 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// </summary>
         /// <typeparam name="T">The type of actor to register</typeparam>
         /// <returns>A new instance of ConcreteResolverSettings with the actor type registered</returns>
-        public ConcreteResolverSettings RegisterActor<T>() where T : ActorBase, new() =>
-            new ConcreteResolverSettings(
+        public BasicResolverSettings RegisterActor<T>() where T : ActorBase, new() =>
+            new BasicResolverSettings(
                 Factories.SetItem(typeof(T), 
                 () => new T()));
     }
