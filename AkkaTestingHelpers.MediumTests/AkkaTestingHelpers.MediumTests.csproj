@@ -93,9 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AkkaConfig.cs" />
-    <Compile Include="BasicResolverTests\Examples\Examples1.cs" />
-    <Compile Include="BasicResolverTests\ResolveActor.cs" />
-    <Compile Include="BasicResolverTests\DummyActors.cs" />
+    <Compile Include="BasicResolverSettingsTests\Examples\Examples1.cs" />
+    <Compile Include="BasicResolverSettingsTests\ResolveActor.cs" />
+    <Compile Include="BasicResolverSettingsTests\DummyActors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTestFrameworkTests\Examples\Examples4.cs" />
     <Compile Include="UnitTestFrameworkTests\ResolvedSupervisorStrategy.cs" />

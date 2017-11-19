@@ -123,16 +123,18 @@ framework.TellMessageAndWaitForChildren("hello", 2);
 This means you can then go on use the `ResolvedType`, `ResolvedTestProbe` and `ResolvedSupervisorStrategy` methods safely knowing the new actors have been created.
 
 ## Integration testing
-The `ConcreteResolverSettings` class in the package allows you configure Akka.DI to return either the actual implementation of a child actor, or a stub/mocked version. This means you can test a series of concrete actors whilst limiting whilst still being able to limit the scope of your tests to no include every actor in your hierarchy.
+The `BasicResolverSettings` class in the package allows you configure `Akka.DI`.  This means you can test a series of concrete actors whilst also still being able to limit the scope of your tests to not include every actor in your hierarchy.
 
 ###Example
+Here's an example integration test using the resolver:
+
 ``` csharp
 [Fact]
 public void ParentActorReceivesMessage_SendsMessageToChild_ChildSendsMessageToGrandChild_GrandChildSavesMessageInRepo()
 {
     //arrange
     Mock<IRepo> repoMock = new Mock<IRepo>();
-    ConcreteResolverSettings
+    BasicResolverSettings
         .Empty
         .RegisterActor<ChildActor>()
         .RegisterActor(() => new GrandChildActor(repoMock.Object))
@@ -145,7 +147,11 @@ public void ParentActorReceivesMessage_SendsMessageToChild_ChildSendsMessageToGr
     //assert
     AwaitAssert(() =>
         repoMock.Verify(
-            repo => repo.Save("HELLO"),
+            repo => repo.Save("hello"),
             Times.Once()));
 }
 ```
+
+To see some more examples on how to use the `BasicResolverSettings`. See the [examples](AkkaTestingHelpers.MediumTests/BasicResolverSettingsTests/Examples) folder.
+
+> Note: some of these examples use the `Moq` NuGet package.

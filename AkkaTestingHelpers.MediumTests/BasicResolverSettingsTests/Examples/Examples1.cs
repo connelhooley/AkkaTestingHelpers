@@ -4,7 +4,7 @@ using Akka.TestKit.Xunit2;
 using Moq;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.MediumTests.BasicResolverTests.Examples
+namespace ConnelHooley.AkkaTestingHelpers.MediumTests.BasicResolverSettingsTests.Examples
 {
     public class Examples1 : TestKit
     {

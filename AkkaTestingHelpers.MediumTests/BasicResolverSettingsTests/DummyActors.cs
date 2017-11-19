@@ -3,7 +3,7 @@ using System.Threading;
 using Akka.Actor;
 using Akka.DI.Core;
 
-namespace ConnelHooley.AkkaTestingHelpers.MediumTests.BasicResolverTests
+namespace ConnelHooley.AkkaTestingHelpers.MediumTests.BasicResolverSettingsTests
 {
     #region Parent actor to be resolved by resolver
 
