@@ -8,9 +8,9 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
     {
         public Examples3() : base(AkkaConfig.Config) { }
 
-        public class DummmyActor : ReceiveActor
+        public class DummyActor : ReceiveActor
         {
-            public DummmyActor()
+            public DummyActor()
             {
                 Receive<string>(s =>
                 {
@@ -20,12 +20,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
 
         [Fact]
-        public void DummyActor_ReceiveStringMessage_SendsUppercaseStringMessageToSupervisor()
+        public void DummyActor_ReceiveStringMessage_SendsUpperCaseStringMessageToSupervisor()
         {
             //arrange
-            UnitTestFramework<DummmyActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<DummyActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<DummmyActor>(this);
+                .CreateFramework<DummyActor>(this);
 
             //act
             framework.Sut.Tell("hello world");
