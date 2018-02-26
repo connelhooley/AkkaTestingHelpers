@@ -18,9 +18,10 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             SupervisorStrategy childSupervisorStrategy = new OneForOneStrategy(exception => Directive.Restart);
             UnitTestFramework<ParentActorWithSupervisorStratery> sut = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActorWithSupervisorStratery>(this,
-                    Props.Create(() =>
-                        new ParentActorWithSupervisorStratery(parentSupervisorStrategy, childSupervisorStrategy)), 2);
+                .CreateFramework<ParentActorWithSupervisorStratery>(
+                    this, 
+                    Props.Create(() => new ParentActorWithSupervisorStratery(parentSupervisorStrategy, childSupervisorStrategy)), 
+                    2);
 
             //act
             SupervisorStrategy result = sut.ResolvedSupervisorStrategy("ChildWithParentSupervisorStrategy");
@@ -38,9 +39,10 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
 
             UnitTestFramework<ParentActorWithSupervisorStratery> sut = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActorWithSupervisorStratery>(this,
-                    Props.Create(() =>
-                        new ParentActorWithSupervisorStratery(parentSupervisorStrategy, childSupervisorStrategy)), 2);
+                .CreateFramework<ParentActorWithSupervisorStratery>(
+                    this,
+                    Props.Create(() => new ParentActorWithSupervisorStratery(parentSupervisorStrategy, childSupervisorStrategy)), 
+                    2);
 
             //act
             SupervisorStrategy result = sut.ResolvedSupervisorStrategy("ChildWithChildSupervisorStrategy");
@@ -58,9 +60,10 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
 
             UnitTestFramework<ParentActorWithSupervisorStratery> sut = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActorWithSupervisorStratery>(this,
-                    Props.Create(() =>
-                        new ParentActorWithSupervisorStratery(parentSupervisorStrategy, childSupervisorStrategy)), 2);
+                .CreateFramework<ParentActorWithSupervisorStratery>(
+                    this,
+                    Props.Create(() => new ParentActorWithSupervisorStratery(parentSupervisorStrategy, childSupervisorStrategy)), 
+                    2);
 
             //act
             Action act = () => sut.ResolvedSupervisorStrategy(Guid.NewGuid().ToString());
