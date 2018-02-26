@@ -6,3 +6,4 @@ obj
 packages
 TestResults
 /.vs/AkkaTestingHelpers/v15
+FakesAssemblies
