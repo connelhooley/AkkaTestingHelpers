@@ -127,7 +127,7 @@ This means you can then go on use the `ResolvedType`, `ResolvedTestProbe` and `R
 ## Integration testing
 The `BasicResolverSettings` class in the package allows you configure `Akka.DI`.  This means you can test a series of concrete actors whilst also still being able to limit the scope of your tests to not include every actor in your hierarchy.
 
-###Examples
+### Examples
 Here's an example integration test using the resolver:
 
 ``` csharp
