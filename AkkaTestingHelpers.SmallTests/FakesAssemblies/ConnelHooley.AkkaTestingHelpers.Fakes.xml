@@ -4,50 +4,50 @@
         <name>ConnelHooley.AkkaTestingHelpers.Fakes</name>
     </assembly>
     <members>
-        <member name="T:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings">
-            <summary>Shim type of ConnelHooley.AkkaTestingHelpers.ConcreteResolverSettings</summary>
+        <member name="T:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings">
+            <summary>Shim type of ConnelHooley.AkkaTestingHelpers.BasicResolverSettings</summary>
         </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.#ctor">
+        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.#ctor">
             <summary>Initializes a new shim instance</summary>
         </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.#ctor(ConnelHooley.AkkaTestingHelpers.ConcreteResolverSettings)">
+        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.#ctor(ConnelHooley.AkkaTestingHelpers.BasicResolverSettings)">
             <summary>Initializes a new shim for the given instance</summary>
         </member>
-        <member name="T:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.AllInstances">
+        <member name="T:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.AllInstances">
             <summary>Define shims for all instances members</summary>
         </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.AllInstances.RegisterActorOf1``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.ConcreteResolverSettings,ConnelHooley.AkkaTestingHelpers.ConcreteResolverSettings})">
-            <summary>Sets the shim of ConcreteResolverSettings.RegisterActor()</summary>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.AllInstances.RegisterActorOf1``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.BasicResolverSettings,ConnelHooley.AkkaTestingHelpers.BasicResolverSettings})">
+            <summary>Sets the shim of BasicResolverSettings.RegisterActor()</summary>
         </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.AllInstances.RegisterActorOf1FuncOfM0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.ConcreteResolverSettings,System.Func{``0},ConnelHooley.AkkaTestingHelpers.ConcreteResolverSettings})">
-            <summary>Sets the shim of ConcreteResolverSettings.RegisterActor(Func`1&lt;!!0&gt; factory)</summary>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.AllInstances.RegisterActorOf1FuncOfM0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.BasicResolverSettings,System.Func{``0},ConnelHooley.AkkaTestingHelpers.BasicResolverSettings})">
+            <summary>Sets the shim of BasicResolverSettings.RegisterActor(Func`1&lt;!!0&gt; factory)</summary>
         </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.AllInstances.RegisterResolverTestKitBase">
-            <summary>Sets the shim of ConcreteResolverSettings.RegisterResolver(TestKitBase testKit)</summary>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.AllInstances.RegisterResolverTestKitBase">
+            <summary>Sets the shim of BasicResolverSettings.RegisterResolver(TestKitBase testKit)</summary>
         </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.BehaveAsCurrent">
+        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.BehaveAsCurrent">
             <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
         </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.BehaveAsNotImplemented">
+        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.BehaveAsNotImplemented">
             <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
         </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.Behavior">
+        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.Behavior">
             <summary>Assigns the behavior for all methods of the shimmed type</summary>
         </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.ConstructorImmutableDictionaryOfTypeFuncOfActorBase">
-            <summary>Sets the shim of ConcreteResolverSettings.ConcreteResolverSettings(ImmutableDictionary`2&lt;Type,Func`1&lt;ActorBase&gt;&gt; factories)</summary>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.ConstructorImmutableDictionaryOfTypeFuncOfActorBase">
+            <summary>Sets the shim of BasicResolverSettings.BasicResolverSettings(ImmutableDictionary`2&lt;Type,Func`1&lt;ActorBase&gt;&gt; factories)</summary>
         </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.EmptyGet">
-            <summary>Sets the shim of ConcreteResolverSettings.get_Empty()</summary>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.EmptyGet">
+            <summary>Sets the shim of BasicResolverSettings.get_Empty()</summary>
         </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.RegisterActorOf1``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.ConcreteResolverSettings})">
-            <summary>Sets the shim of ConcreteResolverSettings.RegisterActor()</summary>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.RegisterActorOf1``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{ConnelHooley.AkkaTestingHelpers.BasicResolverSettings})">
+            <summary>Sets the shim of BasicResolverSettings.RegisterActor()</summary>
         </member>
-        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.RegisterActorOf1FuncOfM0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Func{``0},ConnelHooley.AkkaTestingHelpers.ConcreteResolverSettings})">
-            <summary>Sets the shim of ConcreteResolverSettings.RegisterActor(Func`1&lt;!!0&gt; factory)</summary>
+        <member name="M:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.RegisterActorOf1FuncOfM0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{System.Func{``0},ConnelHooley.AkkaTestingHelpers.BasicResolverSettings})">
+            <summary>Sets the shim of BasicResolverSettings.RegisterActor(Func`1&lt;!!0&gt; factory)</summary>
         </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimConcreteResolverSettings.RegisterResolverTestKitBase">
-            <summary>Sets the shim of ConcreteResolverSettings.RegisterResolver(TestKitBase testKit)</summary>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimBasicResolverSettings.RegisterResolverTestKitBase">
+            <summary>Sets the shim of BasicResolverSettings.RegisterResolver(TestKitBase testKit)</summary>
         </member>
         <member name="T:ConnelHooley.AkkaTestingHelpers.Fakes.ShimUnitTestFramework`1">
             <summary>Shim type of ConnelHooley.AkkaTestingHelpers.UnitTestFramework`1</summary>
@@ -61,8 +61,8 @@
         <member name="T:ConnelHooley.AkkaTestingHelpers.Fakes.ShimUnitTestFramework`1.AllInstances">
             <summary>Define shims for all instances members</summary>
         </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimUnitTestFramework`1.AllInstances.ResolvedSupervisorStratergyString">
-            <summary>Sets the shim of UnitTestFramework`1.ResolvedSupervisorStratergy(String childName)</summary>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimUnitTestFramework`1.AllInstances.ResolvedSupervisorStrategyString">
+            <summary>Sets the shim of UnitTestFramework`1.ResolvedSupervisorStrategy(String childName)</summary>
         </member>
         <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimUnitTestFramework`1.AllInstances.ResolvedTestProbeString">
             <summary>Sets the shim of UnitTestFramework`1.ResolvedTestProbe(String childName)</summary>
@@ -94,8 +94,8 @@
         <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimUnitTestFramework`1.ConstructorISutCreatorITellChildWaiterIChildWaiterIDependencyResolverAdderITestProbeDependencyResolverAdderITestProbeCreatorIResolvedTestProbeStoreITestProbeActorCreatorITestProbeHandlersMapperISutSupervisorStrategyGetterImmutableDictionaryOfValueTupleOfTy">
             <summary>Sets the shim of UnitTestFramework`1.UnitTestFramework`1(ISutCreator sutCreator, ITellChildWaiter childTeller, IChildWaiter childWaiter, IDependencyResolverAdder resolverAdder, ITestProbeDependencyResolverAdder testProbeDependencyResolverAdder, ITestProbeCreator testProbeCreator, IResolvedTestProbeStore resolvedProbeStore, ITestProbeActorCreator testProbeActorCreator, ITestProbeHandlersMapper handlersMapper, ISutSupervisorStrategyGetter sutSupervisorStrategyGetter, ImmutableDictionary`2&lt;ValueTuple`2&lt;Type,Type&gt;,Func`2&lt;Object,Object&gt;&gt; handlers, TestKitBase testKit, Props props, Int32 expectedChildrenCount)</summary>
         </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimUnitTestFramework`1.ResolvedSupervisorStratergyString">
-            <summary>Sets the shim of UnitTestFramework`1.ResolvedSupervisorStratergy(String childName)</summary>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimUnitTestFramework`1.ResolvedSupervisorStrategyString">
+            <summary>Sets the shim of UnitTestFramework`1.ResolvedSupervisorStrategy(String childName)</summary>
         </member>
         <member name="P:ConnelHooley.AkkaTestingHelpers.Fakes.ShimUnitTestFramework`1.ResolvedTestProbeString">
             <summary>Sets the shim of UnitTestFramework`1.ResolvedTestProbe(String childName)</summary>
@@ -694,9 +694,6 @@
         <member name="P:ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes.ShimTestProbeActor.AllInstances.TestProbeGet">
             <summary>Sets the shim of TestProbeActor.get_TestProbe()</summary>
         </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes.ShimTestProbeActor.AllInstances._ctorb__0_0Object">
-            <summary>Sets the shim of TestProbeActor.&lt;.ctor&gt;b__0_0(Object o)</summary>
-        </member>
         <member name="M:ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes.ShimTestProbeActor.BehaveAsCurrent">
             <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
         </member>
@@ -723,9 +720,6 @@
         </member>
         <member name="P:ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes.ShimTestProbeActor.TestProbeGet">
             <summary>Sets the shim of TestProbeActor.get_TestProbe()</summary>
-        </member>
-        <member name="P:ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes.ShimTestProbeActor._ctorb__0_0Object">
-            <summary>Sets the shim of TestProbeActor.&lt;.ctor&gt;b__0_0(Object o)</summary>
         </member>
         <member name="T:ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes.ShimTestProbeActorCreator">
             <summary>Shim type of ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.TestProbeActorCreator</summary>
