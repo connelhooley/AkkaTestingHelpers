@@ -5,6 +5,7 @@ using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using Moq;
 
 // ReSharper disable VirtualMemberCallInConstructor
@@ -26,7 +27,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteDependencyResolverA
         
         public TestBase() : base(AkkaConfig.Config)
         {
-            Func<Type> geneterateType = TestUtils.RandomTypeGenerator();
+            Func<Type> geneterateType = TestHelper.GetRandomTypeGenerator();
 
             // Create mocks
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();

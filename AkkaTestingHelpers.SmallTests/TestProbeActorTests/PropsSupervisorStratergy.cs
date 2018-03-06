@@ -1,6 +1,7 @@
 ﻿using Akka.Actor;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Xunit;
 
@@ -26,9 +27,9 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         {
             //arrange
             AllForOneStrategy exptected = new AllForOneStrategy(
-                TestUtils.Create<int>(), 
-                TestUtils.Create<int>(),
-                exception => TestUtils.Create<Directive>());
+                TestHelper.GenerateNumber(), 
+                TestHelper.GenerateNumber(),
+                exception => TestHelper.Generate<Directive>());
             TestProbeActor sut = CreateTestProbeActorWithSupervisorStrategy(exptected).UnderlyingActor;
 
             //act

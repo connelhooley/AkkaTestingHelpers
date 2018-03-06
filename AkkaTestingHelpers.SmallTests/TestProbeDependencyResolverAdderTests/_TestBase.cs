@@ -6,6 +6,7 @@ using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using Moq;
 
 // ReSharper disable VirtualMemberCallInConstructor
@@ -46,7 +47,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
         
         public TestBase() : base(AkkaConfig.Config)
         {
-            Func<Type> generateType = TestUtils.RandomTypeGenerator();
+            Func<Type> generateType = TestHelper.GetRandomTypeGenerator();
 
             // Create mocks
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();
@@ -72,27 +73,27 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             ChildWaiter = ChildWaiterMock.Object;
             ActorHandlers = ImmutableDictionary<Type, Func<object, object>>
                 .Empty
-                .Add(generateType(), mess => TestUtils.Create<object>());
+                .Add(generateType(), mess => TestHelper.Generate<object>());
             Handlers = ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>>
                 .Empty
                 .Add(ActorWithHandlersType, ActorHandlers);
 
             // Create values returned by mocks
             ResolvedActorWithHandlers = new Mock<ActorBase>().Object;
-            ResolvedActorPathWithHandlers = ActorPath.Parse($"akka://{TestUtils.Create<string>()}");
+            ResolvedActorPathWithHandlers = TestHelper.Generate<ActorPath>();
             ResolvedTestProbeWithHandlers = CreateTestProbe();
             ResolvedSupervisorStrategyWithHandlers = new AllForOneStrategy(
-                TestUtils.Create<int>(),
-                TestUtils.Create<int>(),
-                exception => TestUtils.Create<Directive>());
+                TestHelper.GenerateNumber(),
+                TestHelper.GenerateNumber(),
+                exception => TestHelper.Generate<Directive>());
 
             ResolvedActorWithoutHandlers = new Mock<ActorBase>().Object;
-            ResolvedActorPathWithoutHandlers = ActorPath.Parse($"akka://{TestUtils.Create<string>()}");
+            ResolvedActorPathWithoutHandlers = TestHelper.Generate<ActorPath>();
             ResolvedTestProbeWithoutHandlers = CreateTestProbe();
             ResolvedSupervisorStrategyWithoutHandlers = new OneForOneStrategy(
-                TestUtils.Create<int>(),
-                TestUtils.Create<int>(),
-                exception => TestUtils.Create<Directive>());
+                TestHelper.GenerateNumber(),
+                TestHelper.GenerateNumber(),
+                exception => TestHelper.Generate<Directive>());
 
             // Set up mocks
             TestProbeActorWithHandlersMock

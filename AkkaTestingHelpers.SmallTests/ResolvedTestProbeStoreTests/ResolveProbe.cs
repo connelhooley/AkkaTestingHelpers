@@ -1,6 +1,7 @@
 ﻿using System;
 using Akka.Actor;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Xunit;
 
@@ -108,13 +109,13 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ResolvedTestProbeStoreTests
 
             //act
             Action act = () => sut.ResolveProbe(
-                TestUtils.Create<ActorPath>(), 
-                TestUtils.Create<Type>(),
+                TestHelper.Generate<ActorPath>(),
+                TestHelper.Generate<Type>(),
                 CreateTestProbe(),
                 new AllForOneStrategy(
-                    TestUtils.Create<int>(),
-                    TestUtils.Create<int>(),
-                    exception => TestUtils.Create<Directive>()));
+                    TestHelper.GenerateNumber(),
+                    TestHelper.GenerateNumber(),
+                    exception => TestHelper.Generate<Directive>()));
 
             //assert
             act.ShouldNotThrow();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Xunit;
 
@@ -31,7 +32,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
-                int expectedChildrenCount = TestUtils.RandomBetween(2, 5);
+                int expectedChildrenCount = TestHelper.GenerateNumberBetween(2, 5);
                 sut.Start(this, expectedChildrenCount);
                 Task.Run(() =>
                 {
@@ -54,7 +55,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
-                int expectedChildrenCount = TestUtils.RandomBetween(1, 5);
+                int expectedChildrenCount = TestHelper.GenerateNumberBetween(1, 5);
                 int resolvedChildrenCount = 0;
                 sut.Start(this, expectedChildrenCount);
                 Task.Run(() =>
@@ -94,7 +95,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();
-            sut.Start(this, TestUtils.RandomBetween(int.MinValue, -1));
+            sut.Start(this, TestHelper.GenerateNumberBetween(int.MinValue, -1));
 
             //act
             Action act = () => sut.Wait();
@@ -112,7 +113,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
                 ChildWaiter sut = CreateChildWaiter();
                 sut.Start(this, 0);
                 sut.Wait();
-                int expectedChildrenCount = TestUtils.RandomBetween(1, 5);
+                int expectedChildrenCount = TestHelper.GenerateNumberBetween(1, 5);
                 int resolvedChildrenCount = 0;
                 sut.Start(this, expectedChildrenCount);
                 Task.Run(() =>

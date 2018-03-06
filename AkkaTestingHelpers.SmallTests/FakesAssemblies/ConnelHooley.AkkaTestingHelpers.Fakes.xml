@@ -694,6 +694,9 @@
         <member name="P:ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes.ShimTestProbeActor.AllInstances.TestProbeGet">
             <summary>Sets the shim of TestProbeActor.get_TestProbe()</summary>
         </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes.ShimTestProbeActor.AllInstances._ctorb__0_0Object">
+            <summary>Sets the shim of TestProbeActor.&lt;.ctor&gt;b__0_0(Object o)</summary>
+        </member>
         <member name="M:ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes.ShimTestProbeActor.BehaveAsCurrent">
             <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
         </member>
@@ -720,6 +723,9 @@
         </member>
         <member name="P:ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes.ShimTestProbeActor.TestProbeGet">
             <summary>Sets the shim of TestProbeActor.get_TestProbe()</summary>
+        </member>
+        <member name="P:ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes.ShimTestProbeActor._ctorb__0_0Object">
+            <summary>Sets the shim of TestProbeActor.&lt;.ctor&gt;b__0_0(Object o)</summary>
         </member>
         <member name="T:ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes.ShimTestProbeActorCreator">
             <summary>Shim type of ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.TestProbeActorCreator</summary>

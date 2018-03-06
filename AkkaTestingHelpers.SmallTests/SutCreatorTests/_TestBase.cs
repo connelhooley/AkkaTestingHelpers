@@ -5,6 +5,7 @@ using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using Moq;
 
 // ReSharper disable VirtualMemberCallInConstructor
@@ -32,7 +33,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
             // Create objects passed into sut methods
             ChildWaiter = ChildWaiterMock.Object;
             Props = Props.Create(() => new DummyActor(() => CallOrder.Add("callback")));
-            ExpectedChildCount = TestUtils.Create<int>();
+            ExpectedChildCount = TestHelper.GenerateNumber();
             Supervisor = CreateTestProbe();
 
             // Set up mocks

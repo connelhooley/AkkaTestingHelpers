@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Xunit;
 
@@ -18,7 +19,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
                 ChildWaiter sut = CreateChildWaiter();
 
                 //act
-                Action act = () => sut.Start(null, TestUtils.Create<int>());
+                Action act = () => sut.Start(null, TestHelper.GenerateNumber());
 
                 //assert
                 act.ShouldThrow<ArgumentNullException>();
@@ -35,7 +36,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
                 ChildWaiter sut = CreateChildWaiter();
 
                 //act
-                Action act = () => sut.Start(this, TestUtils.Create<int>());
+                Action act = () => sut.Start(this, TestHelper.GenerateNumber());
 
                 //assert
                 act.ShouldNotThrow();
@@ -50,12 +51,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
                 bool isSecondStartRan = false;
-                sut.Start(this, TestUtils.RandomBetween(0, 5));
+                sut.Start(this, TestHelper.GenerateNumberBetween(0, 5));
 
                 Task.Run(() =>
                 {
                     //act
-                    sut.Start(this, TestUtils.RandomBetween(0, 5));
+                    sut.Start(this, TestHelper.GenerateNumberBetween(0, 5));
                     isSecondStartRan = true;
                 });
 
@@ -72,14 +73,14 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
             {
                 //arrange
                 ChildWaiter sut = CreateChildWaiter();
-                int expectedChildrenCount = TestUtils.RandomBetween(0, 5);
+                int expectedChildrenCount = TestHelper.GenerateNumberBetween(0, 5);
                 bool isSecondStartRan = false;
                 sut.Start(this, expectedChildrenCount);
 
                 Task.Run(() =>
                 {
                     //act
-                    sut.Start(this, TestUtils.RandomBetween(0, 5));
+                    sut.Start(this, TestHelper.GenerateNumberBetween(0, 5));
                     isSecondStartRan = true;
                 });
                 this.Sleep(50); //ensures second start is called before continuing

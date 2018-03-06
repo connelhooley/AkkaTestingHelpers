@@ -4,6 +4,7 @@ using Akka.DI.Core;
 using Akka.TestKit;
 using Akka.TestKit.TestActors;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -86,7 +87,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.DependencyResolverAdderTest
         {
             //arrange
             DependencyResolverAdder sut = CreateDependencyResolverAdder();
-            foreach (int i in TestUtils.CreateMany<int>())
+            foreach (int _ in TestHelper.GenerateMany(TestHelper.GenerateNumber))
             {
                 sut.Add(this, type => new Mock<ActorBase>().Object);
             }

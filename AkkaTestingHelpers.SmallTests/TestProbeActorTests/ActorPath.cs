@@ -14,7 +14,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
             TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
 
             //act
-            Akka.Actor.ActorPath result = sut.UnderlyingActor.ActorPath;
+            global::Akka.Actor.ActorPath result = sut.UnderlyingActor.ActorPath;
 
             //assert
             result.Should().BeSameAs(sut.Path);
@@ -27,7 +27,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
             TestProbeActor sut = CreateTestProbeActorWithoutSupervisorStrategy().UnderlyingActor;
 
             //act
-            Akka.Actor.ActorPath result = sut.ActorPath;
+            global::Akka.Actor.ActorPath result = sut.ActorPath;
 
             //assert
             result.Should().BeSameAs(sut.ActorPath);

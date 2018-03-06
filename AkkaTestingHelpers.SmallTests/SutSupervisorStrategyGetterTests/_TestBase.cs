@@ -1,6 +1,7 @@
 ﻿using Akka.Actor;
 using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 
 namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutSupervisorStrategyGetterTests
 {
@@ -13,9 +14,9 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutSupervisorStrategyGetter
         public TestBase() : base(AkkaConfig.Config)
         {
             SupervisorStrategy = new AllForOneStrategy(
-                TestUtils.Create<int>(),
-                TestUtils.Create<int>(),
-                exception => TestUtils.Create<Directive>());
+                TestHelper.GenerateNumber(),
+                TestHelper.GenerateNumber(),
+                exception => TestHelper.Generate<Directive>());
 
             ActorWithNonDefaultSupervisorStrategy =
                 ActorOfAsTestActorRef<DummyActor1>(

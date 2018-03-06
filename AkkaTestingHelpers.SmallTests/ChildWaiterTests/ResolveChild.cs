@@ -1,5 +1,6 @@
 ﻿using System;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
         {
             //arrange
             ChildWaiter sut = CreateChildWaiter();
-            sut.Start(this, TestUtils.Create<int>());
+            sut.Start(this, TestHelper.GenerateNumber());
 
             //act
             Action act = () => sut.ResolvedChild();

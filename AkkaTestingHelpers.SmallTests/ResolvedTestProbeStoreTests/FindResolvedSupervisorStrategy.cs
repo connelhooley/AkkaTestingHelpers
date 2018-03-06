@@ -2,6 +2,7 @@
 using Akka.Actor;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Xunit;
 
@@ -17,7 +18,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ResolvedTestProbeStoreTests
             ResolvedTestProbeStore sut = CreateResolvedTestProbeStore();
 
             //act
-            Action act = () => sut.FindResolvedSupervisorStrategy(null, TestUtils.Create<string>());
+            Action act = () => sut.FindResolvedSupervisorStrategy(null, TestHelper.GenerateString());
 
             //assert
             act.ShouldThrow<ArgumentNullException>();

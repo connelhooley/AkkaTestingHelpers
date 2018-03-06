@@ -3,6 +3,7 @@ using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 
 namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ResolvedTestProbeStoreTests
 {
@@ -14,14 +15,14 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ResolvedTestProbeStoreTests
 
         internal (ActorPath ActorPath, Type Type, TestProbe TestProbe, SupervisorStrategy SupervisorStrategy, string ActorName) CreateChildVariables()
         {
-            string name = TestUtils.Create<string>();
+            string name = TestHelper.GenerateString();
             ActorPath path = TestActor.Path.Child(name);
-            Type type = TestUtils.Create<Type>();
+            Type type = TestHelper.Generate<Type>();
             TestProbe testProbe = CreateTestProbe();
             AllForOneStrategy supervisorStrategy = new AllForOneStrategy(
-                TestUtils.Create<int>(),
-                TestUtils.Create<int>(),
-                exception => TestUtils.Create<Directive>());
+                TestHelper.GenerateNumber(),
+                TestHelper.GenerateNumber(),
+                exception => TestHelper.Generate<Directive>());
             return (path, type, testProbe, supervisorStrategy, name);
         }
     }

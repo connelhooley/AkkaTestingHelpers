@@ -5,6 +5,7 @@ using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using Moq;
 
 // ReSharper disable VirtualMemberCallInConstructor
@@ -23,7 +24,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         internal object Reply2;
         internal Dictionary<Type, Func<object, object>> Handlers;
 
-        internal Akka.TestKit.TestProbe TestProbe;
+        internal global::Akka.TestKit.TestProbe TestProbe;
 
         public TestBase() : base(AkkaConfig.Config)
         {
@@ -34,10 +35,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
             TestProbeCreator = TestProbeCreatorMock.Object;
             Message1 = new ExampleMessage1();
             Type1 = typeof(ExampleMessage1);
-            Reply1 = TestUtils.Create<object>();
+            Reply1 = TestHelper.Generate<object>();
             Message2 = new ExampleMessage2();
             Type2 = typeof(ExampleMessage2);
-            Reply2 = TestUtils.Create<object>();
+            Reply2 = TestHelper.Generate<object>();
             Handlers = new Dictionary<Type, Func<object, object>>
             {
                 { Type1, o => Reply1 },

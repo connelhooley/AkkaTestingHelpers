@@ -1,5 +1,6 @@
 ﻿using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Xunit;
 
@@ -14,7 +15,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
             TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
 
             //act
-            Akka.TestKit.TestProbe result = sut.UnderlyingActor.TestProbe;
+            global::Akka.TestKit.TestProbe result = sut.UnderlyingActor.TestProbe;
 
             //assert
             result.Should().BeSameAs(TestProbe);
@@ -27,7 +28,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
             TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
 
             //act
-            Akka.TestKit.TestProbe result = sut.UnderlyingActor.TestProbe;
+            global::Akka.TestKit.TestProbe result = sut.UnderlyingActor.TestProbe;
 
             //assert
             result.Should().BeSameAs(sut.UnderlyingActor.TestProbe);
@@ -38,11 +39,11 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         {
             //arrange
             TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
-            object message = TestUtils.Create<object>();
-            Akka.TestKit.TestProbe sender = CreateTestProbe();
+            object message = TestHelper.Generate<object>();
+            global::Akka.TestKit.TestProbe sender = CreateTestProbe();
 
             //act
-            Akka.TestKit.TestProbe result = sut.UnderlyingActor.TestProbe;
+            global::Akka.TestKit.TestProbe result = sut.UnderlyingActor.TestProbe;
 
             //assert
             sut.Tell(message, sender);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
+using ConnelHooley.TestHelpers;
 using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
@@ -55,7 +56,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
             TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
 
             //act
-            sut.Tell(TestUtils.Create<object>());
+            sut.Tell(TestHelper.Generate<object>());
 
             //assert
             ExpectNoMsg();
@@ -80,7 +81,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         {
             //arrange
             TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
-            sut.Tell(TestUtils.Create<object>());
+            sut.Tell(TestHelper.Generate<object>());
 
             //act
             sut.Tell(Message2);

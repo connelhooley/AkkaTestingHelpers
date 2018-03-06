@@ -6,6 +6,7 @@ using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes;
+using ConnelHooley.TestHelpers;
 using Microsoft.QualityTools.Testing.Fakes;
 using Moq;
 
@@ -31,7 +32,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorCreatorTests
         
         public TestBase() : base(AkkaConfig.Config)
         {
-            Func<Type> generateType = TestUtils.RandomTypeGenerator();
+            Func<Type> generateType = TestHelper.GetRandomTypeGenerator();
 
             // Create mocks
             TestProbeCreatorMock = new Mock<ITestProbeCreator>();
@@ -44,7 +45,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorCreatorTests
             TestKitPassedIntoSut = this;
             HandlersPassedIntoSut = ImmutableDictionary<Type, Func<object, object>>
                 .Empty
-                .Add(generateType(), mess => TestUtils.Create<object>());
+                .Add(generateType(), mess => TestHelper.Generate<object>());
             
             //Set up shims
             ShimTestProbeActor.ConstructorITestProbeCreatorTestKitBaseIReadOnlyDictionaryOfTypeFuncOfObjectObject =

@@ -7,6 +7,7 @@ using ConnelHooley.AkkaTestingHelpers.Fakes;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes;
+using ConnelHooley.TestHelpers;
 using Microsoft.QualityTools.Testing.Fakes;
 
 namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkCreatorTests
@@ -69,7 +70,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkCreatorTes
                 .Add((typeof(DummyActor1), typeof(Message2)), message1 => new Reply2())
                 .Add((typeof(DummyActor2), typeof(Message1)), message1 => new Reply1());
             PropsPassedIntoSut = Props.Create<DummyActor1>();
-            NumberOfChildrenIntoSut = TestUtils.Create<int>();
+            NumberOfChildrenIntoSut = TestHelper.GenerateNumber();
 
             // Create shims
             _shimContext = ShimsContext.Create();

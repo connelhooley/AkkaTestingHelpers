@@ -1,4 +1,5 @@
 ﻿using System;
+using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Xunit;
 
@@ -27,10 +28,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTe
             //arrange
             UnitTestFrameworkSettings sut = UnitTestFrameworkSettings
                 .Empty
-                .RegisterHandler<DummyChildActor1, Message1>(message1 => TestUtils.Create<object>());
+                .RegisterHandler<DummyChildActor1, Message1>(message1 => TestHelper.Generate<object>());
 
             //act
-            UnitTestFrameworkSettings result = sut.RegisterHandler<DummyChildActor2, Message1>(message1 => TestUtils.Create<object>());
+            UnitTestFrameworkSettings result = sut.RegisterHandler<DummyChildActor2, Message1>(message1 => TestHelper.Generate<object>());
 
             //assert
             result.Should().NotBe(sut);

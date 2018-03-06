@@ -4,6 +4,7 @@ using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
+using ConnelHooley.TestHelpers;
 using Moq;
 
 // ReSharper disable VirtualMemberCallInConstructor
@@ -54,7 +55,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 
         public TestBase() : base(AkkaConfig.Config)
         {
-            Func<Type> generateType = TestUtils.RandomTypeGenerator();
+            Func<Type> generateType = TestHelper.GetRandomTypeGenerator();
 
             // Create mocks
             SutCreatorMock = new Mock<ISutCreator>();
@@ -82,20 +83,20 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             SutSupervisorStrategyGetter = SutSupervisorStrategyGetterMock.Object;
             Handlers = ImmutableDictionary<(Type, Type), Func<object, object>>
                 .Empty
-                .Add((generateType(), generateType()), message => TestUtils.Create<object>());
+                .Add((generateType(), generateType()), message => TestHelper.Generate<object>());
             Props = Props.Create<DummyActor>();
             PropsWithSupervisorStrategy = Props
                 .Create<DummyActor>()
                 .WithSupervisorStrategy(new AllForOneStrategy(
-                    TestUtils.Create<int>(),
-                    TestUtils.Create<int>(),
-                    exception => TestUtils.Create<Directive>()));
-            ExpectedChildCount = TestUtils.Create<int>();
+                    TestHelper.GenerateNumber(),
+                    TestHelper.GenerateNumber(),
+                    exception => TestHelper.Generate<Directive>()));
+            ExpectedChildCount = TestHelper.GenerateNumber();
         
             // Create objects passed into sut methods
-            Message = TestUtils.Create<object>();
-            ChildName = TestUtils.Create<string>();
-            ChildNameWithoutSupervisor = TestUtils.Create<string>();
+            Message = TestHelper.Generate<object>();
+            ChildName = TestHelper.GenerateString();
+            ChildNameWithoutSupervisor = TestHelper.GenerateString();
             Sender = new Mock<IActorRef>().Object;
 
             // Create objects returned by mocks
@@ -103,19 +104,19 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 .Empty
                 .Add(generateType(), ImmutableDictionary<Type, Func<object, object>>
                     .Empty
-                    .Add(generateType(), mess => TestUtils.Create<object>()));
+                    .Add(generateType(), mess => TestHelper.Generate<object>()));
             Supervisor = CreateTestProbe();
             SutActor = ActorOfAsTestActorRef<DummyActor>();
             ResolvedType = generateType();
             ResolvedTestProbe = CreateTestProbe();
             ResolvedSupervisorStrategy = new AllForOneStrategy(
-                TestUtils.Create<int>(), 
-                TestUtils.Create<int>(),
-                exception => TestUtils.Create<Directive>());
+                TestHelper.GenerateNumber(), 
+                TestHelper.GenerateNumber(),
+                exception => TestHelper.Generate<Directive>());
             SutSupervisorStrategy = new OneForOneStrategy(
-                TestUtils.Create<int>(),
-                TestUtils.Create<int>(),
-                exception => TestUtils.Create<Directive>());
+                TestHelper.GenerateNumber(),
+                TestHelper.GenerateNumber(),
+                exception => TestHelper.Generate<Directive>());
 
             // Set up mocks
             TestProbeCreatorMock

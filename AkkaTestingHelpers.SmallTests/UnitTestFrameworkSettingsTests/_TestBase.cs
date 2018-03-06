@@ -5,6 +5,7 @@ using Akka.TestKit;
 using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.Fakes;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete.Fakes;
+using ConnelHooley.TestHelpers;
 using Microsoft.QualityTools.Testing.Fakes;
 
 // ReSharper disable RedundantAssignment
@@ -33,7 +34,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTe
             // Create objects passed into sut
             TestKitPassedIntoSut = this;
             PropsPassedIntoSut = Props.Create<DummyChildActor1>();
-            ExpectedChildrenCountPassedIntoSut = TestUtils.Create<int>();
+            ExpectedChildrenCountPassedIntoSut = TestHelper.GenerateNumber();
 
             // Create shims
             _shimContext = ShimsContext.Create();
