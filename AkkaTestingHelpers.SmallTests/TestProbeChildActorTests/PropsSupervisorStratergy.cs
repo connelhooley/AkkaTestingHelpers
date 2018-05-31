@@ -5,15 +5,15 @@ using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeChildActorTests
 {
     public class PropsSupervisorStrategy : TestBase
     {
         [Fact]
-        public void TestProbeActorCreatedWithoutSupervisorStrategy_PropsSupervisorStrategy_ReturnsNull()
+        public void TestProbeChildActorCreatedWithoutSupervisorStrategy_PropsSupervisorStrategy_ReturnsNull()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
+            TestActorRef<TestProbeChildActor> sut = CreateTestProbeChildActorWithoutSupervisorStrategy();
 
             //act
             SupervisorStrategy result = sut.UnderlyingActor.PropsSupervisorStrategy;
@@ -23,14 +23,14 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         }
 
         [Fact]
-        public void TestProbeActorWithSupervisorStrategy_PropsSupervisorStrategy__ReturnsSameResultOnEveryCall()
+        public void TestProbeChildActorWithSupervisorStrategy_PropsSupervisorStrategy__ReturnsSameResultOnEveryCall()
         {
             //arrange
             AllForOneStrategy exptected = new AllForOneStrategy(
                 TestHelper.GenerateNumber(), 
                 TestHelper.GenerateNumber(),
                 exception => TestHelper.Generate<Directive>());
-            TestProbeActor sut = CreateTestProbeActorWithSupervisorStrategy(exptected).UnderlyingActor;
+            TestProbeChildActor sut = CreateTestProbeChildActorWithSupervisorStrategy(exptected).UnderlyingActor;
 
             //act
             SupervisorStrategy result = sut.PropsSupervisorStrategy;

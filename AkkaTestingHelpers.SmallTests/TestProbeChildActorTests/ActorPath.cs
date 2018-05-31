@@ -3,15 +3,15 @@ using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeChildActorTests
 {
     public class ActorPath : TestBase
     {
         [Fact]
-        public void TestProbeActor_ActorPath_ReturnsCorrectActorPath()
+        public void TestProbeChildActor_ActorPath_ReturnsCorrectActorPath()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
+            TestActorRef<TestProbeChildActor> sut = CreateTestProbeChildActorWithoutSupervisorStrategy();
 
             //act
             global::Akka.Actor.ActorPath result = sut.UnderlyingActor.ActorPath;
@@ -21,10 +21,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         }
 
         [Fact]
-        public void TestProbeActor_ActorPath__ReturnsSameResultOnEveryCall()
+        public void TestProbeChildActor_ActorPath__ReturnsSameResultOnEveryCall()
         {
             //arrange
-            TestProbeActor sut = CreateTestProbeActorWithoutSupervisorStrategy().UnderlyingActor;
+            TestProbeChildActor sut = CreateTestProbeChildActorWithoutSupervisorStrategy().UnderlyingActor;
 
             //act
             global::Akka.Actor.ActorPath result = sut.ActorPath;

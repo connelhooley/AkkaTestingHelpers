@@ -8,7 +8,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Abstract
     {
         void Add(
             IDependencyResolverAdder dependencyResolverAdder, 
-            ITestProbeActorCreator testProbeActorCreator,
+            ITestProbeChildActorCreator testProbeChildActorCreator,
             ITestProbeCreator testProbeCreator,
             IResolvedTestProbeStore resolvedTestProbeStore, 
             IChildWaiter childWaiter, 

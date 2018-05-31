@@ -22,7 +22,7 @@ namespace ConnelHooley.AkkaTestingHelpers
             ITestProbeDependencyResolverAdder testProbeDependencyResolverAdder,
             ITestProbeCreator testProbeCreator,
             IResolvedTestProbeStore resolvedProbeStore,
-            ITestProbeActorCreator testProbeActorCreator, 
+            ITestProbeChildActorCreator testProbeChildActorCreator, 
             ITestProbeHandlersMapper handlersMapper, 
             ISutSupervisorStrategyGetter sutSupervisorStrategyGetter,
             ImmutableDictionary<(Type, Type), Func<object, object>> handlers,
@@ -42,7 +42,7 @@ namespace ConnelHooley.AkkaTestingHelpers
             
             testProbeDependencyResolverAdder.Add(
                 resolverAdder,
-                testProbeActorCreator,
+                testProbeChildActorCreator,
                 testProbeCreator,
                 resolvedProbeStore,
                 childWaiter,

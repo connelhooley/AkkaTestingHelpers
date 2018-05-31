@@ -9,7 +9,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
     {
         public void Add(
             IDependencyResolverAdder dependencyResolverAdder, 
-            ITestProbeActorCreator testProbeActorCreator,
+            ITestProbeChildActorCreator testProbeChildActorCreator,
             ITestProbeCreator testProbeCreator,
             IResolvedTestProbeStore resolvedTestProbeStore,
             IChildWaiter childWaiter,
@@ -18,7 +18,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
                 dependencyResolverAdder.Add(testKit, actorType =>
                 {
                     ImmutableDictionary<Type, Func<object, object>> actorHandlers = handlers.GetValueOrDefault(actorType, null);
-                    ITestProbeActor probeActor = testProbeActorCreator.Create(testProbeCreator, testKit, actorHandlers);
+                    ITestProbeChildActor probeActor = testProbeChildActorCreator.Create(testProbeCreator, testKit, actorHandlers);
                     resolvedTestProbeStore.ResolveProbe(probeActor.ActorPath, actorType, probeActor.TestProbe, probeActor.PropsSupervisorStrategy);
                     childWaiter.ResolvedChild();
                     return probeActor.Actor;

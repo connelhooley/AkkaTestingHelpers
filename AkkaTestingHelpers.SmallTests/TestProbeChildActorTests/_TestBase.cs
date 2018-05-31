@@ -10,7 +10,7 @@ using Moq;
 
 // ReSharper disable VirtualMemberCallInConstructor
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeChildActorTests
 {
     public class TestBase : TestKit
     {
@@ -55,12 +55,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
                 .Returns(CreateTestProbe());
         }
         
-        internal TestActorRef<TestProbeActor> CreateTestProbeActorWithoutSupervisorStrategy() => 
-            ActorOfAsTestActorRef<TestProbeActor>(Props.Create(() => new TestProbeActor(TestProbeCreator, this, Handlers)));
+        internal TestActorRef<TestProbeChildActor> CreateTestProbeChildActorWithoutSupervisorStrategy() => 
+            ActorOfAsTestActorRef<TestProbeChildActor>(Props.Create(() => new TestProbeChildActor(TestProbeCreator, this, Handlers)));
 
-        internal TestActorRef<TestProbeActor> CreateTestProbeActorWithSupervisorStrategy(SupervisorStrategy supervisorStrategy) =>
-            ActorOfAsTestActorRef<TestProbeActor>(Props
-                .Create(() => new TestProbeActor(TestProbeCreator, this, Handlers))
+        internal TestActorRef<TestProbeChildActor> CreateTestProbeChildActorWithSupervisorStrategy(SupervisorStrategy supervisorStrategy) =>
+            ActorOfAsTestActorRef<TestProbeChildActor>(Props
+                .Create(() => new TestProbeChildActor(TestProbeCreator, this, Handlers))
                 .WithSupervisorStrategy(supervisorStrategy));
         
         private class ExampleMessage1 { }

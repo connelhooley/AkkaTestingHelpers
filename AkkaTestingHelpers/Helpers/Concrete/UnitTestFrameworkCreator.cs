@@ -16,7 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
                 new TestProbeDependencyResolverAdder(), 
                 new TestProbeCreator(), 
                 new ResolvedTestProbeStore(), 
-                new TestProbeActorCreator(), 
+                new TestProbeChildActorCreator(), 
                 new TestProbeHandlersMapper(),
                 new SutSupervisorStrategyGetter(), 
                 handlers,

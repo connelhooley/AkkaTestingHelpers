@@ -5,16 +5,16 @@ using Xunit;
 
 // ReSharper disable ObjectCreationAsStatement
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeChildActorTests
 {
     public class Constructor : TestBase
     {
         #region Null tests
         [Fact]
-        public void TestProbeActor_ConstructorWithNullTestKit_ThrowsArgumentNullException()
+        public void TestProbeChildActor_ConstructorWithNullTestKit_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeActor(
+            Action act = () => new TestProbeChildActor(
                 TestProbeCreator,
                 null,
                 Handlers);
@@ -24,10 +24,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         }
 
         [Fact]
-        public void TestProbeActor_ConstructorWithNullTestProbeCreator_ThrowsArgumentNullException()
+        public void TestProbeChildActor_ConstructorWithNullTestProbeCreator_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeActor(
+            Action act = () => new TestProbeChildActor(
                 TestProbeCreator,
                 null,
                 Handlers);
@@ -37,10 +37,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         }
 
         [Fact]
-        public void TestProbeActor_ConstructorWithNullHandlers_DoesNotThrow()
+        public void TestProbeChildActor_ConstructorWithNullHandlers_DoesNotThrow()
         {
             //act
-            Action act = () => new TestProbeActor(
+            Action act = () => new TestProbeChildActor(
                 TestProbeCreator,
                 this,
                 null);
@@ -50,10 +50,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         }
 
         [Fact]
-        public void TestProbeActor_ConstructorWithAllNulls_ThrowsArgumentNullException()
+        public void TestProbeChildActor_ConstructorWithAllNulls_ThrowsArgumentNullException()
         {
             //act
-            Action act = () => new TestProbeActor(
+            Action act = () => new TestProbeChildActor(
                 null,
                 null);
 
@@ -63,10 +63,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         #endregion
 
         [Fact]
-        public void TestProbeActor_Constructor_DoesNotThrow()
+        public void TestProbeChildActor_Constructor_DoesNotThrow()
         {
             //act
-            Action act = () => new TestProbeActor(
+            Action act = () => new TestProbeChildActor(
                 TestProbeCreator,
                 this,
                 Handlers);

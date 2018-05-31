@@ -20,7 +20,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             Action act = () =>sut.Add(
                 null,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
                 ChildWaiter,
@@ -32,7 +32,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
         }
 
         [Fact]
-        public void TestProbeDependencyResolverAdder_AddWithNullTestProbeActorCreator_ThrowsArgumentNullException()
+        public void TestProbeDependencyResolverAdder_AddWithNullTestProbeChildActorCreator_ThrowsArgumentNullException()
         {
             //arrange
             TestProbeDependencyResolverAdder sut = CreateTestProbeDependencyResolverAdder();
@@ -60,7 +60,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             Action act = () => sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 null,
                 ResolvedTestProbeStore,
                 ChildWaiter,
@@ -80,7 +80,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             Action act = () =>sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator, 
+                TestProbeChildActorCreator, 
                 TestProbeCreator,
                 null,
                 ChildWaiter,
@@ -100,7 +100,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             Action act = () =>sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
                 null,
@@ -120,7 +120,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             Action act = () =>sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
                 ChildWaiter,
@@ -140,7 +140,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             Action act = () =>sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
                 ChildWaiter,
@@ -181,7 +181,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
                 ChildWaiter,
@@ -202,7 +202,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
                 ChildWaiter,
@@ -215,7 +215,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
         }
         
         [Fact]
-        public void TestProbeDependencyResolverAdder_Add_AddedFactoryStoresTestProbeActorWhenCalledWithHandlers()
+        public void TestProbeDependencyResolverAdder_Add_AddedFactoryStoresTestProbeChildActorWhenCalledWithHandlers()
         {
             //arrange
             TestProbeDependencyResolverAdder sut = CreateTestProbeDependencyResolverAdder();
@@ -223,7 +223,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
                 ChildWaiter,
@@ -241,7 +241,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
         }
         
         [Fact]
-        public void TestProbeDependencyResolverAdder_Add_AddedFactoryStoresTestProbeActorWhenCalledWithoutHandlers()
+        public void TestProbeDependencyResolverAdder_Add_AddedFactoryStoresTestProbeChildActorWhenCalledWithoutHandlers()
         {
             //arrange
             TestProbeDependencyResolverAdder sut = CreateTestProbeDependencyResolverAdder();
@@ -249,7 +249,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
                 ChildWaiter,
@@ -275,7 +275,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
                 ChildWaiter,
@@ -298,7 +298,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
                 ChildWaiter,
@@ -321,7 +321,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
                 ChildWaiter,
@@ -344,7 +344,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //act
             sut.Add(
                 DependencyResolverAdder,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
                 ChildWaiter,

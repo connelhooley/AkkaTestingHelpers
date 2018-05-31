@@ -3,7 +3,7 @@ using Akka.TestKit;
 
 namespace ConnelHooley.AkkaTestingHelpers.Helpers.Abstract
 {
-    internal interface ITestProbeActor
+    internal interface ITestProbeChildActor
     {
         ActorPath ActorPath { get; }
         TestProbe TestProbe { get; }

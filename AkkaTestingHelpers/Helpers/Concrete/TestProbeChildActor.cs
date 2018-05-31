@@ -7,9 +7,9 @@ using NullGuard;
 
 namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
 {
-    internal sealed class TestProbeActor : ReceiveActor, ITestProbeActor
+    internal sealed class TestProbeChildActor : ReceiveActor, ITestProbeChildActor
     {
-        public TestProbeActor(ITestProbeCreator testProbeCreator, TestKitBase testKit, IReadOnlyDictionary<Type, Func<object, object>> handlers = null)
+        public TestProbeChildActor(ITestProbeCreator testProbeCreator, TestKitBase testKit, IReadOnlyDictionary<Type, Func<object, object>> handlers = null)
         {
             ActorPath = Context.Self.Path;
             TestProbe = testProbeCreator.Create(testKit);

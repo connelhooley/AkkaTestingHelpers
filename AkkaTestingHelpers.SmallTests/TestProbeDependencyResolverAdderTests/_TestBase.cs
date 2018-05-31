@@ -16,15 +16,15 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
     public class TestBase : TestKit
     {
         internal readonly Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
-        internal readonly Mock<ITestProbeActorCreator> TestProbeActorCreatorMock;
+        internal readonly Mock<ITestProbeChildActorCreator> TestProbeChildActorCreatorMock;
         internal readonly Mock<ITestProbeCreator> TestProbeCreatorMock;
         internal readonly Mock<IResolvedTestProbeStore> ResolvedTestProbeStoreMock;
         internal readonly Mock<IChildWaiter> ChildWaiterMock;
-        internal readonly Mock<ITestProbeActor> TestProbeActorWithHandlersMock;
-        internal readonly Mock<ITestProbeActor> TestProbeActorWithoutHandlersMock;
+        internal readonly Mock<ITestProbeChildActor> TestProbeChildActorWithHandlersMock;
+        internal readonly Mock<ITestProbeChildActor> TestProbeChildActorWithoutHandlersMock;
 
         internal readonly IDependencyResolverAdder DependencyResolverAdder;
-        internal readonly ITestProbeActorCreator TestProbeActorCreator;
+        internal readonly ITestProbeChildActorCreator TestProbeChildActorCreator;
         internal readonly ITestProbeCreator TestProbeCreator;
         internal readonly IResolvedTestProbeStore ResolvedTestProbeStore;
         internal readonly IChildWaiter ChildWaiter;
@@ -51,12 +51,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
 
             // Create mocks
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();
-            TestProbeActorCreatorMock = new Mock<ITestProbeActorCreator>();
+            TestProbeChildActorCreatorMock = new Mock<ITestProbeChildActorCreator>();
             TestProbeCreatorMock = new Mock<ITestProbeCreator>();
             ResolvedTestProbeStoreMock = new Mock<IResolvedTestProbeStore>();
             ChildWaiterMock = new Mock<IChildWaiter>();
-            TestProbeActorWithHandlersMock = new Mock<ITestProbeActor>();
-            TestProbeActorWithoutHandlersMock = new Mock<ITestProbeActor>();
+            TestProbeChildActorWithHandlersMock = new Mock<ITestProbeChildActor>();
+            TestProbeChildActorWithoutHandlersMock = new Mock<ITestProbeChildActor>();
 
             // Create objects used by mocks
             CallOrder = new List<string>();
@@ -67,7 +67,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
 
             // Create objects passed into sut methods
             DependencyResolverAdder = DependencyResolverAdderMock.Object;
-            TestProbeActorCreator = TestProbeActorCreatorMock.Object;
+            TestProbeChildActorCreator = TestProbeChildActorCreatorMock.Object;
             TestProbeCreator = TestProbeCreatorMock.Object;
             ResolvedTestProbeStore = ResolvedTestProbeStoreMock.Object;
             ChildWaiter = ChildWaiterMock.Object;
@@ -96,45 +96,45 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
                 exception => TestHelper.Generate<Directive>());
 
             // Set up mocks
-            TestProbeActorWithHandlersMock
+            TestProbeChildActorWithHandlersMock
                 .Setup(actor => actor.Actor)
                 .Returns(() => ResolvedActorWithHandlers);
 
-            TestProbeActorWithHandlersMock
+            TestProbeChildActorWithHandlersMock
                 .Setup(actor => actor.ActorPath)
                 .Returns(() => ResolvedActorPathWithHandlers);
             
-            TestProbeActorWithHandlersMock
+            TestProbeChildActorWithHandlersMock
                 .Setup(actor => actor.TestProbe)
                 .Returns(() => ResolvedTestProbeWithHandlers);
 
-            TestProbeActorWithHandlersMock
+            TestProbeChildActorWithHandlersMock
                 .Setup(actor => actor.PropsSupervisorStrategy)
                 .Returns(() => ResolvedSupervisorStrategyWithHandlers);
 
-            TestProbeActorWithoutHandlersMock
+            TestProbeChildActorWithoutHandlersMock
                 .Setup(actor => actor.Actor)
                 .Returns(() => ResolvedActorWithoutHandlers);
 
-            TestProbeActorWithoutHandlersMock
+            TestProbeChildActorWithoutHandlersMock
                 .Setup(actor => actor.ActorPath)
                 .Returns(() => ResolvedActorPathWithoutHandlers);
 
-            TestProbeActorWithoutHandlersMock
+            TestProbeChildActorWithoutHandlersMock
                 .Setup(actor => actor.TestProbe)
                 .Returns(() => ResolvedTestProbeWithoutHandlers);
 
-            TestProbeActorWithoutHandlersMock
+            TestProbeChildActorWithoutHandlersMock
                 .Setup(actor => actor.PropsSupervisorStrategy)
                 .Returns(() => ResolvedSupervisorStrategyWithoutHandlers);
 
-            TestProbeActorCreatorMock
+            TestProbeChildActorCreatorMock
                 .Setup(creator => creator.Create(TestProbeCreator, this, ActorHandlers))
-                .Returns(() => TestProbeActorWithHandlersMock.Object);
+                .Returns(() => TestProbeChildActorWithHandlersMock.Object);
 
-            TestProbeActorCreatorMock
+            TestProbeChildActorCreatorMock
                 .Setup(creator => creator.Create(TestProbeCreator, this, null))
-                .Returns(() => TestProbeActorWithoutHandlersMock.Object);
+                .Returns(() => TestProbeChildActorWithoutHandlersMock.Object);
 
             ResolvedTestProbeStoreMock
                 .Setup(store => store.ResolveProbe(It.IsAny<ActorPath>(), It.IsAny<Type>(), It.IsAny<TestProbe>(), It.IsAny<SupervisorStrategy>()))

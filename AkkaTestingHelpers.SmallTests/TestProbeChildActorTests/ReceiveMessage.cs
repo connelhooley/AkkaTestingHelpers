@@ -5,15 +5,15 @@ using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using ConnelHooley.TestHelpers;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeChildActorTests
 {
     public class ReceiveMessage : TestBase
     {
         [Fact]
-        public void TestProbeActorWithHandlers_ReceivesMessageWithMatchingHandler_SendsCorrectReplies()
+        public void TestProbeChildActorWithHandlers_ReceivesMessageWithMatchingHandler_SendsCorrectReplies()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
+            TestActorRef<TestProbeChildActor> sut = CreateTestProbeChildActorWithoutSupervisorStrategy();
 
             //act
             sut.Tell(Message2);
@@ -23,10 +23,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         }
 
         [Fact]
-        public void TestProbeActorWithHandlers_ReceivesMessageWithMatchingHandler_TestProbeIsForwardedMessages()
+        public void TestProbeChildActorWithHandlers_ReceivesMessageWithMatchingHandler_TestProbeIsForwardedMessages()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
+            TestActorRef<TestProbeChildActor> sut = CreateTestProbeChildActorWithoutSupervisorStrategy();
 
             //act
             sut.Tell(Message2);
@@ -36,11 +36,11 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         }
 
         [Fact]
-        public void TestProbeActorWitouthHandlers_ReceivesMessage_DoesNotReply()
+        public void TestProbeChildActorWitouthHandlers_ReceivesMessage_DoesNotReply()
         {
             //arrange
             Handlers = new Dictionary<Type, Func<object, object>>();
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
+            TestActorRef<TestProbeChildActor> sut = CreateTestProbeChildActorWithoutSupervisorStrategy();
 
             //act
             sut.Tell(Message2);
@@ -50,10 +50,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         }
         
         [Fact]
-        public void TestProbeActorWithHandlers_ReceivesMessageWithNoMatchingHandler_DoesNotReply()
+        public void TestProbeChildActorWithHandlers_ReceivesMessageWithNoMatchingHandler_DoesNotReply()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
+            TestActorRef<TestProbeChildActor> sut = CreateTestProbeChildActorWithoutSupervisorStrategy();
 
             //act
             sut.Tell(TestHelper.Generate<object>());
@@ -63,10 +63,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         }
         
         [Fact]
-        public void TestProbeActorWithHandlers_ReceivesMessageWithMatchingHandler_RepliesToSubsequentMessages()
+        public void TestProbeChildActorWithHandlers_ReceivesMessageWithMatchingHandler_RepliesToSubsequentMessages()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
+            TestActorRef<TestProbeChildActor> sut = CreateTestProbeChildActorWithoutSupervisorStrategy();
             sut.Tell(Message1);
 
             //act
@@ -77,10 +77,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         }
         
         [Fact]
-        public void TestProbeActorWithHandlers_ReceivesMessageWitNohMatchingHandler_RepliesToSubsequentMessages()
+        public void TestProbeChildActorWithHandlers_ReceivesMessageWitNohMatchingHandler_RepliesToSubsequentMessages()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
+            TestActorRef<TestProbeChildActor> sut = CreateTestProbeChildActorWithoutSupervisorStrategy();
             sut.Tell(TestHelper.Generate<object>());
 
             //act

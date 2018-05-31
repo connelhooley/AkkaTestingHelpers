@@ -20,9 +20,9 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal Mock<ITestProbeDependencyResolverAdder> TestProbeDependencyResolverAdderMock;
         internal Mock<IResolvedTestProbeStore> ResolvedTestProbeStoreMock;
         internal Mock<ITestProbeCreator> TestProbeCreatorMock;
-        internal Mock<ITestProbeActorCreator> TestProbeActorCreatorMock;
+        internal Mock<ITestProbeChildActorCreator> TestProbeChildActorCreatorMock;
         internal Mock<ITestProbeHandlersMapper> TestProbeHandlersMapperMock;
-        internal Mock<ITestProbeActor> TestProbeActorMock;
+        internal Mock<ITestProbeChildActor> TestProbeChildActorMock;
         internal Mock<ISutSupervisorStrategyGetter> SutSupervisorStrategyGetterMock;
 
         internal ISutCreator SutCreator;
@@ -32,7 +32,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal ITestProbeDependencyResolverAdder TestProbeDependencyResolverAdder;
         internal ITestProbeCreator TestProbeCreator;
         internal IResolvedTestProbeStore ResolvedTestProbeStore;
-        internal ITestProbeActorCreator TestProbeActorCreator;
+        internal ITestProbeChildActorCreator TestProbeChildActorCreator;
         internal ITestProbeHandlersMapper TestProbeHandlersMapper;
         internal ISutSupervisorStrategyGetter SutSupervisorStrategyGetter;
         
@@ -64,10 +64,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();
             TestProbeDependencyResolverAdderMock = new Mock<ITestProbeDependencyResolverAdder>();
             ResolvedTestProbeStoreMock = new Mock<IResolvedTestProbeStore>();
-            TestProbeActorCreatorMock = new Mock<ITestProbeActorCreator>();
+            TestProbeChildActorCreatorMock = new Mock<ITestProbeChildActorCreator>();
             TestProbeCreatorMock = new Mock<ITestProbeCreator>();
             TestProbeHandlersMapperMock = new Mock<ITestProbeHandlersMapper>();
-            TestProbeActorMock = new Mock<ITestProbeActor>();
+            TestProbeChildActorMock = new Mock<ITestProbeChildActor>();
             SutSupervisorStrategyGetterMock = new Mock<ISutSupervisorStrategyGetter>();
 
             // Create objects passed into sut constructor
@@ -78,7 +78,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             TestProbeDependencyResolverAdder = TestProbeDependencyResolverAdderMock.Object;
             TestProbeCreator = TestProbeCreatorMock.Object;
             ResolvedTestProbeStore = ResolvedTestProbeStoreMock.Object;
-            TestProbeActorCreator = TestProbeActorCreatorMock.Object;
+            TestProbeChildActorCreator = TestProbeChildActorCreatorMock.Object;
             TestProbeHandlersMapper = TestProbeHandlersMapperMock.Object;
             SutSupervisorStrategyGetter = SutSupervisorStrategyGetterMock.Object;
             Handlers = ImmutableDictionary<(Type, Type), Func<object, object>>
@@ -164,7 +164,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeDependencyResolverAdder,
                 TestProbeCreator,
                 ResolvedTestProbeStore,
-                TestProbeActorCreator,
+                TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
                 Handlers,

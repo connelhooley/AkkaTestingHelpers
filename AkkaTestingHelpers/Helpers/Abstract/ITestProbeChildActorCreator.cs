@@ -4,9 +4,9 @@ using Akka.TestKit;
 
 namespace ConnelHooley.AkkaTestingHelpers.Helpers.Abstract
 {
-    internal interface ITestProbeActorCreator
+    internal interface ITestProbeChildActorCreator
     {
-        ITestProbeActor Create(
+        ITestProbeChildActor Create(
             ITestProbeCreator testProbeCreator,
             TestKitBase testKit,
             IReadOnlyDictionary<Type, Func<object, object>> handlers = null);

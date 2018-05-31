@@ -4,15 +4,15 @@ using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeChildActorTests
 {
     public class TestProbe : TestBase
     {
         [Fact]
-        public void TestProbeActor_TestProbe_ReturnsTestProbeFromTestProbeCreator()
+        public void TestProbeChildActor_TestProbe_ReturnsTestProbeFromTestProbeCreator()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
+            TestActorRef<TestProbeChildActor> sut = CreateTestProbeChildActorWithoutSupervisorStrategy();
 
             //act
             global::Akka.TestKit.TestProbe result = sut.UnderlyingActor.TestProbe;
@@ -22,10 +22,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         }
 
         [Fact]
-        public void TestProbeActor_TestProbe_ReturnsSameResultOnEveryCall()
+        public void TestProbeChildActor_TestProbe_ReturnsSameResultOnEveryCall()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
+            TestActorRef<TestProbeChildActor> sut = CreateTestProbeChildActorWithoutSupervisorStrategy();
 
             //act
             global::Akka.TestKit.TestProbe result = sut.UnderlyingActor.TestProbe;
@@ -35,10 +35,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
         }
 
         [Fact]
-        public void TestProbeActor_TestProbe_TestProbeIsForwardedMessages()
+        public void TestProbeChildActor_TestProbe_TestProbeIsForwardedMessages()
         {
             //arrange
-            TestActorRef<TestProbeActor> sut = CreateTestProbeActorWithoutSupervisorStrategy();
+            TestActorRef<TestProbeChildActor> sut = CreateTestProbeChildActorWithoutSupervisorStrategy();
             object message = TestHelper.Generate<object>();
             global::Akka.TestKit.TestProbe sender = CreateTestProbe();
 
