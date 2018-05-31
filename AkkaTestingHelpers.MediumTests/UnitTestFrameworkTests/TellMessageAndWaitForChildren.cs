@@ -49,7 +49,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             Action act = () => sut.TellMessageAndWaitForChildren(new CreateChildren(childType, moreChildCount), moreChildCount + 1);
 
             //assert
-            act.ShouldThrow<TimeoutException>();
+            act.Should().Throw<TimeoutException>();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
                 Supervisor);
             
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
                 Supervisor);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
                 Supervisor);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -81,7 +81,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
                 Supervisor);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 

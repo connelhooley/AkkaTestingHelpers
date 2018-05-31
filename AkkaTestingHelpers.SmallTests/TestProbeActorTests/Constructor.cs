@@ -20,7 +20,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
                 Handlers);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
                 Handlers);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
                 null);
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
                 null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 
@@ -72,7 +72,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorTests
                 Handlers);
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
     }
 }

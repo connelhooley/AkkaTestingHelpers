@@ -18,7 +18,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             Action act = () => sut.ResolvedTestProbe(null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 

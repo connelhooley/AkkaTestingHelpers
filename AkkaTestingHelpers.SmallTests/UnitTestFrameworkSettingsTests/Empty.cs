@@ -13,7 +13,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTe
             Action act = () => { UnitTestFrameworkSettings sut = UnitTestFrameworkSettings.Empty; };
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
     }
 }

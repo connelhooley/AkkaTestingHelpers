@@ -14,7 +14,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
             Action act = () => new TellChildWaiter();
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
     }
 }

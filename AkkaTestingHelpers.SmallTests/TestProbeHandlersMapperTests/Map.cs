@@ -21,7 +21,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
             Action act = () => sut.Map(null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 
@@ -50,7 +50,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
                 .Add((actor, message), handler));
 
             //assert
-            result.ShouldAllBeEquivalentTo(MappedHandlers.Empty
+            result.Should().BeEquivalentTo(MappedHandlers.Empty
                 .Add(actor, MappedMessageHandlers.Empty
                     .Add(message, handler)));
         }
@@ -69,7 +69,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
                 .Add((actor, message2), handler2));
 
             //assert
-            result.ShouldAllBeEquivalentTo(MappedHandlers.Empty
+            result.Should().BeEquivalentTo(MappedHandlers.Empty
                 .Add(actor, MappedMessageHandlers.Empty
                     .Add(message1, handler1)
                     .Add(message2, handler2)));
@@ -89,7 +89,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
                 .Add((actor2, message2), handler2));
 
             //assert
-            result.ShouldAllBeEquivalentTo(
+            result.Should().BeEquivalentTo(
                 MappedHandlers.Empty
                     .Add(actor1, MappedMessageHandlers.Empty
                         .Add(message1, handler1))
@@ -117,7 +117,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
                 .Add((actor2, message5), handler5));
 
             //assert
-            result.ShouldAllBeEquivalentTo(MappedHandlers.Empty
+            result.Should().BeEquivalentTo(MappedHandlers.Empty
                 .Add(actor1, MappedMessageHandlers.Empty
                     .Add(message1, handler1)
                     .Add(message2, handler2)
@@ -145,7 +145,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
                 .Add((actor2, message4), handler4));
 
             //assert
-            result.ShouldAllBeEquivalentTo(MappedHandlers.Empty
+            result.Should().BeEquivalentTo(MappedHandlers.Empty
                 .Add(actor1, MappedMessageHandlers.Empty
                     .Add(message1, handler1)
                     .Add(message2, handler2)

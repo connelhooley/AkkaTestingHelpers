@@ -18,7 +18,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
             Action act = () => sut.ResolvedChild();
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
             Action act = () => sut.ResolvedChild();
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
     }
 }

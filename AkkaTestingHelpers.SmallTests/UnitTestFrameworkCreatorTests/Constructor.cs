@@ -16,7 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkCreatorTes
             Action act = () => new UnitTestFrameworkCreator();
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
     }
 }

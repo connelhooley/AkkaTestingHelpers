@@ -18,7 +18,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTe
             Action act = () => sut.RegisterHandler<DummyChildActor1, Message1>(null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 

@@ -28,7 +28,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
                 Handlers);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
                 Handlers);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
                 Handlers);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -88,7 +88,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
                 Handlers);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -108,7 +108,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
                 Handlers);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -128,7 +128,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
                 Handlers);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -148,7 +148,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
                 null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -168,7 +168,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
                 null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 

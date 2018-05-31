@@ -24,7 +24,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.DependencyResolverAdderTest
             Action act = () => sut.Add(null, type => new BlackHoleActor());
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.DependencyResolverAdderTest
             Action act = () => sut.Add(this, null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.DependencyResolverAdderTest
             Action act = () => sut.Add(null, null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 

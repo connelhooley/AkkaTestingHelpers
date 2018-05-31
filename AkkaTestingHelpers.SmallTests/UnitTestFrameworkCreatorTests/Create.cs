@@ -18,7 +18,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkCreatorTes
             Action act = () => sut.Create<DummyActor1>(null, TestKitPassedIntoSut, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkCreatorTes
             Action act = () => sut.Create<DummyActor1>(HandlersPassedIntoSut, null, PropsPassedIntoSut, NumberOfChildrenIntoSut);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         
         [Fact]
@@ -44,7 +44,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkCreatorTes
             Action act = () => sut.Create<DummyActor1>(HandlersPassedIntoSut, TestKitPassedIntoSut, null, NumberOfChildrenIntoSut);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         
         [Fact]
@@ -57,7 +57,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkCreatorTes
             Action act = () => sut.Create<DummyActor1>(null, null, null, NumberOfChildrenIntoSut);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 

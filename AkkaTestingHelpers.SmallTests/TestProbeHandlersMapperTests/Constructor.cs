@@ -16,7 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
             Action act = () => new TestProbeHandlersMapper();
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
     }
 }

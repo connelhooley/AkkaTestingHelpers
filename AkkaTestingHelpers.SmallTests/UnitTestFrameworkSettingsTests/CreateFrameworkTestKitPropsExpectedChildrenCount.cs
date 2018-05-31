@@ -19,7 +19,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTe
             Action act = () => sut.CreateFramework<DummyChildActor1>(null, PropsPassedIntoSut, ExpectedChildrenCountPassedIntoSut);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         
         [Fact]
@@ -32,7 +32,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTe
             Action act = () => sut.CreateFramework<DummyChildActor1>(TestKitPassedIntoShim, (Props)null, ExpectedChildrenCountPassedIntoSut);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTe
             Action act = () => sut.CreateFramework<DummyChildActor1>(null, (Props)null, ExpectedChildrenCountPassedIntoSut);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 
@@ -78,12 +78,13 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTe
             sut.CreateFramework<DummyParentActor>(this, PropsPassedIntoSut, ExpectedChildrenCountPassedIntoSut);
 
             //assert
-            HandlersPassedIntoShim.ShouldAllBeEquivalentTo(
+            HandlersPassedIntoShim.ToImmutableList().Should().BeEquivalentTo(
                 ImmutableDictionary<(Type, Type), Func<object, object>>
                     .Empty
                     .Add((typeof(DummyChildActor1), typeof(Message1)), message1 => reply1)
                     .Add((typeof(DummyChildActor1), typeof(Message2)), message2 => reply2)
-                    .Add((typeof(DummyChildActor2), typeof(Message1)), message1 => reply1),
+                    .Add((typeof(DummyChildActor2), typeof(Message1)), message1 => reply1)
+                    .ToImmutableList(),
                 options => options
                     .Using<Func<object, object>>(context => context.Subject.Invoke(null).Should().BeSameAs(context.Expectation.Invoke(null)))
                     .WhenTypeIs<Func<object, object>>());
@@ -106,11 +107,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTe
             sut.CreateFramework<DummyParentActor>(this, PropsPassedIntoSut, ExpectedChildrenCountPassedIntoSut);
 
             //assert
-            HandlersPassedIntoShim.ShouldAllBeEquivalentTo(
+            HandlersPassedIntoShim.ToImmutableList().Should().BeEquivalentTo(
                 ImmutableDictionary<(Type, Type), Func<object, object>>
                     .Empty
                     .Add((typeof(DummyChildActor1), typeof(Message1)), message1 => duplicateReply1)
-                    .Add((typeof(DummyChildActor2), typeof(Message2)), message2 => reply2),
+                    .Add((typeof(DummyChildActor2), typeof(Message2)), message2 => reply2)
+                    .ToImmutableList(),
                 options => options
                     .Using<Func<object, object>>(context => context.Subject.Invoke(null).Should().BeSameAs(context.Expectation.Invoke(null)))
                     .WhenTypeIs<Func<object, object>>());
@@ -135,11 +137,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTe
             sut.CreateFramework<DummyParentActor>(this, PropsPassedIntoSut, ExpectedChildrenCountPassedIntoSut);
 
             //assert
-            HandlersPassedIntoShim.ShouldAllBeEquivalentTo(
+            HandlersPassedIntoShim.ToImmutableList().Should().BeEquivalentTo(
                 ImmutableDictionary<(Type, Type), Func<object, object>>
                     .Empty
                     .Add((typeof(DummyChildActor1), typeof(Message1)), message1 => reply1)
-                    .Add((typeof(DummyChildActor2), typeof(Message2)), message1 => reply2),
+                    .Add((typeof(DummyChildActor2), typeof(Message2)), message1 => reply2)
+                    .ToImmutableList(),
                 options => options
                     .Using<Func<object, object>>(context => context.Subject.Invoke(null).Should().BeSameAs(context.Expectation.Invoke(null)))
                     .WhenTypeIs<Func<object, object>>());
@@ -180,7 +183,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkSettingsTe
 
             //assert
             Action invokeHandlerWithWrongMessageType = () => HandlersPassedIntoShim[(typeof(DummyChildActor1), typeof(Message1))].Invoke(new Message2());
-            invokeHandlerWithWrongMessageType.ShouldThrow<InvalidCastException>();
+            invokeHandlerWithWrongMessageType.Should().Throw<InvalidCastException>();
         }
 
         [Fact]

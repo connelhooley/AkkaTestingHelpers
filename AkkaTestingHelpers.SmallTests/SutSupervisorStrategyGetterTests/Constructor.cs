@@ -16,7 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutSupervisorStrategyGetter
             Action act = () => new SutSupervisorStrategyGetter();
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
     }
 }

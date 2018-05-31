@@ -14,7 +14,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
             Action act = () => new SutCreator();
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
     }
 }

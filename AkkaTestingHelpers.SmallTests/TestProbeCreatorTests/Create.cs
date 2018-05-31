@@ -19,7 +19,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeCreatorTests
             Action act = () => sut.Create(null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
         

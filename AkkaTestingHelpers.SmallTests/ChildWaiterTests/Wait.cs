@@ -21,7 +21,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
                 Action act = () => sut.Wait();
 
                 //assert
-                act.ShouldNotThrow();
+                act.Should().NotThrow();
             });
         }
 
@@ -44,7 +44,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
                 Action act = () => sut.Wait();
 
                 //assert
-                act.ShouldThrow<TimeoutException>();
+                act.Should().Throw<TimeoutException>();
             });
         }
 

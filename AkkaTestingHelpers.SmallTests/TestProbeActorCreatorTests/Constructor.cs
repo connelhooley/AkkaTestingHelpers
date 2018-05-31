@@ -14,7 +14,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeActorCreatorTests
             Action act = () => new TestProbeActorCreator();
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
                 Sender);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
                 Sender);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
                 Sender);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -84,7 +84,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
                 Sender);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
                 Sender);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 

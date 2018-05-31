@@ -69,7 +69,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             Action act = () => sut.ResolvedSupervisorStrategy(Guid.NewGuid().ToString());
 
             //assert
-            act.ShouldThrow<ActorNotFoundException>();
+            act.Should().Throw<ActorNotFoundException>();
         }
     }
 }

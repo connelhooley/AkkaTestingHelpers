@@ -70,7 +70,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             };
             
             //assert
-            act.ShouldThrow<TimeoutException>();
+            act.Should().Throw<TimeoutException>();
         }
 
         [Fact]

@@ -14,7 +14,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.DependencyResolverAdderTest
             Action act = () => new DependencyResolverAdder();
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.BasicResolverSettingsTests
             Action act = () => sut.RegisterActor<DummyActor1>(null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 

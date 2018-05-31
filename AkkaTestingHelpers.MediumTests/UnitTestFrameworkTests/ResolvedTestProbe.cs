@@ -45,7 +45,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             Action act = () => sut.ResolvedTestProbe(Guid.NewGuid().ToString());
 
             //assert
-            act.ShouldThrow<ActorNotFoundException>();
+            act.Should().Throw<ActorNotFoundException>();
         }
     }
 }

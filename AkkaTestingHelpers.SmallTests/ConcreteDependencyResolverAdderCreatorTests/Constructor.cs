@@ -16,7 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteDependencyResolverA
             Action act = () => new ConcreteDependencyResolverAdderCreator();
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
     }
 }

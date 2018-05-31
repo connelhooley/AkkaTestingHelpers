@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
-//goodbye
+
 namespace ConnelHooley.AkkaTestingHelpers
 {
     public sealed class UnitTestFramework<TActor> where TActor : ActorBase

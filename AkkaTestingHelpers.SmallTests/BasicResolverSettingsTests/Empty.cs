@@ -13,7 +13,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.BasicResolverSettingsTests
             Action act = () => { BasicResolverSettings sut = BasicResolverSettings.Empty; };
 
             //assert
-            act.ShouldNotThrow();
+            act.Should().NotThrow();
         }
     }
 }

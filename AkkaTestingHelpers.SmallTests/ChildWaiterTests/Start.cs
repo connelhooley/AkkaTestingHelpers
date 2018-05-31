@@ -22,7 +22,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
                 Action act = () => sut.Start(null, TestHelper.GenerateNumber());
 
                 //assert
-                act.ShouldThrow<ArgumentNullException>();
+                act.Should().Throw<ArgumentNullException>();
             });
         }
         #endregion
@@ -39,7 +39,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
                 Action act = () => sut.Start(this, TestHelper.GenerateNumber());
 
                 //assert
-                act.ShouldNotThrow();
+                act.Should().NotThrow();
             });
         }
         

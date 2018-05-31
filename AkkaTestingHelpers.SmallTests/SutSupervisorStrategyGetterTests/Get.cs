@@ -19,7 +19,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutSupervisorStrategyGetter
             Action act = () => sut.Get(null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 

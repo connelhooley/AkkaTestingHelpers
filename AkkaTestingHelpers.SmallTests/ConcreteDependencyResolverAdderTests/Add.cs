@@ -23,7 +23,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteDependencyResolverA
                 Factories);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteDependencyResolverA
                 null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteDependencyResolverA
                 null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 
@@ -104,7 +104,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ConcreteDependencyResolverA
             //assert
             Action act = () => ActorFactory(UnregisteredActorType);
             act
-                .ShouldThrow<InvalidOperationException>()
+                .Should().Throw<InvalidOperationException>()
                 .WithMessage($"Please register the type '{UnregisteredActorType.Name}' in the settings");
         }
     }

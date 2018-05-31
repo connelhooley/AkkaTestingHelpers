@@ -21,7 +21,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.BasicResolverSettingsTests
             Action act = () => sut.RegisterResolver(null);
 
             //assert
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
         
@@ -95,11 +95,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.BasicResolverSettingsTests
             sut.RegisterResolver(this);
 
             //assert
-            HandlersPassedIntoMock.ShouldAllBeEquivalentTo(
+            HandlersPassedIntoMock.ToImmutableList().Should().BeEquivalentTo(
                 ImmutableDictionary<Type, Func<ActorBase>>
                     .Empty
                     .Add(typeof(DummyActor1), () => actor1)
-                    .Add(typeof(DummyActor2), () => actor2),
+                    .Add(typeof(DummyActor2), () => actor2)
+                    .ToImmutableList(),
                 options => options
                     .Using<Func<ActorBase>>(context => context.Subject.Invoke().Should().BeSameAs(context.Expectation.Invoke()))
                     .WhenTypeIs<Func<ActorBase>>());
@@ -122,11 +123,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.BasicResolverSettingsTests
             sut.RegisterResolver(this);
 
             //assert
-            HandlersPassedIntoMock.ShouldAllBeEquivalentTo(
+            HandlersPassedIntoMock.ToImmutableList().Should().BeEquivalentTo(
                 ImmutableDictionary<Type, Func<ActorBase>>
                     .Empty
                     .Add(typeof(DummyActor1), () => duplicateActor1)
-                    .Add(typeof(DummyActor2), () => actor2),
+                    .Add(typeof(DummyActor2), () => actor2)
+                    .ToImmutableList(),
                 options => options
                     .Using<Func<ActorBase>>(context => context.Subject.Invoke().Should().BeSameAs(context.Expectation.Invoke()))
                     .WhenTypeIs<Func<ActorBase>>());
@@ -148,10 +150,11 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.BasicResolverSettingsTests
             sut.RegisterResolver(this);
 
             //assert
-            HandlersPassedIntoMock.ShouldAllBeEquivalentTo(
+            HandlersPassedIntoMock.ToImmutableList().Should().BeEquivalentTo(
                 ImmutableDictionary<Type, Func<ActorBase>>
                     .Empty
-                    .Add(typeof(DummyActor1), () => actor1),
+                    .Add(typeof(DummyActor1), () => actor1)
+                    .ToImmutableList(),
                 options => options
                     .Using<Func<ActorBase>>(context => context.Subject.Invoke().Should().BeSameAs(context.Expectation.Invoke()))
                     .WhenTypeIs<Func<ActorBase>>());
@@ -170,11 +173,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.BasicResolverSettingsTests
             sut.RegisterResolver(this);
 
             //assert
-            HandlersPassedIntoMock.ShouldAllBeEquivalentTo(
+            HandlersPassedIntoMock.ToImmutableList().Should().BeEquivalentTo(
                 ImmutableDictionary<Type, Func<ActorBase>>
                     .Empty
                     .Add(typeof(DummyActor1), () => new DummyActor1())
-                    .Add(typeof(DummyActor2), () => new DummyActor2()),
+                    .Add(typeof(DummyActor2), () => new DummyActor2())
+                    .ToImmutableList(),
                 options => options
                     .Using<Func<ActorBase>>(context => context.Subject.Invoke().GetType().Should().Be(context.Expectation.Invoke().GetType()))
                     .WhenTypeIs<Func<ActorBase>>());
@@ -194,11 +198,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.BasicResolverSettingsTests
             sut.RegisterResolver(this);
 
             //assert
-            HandlersPassedIntoMock.ShouldAllBeEquivalentTo(
+            HandlersPassedIntoMock.ToImmutableList().Should().BeEquivalentTo(
                 ImmutableDictionary<Type, Func<ActorBase>>
                     .Empty
                     .Add(typeof(DummyActor2), () => new DummyActor2())
-                    .Add(typeof(DummyActor1), () => new DummyActor1()),
+                    .Add(typeof(DummyActor1), () => new DummyActor1())
+                    .ToImmutableList(),
                 options => options
                     .Using<Func<ActorBase>>(context => context.Subject.Invoke().GetType().Should().Be(context.Expectation.Invoke().GetType()))
                     .WhenTypeIs<Func<ActorBase>>());
@@ -218,10 +223,11 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.BasicResolverSettingsTests
             sut.RegisterResolver(this);
 
             //assert
-            HandlersPassedIntoMock.ShouldAllBeEquivalentTo(
+            HandlersPassedIntoMock.ToImmutableList().Should().BeEquivalentTo(
                 ImmutableDictionary<Type, Func<ActorBase>>
                     .Empty
-                    .Add(typeof(DummyActor1), () => new DummyActor1()),
+                    .Add(typeof(DummyActor1), () => new DummyActor1())
+                    .ToImmutableList(),
                 options => options
                     .Using<Func<ActorBase>>(context => context.Subject.Invoke().GetType().Should().Be(context.Expectation.Invoke().GetType()))
                     .WhenTypeIs<Func<ActorBase>>());
