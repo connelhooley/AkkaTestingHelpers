@@ -66,13 +66,13 @@
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="ConnelHooley.Akka.TestHelperSupport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ConnelHooley.Akka.TestHelperSupport.1.0.0\lib\net45\ConnelHooley.Akka.TestHelperSupport.dll</HintPath>
+      <HintPath>..\packages\ConnelHooley.Akka.TestHelperSupport.1.0.1\lib\net45\ConnelHooley.Akka.TestHelperSupport.dll</HintPath>
     </Reference>
     <Reference Include="ConnelHooley.AkkaTestingHelpers.Fakes">
       <HintPath>FakesAssemblies\ConnelHooley.AkkaTestingHelpers.Fakes.dll</HintPath>
     </Reference>
     <Reference Include="ConnelHooley.TestHelpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ConnelHooley.TestHelpers.1.0.6\lib\net452\ConnelHooley.TestHelpers.dll</HintPath>
+      <HintPath>..\packages\ConnelHooley.TestHelpers.1.0.7\lib\net452\ConnelHooley.TestHelpers.dll</HintPath>
     </Reference>
     <Reference Include="ConnelHooley.TestHelpers.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ConnelHooley.TestHelpers.Abstractions.1.0.0\lib\net45\ConnelHooley.TestHelpers.Abstractions.dll</HintPath>
@@ -206,7 +206,9 @@
     <Fakes Include="Fakes\Akka.TestKit.fakes" />
     <Fakes Include="Fakes\Akka.TestKit.Xunit2.fakes" />
     <Fakes Include="Fakes\ConnelHooley.AkkaTestingHelpers.fakes" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AkkaTestingHelpers\AkkaTestingHelpers.csproj">
