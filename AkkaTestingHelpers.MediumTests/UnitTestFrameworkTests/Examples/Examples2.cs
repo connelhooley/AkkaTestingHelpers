@@ -55,7 +55,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
             Mock<IRepository> repoMock = new Mock<IRepository>();
             UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .RegisterHandler<ChildActor, ParentActor.Save>(s => new ChildActor.ModifiedSave(s.Value.ToUpper()))
+                .RegisterChildHandler<ChildActor, ParentActor.Save>(s => new ChildActor.ModifiedSave(s.Value.ToUpper()))
                 .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(repoMock.Object)), 1);
 
             //act

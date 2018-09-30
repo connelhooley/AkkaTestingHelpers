@@ -6,16 +6,16 @@ using SettingsHandlers = System.Collections.Immutable.ImmutableDictionary<(Syste
 using MappedMessageHandlers = System.Collections.Immutable.ImmutableDictionary<System.Type, System.Func<object, object>>;
 using MappedHandlers = System.Collections.Immutable.ImmutableDictionary<System.Type, System.Collections.Immutable.ImmutableDictionary<System.Type, System.Func<object, object>>>;
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeChildHandlersMapperTests
 {
     public class Map : TestBase
     {
         #region Null tests
         [Fact]
-        public void TestProbeHandlersMapper_MapWithNullSettingsHandlers_ThrowsArgumentNullException()
+        public void TestProbeChildHandlersMapper_MapWithNullSettingsHandlers_ThrowsArgumentNullException()
         {
             //arrange
-            TestProbeHandlersMapper sut = CreateTestProbeHandlersMapper();
+            TestProbeChildHandlersMapper sut = CreateTestProbeChildHandlersMapper();
 
             //act
             Action act = () => sut.Map(null);
@@ -26,10 +26,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
         #endregion
 
         [Fact]
-        public void TestProbeHandlersMapper_MapNoActors_ReturnsEmptyResult()
+        public void TestProbeChildHandlersMapper_MapNoActors_ReturnsEmptyResult()
         {
             //arrange
-            TestProbeHandlersMapper sut = CreateTestProbeHandlersMapper();
+            TestProbeChildHandlersMapper sut = CreateTestProbeChildHandlersMapper();
 
             //act
             MappedHandlers result = sut.Map(SettingsHandlers.Empty);
@@ -39,11 +39,11 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
         }
         
         [Fact]
-        public void TestProbeHandlersMapper_MapASingleActorWithASingleHandler_ReturnsCorrectResult()
+        public void TestProbeChildHandlersMapper_MapASingleActorWithASingleHandler_ReturnsCorrectResult()
         {
             //arrange
             (Type actor, Type message, Func<object, object> handler) = CreateSettingsHandler();
-            TestProbeHandlersMapper sut = CreateTestProbeHandlersMapper();
+            TestProbeChildHandlersMapper sut = CreateTestProbeChildHandlersMapper();
             
             //act
             MappedHandlers result = sut.Map(SettingsHandlers.Empty
@@ -56,12 +56,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
         }
 
         [Fact]
-        public void TestProbeHandlersMapper_MapASingleActorWithMultipleHandlers_ReturnsCorrectResult()
+        public void TestProbeChildHandlersMapper_MapASingleActorWithMultipleHandlers_ReturnsCorrectResult()
         {
             //arrange
             (Type actor, Type message1, Func<object, object> handler1) = CreateSettingsHandler();
             (_, Type message2, Func<object, object> handler2) = CreateSettingsHandler();
-            TestProbeHandlersMapper sut = CreateTestProbeHandlersMapper();
+            TestProbeChildHandlersMapper sut = CreateTestProbeChildHandlersMapper();
 
             //act
             MappedHandlers result = sut.Map(SettingsHandlers.Empty
@@ -76,12 +76,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
         }
 
         [Fact]
-        public void TestProbeHandlersMapper_MapMultipleActorsWithSingleHandlers_ReturnsCorrectResult()
+        public void TestProbeChildHandlersMapper_MapMultipleActorsWithSingleHandlers_ReturnsCorrectResult()
         {
             //arrange
             (Type actor1, Type message1, Func<object, object> handler1) = CreateSettingsHandler();
             (Type actor2, Type message2, Func<object, object> handler2) = CreateSettingsHandler();
-            TestProbeHandlersMapper sut = CreateTestProbeHandlersMapper();
+            TestProbeChildHandlersMapper sut = CreateTestProbeChildHandlersMapper();
 
             //act
             MappedHandlers result = sut.Map(SettingsHandlers.Empty
@@ -98,7 +98,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
         }
         
         [Fact]
-        public void TestProbeHandlersMapper_MapMultipleActorsWithMultipleHandlers_ReturnsCorrectResult()
+        public void TestProbeChildHandlersMapper_MapMultipleActorsWithMultipleHandlers_ReturnsCorrectResult()
         {
             //arrange
             (Type actor1, Type message1, Func<object, object> handler1) = CreateSettingsHandler();
@@ -106,7 +106,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
             (_, Type message3, Func<object, object> handler3) = CreateSettingsHandler();
             (Type actor2, Type message4, Func<object, object> handler4) = CreateSettingsHandler();
             (_, Type message5, Func<object, object> handler5) = CreateSettingsHandler();
-            TestProbeHandlersMapper sut = CreateTestProbeHandlersMapper();
+            TestProbeChildHandlersMapper sut = CreateTestProbeChildHandlersMapper();
 
             //act
             MappedHandlers result = sut.Map(SettingsHandlers.Empty
@@ -128,14 +128,14 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
         }
 
         [Fact]
-        public void TestProbeHandlersMapper_MapASingleActorWithASingleHandlerAndAnActorWithMultipleHandlers_ReturnsCorrectResult()
+        public void TestProbeChildHandlersMapper_MapASingleActorWithASingleHandlerAndAnActorWithMultipleHandlers_ReturnsCorrectResult()
         {
             //arrange
             (Type actor1, Type message1, Func<object, object> handler1) = CreateSettingsHandler();
             (_, Type message2, Func<object, object> handler2) = CreateSettingsHandler();
             (_, Type message3, Func<object, object> handler3) = CreateSettingsHandler();
             (Type actor2, Type message4, Func<object, object> handler4) = CreateSettingsHandler();
-            TestProbeHandlersMapper sut = CreateTestProbeHandlersMapper();
+            TestProbeChildHandlersMapper sut = CreateTestProbeChildHandlersMapper();
             
             //act
             MappedHandlers result = sut.Map(SettingsHandlers.Empty

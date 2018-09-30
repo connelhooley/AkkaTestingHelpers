@@ -5,7 +5,7 @@ using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
 
 namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
 {
-    internal sealed class TestProbeHandlersMapper : ITestProbeHandlersMapper
+    internal sealed class TestProbeChildHandlersMapper : ITestProbeChildHandlersMapper
     {
         public ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> Map(ImmutableDictionary<(Type, Type), Func<object, object>> settingsHandlers) =>
             settingsHandlers

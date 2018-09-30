@@ -27,7 +27,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
-                Handlers,
+                ParentHandlers,
+                ChildHandlers,
                 this,
                 Props,
                 ExpectedChildCount);
@@ -51,7 +52,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
-                Handlers,
+                ParentHandlers,
+                ChildHandlers,
                 this,
                 Props,
                 ExpectedChildCount);
@@ -75,7 +77,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
-                Handlers,
+                ParentHandlers,
+                ChildHandlers,
                 this,
                 Props,
                 ExpectedChildCount);
@@ -99,7 +102,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
-                Handlers,
+                ParentHandlers,
+                ChildHandlers,
                 this,
                 Props,
                 ExpectedChildCount);
@@ -123,7 +127,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
-                Handlers,
+                ParentHandlers,
+                ChildHandlers,
                 this,
                 Props,
                 ExpectedChildCount);
@@ -147,7 +152,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
-                Handlers,
+                ParentHandlers,
+                ChildHandlers,
                 this,
                 Props,
                 ExpectedChildCount);
@@ -171,7 +177,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
-                Handlers,
+                ParentHandlers,
+                ChildHandlers,
                 this,
                 Props,
                 ExpectedChildCount);
@@ -195,7 +202,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 null,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
-                Handlers,
+                ParentHandlers,
+                ChildHandlers,
                 this,
                 Props,
                 ExpectedChildCount);
@@ -219,7 +227,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 null,
                 SutSupervisorStrategyGetter,
-                Handlers,
+                ParentHandlers,
+                ChildHandlers,
                 this,
                 Props,
                 ExpectedChildCount);
@@ -243,7 +252,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 null,
-                Handlers,
+                ParentHandlers,
+                ChildHandlers,
                 this,
                 Props,
                 ExpectedChildCount);
@@ -252,8 +262,9 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             act.Should().Throw<ArgumentNullException>();
         }
 
+
         [Fact]
-        public void UnitTestFramework_ConstructorWithNullHandlers_ThrowsArgumentNullException()
+        public void UnitTestFramework_ConstructorWithNullParentHandlers_ThrowsArgumentNullException()
         {
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
@@ -267,6 +278,32 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
+                null,
+                ChildHandlers,
+                this,
+                Props,
+                ExpectedChildCount);
+
+            //assert
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void UnitTestFramework_ConstructorWithNullChildHandlers_ThrowsArgumentNullException()
+        {
+            //act
+            Action act = () => new UnitTestFramework<DummyActor>(
+                SutCreator,
+                ChildTeller,
+                ChildWaiter,
+                DependencyResolverAdder,
+                TestProbeDependencyResolverAdder,
+                TestProbeCreator,
+                ResolvedTestProbeStore,
+                TestProbeChildActorCreator,
+                TestProbeHandlersMapper,
+                SutSupervisorStrategyGetter,
+                ParentHandlers,
                 null,
                 this,
                 Props,
@@ -291,7 +328,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
-                Handlers,
+                ParentHandlers,
+                ChildHandlers,
                 null,
                 Props,
                 ExpectedChildCount);
@@ -315,7 +353,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
-                Handlers,
+                ParentHandlers,
+                ChildHandlers,
                 this,
                 null,
                 ExpectedChildCount);
@@ -329,6 +368,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         {
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
+                null,
                 null,
                 null,
                 null,
@@ -364,7 +404,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                     ResolvedTestProbeStore,
                     ChildWaiter,
                     this,
-                    MappedHandlers),
+                    MappedChildHandlers),
                 Times.Once);
         }
 

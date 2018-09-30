@@ -8,10 +8,16 @@ namespace ConnelHooley.AkkaTestingHelpers
 {
     public sealed class UnitTestFrameworkSettings
     {
-        internal readonly ImmutableDictionary<(Type, Type), Func<object, object>> Handlers;
+        internal readonly ImmutableDictionary<(Type, Type), Func<object, object>> ChildHandlers;
+        internal readonly ImmutableDictionary<Type, Func<object, object>> ParentHandlers;
 
-        private UnitTestFrameworkSettings(ImmutableDictionary<(Type, Type), Func<object, object>> handlers) => 
-            Handlers = handlers;
+        private UnitTestFrameworkSettings(
+            ImmutableDictionary<(Type, Type), Func<object, object>> childHandlers,
+            ImmutableDictionary<Type, Func<object, object>> parentHandlers)
+        {
+            ChildHandlers = childHandlers;
+            ParentHandlers = parentHandlers;
+        }
 
         /// <summary>
         /// Creates a UnitTestFramework using the given TestKit. Does not wait for any children to be created when the SUT actor is created.
@@ -22,9 +28,10 @@ namespace ConnelHooley.AkkaTestingHelpers
         public UnitTestFramework<TActor> CreateFramework<TActor>(TestKitBase testKit) where TActor : ActorBase, new() =>
             new UnitTestFrameworkCreator()
                 .Create<TActor>(
-                    Handlers, 
-                    testKit, 
-                    Props.Create<TActor>(), 
+                    ParentHandlers,
+                    ChildHandlers,
+                    testKit,
+                    Props.Create<TActor>(),
                     0);
 
         /// <summary>
@@ -37,7 +44,8 @@ namespace ConnelHooley.AkkaTestingHelpers
         public UnitTestFramework<TActor> CreateFramework<TActor>(TestKitBase testKit, int expectedChildrenCount) where TActor : ActorBase, new() =>
             new UnitTestFrameworkCreator()
                 .Create<TActor>(
-                    Handlers,
+                    ParentHandlers,
+                    ChildHandlers,
                     testKit,
                     Props.Create<TActor>(),
                     expectedChildrenCount);
@@ -52,7 +60,8 @@ namespace ConnelHooley.AkkaTestingHelpers
         public UnitTestFramework<TActor> CreateFramework<TActor>(TestKitBase testKit, Props props) where TActor : ActorBase =>
             new UnitTestFrameworkCreator()
                 .Create<TActor>(
-                    Handlers,
+                    ParentHandlers,
+                    ChildHandlers,
                     testKit,
                     props,
                     0);
@@ -68,7 +77,8 @@ namespace ConnelHooley.AkkaTestingHelpers
         public UnitTestFramework<TActor> CreateFramework<TActor>(TestKitBase testKit, Props props, int expectedChildrenCount) where TActor : ActorBase =>
             new UnitTestFrameworkCreator()
                 .Create<TActor>(
-                    Handlers,
+                    ParentHandlers,
+                    ChildHandlers,
                     testKit,
                     props,
                     expectedChildrenCount);
@@ -77,18 +87,35 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// Creates a UnitTestFrameworkSettings instance with no message handlers registered.
         /// </summary>
         public static UnitTestFrameworkSettings Empty =>
-            new UnitTestFrameworkSettings(ImmutableDictionary<(Type, Type), Func<object, object>>.Empty);
+            new UnitTestFrameworkSettings(
+                ImmutableDictionary<(Type, Type), Func<object, object>>.Empty,
+                ImmutableDictionary<Type, Func<object, object>>.Empty);
 
         /// <summary>
-        /// Creates a UnitTestFramework with the given message handler registered.
+        /// Creates a UnitTestFrameworkSettings instance with the given message handler registered to the specified child.
         /// </summary>
-        /// <typeparam name="TActor">The type of actor that will run the handler</typeparam>
+        /// <typeparam name="TChildActor">The type of actor that will run the handler</typeparam>
         /// <typeparam name="TMessage">The type of message that will trigger the handler</typeparam>
-        /// <param name="messageHandler">The method that will be ran when when the TActor receives TMessage, the returned value from this method is sent back to the sending actor</param>
+        /// <param name="messageHandler">The method that will be ran when when the TChildActor receives TMessage, the returned value from this method is sent back to the sending actor</param>
         /// <returns>A new UnitTestFrameworkSettings instance with the additional handler configured</returns>
-        public UnitTestFrameworkSettings RegisterHandler<TActor, TMessage>(Func<TMessage, object> messageHandler) where TActor : ActorBase => 
-            new UnitTestFrameworkSettings(Handlers.SetItem(
-                (typeof(TActor), typeof(TMessage)),
-                o => messageHandler((TMessage)o)));
+        public UnitTestFrameworkSettings RegisterChildHandler<TChildActor, TMessage>(Func<TMessage, object> messageHandler) where TChildActor : ActorBase =>
+            new UnitTestFrameworkSettings(
+                ChildHandlers.SetItem(
+                    (typeof(TChildActor), typeof(TMessage)),
+                    o => messageHandler((TMessage)o)),
+                ParentHandlers);
+
+        /// <summary>
+        /// Creates a UnitTestFrameworkSettings instance with the given message handler registered to the parent actor.
+        /// </summary>
+        /// <typeparam name="TMessage">The type of message that will trigger the handler</typeparam>
+        /// <param name="messageHandler">The method that will be ran when when the parent receives TMessage, the returned value from this method is sent back to the sending actor</param>
+        /// <returns>A new UnitTestFrameworkSettings instance with the additional handler configured</returns>
+        public UnitTestFrameworkSettings RegisterParentHandler<TMessage>(Func<TMessage, object> messageHandler) =>
+            new UnitTestFrameworkSettings(
+                ChildHandlers,
+                ParentHandlers.SetItem(
+                    typeof(TMessage),
+                    o => messageHandler((TMessage)o)));
     }
 }

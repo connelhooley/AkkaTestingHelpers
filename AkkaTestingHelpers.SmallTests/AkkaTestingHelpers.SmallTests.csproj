@@ -152,9 +152,9 @@
     <Compile Include="TestProbeDependencyResolverAdderTests\Add.cs" />
     <Compile Include="TestProbeDependencyResolverAdderTests\Constructor.cs" />
     <Compile Include="TestProbeDependencyResolverAdderTests\_TestBase.cs" />
-    <Compile Include="TestProbeHandlersMapperTests\Constructor.cs" />
-    <Compile Include="TestProbeHandlersMapperTests\Map.cs" />
-    <Compile Include="TestProbeHandlersMapperTests\_TestBase.cs" />
+    <Compile Include="TestProbeChildHandlersMapperTests\Constructor.cs" />
+    <Compile Include="TestProbeChildHandlersMapperTests\Map.cs" />
+    <Compile Include="TestProbeChildHandlersMapperTests\_TestBase.cs" />
     <Compile Include="UnitTestFrameworkTests\Constructor.cs" />
     <Compile Include="UnitTestFrameworkTests\ResolvedSupervisorStrategy.cs" />
     <Compile Include="UnitTestFrameworkTests\ResolvedTestProbe.cs" />

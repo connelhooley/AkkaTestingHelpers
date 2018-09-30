@@ -21,7 +21,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             Guid message = Guid.NewGuid();
             UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
                 .Empty
-                .RegisterHandler<ReplyChildActor1, Guid>(guid => guid)
+                .RegisterChildHandler<ReplyChildActor1, Guid>(guid => guid)
                 .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(childType, initialChildCount)), initialChildCount);
 
             //act

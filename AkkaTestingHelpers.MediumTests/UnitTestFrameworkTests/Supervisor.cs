@@ -24,7 +24,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             sut.Sut.Tell(new TellParent(message));
 
             //assert
-            sut.Supervisor.ExpectMsg(message);
+            sut.Parent.ExpectMsg(message);
         }
     }
 }

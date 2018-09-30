@@ -3,7 +3,7 @@ using Akka.TestKit.Xunit2;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using ConnelHooley.TestHelpers;
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeChildHandlersMapperTests
 {
     public class TestBase : TestKit
     {
@@ -17,7 +17,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTest
         internal (Type, Type, Func<object, object>) CreateSettingsHandler() => 
             (_typeGenerator(), _typeGenerator(), TestHelper.Generate<Func<object, object>>());
 
-        internal TestProbeHandlersMapper CreateTestProbeHandlersMapper() => 
-            new TestProbeHandlersMapper();
+        internal TestProbeChildHandlersMapper CreateTestProbeChildHandlersMapper() => 
+            new TestProbeChildHandlersMapper();
     }
 }

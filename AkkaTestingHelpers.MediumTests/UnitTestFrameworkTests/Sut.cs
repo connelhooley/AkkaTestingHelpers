@@ -21,7 +21,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             //act
             UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
                 .Empty
-                .RegisterHandler<ReplyChildActor2, Guid>(guid => Guid.Empty)
+                .RegisterChildHandler<ReplyChildActor2, Guid>(guid => Guid.Empty)
                 .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(childType, childCount)), childCount);
 
             //assert
@@ -41,8 +41,8 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             //act
             UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
                 .Empty
-                .RegisterHandler<ReplyChildActor2, Guid>(guid => (default(Guid), default(int)))
-                .RegisterHandler<ReplyChildActor1, Guid>(guid => (guid, ++replyCount))
+                .RegisterChildHandler<ReplyChildActor2, Guid>(guid => (default(Guid), default(int)))
+                .RegisterChildHandler<ReplyChildActor1, Guid>(guid => (guid, ++replyCount))
                 .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(childType, childCount)), childCount);
             
             //assert
@@ -85,8 +85,8 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             //act
             UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
                 .Empty
-                .RegisterHandler<ReplyChildActor1, Guid>(guid => (default(Guid), default(int)))
-                .RegisterHandler<ReplyChildActor1, Guid>(guid => (guid, ++replyCount))
+                .RegisterChildHandler<ReplyChildActor1, Guid>(guid => (default(Guid), default(int)))
+                .RegisterChildHandler<ReplyChildActor1, Guid>(guid => (guid, ++replyCount))
                 .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(childType, childCount)), childCount);
             
             //assert

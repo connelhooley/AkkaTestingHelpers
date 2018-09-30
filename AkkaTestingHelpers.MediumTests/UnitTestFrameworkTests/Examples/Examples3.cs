@@ -31,7 +31,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
             framework.Sut.Tell("hello world");
 
             //assert
-            framework.Supervisor.ExpectMsg("HELLO WORLD");
+            framework.Parent.ExpectMsg("HELLO WORLD");
         }
     }
 }

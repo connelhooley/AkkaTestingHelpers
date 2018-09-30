@@ -7,7 +7,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
 {
     public class UnitTestFrameworkCreator
     {
-        public UnitTestFramework<TActor> Create<TActor>(ImmutableDictionary<(Type, Type), Func<object, object>> handlers, TestKitBase testKit, Props props, int expectedChildrenCount) where TActor : ActorBase => 
+        public UnitTestFramework<TActor> Create<TActor>(ImmutableDictionary<Type, Func<object, object>> parentHandlers, ImmutableDictionary<(Type, Type), Func<object, object>> childHandlers, TestKitBase testKit, Props props, int expectedChildrenCount) where TActor : ActorBase => 
             new UnitTestFramework<TActor>(
                 new SutCreator(), 
                 new TellChildWaiter(), 
@@ -17,9 +17,10 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
                 new TestProbeCreator(), 
                 new ResolvedTestProbeStore(), 
                 new TestProbeChildActorCreator(), 
-                new TestProbeHandlersMapper(),
-                new SutSupervisorStrategyGetter(), 
-                handlers,
+                new TestProbeChildHandlersMapper(),
+                new SutSupervisorStrategyGetter(),
+                parentHandlers,
+                childHandlers,
                 testKit,
                 props,
                 expectedChildrenCount);

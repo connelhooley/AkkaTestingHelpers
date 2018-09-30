@@ -5,15 +5,15 @@ using Xunit;
 
 // ReSharper disable ObjectCreationAsStatement
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeHandlersMapperTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeChildHandlersMapperTests
 {
     public class Constructor : TestBase
     {
         [Fact]
-        public void TestProbeHandlersMapper_Constructor_DoesNotThrow()
+        public void TestProbeChildHandlersMapper_Constructor_DoesNotThrow()
         {
             //act
-            Action act = () => new TestProbeHandlersMapper();
+            Action act = () => new TestProbeChildHandlersMapper();
 
             //assert
             act.Should().NotThrow();

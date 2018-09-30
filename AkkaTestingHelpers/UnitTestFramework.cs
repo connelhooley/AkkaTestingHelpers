@@ -23,14 +23,15 @@ namespace ConnelHooley.AkkaTestingHelpers
             ITestProbeCreator testProbeCreator,
             IResolvedTestProbeStore resolvedProbeStore,
             ITestProbeChildActorCreator testProbeChildActorCreator, 
-            ITestProbeHandlersMapper handlersMapper, 
+            ITestProbeChildHandlersMapper testProbeChildHandlersMapper, 
             ISutSupervisorStrategyGetter sutSupervisorStrategyGetter,
-            ImmutableDictionary<(Type, Type), Func<object, object>> handlers,
+            ImmutableDictionary<Type, Func<object, object>> parentHandlers,
+            ImmutableDictionary<(Type, Type), Func<object, object>> childHandlers,
             TestKitBase testKit, 
-            Props props,
+            Props sutProps,
             int expectedChildrenCount)
         {
-            if (props.SupervisorStrategy != null)
+            if (sutProps.SupervisorStrategy != null)
             {
                 throw new InvalidOperationException("Do not use Prop objects with supervisor stratergies to create your SUT actor as you cannot garentee your actor will be created with this stratergy in production.");
             }
@@ -47,16 +48,16 @@ namespace ConnelHooley.AkkaTestingHelpers
                 resolvedProbeStore,
                 childWaiter,
                 testKit,
-                handlersMapper.Map(handlers));
+                testProbeChildHandlersMapper.Map(childHandlers));
 
-            Supervisor = testProbeCreator.Create(testKit);
+            Parent = testProbeCreator.Create(testKit);
 
             Sut = sutCreator.Create<TActor>(
                 _childWaiter,
                 _testKit,
-                props,
+                sutProps,
                 expectedChildrenCount,
-                Supervisor);
+                Parent);
 
             _sutSupervisorStrategy = sutSupervisorStrategyGetter.Get(Sut.UnderlyingActor);
         }
@@ -64,7 +65,7 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// <summary>
         /// The TestProbe that is the parent/superivsor of the sut actor
         /// </summary>
-        public TestProbe Supervisor { get; }
+        public TestProbe Parent { get; }
 
         /// <summary>
         /// The Actor that is the subject of your tests.

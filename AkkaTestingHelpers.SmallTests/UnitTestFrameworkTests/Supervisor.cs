@@ -13,7 +13,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
-            TestProbe result = sut.Supervisor;
+            TestProbe result = sut.Parent;
 
             //assert
             result.Should().BeSameAs(Supervisor);
