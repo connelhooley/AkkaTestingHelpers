@@ -15,7 +15,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
     {
         internal Mock<ISutCreator> SutCreatorMock;
         internal Mock<ITellChildWaiter> ChildTellerMock;
-        internal Mock<IChildWaiter> ChildWaiterMock;
+        internal Mock<IWaiter> ChildWaiterMock;
         internal Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
         internal Mock<ITestProbeDependencyResolverAdder> TestProbeDependencyResolverAdderMock;
         internal Mock<IResolvedTestProbeStore> ResolvedTestProbeStoreMock;
@@ -27,7 +27,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 
         internal ISutCreator SutCreator;
         internal ITellChildWaiter ChildTeller;
-        internal IChildWaiter ChildWaiter;
+        internal IWaiter ChildWaiter;
         internal IDependencyResolverAdder DependencyResolverAdder;
         internal ITestProbeDependencyResolverAdder TestProbeDependencyResolverAdder;
         internal ITestProbeCreator TestProbeCreator;
@@ -62,7 +62,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             // Create mocks
             SutCreatorMock = new Mock<ISutCreator>();
             ChildTellerMock = new Mock<ITellChildWaiter>();
-            ChildWaiterMock = new Mock<IChildWaiter>();
+            ChildWaiterMock = new Mock<IWaiter>();
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();
             TestProbeDependencyResolverAdderMock = new Mock<ITestProbeDependencyResolverAdder>();
             ResolvedTestProbeStoreMock = new Mock<IResolvedTestProbeStore>();

@@ -5,18 +5,18 @@ using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.WaiterTests
 {
     public class Start : TestBase
     {
         #region Null tests
         [Fact]
-        public void ChildWaiter_StartWithNullTestKitBase_ThrowsArgumentNullException()
+        public void Waiter_StartWithNullTestKitBase_ThrowsArgumentNullException()
         {
             this.WithinTimeout(() =>
             {
                 //arrange
-                ChildWaiter sut = CreateChildWaiter();
+                Waiter sut = CreateWaiter();
 
                 //act
                 Action act = () => sut.Start(null, TestHelper.GenerateNumber());
@@ -28,12 +28,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
         #endregion
 
         [Fact]
-        public void ChildWaiter_Start_DoesNotThrowAnyExceptions()
+        public void Waiter_Start_DoesNotThrowAnyExceptions()
         {
             this.WithinTimeout(() =>
             {
                 //arrange
-                ChildWaiter sut = CreateChildWaiter();
+                Waiter sut = CreateWaiter();
 
                 //act
                 Action act = () => sut.Start(this, TestHelper.GenerateNumber());
@@ -44,12 +44,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
         }
         
         [Fact]
-        public void ChildWaiter_Started_Start_ShouldBlockThread()
+        public void Waiter_Started_Start_ShouldBlockThread()
         {
             this.WithinTimeout(() =>
             {
                 //arrange
-                ChildWaiter sut = CreateChildWaiter();
+                Waiter sut = CreateWaiter();
                 bool isSecondStartRan = false;
                 sut.Start(this, TestHelper.GenerateNumberBetween(0, 5));
 
@@ -67,15 +67,15 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
         }
 
         [Fact]
-        public void ChildWaiter_Started_Start_ShouldUnblockThreadWhenFirstStartsChildrenAreResolved()
+        public void Waiter_Started_Start_ShouldUnblockThreadWhenFirstStartsEventsAreResolved()
         {
             this.WithinTimeout(() =>
             {
                 //arrange
-                ChildWaiter sut = CreateChildWaiter();
-                int expectedChildrenCount = TestHelper.GenerateNumberBetween(0, 5);
+                Waiter sut = CreateWaiter();
+                int expectedEventCount = TestHelper.GenerateNumberBetween(0, 5);
                 bool isSecondStartRan = false;
-                sut.Start(this, expectedChildrenCount);
+                sut.Start(this, expectedEventCount);
 
                 Task.Run(() =>
                 {
@@ -88,9 +88,9 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
                 //assert
                 Task.Run(() =>
                 {
-                    Parallel.For(0, expectedChildrenCount, i =>
+                    Parallel.For(0, expectedEventCount, i =>
                     {
-                        sut.ResolvedChild();
+                        sut.ResolveEvent();
                     });
                 });
                 sut.Wait();

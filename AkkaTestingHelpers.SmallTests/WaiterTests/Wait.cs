@@ -5,17 +5,17 @@ using ConnelHooley.TestHelpers;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.WaiterTests
 {
     public class Wait : TestBase
     {
         [Fact]
-        public void ChildWaiter_NotStarted_Wait_DoesNotThrowAnyExceptions()
+        public void Waiter_NotStarted_Wait_DoesNotThrowAnyExceptions()
         {
             this.WithinTimeout(() =>
             {
                 //arrange
-                ChildWaiter sut = CreateChildWaiter();
+                Waiter sut = CreateWaiter();
 
                 //act
                 Action act = () => sut.Wait();
@@ -26,18 +26,18 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
         }
 
         [Fact]
-        public void ChildWaiter_Started_Wait_ThrowsTimeoutExceptionWhenNotAllChildrenAreResolved()
+        public void Waiter_Started_Wait_ThrowsTimeoutExceptionWhenNotAllEventsAreResolved()
         {
             this.WithinTimeout(() =>
             {
                 //arrange
-                ChildWaiter sut = CreateChildWaiter();
-                int expectedChildrenCount = TestHelper.GenerateNumberBetween(2, 5);
-                sut.Start(this, expectedChildrenCount);
+                Waiter sut = CreateWaiter();
+                int expectedEventCount = TestHelper.GenerateNumberBetween(2, 5);
+                sut.Start(this, expectedEventCount);
                 Task.Run(() =>
                 {
                     this.Sleep(50);
-                    Parallel.For(0, expectedChildrenCount - 1, i => sut.ResolvedChild());
+                    Parallel.For(0, expectedEventCount - 1, i => sut.ResolveEvent());
                 });
 
                 //act
@@ -49,22 +49,22 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
         }
 
         [Fact]
-        public void ChildWaiter_Started_Wait_BlockThreadUntilChildrenAreResolved()
+        public void Waiter_Started_Wait_BlockThreadUntilEventsAreResolved()
         {
             this.WithinTimeout(() =>
             {
                 //arrange
-                ChildWaiter sut = CreateChildWaiter();
-                int expectedChildrenCount = TestHelper.GenerateNumberBetween(1, 5);
-                int resolvedChildrenCount = 0;
-                sut.Start(this, expectedChildrenCount);
+                Waiter sut = CreateWaiter();
+                int expectedEventCount = TestHelper.GenerateNumberBetween(1, 5);
+                int resolvedEventCount = 0;
+                sut.Start(this, expectedEventCount);
                 Task.Run(() =>
                 {
                     this.Sleep(50);
-                    Parallel.For(0, expectedChildrenCount, i =>
+                    Parallel.For(0, expectedEventCount, i =>
                     {
-                        resolvedChildrenCount++;
-                        sut.ResolvedChild();
+                        resolvedEventCount++;
+                        sut.ResolveEvent();
                     });
                 });
 
@@ -72,15 +72,15 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
                 sut.Wait();
 
                 //assert
-                resolvedChildrenCount.Should().Be(expectedChildrenCount);
+                resolvedEventCount.Should().Be(expectedEventCount);
             });
         }
 
         [Fact]
-        public void ChildWaiter_StartedWithNoExpectedChildren_Wait_DoesNotBlockThread()
+        public void Waiter_StartedWithNoExpectedEvents_Wait_DoesNotBlockThread()
         {
             //arrange
-            ChildWaiter sut = CreateChildWaiter();
+            Waiter sut = CreateWaiter();
             sut.Start(this, 0);
 
             //act
@@ -91,10 +91,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
         }
 
         [Fact]
-        public void ChildWaiter_StartedWithNegativeExpectedChildren_Wait_DoesNotBlockThread()
+        public void Waiter_StartedWithNegativeExpectedEvents_Wait_DoesNotBlockThread()
         {
             //arrange
-            ChildWaiter sut = CreateChildWaiter();
+            Waiter sut = CreateWaiter();
             sut.Start(this, TestHelper.GenerateNumberBetween(int.MinValue, -1));
 
             //act
@@ -105,24 +105,24 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
         }
         
         [Fact]
-        public void ChildWaiter_Waited_Wait_BlockThreadUntilChildrenAreResolved()
+        public void Waiter_Waited_Wait_BlockThreadUntilEventsAreResolved()
         {
             this.WithinTimeout(() =>
             {
                 //arrange
-                ChildWaiter sut = CreateChildWaiter();
+                Waiter sut = CreateWaiter();
                 sut.Start(this, 0);
                 sut.Wait();
-                int expectedChildrenCount = TestHelper.GenerateNumberBetween(1, 5);
-                int resolvedChildrenCount = 0;
-                sut.Start(this, expectedChildrenCount);
+                int expectedEventCount = TestHelper.GenerateNumberBetween(1, 5);
+                int resolvedEventCount = 0;
+                sut.Start(this, expectedEventCount);
                 Task.Run(() =>
                 {
                     this.Sleep(50);
-                    Parallel.For(0, expectedChildrenCount, i =>
+                    Parallel.For(0, expectedEventCount, i =>
                     {
-                        resolvedChildrenCount++;
-                        sut.ResolvedChild();
+                        resolvedEventCount++;
+                        sut.ResolveEvent();
                     });
                 });
 
@@ -130,7 +130,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
                 sut.Wait();
 
                 //assert
-                resolvedChildrenCount.Should().Be(expectedChildrenCount);
+                resolvedEventCount.Should().Be(expectedEventCount);
             });
         }
     }

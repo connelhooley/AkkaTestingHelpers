@@ -12,7 +12,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
             ITestProbeChildActorCreator testProbeChildActorCreator,
             ITestProbeCreator testProbeCreator,
             IResolvedTestProbeStore resolvedTestProbeStore,
-            IChildWaiter childWaiter,
+            IWaiter childWaiter,
             TestKitBase testKit, 
             ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> handlers) => 
                 dependencyResolverAdder.Add(testKit, actorType =>
@@ -20,7 +20,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
                     ImmutableDictionary<Type, Func<object, object>> actorHandlers = handlers.GetValueOrDefault(actorType, null);
                     ITestProbeChildActor probeActor = testProbeChildActorCreator.Create(testProbeCreator, testKit, actorHandlers);
                     resolvedTestProbeStore.ResolveProbe(probeActor.ActorPath, actorType, probeActor.TestProbe, probeActor.PropsSupervisorStrategy);
-                    childWaiter.ResolvedChild();
+                    childWaiter.ResolveEvent();
                     return probeActor.Actor;
                 });
     }

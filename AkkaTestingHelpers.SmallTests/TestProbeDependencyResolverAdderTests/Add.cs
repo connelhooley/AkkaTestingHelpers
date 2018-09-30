@@ -285,7 +285,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //assert
             ActorFactory(ActorWithHandlersType);
             ChildWaiterMock.Verify(
-                waiter => waiter.ResolvedChild(),
+                waiter => waiter.ResolveEvent(),
                 Times.Once);
         }
 
@@ -308,7 +308,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             //assert
             ActorFactory(ActorWithoutHandlersType);
             ChildWaiterMock.Verify(
-                waiter => waiter.ResolvedChild(),
+                waiter => waiter.ResolveEvent(),
                 Times.Once);
         }
 
@@ -332,7 +332,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             ActorFactory(ActorWithHandlersType);
             CallOrder.Should().Equal(
                 nameof(IResolvedTestProbeStore.ResolveProbe),
-                nameof(IChildWaiter.ResolvedChild));
+                nameof(IWaiter.ResolveEvent));
         }
 
         [Fact]
@@ -355,7 +355,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             ActorFactory(ActorWithoutHandlersType);
             CallOrder.Should().Equal(
                 nameof(IResolvedTestProbeStore.ResolveProbe),
-                nameof(IChildWaiter.ResolvedChild));
+                nameof(IWaiter.ResolveEvent));
         }
     }
 }

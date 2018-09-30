@@ -9,7 +9,7 @@ namespace ConnelHooley.AkkaTestingHelpers
     public sealed class UnitTestFramework<TActor> where TActor : ActorBase
     {
         private readonly ITellChildWaiter _tellChildWaiter;
-        private readonly IChildWaiter _childWaiter;
+        private readonly IWaiter _childWaiter;
         private readonly IResolvedTestProbeStore _resolvedProbeStore;
         private readonly TestKitBase _testKit;
         private readonly SupervisorStrategy _sutSupervisorStrategy;
@@ -17,7 +17,7 @@ namespace ConnelHooley.AkkaTestingHelpers
         internal UnitTestFramework(
             ISutCreator sutCreator,
             ITellChildWaiter childTeller,
-            IChildWaiter childWaiter,
+            IWaiter childWaiter,
             IDependencyResolverAdder resolverAdder,
             ITestProbeDependencyResolverAdder testProbeDependencyResolverAdder,
             ITestProbeCreator testProbeCreator,

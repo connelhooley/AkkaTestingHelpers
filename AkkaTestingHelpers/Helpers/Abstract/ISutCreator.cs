@@ -6,7 +6,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Abstract
     internal interface ISutCreator
     {
         TestActorRef<TActor> Create<TActor>(
-            IChildWaiter childWaiter, 
+            IWaiter childWaiter, 
             TestKitBase testKit, 
             Props props,
             int expectedChildrenCount,

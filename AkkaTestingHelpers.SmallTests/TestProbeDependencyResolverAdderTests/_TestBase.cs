@@ -19,7 +19,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
         internal readonly Mock<ITestProbeChildActorCreator> TestProbeChildActorCreatorMock;
         internal readonly Mock<ITestProbeCreator> TestProbeCreatorMock;
         internal readonly Mock<IResolvedTestProbeStore> ResolvedTestProbeStoreMock;
-        internal readonly Mock<IChildWaiter> ChildWaiterMock;
+        internal readonly Mock<IWaiter> ChildWaiterMock;
         internal readonly Mock<ITestProbeChildActor> TestProbeChildActorWithHandlersMock;
         internal readonly Mock<ITestProbeChildActor> TestProbeChildActorWithoutHandlersMock;
 
@@ -27,7 +27,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
         internal readonly ITestProbeChildActorCreator TestProbeChildActorCreator;
         internal readonly ITestProbeCreator TestProbeCreator;
         internal readonly IResolvedTestProbeStore ResolvedTestProbeStore;
-        internal readonly IChildWaiter ChildWaiter;
+        internal readonly IWaiter ChildWaiter;
         
         internal readonly ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> Handlers;
         internal readonly ImmutableDictionary<Type, Func<object, object>> ActorHandlers;
@@ -54,7 +54,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
             TestProbeChildActorCreatorMock = new Mock<ITestProbeChildActorCreator>();
             TestProbeCreatorMock = new Mock<ITestProbeCreator>();
             ResolvedTestProbeStoreMock = new Mock<IResolvedTestProbeStore>();
-            ChildWaiterMock = new Mock<IChildWaiter>();
+            ChildWaiterMock = new Mock<IWaiter>();
             TestProbeChildActorWithHandlersMock = new Mock<ITestProbeChildActor>();
             TestProbeChildActorWithoutHandlersMock = new Mock<ITestProbeChildActor>();
 
@@ -141,8 +141,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeDependencyResolver
                 .Callback(() => CallOrder.Add(nameof(IResolvedTestProbeStore.ResolveProbe)));
             
             ChildWaiterMock
-                .Setup(waiter => waiter.ResolvedChild())
-                .Callback(() => CallOrder.Add(nameof(IChildWaiter.ResolvedChild)));
+                .Setup(waiter => waiter.ResolveEvent())
+                .Callback(() => CallOrder.Add(nameof(IWaiter.ResolveEvent)));
 
             DependencyResolverAdderMock
                 .Setup(adder => adder.Add(this, It.IsAny<Func<Type, ActorBase>>()))

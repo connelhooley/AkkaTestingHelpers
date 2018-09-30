@@ -6,7 +6,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
 {
     internal sealed class TellChildWaiter : ITellChildWaiter
     {
-        public void TellMessage<TMessage>(IChildWaiter childWaiter, TestKitBase testKit, IActorRef recipient, TMessage message, int waitForChildrenCount, IActorRef sender = null)
+        public void TellMessage<TMessage>(IWaiter childWaiter, TestKitBase testKit, IActorRef recipient, TMessage message, int waitForChildrenCount, IActorRef sender = null)
         {
             childWaiter.Start(testKit, waitForChildrenCount);
             if (sender == null) recipient.Tell(message);

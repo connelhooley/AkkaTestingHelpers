@@ -5,15 +5,15 @@ using Xunit;
 
 // ReSharper disable ObjectCreationAsStatement
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.ChildWaiterTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.WaiterTests
 {
     public class Constructor
     {
         [Fact]
-        public void ChildWaiter_Constructor_DoesNotThrow()
+        public void Waiter_Constructor_DoesNotThrow()
         {
             //act
-            Action act = () => new ChildWaiter();
+            Action act = () => new Waiter();
 
             //assert
             act.Should().NotThrow();

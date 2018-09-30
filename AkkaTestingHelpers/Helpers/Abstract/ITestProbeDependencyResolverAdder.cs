@@ -11,7 +11,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Abstract
             ITestProbeChildActorCreator testProbeChildActorCreator,
             ITestProbeCreator testProbeCreator,
             IResolvedTestProbeStore resolvedTestProbeStore, 
-            IChildWaiter childWaiter, 
+            IWaiter childWaiter, 
             TestKitBase testKit, 
             ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> handlers);
     }

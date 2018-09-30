@@ -204,7 +204,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
 
             //assert
             CallOrder.Should().ContainInOrder(
-                nameof(IChildWaiter.Start), 
+                nameof(IWaiter.Start), 
                 nameof(IActorRef.Tell) + "Sender");
         }
 
@@ -219,7 +219,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
 
             //assert
             CallOrder.Should().ContainInOrder(
-                nameof(IChildWaiter.Start), 
+                nameof(IWaiter.Start), 
                 nameof(IActorRef.Tell));
         }
 
@@ -235,7 +235,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
             //assert
             CallOrder.Should().ContainInOrder(
                 nameof(IActorRef.Tell) + "Sender", 
-                nameof(IChildWaiter.Wait));
+                nameof(IWaiter.Wait));
         }
 
         [Fact]
@@ -250,7 +250,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
             //assert
             CallOrder.Should().ContainInOrder(
                 nameof(IActorRef.Tell), 
-                nameof(IChildWaiter.Wait));
+                nameof(IWaiter.Wait));
         }
     }
 }

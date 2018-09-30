@@ -123,11 +123,11 @@
     <Compile Include="TellChildWaiterTests\Constructor.cs" />
     <Compile Include="TellChildWaiterTests\TellMessage.cs" />
     <Compile Include="TellChildWaiterTests\_TestBase.cs" />
-    <Compile Include="ChildWaiterTests\Constructor.cs" />
-    <Compile Include="ChildWaiterTests\ResolveChild.cs" />
-    <Compile Include="ChildWaiterTests\Start.cs" />
-    <Compile Include="ChildWaiterTests\_TestBase.cs" />
-    <Compile Include="ChildWaiterTests\Wait.cs" />
+    <Compile Include="WaiterTests\Constructor.cs" />
+    <Compile Include="WaiterTests\ResolveEvent.cs" />
+    <Compile Include="WaiterTests\Start.cs" />
+    <Compile Include="WaiterTests\_TestBase.cs" />
+    <Compile Include="WaiterTests\Wait.cs" />
     <Compile Include="TestProbeChildActorTests\PropsSupervisorStratergy.cs" />
     <Compile Include="AkkaConfig.cs" />
     <Compile Include="DependencyResolverAdderTests\Add.cs" />

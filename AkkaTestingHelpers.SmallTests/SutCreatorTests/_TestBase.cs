@@ -14,8 +14,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
 {
     public class TestBase : TestKit
     {
-        internal Mock<IChildWaiter> ChildWaiterMock;
-        internal IChildWaiter ChildWaiter;
+        internal Mock<IWaiter> ChildWaiterMock;
+        internal IWaiter ChildWaiter;
         internal Props Props;
         internal int ExpectedChildCount;
         internal IActorRef Supervisor;
@@ -25,7 +25,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
         public TestBase() : base(AkkaConfig.Config)
         {
             // Create mocks
-            ChildWaiterMock = new Mock<IChildWaiter>();
+            ChildWaiterMock = new Mock<IWaiter>();
 
             // Create objects used by mocks
             CallOrder = new List<string>();
@@ -39,10 +39,10 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
             // Set up mocks
             ChildWaiterMock
                 .Setup(waiter => waiter.Start(It.IsAny<TestKitBase>(), It.IsAny<int>()))
-                .Callback(() => CallOrder.Add(nameof(IChildWaiter.Start)));
+                .Callback(() => CallOrder.Add(nameof(IWaiter.Start)));
             ChildWaiterMock
                 .Setup(waiter => waiter.Wait())
-                .Callback(() => CallOrder.Add(nameof(IChildWaiter.Wait)));
+                .Callback(() => CallOrder.Add(nameof(IWaiter.Wait)));
         }
 
         internal SutCreator CreateSutCreator() => new SutCreator();

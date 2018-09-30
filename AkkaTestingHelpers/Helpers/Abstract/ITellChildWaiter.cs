@@ -6,7 +6,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Abstract
     internal interface ITellChildWaiter
     {
         void TellMessage<TMessage>(
-            IChildWaiter childWaiter, 
+            IWaiter childWaiter, 
             TestKitBase testKit, 
             IActorRef recipient, 
             TMessage message, 

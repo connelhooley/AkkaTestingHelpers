@@ -12,12 +12,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
 {
     public class TestBase : TestKit
     {
-        internal Mock<IChildWaiter> ChildWaiterMock;
+        internal Mock<IWaiter> ChildWaiterMock;
         internal Mock<IActorRef> RecipientMock;
 
         internal List<string> CallOrder;
 
-        internal IChildWaiter ChildWaiter;
+        internal IWaiter ChildWaiter;
         internal int ExpectedChildrenCount;
         internal object Message;
         internal IActorRef Recipient;
@@ -26,7 +26,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
         public TestBase() : base(AkkaConfig.Config)
         {
             // Create mocks
-            ChildWaiterMock = new Mock<IChildWaiter>();
+            ChildWaiterMock = new Mock<IWaiter>();
             RecipientMock = new Mock<IActorRef>();
 
             // Create objects used by mocks
@@ -42,13 +42,13 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
             // Set up mocks
             ChildWaiterMock
                 .Setup(waiter => waiter.Start(this, ExpectedChildrenCount))
-                .Callback(() => CallOrder.Add(nameof(IChildWaiter.Start)));
+                .Callback(() => CallOrder.Add(nameof(IWaiter.Start)));
             ChildWaiterMock
                 .Setup(waiter => waiter.Wait())
-                .Callback(() => CallOrder.Add(nameof(IChildWaiter.Wait)));
+                .Callback(() => CallOrder.Add(nameof(IWaiter.Wait)));
             ChildWaiterMock
-                .Setup(waiter => waiter.ResolvedChild())
-                .Callback(() => CallOrder.Add(nameof(IChildWaiter.ResolvedChild)));
+                .Setup(waiter => waiter.ResolveEvent())
+                .Callback(() => CallOrder.Add(nameof(IWaiter.ResolveEvent)));
 
             RecipientMock
                 .Setup(waiter => waiter.Tell(Message, TestActor))

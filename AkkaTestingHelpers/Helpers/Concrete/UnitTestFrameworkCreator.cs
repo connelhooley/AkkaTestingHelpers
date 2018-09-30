@@ -17,7 +17,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
             new UnitTestFramework<TActor>(
                 new SutCreator(),
                 new TellChildWaiter(),
-                new ChildWaiter(),
+                new Waiter(),
                 new DependencyResolverAdder(),
                 new TestProbeDependencyResolverAdder(),
                 new TestProbeCreator(),

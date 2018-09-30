@@ -197,7 +197,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
 
             //assert
             CallOrder.Should().ContainInOrder(
-                nameof(IChildWaiter.Start), 
+                nameof(IWaiter.Start), 
                 "callback");
         }
 
@@ -218,7 +218,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
             //assert
             CallOrder.Should().ContainInOrder(
                 "callback", 
-                nameof(IChildWaiter.Wait));
+                nameof(IWaiter.Wait));
         }
     }
 }
