@@ -8,17 +8,19 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
 {
     internal sealed class TestProbeParentActor : ReceiveActor, ITestProbeParentActor
     {
-        private readonly Directive _directive;
+        private readonly Func<Exception, Directive> _decider;
         private readonly List<Exception> _unhandledExceptions;
 
-        public TestProbeParentActor(ITestProbeCreator testProbeCreator, TestKitBase testKit, Directive directive, IReadOnlyDictionary<Type, Func<object, object>> handlers)
+        public TestProbeParentActor(
+            ITestProbeCreator testProbeCreator,
+            TestKitBase testKit,
+            Func<Exception, Directive> decider,
+            IReadOnlyDictionary<Type, Func<object, object>> handlers)
         {
-            _directive = directive;
+            _decider = decider;
             _unhandledExceptions = new List<Exception>();
 
             TestProbe = testProbeCreator.Create(testKit);
-            ReceiveAny(o => TestProbe.Forward(o));
-
             TestProbe.SetAutoPilot(new DelegateAutoPilot((_, message) =>
             {
                 Type messageType = message.GetType();
@@ -29,19 +31,20 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
                 }
                 return AutoPilot.KeepRunning;
             }));
+            ReceiveAny(o => TestProbe.Forward(o));
         }
 
         public TestProbe TestProbe { get; }
 
-        public IEnumerable<Exception> UnhandledExceptions => _unhandledExceptions;
-
         public IActorRef Ref => TestProbe.Ref;
+
+        public IEnumerable<Exception> UnhandledExceptions => _unhandledExceptions;
 
         protected override SupervisorStrategy SupervisorStrategy() =>
                 new AllForOneStrategy(exception =>
                 {
                     _unhandledExceptions.Add(exception);
-                    return _directive;
+                    return _decider(exception);
                 });
     }
 }

@@ -39,6 +39,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal ImmutableDictionary<Type, Func<object, object>> ParentHandlers;
         internal ImmutableDictionary<(Type, Type), Func<object, object>> ChildHandlers;
         internal ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>> MappedChildHandlers;
+        internal Func<Exception, Directive> Decider;
 
         internal Props Props;
         internal Props PropsWithSupervisorStrategy;
@@ -88,6 +89,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             ChildHandlers = ImmutableDictionary<(Type, Type), Func<object, object>>
                 .Empty
                 .Add((generateType(), generateType()), message => TestHelper.Generate<object>());
+            Decider = exception => TestHelper.GenerateEnum<Directive>();
             Props = Props.Create<DummyActor>();
             PropsWithSupervisorStrategy = Props
                 .Create<DummyActor>()
@@ -175,6 +177,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 props ?? Props,
+                Decider,
                 ExpectedChildCount);
 
         protected class DummyActor : ReceiveActor { }

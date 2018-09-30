@@ -31,6 +31,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -56,6 +57,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -81,6 +83,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -106,6 +109,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -131,6 +135,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -156,6 +161,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -181,6 +187,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -206,6 +213,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -231,6 +239,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -256,6 +265,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -282,6 +292,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -307,6 +318,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 null,
                 this,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -332,6 +344,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 null,
                 Props,
+                Decider,
                 ExpectedChildCount);
 
             //assert
@@ -357,6 +370,33 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 ChildHandlers,
                 this,
                 null,
+                Decider,
+                ExpectedChildCount);
+
+            //assert
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void UnitTestFramework_ConstructorWithNullDecider_ThrowsArgumentNullException()
+        {
+            //act
+            Action act = () => new UnitTestFramework<DummyActor>(
+                SutCreator,
+                ChildTeller,
+                ChildWaiter,
+                DependencyResolverAdder,
+                TestProbeDependencyResolverAdder,
+                TestProbeCreator,
+                ResolvedTestProbeStore,
+                TestProbeChildActorCreator,
+                TestProbeHandlersMapper,
+                SutSupervisorStrategyGetter,
+                ParentHandlers,
+                ChildHandlers,
+                this,
+                Props,
+                null,
                 ExpectedChildCount);
 
             //assert
@@ -368,6 +408,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         {
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
+                null,
                 null,
                 null,
                 null,

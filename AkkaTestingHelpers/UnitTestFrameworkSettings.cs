@@ -32,6 +32,7 @@ namespace ConnelHooley.AkkaTestingHelpers
                     ChildHandlers,
                     testKit,
                     Props.Create<TActor>(),
+                    _ => Directive.Restart,
                     0);
 
         /// <summary>
@@ -48,6 +49,7 @@ namespace ConnelHooley.AkkaTestingHelpers
                     ChildHandlers,
                     testKit,
                     Props.Create<TActor>(),
+                    _ => Directive.Restart,
                     expectedChildrenCount);
 
         /// <summary>
@@ -64,6 +66,7 @@ namespace ConnelHooley.AkkaTestingHelpers
                     ChildHandlers,
                     testKit,
                     props,
+                    _ => Directive.Restart,
                     0);
 
         /// <summary>
@@ -81,6 +84,79 @@ namespace ConnelHooley.AkkaTestingHelpers
                     ChildHandlers,
                     testKit,
                     props,
+                    _ => Directive.Restart,
+                    expectedChildrenCount);
+
+        /// <summary>
+        /// Creates a UnitTestFramework using the given TestKit. Does not wait for any children to be created when the SUT actor is created.
+        /// </summary>
+        /// <typeparam name="TActor">The type of actor that will be created as the SUT actor</typeparam>
+        /// <param name="testKit">The TestKit that will be used to resolve children as TestProbes</param>
+        /// <param name="decider">The decider that will be used to determine whether the parent actor should restart or stop the SUT actor when a certain type of unhandled exception is thrown</param>
+        /// <returns>A UnitTestFramework that allows you to unit test the given TActor type</returns>
+        public UnitTestFramework<TActor> CreateFramework<TActor>(TestKitBase testKit, Func<Exception, Directive> decider) where TActor : ActorBase, new() =>
+            new UnitTestFrameworkCreator()
+                .Create<TActor>(
+                    ParentHandlers,
+                    ChildHandlers,
+                    testKit,
+                    Props.Create<TActor>(),
+                    decider,
+                    0);
+
+        /// <summary>
+        /// Creates a UnitTestFramework using the given TestKit. Waits for the given number of children to be created when the SUT actor is created.
+        /// </summary>
+        /// <typeparam name="TActor">The type of actor that will be created as the SUT actor</typeparam>
+        /// <param name="testKit">The TestKit that will be used to resolve children as TestProbes</param>
+        /// <param name="decider">The decider that will be used to determine whether the parent actor should restart or stop the SUT actor when a certain type of unhandled exception is thrown</param>
+        /// <param name="expectedChildrenCount">The number of children to wait for when the SUT actor is created</param>
+        /// <returns>A UnitTestFramework that allows you to unit test the given actor type</returns>
+        public UnitTestFramework<TActor> CreateFramework<TActor>(TestKitBase testKit, Func<Exception, Directive> decider, int expectedChildrenCount) where TActor : ActorBase, new() =>
+            new UnitTestFrameworkCreator()
+                .Create<TActor>(
+                    ParentHandlers,
+                    ChildHandlers,
+                    testKit,
+                    Props.Create<TActor>(),
+                    decider,
+                    expectedChildrenCount);
+
+        /// <summary>
+        /// Creates a UnitTestFramework using the given TestKit. Creates the SUT actor using the given Props. Does not wait for any children to be created when the SUT actor is created.
+        /// </summary>
+        /// <typeparam name="TActor">The type of actor that will be created as the SUT actor</typeparam>
+        /// <param name="testKit">The TestKit that will be used to resolve children as TestProbes</param>
+        /// <param name="props">The props used to create the SUT actor</param>
+        /// <param name="decider">The decider that will be used to determine whether the parent actor should restart or stop the SUT actor when a certain type of unhandled exception is thrown</param>
+        /// <returns>A UnitTestFramework that allows you to unit test the given actor type</returns>
+        public UnitTestFramework<TActor> CreateFramework<TActor>(TestKitBase testKit, Props props, Func<Exception, Directive> decider) where TActor : ActorBase =>
+            new UnitTestFrameworkCreator()
+                .Create<TActor>(
+                    ParentHandlers,
+                    ChildHandlers,
+                    testKit,
+                    props,
+                    decider,
+                    0);
+
+        /// <summary>
+        /// Creates a UnitTestFramework using the given TestKit. Creates the SUT actor using the given Props. Waits for the given number of children to be created when the SUT actor is created.
+        /// </summary>
+        /// <typeparam name="TActor">The type of actor that will be created as the SUT actor</typeparam>
+        /// <param name="testKit">The TestKit that will be used to resolve children as TestProbes</param>
+        /// <param name="props">The props used to create the SUT actor</param>
+        /// <param name="decider">The decider that will be used to determine whether the parent actor should restart or stop the SUT actor when a certain type of unhandled exception is thrown</param>
+        /// <param name="expectedChildrenCount">The number of children to wait for when the SUT actor is created</param>
+        /// <returns>A UnitTestFramework that allows you to unit test the given actor type</returns>
+        public UnitTestFramework<TActor> CreateFramework<TActor>(TestKitBase testKit, Props props, Func<Exception, Directive> decider, int expectedChildrenCount) where TActor : ActorBase =>
+            new UnitTestFrameworkCreator()
+                .Create<TActor>(
+                    ParentHandlers,
+                    ChildHandlers,
+                    testKit,
+                    props,
+                    decider,
                     expectedChildrenCount);
 
         /// <summary>

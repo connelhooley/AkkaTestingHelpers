@@ -15,20 +15,21 @@ namespace ConnelHooley.AkkaTestingHelpers
         private readonly SupervisorStrategy _sutSupervisorStrategy;
 
         internal UnitTestFramework(
-            ISutCreator sutCreator, 
-            ITellChildWaiter childTeller, 
-            IChildWaiter childWaiter, 
-            IDependencyResolverAdder resolverAdder, 
+            ISutCreator sutCreator,
+            ITellChildWaiter childTeller,
+            IChildWaiter childWaiter,
+            IDependencyResolverAdder resolverAdder,
             ITestProbeDependencyResolverAdder testProbeDependencyResolverAdder,
             ITestProbeCreator testProbeCreator,
             IResolvedTestProbeStore resolvedProbeStore,
-            ITestProbeChildActorCreator testProbeChildActorCreator, 
-            ITestProbeChildHandlersMapper testProbeChildHandlersMapper, 
+            ITestProbeChildActorCreator testProbeChildActorCreator,
+            ITestProbeChildHandlersMapper testProbeChildHandlersMapper,
             ISutSupervisorStrategyGetter sutSupervisorStrategyGetter,
             ImmutableDictionary<Type, Func<object, object>> parentHandlers,
             ImmutableDictionary<(Type, Type), Func<object, object>> childHandlers,
-            TestKitBase testKit, 
+            TestKitBase testKit,
             Props sutProps,
+            Func<Exception, Directive> supervisorDecider,
             int expectedChildrenCount)
         {
             if (sutProps.SupervisorStrategy != null)
@@ -61,6 +62,7 @@ namespace ConnelHooley.AkkaTestingHelpers
 
             _sutSupervisorStrategy = sutSupervisorStrategyGetter.Get(Sut.UnderlyingActor);
         }
+
 
         /// <summary>
         /// The TestProbe that is the parent/superivsor of the sut actor
