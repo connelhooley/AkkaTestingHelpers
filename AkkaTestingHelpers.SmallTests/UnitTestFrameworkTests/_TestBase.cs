@@ -16,6 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal Mock<ISutCreator> SutCreatorMock;
         internal Mock<ITellChildWaiter> ChildTellerMock;
         internal Mock<IWaiter> ChildWaiterMock;
+        internal Mock<IWaiter> ExceptionWaiterMock;
         internal Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
         internal Mock<ITestProbeDependencyResolverAdder> TestProbeDependencyResolverAdderMock;
         internal Mock<IResolvedTestProbeStore> ResolvedTestProbeStoreMock;
@@ -28,6 +29,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal ISutCreator SutCreator;
         internal ITellChildWaiter ChildTeller;
         internal IWaiter ChildWaiter;
+        internal IWaiter ExceptionWaiter;
         internal IDependencyResolverAdder DependencyResolverAdder;
         internal ITestProbeDependencyResolverAdder TestProbeDependencyResolverAdder;
         internal ITestProbeCreator TestProbeCreator;
@@ -63,6 +65,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             SutCreatorMock = new Mock<ISutCreator>();
             ChildTellerMock = new Mock<ITellChildWaiter>();
             ChildWaiterMock = new Mock<IWaiter>();
+            ExceptionWaiterMock = new Mock<IWaiter>();
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();
             TestProbeDependencyResolverAdderMock = new Mock<ITestProbeDependencyResolverAdder>();
             ResolvedTestProbeStoreMock = new Mock<IResolvedTestProbeStore>();
@@ -76,6 +79,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             SutCreator = SutCreatorMock.Object;
             ChildTeller = ChildTellerMock.Object;
             ChildWaiter = ChildWaiterMock.Object;
+            ExceptionWaiter = ChildWaiterMock.Object;
             DependencyResolverAdder = DependencyResolverAdderMock.Object;
             TestProbeDependencyResolverAdder = TestProbeDependencyResolverAdderMock.Object;
             TestProbeCreator = TestProbeCreatorMock.Object;
@@ -166,6 +170,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 SutCreator,
                 ChildTeller,
                 ChildWaiter,
+                ExceptionWaiter,
                 DependencyResolverAdder,
                 TestProbeDependencyResolverAdder,
                 TestProbeCreator,

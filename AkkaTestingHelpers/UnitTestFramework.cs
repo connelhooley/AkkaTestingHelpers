@@ -18,6 +18,7 @@ namespace ConnelHooley.AkkaTestingHelpers
             ISutCreator sutCreator,
             ITellChildWaiter childTeller,
             IWaiter childWaiter,
+            IWaiter exceptionWaiter,
             IDependencyResolverAdder resolverAdder,
             ITestProbeDependencyResolverAdder testProbeDependencyResolverAdder,
             ITestProbeCreator testProbeCreator,
@@ -62,8 +63,7 @@ namespace ConnelHooley.AkkaTestingHelpers
 
             _sutSupervisorStrategy = sutSupervisorStrategyGetter.Get(Sut.UnderlyingActor);
         }
-
-
+        
         /// <summary>
         /// The TestProbe that is the parent/superivsor of the sut actor
         /// </summary>

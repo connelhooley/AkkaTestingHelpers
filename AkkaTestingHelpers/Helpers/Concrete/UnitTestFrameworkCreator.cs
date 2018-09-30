@@ -18,6 +18,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
                 new SutCreator(),
                 new TellChildWaiter(),
                 new Waiter(),
+                new Waiter(),
                 new DependencyResolverAdder(),
                 new TestProbeDependencyResolverAdder(),
                 new TestProbeCreator(),
