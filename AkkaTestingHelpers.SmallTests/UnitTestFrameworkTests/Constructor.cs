@@ -18,7 +18,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 null,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,
@@ -40,7 +40,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         }
 
         [Fact]
-        public void UnitTestFramework_ConstructorWithNullChildTeller_ThrowsArgumentNullException()
+        public void UnitTestFramework_ConstructorWithNullTellWaiter_ThrowsArgumentNullException()
         {
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
@@ -72,7 +72,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 null,
                 ExceptionWaiter,
                 DependencyResolverAdder,
@@ -99,10 +99,9 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 null,
-                ExceptionWaiter,
                 DependencyResolverAdder,
                 TestProbeDependencyResolverAdder,
                 TestProbeCreator,
@@ -127,7 +126,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 null,
@@ -154,7 +153,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,
@@ -181,7 +180,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,
@@ -208,7 +207,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,
@@ -235,7 +234,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,
@@ -262,7 +261,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,
@@ -289,7 +288,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,
@@ -317,7 +316,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,
@@ -344,7 +343,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,
@@ -371,7 +370,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,
@@ -398,7 +397,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,
@@ -425,7 +424,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //act
             Action act = () => new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,

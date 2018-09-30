@@ -8,15 +8,18 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
 {
     internal sealed class TestProbeParentActor : ReceiveActor, ITestProbeParentActor
     {
+        private readonly IWaiter _exceptionWaiter;
         private readonly Func<Exception, Directive> _decider;
         private readonly List<Exception> _unhandledExceptions;
 
         public TestProbeParentActor(
             ITestProbeCreator testProbeCreator,
+            IWaiter exceptionWaiter,
             TestKitBase testKit,
             Func<Exception, Directive> decider,
             IReadOnlyDictionary<Type, Func<object, object>> handlers)
         {
+            _exceptionWaiter = exceptionWaiter;
             _decider = decider;
             _unhandledExceptions = new List<Exception>();
 
@@ -44,6 +47,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
                 new AllForOneStrategy(exception =>
                 {
                     _unhandledExceptions.Add(exception);
+                    _exceptionWaiter.ResolveEvent();
                     return _decider(exception);
                 });
     }

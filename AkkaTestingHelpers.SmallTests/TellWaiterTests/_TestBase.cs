@@ -8,17 +8,17 @@ using Moq;
 
 // ReSharper disable VirtualMemberCallInConstructor
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellWaiterTests
 {
     public class TestBase : TestKit
     {
-        internal Mock<IWaiter> ChildWaiterMock;
+        internal Mock<IWaiter> WaiterMock;
         internal Mock<IActorRef> RecipientMock;
 
         internal List<string> CallOrder;
 
-        internal IWaiter ChildWaiter;
-        internal int ExpectedChildrenCount;
+        internal IWaiter Waiter;
+        internal int ExpectedEventCount;
         internal object Message;
         internal IActorRef Recipient;
         internal IActorRef Sender;
@@ -26,27 +26,27 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
         public TestBase() : base(AkkaConfig.Config)
         {
             // Create mocks
-            ChildWaiterMock = new Mock<IWaiter>();
+            WaiterMock = new Mock<IWaiter>();
             RecipientMock = new Mock<IActorRef>();
 
             // Create objects used by mocks
             CallOrder = new List<string>();
 
             // Create objects passed into sut methods
-            ChildWaiter = ChildWaiterMock.Object;
-            ExpectedChildrenCount = TestHelper.GenerateNumber();
+            Waiter = WaiterMock.Object;
+            ExpectedEventCount = TestHelper.GenerateNumber();
             Message = TestHelper.Generate<object>();
             Recipient = RecipientMock.Object;
             Sender = CreateTestProbe(); // Mocking sender breaks Akka so a TestProbe is used
 
             // Set up mocks
-            ChildWaiterMock
-                .Setup(waiter => waiter.Start(this, ExpectedChildrenCount))
+            WaiterMock
+                .Setup(waiter => waiter.Start(this, ExpectedEventCount))
                 .Callback(() => CallOrder.Add(nameof(IWaiter.Start)));
-            ChildWaiterMock
+            WaiterMock
                 .Setup(waiter => waiter.Wait())
                 .Callback(() => CallOrder.Add(nameof(IWaiter.Wait)));
-            ChildWaiterMock
+            WaiterMock
                 .Setup(waiter => waiter.ResolveEvent())
                 .Callback(() => CallOrder.Add(nameof(IWaiter.ResolveEvent)));
 
@@ -58,6 +58,6 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
                 .Callback(() => CallOrder.Add(nameof(IActorRef.Tell) + "Sender"));
         }
         
-        internal TellChildWaiter CreateTellChildWaiter() => new TellChildWaiter();
+        internal TellWaiter CreateTellWaiter() => new TellWaiter();
     }
 }

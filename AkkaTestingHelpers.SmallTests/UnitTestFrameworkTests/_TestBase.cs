@@ -14,7 +14,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
     public class TestBase: TestKit
     {
         internal Mock<ISutCreator> SutCreatorMock;
-        internal Mock<ITellChildWaiter> ChildTellerMock;
+        internal Mock<ITellWaiter> TellWaiterMock;
         internal Mock<IWaiter> ChildWaiterMock;
         internal Mock<IWaiter> ExceptionWaiterMock;
         internal Mock<IDependencyResolverAdder> DependencyResolverAdderMock;
@@ -27,7 +27,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal Mock<ISutSupervisorStrategyGetter> SutSupervisorStrategyGetterMock;
 
         internal ISutCreator SutCreator;
-        internal ITellChildWaiter ChildTeller;
+        internal ITellWaiter TellWaiter;
         internal IWaiter ChildWaiter;
         internal IWaiter ExceptionWaiter;
         internal IDependencyResolverAdder DependencyResolverAdder;
@@ -63,7 +63,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 
             // Create mocks
             SutCreatorMock = new Mock<ISutCreator>();
-            ChildTellerMock = new Mock<ITellChildWaiter>();
+            TellWaiterMock = new Mock<ITellWaiter>();
             ChildWaiterMock = new Mock<IWaiter>();
             ExceptionWaiterMock = new Mock<IWaiter>();
             DependencyResolverAdderMock = new Mock<IDependencyResolverAdder>();
@@ -77,7 +77,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 
             // Create objects passed into sut constructor
             SutCreator = SutCreatorMock.Object;
-            ChildTeller = ChildTellerMock.Object;
+            TellWaiter = TellWaiterMock.Object;
             ChildWaiter = ChildWaiterMock.Object;
             ExceptionWaiter = ChildWaiterMock.Object;
             DependencyResolverAdder = DependencyResolverAdderMock.Object;
@@ -168,7 +168,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         protected UnitTestFramework<DummyActor> CreateUnitTestFramework(Props props = null) => 
             new UnitTestFramework<DummyActor>(
                 SutCreator,
-                ChildTeller,
+                TellWaiter,
                 ChildWaiter,
                 ExceptionWaiter,
                 DependencyResolverAdder,

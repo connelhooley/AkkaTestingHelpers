@@ -16,7 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
             int expectedChildrenCount) where TActor : ActorBase =>
             new UnitTestFramework<TActor>(
                 new SutCreator(),
-                new TellChildWaiter(),
+                new TellWaiter(),
                 new Waiter(),
                 new Waiter(),
                 new DependencyResolverAdder(),

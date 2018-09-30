@@ -8,7 +8,7 @@ namespace ConnelHooley.AkkaTestingHelpers
 {
     public sealed class UnitTestFramework<TActor> where TActor : ActorBase
     {
-        private readonly ITellChildWaiter _tellChildWaiter;
+        private readonly ITellWaiter _tellWaiter;
         private readonly IWaiter _childWaiter;
         private readonly IResolvedTestProbeStore _resolvedProbeStore;
         private readonly TestKitBase _testKit;
@@ -16,7 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers
 
         internal UnitTestFramework(
             ISutCreator sutCreator,
-            ITellChildWaiter childTeller,
+            ITellWaiter tellWaiter,
             IWaiter childWaiter,
             IWaiter exceptionWaiter,
             IDependencyResolverAdder resolverAdder,
@@ -38,7 +38,7 @@ namespace ConnelHooley.AkkaTestingHelpers
                 throw new InvalidOperationException("Do not use Prop objects with supervisor stratergies to create your SUT actor as you cannot garentee your actor will be created with this stratergy in production.");
             }
 
-            _tellChildWaiter = childTeller;
+            _tellWaiter = tellWaiter;
             _childWaiter = childWaiter;
             _resolvedProbeStore = resolvedProbeStore;
             _testKit = testKit;
@@ -106,7 +106,7 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// <param name="message">The message to send</param>
         /// <param name="waitForChildrenCount">The number child actors to wait for</param>
         public void TellMessageAndWaitForChildren<TMessage>(TMessage message, int waitForChildrenCount) =>
-            _tellChildWaiter.TellMessage(
+            _tellWaiter.TellMessage(
                 _childWaiter,
                 _testKit,
                 Sut,
@@ -121,7 +121,7 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// <param name="sender">The actor to send the message from</param>
         /// <param name="waitForChildrenCount">The number child actors to wait for</param>
         public void TellMessageAndWaitForChildren<TMessage>(TMessage message, IActorRef sender, int waitForChildrenCount) =>
-            _tellChildWaiter.TellMessage(
+            _tellWaiter.TellMessage(
                 _childWaiter,
                 _testKit,
                 Sut,

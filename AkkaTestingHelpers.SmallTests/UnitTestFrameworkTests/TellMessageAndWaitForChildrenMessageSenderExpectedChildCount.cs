@@ -67,7 +67,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             sut.TellMessageAndWaitForChildren(Message, Sender, ExpectedChildCount);
 
             //assert
-            ChildTellerMock.Verify(
+            TellWaiterMock.Verify(
                 teller => teller.TellMessage(
                     ChildWaiter, 
                     this, 

@@ -120,9 +120,9 @@
     <Compile Include="SutSupervisorStrategyGetterTests\Constructor.cs" />
     <Compile Include="SutSupervisorStrategyGetterTests\Get.cs" />
     <Compile Include="SutSupervisorStrategyGetterTests\_TestBase.cs" />
-    <Compile Include="TellChildWaiterTests\Constructor.cs" />
-    <Compile Include="TellChildWaiterTests\TellMessage.cs" />
-    <Compile Include="TellChildWaiterTests\_TestBase.cs" />
+    <Compile Include="TellWaiterTests\Constructor.cs" />
+    <Compile Include="TellWaiterTests\TellMessage.cs" />
+    <Compile Include="TellWaiterTests\_TestBase.cs" />
     <Compile Include="WaiterTests\Constructor.cs" />
     <Compile Include="WaiterTests\ResolveEvent.cs" />
     <Compile Include="WaiterTests\Start.cs" />

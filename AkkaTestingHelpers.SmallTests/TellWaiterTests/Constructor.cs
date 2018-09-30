@@ -3,7 +3,7 @@ using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
 using Xunit;
 
-namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
+namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellWaiterTests
 {
     public class Constructor : TestBase
     {
@@ -11,7 +11,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TellChildWaiterTests
         public void ChildTeller_Constructor_DoesNotThrow()
         {
             //act
-            Action act = () => new TellChildWaiter();
+            Action act = () => new TellWaiter();
 
             //assert
             act.Should().NotThrow();
