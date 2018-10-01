@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
@@ -10,6 +11,7 @@ namespace ConnelHooley.AkkaTestingHelpers
     {
         private readonly ITellWaiter _tellWaiter;
         private readonly IWaiter _childWaiter;
+        private readonly IWaiter _exceptionWaiter;
         private readonly IResolvedTestProbeStore _resolvedProbeStore;
         private readonly TestKitBase _testKit;
         private readonly SupervisorStrategy _sutSupervisorStrategy;
@@ -26,6 +28,7 @@ namespace ConnelHooley.AkkaTestingHelpers
             ITestProbeChildActorCreator testProbeChildActorCreator,
             ITestProbeChildHandlersMapper testProbeChildHandlersMapper,
             ISutSupervisorStrategyGetter sutSupervisorStrategyGetter,
+            ITestProbeParentActorCreator testProbeParentActorCreator,
             ImmutableDictionary<Type, Func<object, object>> parentHandlers,
             ImmutableDictionary<(Type, Type), Func<object, object>> childHandlers,
             TestKitBase testKit,
@@ -40,6 +43,7 @@ namespace ConnelHooley.AkkaTestingHelpers
 
             _tellWaiter = tellWaiter;
             _childWaiter = childWaiter;
+            _exceptionWaiter = exceptionWaiter;
             _resolvedProbeStore = resolvedProbeStore;
             _testKit = testKit;
             
@@ -52,14 +56,23 @@ namespace ConnelHooley.AkkaTestingHelpers
                 testKit,
                 testProbeChildHandlersMapper.Map(childHandlers));
 
-            Parent = testProbeCreator.Create(testKit);
+            ITestProbeParentActor testProbeParentActor = testProbeParentActorCreator.Create(
+                testProbeCreator,
+                exceptionWaiter,
+                testKit,
+                supervisorDecider,
+                parentHandlers);
 
             Sut = sutCreator.Create<TActor>(
                 _childWaiter,
                 _testKit,
                 sutProps,
                 expectedChildrenCount,
-                Parent);
+                testProbeParentActor.Ref);
+
+            Parent = testProbeParentActor.TestProbe;
+
+            UnhandledExceptions = testProbeParentActor.UnhandledExceptions;
 
             _sutSupervisorStrategy = sutSupervisorStrategyGetter.Get(Sut.UnderlyingActor);
         }
@@ -73,6 +86,11 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// The Actor that is the subject of your tests.
         /// </summary>
         public TestActorRef<TActor> Sut { get; }
+
+        /// <summary>
+        /// Contains all the unhandled exceptions thrown by the sut actor.
+        /// </summary>
+        public IEnumerable<Exception> UnhandledExceptions { get; }
 
         /// <summary>
         /// Finds the test probe created by the SUT actor for the given child name.
@@ -127,6 +145,36 @@ namespace ConnelHooley.AkkaTestingHelpers
                 Sut,
                 message,
                 waitForChildrenCount,
+                sender);
+
+        /// <summary>
+        /// Sends the SUT actor a message whilst waiting for the expected number of exceptions to be thrown before continuing.
+        /// </summary>
+        /// <typeparam name="TMessage">The type of message to send</typeparam>
+        /// <param name="message">The message to send</param>
+        /// <param name="waitForExceptionCount">The number exceptions to wait for</param>
+        public void TellMessageAndWaitForExceptions<TMessage>(TMessage message, int waitForExceptionCount = 1) =>
+            _tellWaiter.TellMessage(
+                _exceptionWaiter,
+                _testKit,
+                Sut,
+                message,
+                waitForExceptionCount);
+
+        /// <summary>
+        /// Sends the SUT actor a message whilst waiting for the expected number of exceptions to be thrown before continuing.
+        /// </summary>
+        /// <typeparam name="TMessage"></typeparam>
+        /// <param name="message">The message to send</param>
+        /// <param name="sender">The actor to send the message from</param>
+        /// <param name="waitForExceptionCount">The number exceptions to wait for</param>
+        public void TellMessageAndWaitForExceptions<TMessage>(TMessage message, IActorRef sender, int waitForExceptionCount = 1) =>
+            _tellWaiter.TellMessage(
+                _exceptionWaiter,
+                _testKit,
+                Sut,
+                message,
+                waitForExceptionCount,
                 sender);
     }
 }

@@ -11,12 +11,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeChildActorTests
     {
         #region Null tests
         [Fact]
-        public void TestProbeChildActor_ConstructorWithNullTestKit_ThrowsArgumentNullException()
+        public void TestProbeChildActor_ConstructorWithNullTestProbeCreator_ThrowsArgumentNullException()
         {
             //act
             Action act = () => new TestProbeChildActor(
-                TestProbeCreator,
                 null,
+                this,
                 Handlers);
 
             //assert
@@ -24,7 +24,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.TestProbeChildActorTests
         }
 
         [Fact]
-        public void TestProbeChildActor_ConstructorWithNullTestProbeCreator_ThrowsArgumentNullException()
+        public void TestProbeChildActor_ConstructorWithNullTestKit_ThrowsArgumentNullException()
         {
             //act
             Action act = () => new TestProbeChildActor(

@@ -9,6 +9,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Abstract
     {
         ITestProbeParentActor Create(
             ITestProbeCreator testProbeCreator,
+            IWaiter exceptionWaiter,
             TestKitBase testKit,
             Func<Exception, Directive> decider,
             IReadOnlyDictionary<Type, Func<object, object>> handlers);

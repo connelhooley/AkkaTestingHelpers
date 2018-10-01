@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using Akka.Actor;
 using Akka.TestKit;
@@ -25,6 +26,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal Mock<ITestProbeChildHandlersMapper> TestProbeHandlersMapperMock;
         internal Mock<ITestProbeChildActor> TestProbeChildActorMock;
         internal Mock<ISutSupervisorStrategyGetter> SutSupervisorStrategyGetterMock;
+        internal Mock<ITestProbeParentActorCreator> TestProbeParentActorCreatorMock;
+        internal Mock<ITestProbeParentActor> TestProbeParentActorMock;
 
         internal ISutCreator SutCreator;
         internal ITellWaiter TellWaiter;
@@ -37,6 +40,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal ITestProbeChildActorCreator TestProbeChildActorCreator;
         internal ITestProbeChildHandlersMapper TestProbeHandlersMapper;
         internal ISutSupervisorStrategyGetter SutSupervisorStrategyGetter;
+        internal ITestProbeParentActorCreator TestProbeParentActorCreator;
         
         internal ImmutableDictionary<Type, Func<object, object>> ParentHandlers;
         internal ImmutableDictionary<(Type, Type), Func<object, object>> ChildHandlers;
@@ -50,11 +54,14 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal IActorRef Sender;
         internal string ChildName;
         internal string ChildNameWithoutSupervisor;
-        internal TestProbe Supervisor;
         internal Type ResolvedType;
         internal TestProbe ResolvedTestProbe;
         internal SupervisorStrategy ResolvedSupervisorStrategy;
         internal SupervisorStrategy SutSupervisorStrategy;
+        internal ITestProbeParentActor TestProbeParentActor;
+        internal IActorRef TestProbeParentActorRef;
+        internal TestProbe TestProbeParentActorTestProbe;
+        internal IEnumerable<Exception> TestProbeParentActorUnhandledExceptions;
         protected TestActorRef<DummyActor> SutActor;
 
         public TestBase() : base(AkkaConfig.Config)
@@ -74,6 +81,8 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             TestProbeHandlersMapperMock = new Mock<ITestProbeChildHandlersMapper>();
             TestProbeChildActorMock = new Mock<ITestProbeChildActor>();
             SutSupervisorStrategyGetterMock = new Mock<ISutSupervisorStrategyGetter>();
+            TestProbeParentActorCreatorMock = new Mock<ITestProbeParentActorCreator>();
+            TestProbeParentActorMock = new Mock<ITestProbeParentActor>();
 
             // Create objects passed into sut constructor
             SutCreator = SutCreatorMock.Object;
@@ -87,6 +96,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             TestProbeChildActorCreator = TestProbeChildActorCreatorMock.Object;
             TestProbeHandlersMapper = TestProbeHandlersMapperMock.Object;
             SutSupervisorStrategyGetter = SutSupervisorStrategyGetterMock.Object;
+            TestProbeParentActorCreator = TestProbeParentActorCreatorMock.Object;
             ParentHandlers = ImmutableDictionary<Type, Func<object, object>>
                 .Empty
                 .Add((generateType()), message => TestHelper.Generate<object>());
@@ -115,7 +125,6 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 .Add(generateType(), ImmutableDictionary<Type, Func<object, object>>
                     .Empty
                     .Add(generateType(), mess => TestHelper.Generate<object>()));
-            Supervisor = CreateTestProbe();
             SutActor = ActorOfAsTestActorRef<DummyActor>();
             ResolvedType = generateType();
             ResolvedTestProbe = CreateTestProbe();
@@ -127,20 +136,34 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestHelper.GenerateNumber(),
                 TestHelper.GenerateNumber(),
                 exception => TestHelper.Generate<Directive>());
-
+            TestProbeParentActor = TestProbeParentActorMock.Object;
+            TestProbeParentActorTestProbe = CreateTestProbe();
+            TestProbeParentActorRef = TestProbeParentActorTestProbe.Ref;
+            TestProbeParentActorUnhandledExceptions = TestHelper.GenerateMany<Exception>(() => TestHelper.GenerateException());
+            
             // Set up mocks
-            TestProbeCreatorMock
-                .SetupSequence(creator => creator.Create(this))
-                .Returns(Supervisor)
-                .Returns(CreateTestProbe());
-                
+            TestProbeParentActorMock
+                .SetupGet(actor => actor.Ref)
+                .Returns(TestProbeParentActorRef);
+            TestProbeParentActorMock
+                .SetupGet(actor => actor.TestProbe)
+                .Returns(TestProbeParentActorTestProbe);
+            TestProbeParentActorMock
+                .SetupGet(actor => actor.UnhandledExceptions)
+                .Returns(TestProbeParentActorUnhandledExceptions);
+
+            TestProbeParentActorCreatorMock
+                .SetupSequence(creator => creator.Create(TestProbeCreator, ExceptionWaiter, this, Decider, ParentHandlers))
+                .Returns(TestProbeParentActor)
+                .Returns(Mock.Of<ITestProbeParentActor>());
+
             SutCreatorMock
                 .Setup(creator => creator.Create<DummyActor>(
-                    ChildWaiterMock.Object, 
-                    this, 
-                    Props, 
-                    ExpectedChildCount, 
-                    Supervisor))
+                    ChildWaiterMock.Object,
+                    this,
+                    Props,
+                    ExpectedChildCount,
+                    TestProbeParentActorRef))
                 .Returns(() => SutActor);
             
             ResolvedTestProbeStoreMock
@@ -178,6 +201,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeChildActorCreator,
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
+                TestProbeParentActorCreator,
                 ParentHandlers,
                 ChildHandlers,
                 this,

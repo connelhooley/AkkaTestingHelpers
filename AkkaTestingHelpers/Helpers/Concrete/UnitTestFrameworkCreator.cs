@@ -26,6 +26,7 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
                 new TestProbeChildActorCreator(),
                 new TestProbeChildHandlersMapper(),
                 new SutSupervisorStrategyGetter(),
+                new TestProbeParentActorCreator(),
                 parentHandlers,
                 childHandlers,
                 testKit,

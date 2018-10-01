@@ -35,11 +35,12 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
                 return AutoPilot.KeepRunning;
             }));
             ReceiveAny(o => TestProbe.Forward(o));
+            Ref = Self;
         }
 
         public TestProbe TestProbe { get; }
 
-        public IActorRef Ref => TestProbe.Ref;
+        public IActorRef Ref { get; }
 
         public IEnumerable<Exception> UnhandledExceptions => _unhandledExceptions;
 

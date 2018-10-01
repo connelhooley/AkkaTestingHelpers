@@ -4,10 +4,10 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 {
-    public class Supervisor : TestBase
+    public class Parent : TestBase
     {
         [Fact]
-        public void UnitTestFramework_Supervisor_ReturnsSupervisor()
+        public void UnitTestFramework_Parent_ReturnsSupervisor()
         {
             //arrange
             UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
@@ -16,7 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             TestProbe result = sut.Parent;
 
             //assert
-            result.Should().BeSameAs(Supervisor);
+            result.Should().BeSameAs(TestProbeParentActorTestProbe);
         }
     }
 }
