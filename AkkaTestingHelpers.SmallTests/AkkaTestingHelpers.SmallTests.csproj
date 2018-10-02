@@ -129,6 +129,7 @@
     <Compile Include="TestProbeParentActorTests\SupervisorStratergy.cs" />
     <Compile Include="TestProbeParentActorTests\UnhandledExceptions.cs" />
     <Compile Include="TestProbeParentActorTests\_TestBase.cs" />
+    <Compile Include="UnitTestFrameworkTests\UnhandledExceptions.cs" />
     <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForExceptionsMessageSenderWaitForExceptionCount.cs" />
     <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForExceptionsMessageWaitForExceptionCount.cs" />
     <Compile Include="WaiterTests\Constructor.cs" />
