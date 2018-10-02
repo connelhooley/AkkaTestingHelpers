@@ -50,6 +50,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal Props Props;
         internal Props PropsWithSupervisorStrategy;
         internal int ExpectedChildCount;
+        internal int ExpectedExceptionCount;
         internal object Message;
         internal IActorRef Sender;
         internal string ChildName;
@@ -112,6 +113,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                     TestHelper.GenerateNumber(),
                     exception => TestHelper.Generate<Directive>()));
             ExpectedChildCount = TestHelper.GenerateNumber();
+            ExpectedExceptionCount = TestHelper.GenerateNumber();
         
             // Create objects passed into sut methods
             Message = TestHelper.Generate<object>();

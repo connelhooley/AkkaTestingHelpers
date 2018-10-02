@@ -129,6 +129,8 @@
     <Compile Include="TestProbeParentActorTests\SupervisorStratergy.cs" />
     <Compile Include="TestProbeParentActorTests\UnhandledExceptions.cs" />
     <Compile Include="TestProbeParentActorTests\_TestBase.cs" />
+    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForExceptionsMessageSenderWaitForExceptionCount.cs" />
+    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForExceptionsMessageWaitForExceptionCount.cs" />
     <Compile Include="WaiterTests\Constructor.cs" />
     <Compile Include="WaiterTests\ResolveEvent.cs" />
     <Compile Include="WaiterTests\Start.cs" />
@@ -167,8 +169,8 @@
     <Compile Include="UnitTestFrameworkTests\ResolvedType.cs" />
     <Compile Include="UnitTestFrameworkTests\Sut.cs" />
     <Compile Include="UnitTestFrameworkTests\Parent.cs" />
-    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForChildrenMessageExpectedChildCount.cs" />
-    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForChildrenMessageSenderExpectedChildCount.cs" />
+    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForChildrenMessageWaitForChildrenCount.cs" />
+    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForChildrenMessageSenderWaitForChildrenCount.cs" />
     <Compile Include="UnitTestFrameworkTests\_TestBase.cs" />
   </ItemGroup>
   <ItemGroup>

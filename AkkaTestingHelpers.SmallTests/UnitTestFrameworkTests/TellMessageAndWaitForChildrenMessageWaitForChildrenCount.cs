@@ -5,7 +5,7 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 {
-    public class TellMessageAndWaitForChildrenMessageExpectedChildCount : TestBase
+    public class TellMessageAndWaitForChildrenMessageWaitForChildrenCount : TestBase
     {
         #region Null tests
         [Fact]
@@ -16,7 +16,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 
             //act
             Action act = () => sut.TellMessageAndWaitForChildren<object>(
-                null, 
+                null,
                 ExpectedChildCount);
 
             //assert
@@ -25,7 +25,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         #endregion
 
         [Fact]
-        public void UnitTestFramework_TellMessageAndWaitForChildren_TellsChild()
+        public void UnitTestFramework_TellMessageAndWaitForChildren_InvokesTellWaiter()
         {
             //arrange
             UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
@@ -36,11 +36,11 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             //assert
             TellWaiterMock.Verify(
                 teller => teller.TellMessage(
-                    ChildWaiter, 
-                    this, 
-                    SutActor, 
-                    Message, 
-                    ExpectedChildCount, 
+                    ChildWaiter,
+                    this,
+                    SutActor,
+                    Message,
+                    ExpectedChildCount,
                     null),
                 Times.Once);
         }

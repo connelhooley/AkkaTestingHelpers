@@ -5,52 +5,52 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
 {
-    public class TellMessageAndWaitForChildrenMessageSenderExpectedChildCount : TestBase
+    public class TellMessageAndWaitForExceptionsMessageSenderWaitForExceptionCount : TestBase
     {
         #region Null tests
         [Fact]
-        public void UnitTestFramework_TellMessageAndWaitForChildrenWithNullMessage_ThrowsArgumentNullException()
+        public void UnitTestFramework_TellMessageAndWaitForExceptionsWithNullMessage_ThrowsArgumentNullException()
         {
             //arrange
             UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
-            Action act = () => sut.TellMessageAndWaitForChildren<object>(
-                null, 
-                SutActor, 
-                ExpectedChildCount);
+            Action act = () => sut.TellMessageAndWaitForExceptions<object>(
+                null,
+                SutActor,
+                ExpectedExceptionCount);
 
             //assert
             act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
-        public void UnitTestFramework_TellMessageAndWaitForChildrenWithNullSender_ThrowsArgumentNullException()
+        public void UnitTestFramework_TellMessageAndWaitForExceptionsWithNullSender_ThrowsArgumentNullException()
         {
             //arrange
             UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
-            Action act = () => sut.TellMessageAndWaitForChildren(
+            Action act = () => sut.TellMessageAndWaitForExceptions(
                 Message,
                 null,
-                ExpectedChildCount);
+                ExpectedExceptionCount);
 
             //assert
             act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
-        public void UnitTestFramework_TellMessageAndWaitForChildrenWithNullMessageAndSender_ThrowsArgumentNullException()
+        public void UnitTestFramework_TellMessageAndWaitForExceptionsWithNullMessageAndSender_ThrowsArgumentNullException()
         {
             //arrange
             UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
-            Action act = () => sut.TellMessageAndWaitForChildren<object>(
-                null, 
-                null, 
-                ExpectedChildCount);
+            Action act = () => sut.TellMessageAndWaitForExceptions<object>(
+                null,
+                null,
+                ExpectedExceptionCount);
 
             //assert
             act.Should().Throw<ArgumentNullException>();
@@ -58,22 +58,22 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         #endregion
 
         [Fact]
-        public void UnitTestFramework_TellMessageAndWaitForChildren_TellsChild()
+        public void UnitTestFramework_TellMessageAndWaitForExceptions_InvokesTellWaiter()
         {
             //arrange
             UnitTestFramework<DummyActor> sut = CreateUnitTestFramework();
 
             //act
-            sut.TellMessageAndWaitForChildren(Message, Sender, ExpectedChildCount);
+            sut.TellMessageAndWaitForExceptions(Message, Sender, ExpectedExceptionCount);
 
             //assert
             TellWaiterMock.Verify(
                 teller => teller.TellMessage(
-                    ChildWaiter, 
-                    this, 
-                    SutActor, 
-                    Message, 
-                    ExpectedChildCount, 
+                    ExceptionWaiter,
+                    this,
+                    SutActor,
+                    Message,
+                    ExpectedExceptionCount,
                     Sender),
                 Times.Once);
         }
