@@ -64,8 +64,8 @@ namespace ConnelHooley.AkkaTestingHelpers
                 parentHandlers);
 
             Sut = sutCreator.Create<TActor>(
-                _childWaiter,
-                _testKit,
+                childWaiter,
+                testKit,
                 sutProps,
                 expectedChildrenCount,
                 testProbeParentActor.Ref);

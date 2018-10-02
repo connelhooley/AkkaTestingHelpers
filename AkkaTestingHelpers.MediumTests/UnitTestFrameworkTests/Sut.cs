@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
-using Akka.Actor;
+﻿using Akka.Actor;
 using Akka.TestKit.Xunit2;
-using FluentAssertions;
 using Xunit;
+using Akka.TestKit;
+using FluentAssertions;
 
 namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
 {
@@ -12,90 +11,20 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
         public Sut() : base(AkkaConfig.Config) { }
 
         [Fact]
-        public void TestProbeResolver_CreatesChildrenWithNoReplies()
+        public void UnitTestFramework_SutIsCreatedUsingProps()
         {
             //arrange
-            const int childCount = 5;
-            Type childType = typeof(ReplyChildActor1);
-
-            //act
-            UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
+            Props expected = Props.Create(() => new ParentActor());
+            UnitTestFramework <ParentActor> sut = UnitTestFrameworkSettings
                 .Empty
-                .RegisterChildHandler<ReplyChildActor2, Guid>(guid => Guid.Empty)
-                .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(childType, childCount)), childCount);
-
-            //assert
-            sut.Sut.Tell(new TellAllChildren(Guid.NewGuid()));
-            ExpectNoMsg();
-        }
-
-        [Fact]
-        public void TestProbeResolver_CreatesChildrenWithReplies()
-        {
-            //arrange
-            const int childCount = 5;
-            Type childType = typeof(ReplyChildActor1);
-            Guid message = Guid.NewGuid();
-            int replyCount = 0;
+                .CreateFramework<ParentActor>(this, expected);
 
             //act
-            UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
-                .Empty
-                .RegisterChildHandler<ReplyChildActor2, Guid>(guid => (default(Guid), default(int)))
-                .RegisterChildHandler<ReplyChildActor1, Guid>(guid => (guid, ++replyCount))
-                .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(childType, childCount)), childCount);
-            
+            TestActorRef<ParentActor> result = sut.Sut;
+
             //assert
-            sut.Sut.Tell(new TellAllChildren(message));
-            ExpectMsgAllOf(Enumerable
-                .Range(1, childCount)
-                .Select(i => (message, i))
-                .ToArray()
-            );
-        }
-
-        [Fact]
-        public void TestProbeResolver_TimesOutWhenChildrenCountIsTooHigh()
-        {
-            //arrange
-            const int childCount = 5;
-            Type childType = typeof(ReplyChildActor1);
-
-            //act
-            Action act = () =>
-            {
-                UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
-                    .Empty
-                    .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(childType, childCount)), childCount+1);
-            };
-            
-            //assert
-            act.Should().Throw<TimeoutException>();
-        }
-
-        [Fact]
-        public void TestProbeResolver_UsesLatestHandler()
-        {
-            //arrange
-            const int childCount = 5;
-            Type childType = typeof(ReplyChildActor1);
-            Guid message = Guid.NewGuid();
-            int replyCount = 0;
-
-            //act
-            UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
-                .Empty
-                .RegisterChildHandler<ReplyChildActor1, Guid>(guid => (default(Guid), default(int)))
-                .RegisterChildHandler<ReplyChildActor1, Guid>(guid => (guid, ++replyCount))
-                .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(childType, childCount)), childCount);
-            
-            //assert
-            sut.Sut.Tell(new TellAllChildren(message));
-            ExpectMsgAllOf(Enumerable
-                .Range(1, childCount)
-                .Select(i => (message, i))
-                .ToArray()
-            );
+            Props actual = result.UnderlyingActor.Props;
+            actual.Type.Should().BeSameAs(expected.Type);
         }
     }
 }

@@ -11,16 +11,20 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
     {
         public ParentActor()
         {
+            Props = Context.Props;
             Thread.Sleep(5);
             Become(Ready);
         }
 
         public ParentActor(Type initalChildrenType, int initalChildrenCount)
         {
+            Props = Context.Props;
             Thread.Sleep(5);
             CreateChildren(initalChildrenType, initalChildrenCount);
             Become(Ready);
         }
+
+        public Props Props { get; }
 
         private void Ready()
         {
@@ -166,6 +170,8 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             Message = message;
         }
     }
+
+    public class GetProps { }
 
     #endregion
 }

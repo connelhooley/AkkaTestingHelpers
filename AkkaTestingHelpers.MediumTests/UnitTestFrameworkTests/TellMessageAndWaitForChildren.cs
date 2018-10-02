@@ -4,6 +4,7 @@ using Akka.Actor;
 using Akka.TestKit.Xunit2;
 using FluentAssertions;
 using Xunit;
+using Akka.TestKit;
 
 namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
 {
@@ -12,7 +13,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
         public TellMessageAndWaitForChildren() : base(AkkaConfig.Config) { }
 
         [Fact]
-        public void TestProbeResolver_WaitsForChildrenCreatedWhenProcessingMessages()
+        public void UnitTestFramework_WaitsForChildrenCreatedWhenProcessingMessages()
         {
             //arrange
             const int initialChildCount = 2;
@@ -35,7 +36,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
         }
 
         [Fact]
-        public void TestProbeResolver_TimesoutWhenWaitingForChildrenWithAnExpectedChildCountThatIsTooHigh()
+        public void UnitTestFramework_TimesOutWhenWaitingForChildrenWithAnExpectedChildCountThatIsTooHigh()
         {
             //arrange
             const int initialChildCount = 2;
@@ -44,7 +45,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
                 .Empty
                 .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(childType, initialChildCount)), initialChildCount);
-            
+
             //act
             Action act = () => sut.TellMessageAndWaitForChildren(new CreateChildren(childType, moreChildCount), moreChildCount + 1);
 

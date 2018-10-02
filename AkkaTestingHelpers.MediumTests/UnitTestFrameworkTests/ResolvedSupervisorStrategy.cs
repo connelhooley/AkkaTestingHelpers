@@ -11,7 +11,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
         public ResolvedSupervisorStrategy() : base(AkkaConfig.Config) { }
 
         [Fact]
-        public void UnitTestFramework_ResolvedSupervisorStrategiesAreStored()
+        public void UnitTestFramework_TheChildsSupervisorStrategyIsReturnedWhenTheChildHasOneSetInItsProps()
         {
             //arrange
             SupervisorStrategy parentSupervisorStrategy = new AllForOneStrategy(exception => Directive.Restart);
@@ -31,7 +31,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
         }
         
         [Fact]
-        public void UnitTestFramework_ParentSupervisorStrategiesAreReturnedWhenChildDoesNotHaveOneSetInItsProps()
+        public void UnitTestFramework_TheParentsSupervisorStrategyIsReturnedWhenTheChildDoesNotHaveOneSetInItsProps()
         {
             //arrange
             SupervisorStrategy parentSupervisorStrategy = new AllForOneStrategy(exception => Directive.Restart);

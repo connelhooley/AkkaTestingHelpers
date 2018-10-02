@@ -14,6 +14,14 @@ namespace ConnelHooley.AkkaTestingHelpers.Helpers.Concrete
             TestKitBase testKit,
             Func<Exception, Directive> decider,
             IReadOnlyDictionary<Type, Func<object, object>> handlers) =>
-            new TestProbeParentActor(testProbeCreator, exceptionWaiter, testKit, decider, handlers);
+            testKit
+                .ActorOfAsTestActorRef<TestProbeParentActor>(
+                    Props.Create(() => new TestProbeParentActor(
+                        testProbeCreator,
+                        exceptionWaiter,
+                        testKit,
+                        decider,
+                        handlers)))
+                .UnderlyingActor;
     }
 }

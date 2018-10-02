@@ -12,7 +12,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
         public ResolvedType() : base(AkkaConfig.Config) { }
 
         [Fact]
-        public void TestProbeResolver_ResolvedTypesAreStored()
+        public void UnitTestFramework_ResolvedChildTypesAreStored()
         {
             //arrange
             Type childType = typeof(BlackHoleActor);
@@ -29,7 +29,7 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
         }
 
         [Fact]
-        public void TestProbeResolver_ThrownsWhenChildHasNotBeenResolved()
+        public void UnitTestFramework_ThrownsWhenChildHasNotBeenResolved()
         {
             //arrange
             UnitTestFramework<ParentActor> sut = UnitTestFrameworkSettings
