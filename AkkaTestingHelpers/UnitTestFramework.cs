@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Threading;
+using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
@@ -204,5 +206,17 @@ namespace ConnelHooley.AkkaTestingHelpers
                 message,
                 waitForExceptionCount,
                 sender);
+
+        /// <summary>
+        /// Calls Thread.Sleep but dilutes the given duration first
+        /// </summary>
+        /// <param name="duration">The duration to sleep for. This amount is multiplied by the currently configured akka.test.timefactor setting.</param>
+        public void Sleep(TimeSpan duration) => Thread.Sleep(_testKit.Dilated(duration));
+
+        /// <summary>
+        /// Calls Task.Delay but dilutes the given duration first
+        /// </summary>
+        /// <param name="duration">The duration to delay for. This amount is multiplied by the currently configured akka.test.timefactor setting.</param>
+        public async Task DelayAsync(TimeSpan duration) => await Task.Delay(_testKit.Dilated(duration)).ConfigureAwait(false);
     }
 }
