@@ -1,9 +1,7 @@
 ﻿using System;
-using Akka.Actor;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
 using FluentAssertions;
-using Moq;
 using Xunit;
 using Akka.TestKit;
 
