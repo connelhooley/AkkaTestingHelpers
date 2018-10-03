@@ -4,13 +4,13 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Examples
 {
-    public class Examples3 : TestKit
+    public class Example3_ParentTestProbe : TestKit
     {
-        public Examples3() : base(AkkaConfig.Config) { }
+        public Example3_ParentTestProbe() : base(AkkaConfig.Config) { }
 
-        public class DummyActor : ReceiveActor
+        public class SutActor : ReceiveActor
         {
-            public DummyActor()
+            public SutActor()
             {
                 Receive<string>(s =>
                 {
@@ -20,12 +20,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
 
         [Fact]
-        public void DummyActor_ReceiveStringMessage_SendsUpperCaseStringMessageToSupervisor()
+        public void SutActor_ReceiveStringMessage_SendsUpperCaseStringMessageToParent()
         {
             //arrange
-            UnitTestFramework<DummyActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<DummyActor>(this);
+                .CreateFramework<SutActor>(this);
 
             //act
             framework.Sut.Tell("hello world");

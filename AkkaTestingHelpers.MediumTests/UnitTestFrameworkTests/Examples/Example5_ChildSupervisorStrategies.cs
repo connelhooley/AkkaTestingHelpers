@@ -8,19 +8,19 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Examples
 {
-    public class Examples4 : TestKit
+    public class Example5_ChildSupervisorStrategies : TestKit
     {
-        public Examples4() : base(AkkaConfig.Config) { }
+        public Example5_ChildSupervisorStrategies() : base(AkkaConfig.Config) { }
 
-        public class ParentActor : ReceiveActor
+        public class SutActor : ReceiveActor
         {
-            public ParentActor()
+            public SutActor()
             {
-                Thread.Sleep(5);
+                Thread.Sleep(500);
                 Context.ActorOf(
                     Context
                         .DI()
-                        .Props<ChildActor>(), 
+                        .Props<ChildActor>(),
                     "child-1");
                 Context.ActorOf(Context
                     .DI()
@@ -28,26 +28,26 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
                     .WithSupervisorStrategy(new AllForOneStrategy(
                         3,
                         500,
-                        exception => Directive.Escalate)), 
+                        exception => Directive.Escalate)),
                     "child-2");
             }
             
-            protected override SupervisorStrategy SupervisorStrategy() => 
+            protected override SupervisorStrategy SupervisorStrategy() =>
                 new OneForOneStrategy(
-                    1, 
-                    1000, 
+                    1,
+                    1000,
                     exception => Directive.Stop);
         }
 
         public class ChildActor : ReceiveActor { }
 
         [Fact]
-        public void ParentActor_Constructor_CreatesChild1WithOneForOneStrategy()
+        public void SutActor_Constructor_CreatesChild1WithOneForOneStrategy()
         {
             //act
-            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActor>(this, 2);
+                .CreateFramework<SutActor>(this, 2);
             
             //assert
             framework.ResolvedSupervisorStrategy("child-1")
@@ -55,12 +55,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
 
         [Fact]
-        public void ParentActor_Constructor_CreatesChild1WithCorrectMaxNumberOfRetries()
+        public void SutActor_Constructor_CreatesChild1WithCorrectMaxNumberOfRetries()
         {
             //act
-            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActor>(this, 2);
+                .CreateFramework<SutActor>(this, 2);
 
             //assert
             framework.ResolvedSupervisorStrategy("child-1")
@@ -69,12 +69,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
 
         [Fact]
-        public void ParentActor_Constructor_CreatesChild1WithCorrectTimeout()
+        public void SutActor_Constructor_CreatesChild1WithCorrectTimeout()
         {
             //act
-            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActor>(this, 2);
+                .CreateFramework<SutActor>(this, 2);
 
             //assert
             framework.ResolvedSupervisorStrategy("child-1")
@@ -83,12 +83,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
 
         [Fact]
-        public void ParentActor_Constructor_CreatesChild1WithCorrectDecider()
+        public void SutActor_Constructor_CreatesChild1WithCorrectDecider()
         {
             //act
-            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActor>(this, 2);
+                .CreateFramework<SutActor>(this, 2);
 
             //assert
             framework.ResolvedSupervisorStrategy("child-1")
@@ -97,12 +97,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
 
         [Fact]
-        public void ParentActor_Constructor_CreatesChild2WithOneForOneStrategy()
+        public void SutActor_Constructor_CreatesChild2WithOneForOneStrategy()
         {
             //act
-            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActor>(this, 2);
+                .CreateFramework<SutActor>(this, 2);
 
             //assert
             framework.ResolvedSupervisorStrategy("child-2")
@@ -110,12 +110,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
 
         [Fact]
-        public void ParentActor_Constructor_CreatesChild2WithCorrectMaxNumberOfRetries()
+        public void SutActor_Constructor_CreatesChild2WithCorrectMaxNumberOfRetries()
         {
             //act
-            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActor>(this, 2);
+                .CreateFramework<SutActor>(this, 2);
 
             //assert
             framework.ResolvedSupervisorStrategy("child-2")
@@ -124,12 +124,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
 
         [Fact]
-        public void ParentActor_Constructor_CreatesChild2WithCorrectTimeout()
+        public void SutActor_Constructor_CreatesChild2WithCorrectTimeout()
         {
             //act
-            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActor>(this, 2);
+                .CreateFramework<SutActor>(this, 2);
 
             //assert
             framework.ResolvedSupervisorStrategy("child-2")
@@ -138,12 +138,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
 
         [Fact]
-        public void ParentActor_Constructor_CreatesChild2WithCorrectDecider()
+        public void SutActor_Constructor_CreatesChild2WithCorrectDecider()
         {
             //act
-            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActor>(this, 2);
+                .CreateFramework<SutActor>(this, 2);
 
             //assert
             framework.ResolvedSupervisorStrategy("child-2")

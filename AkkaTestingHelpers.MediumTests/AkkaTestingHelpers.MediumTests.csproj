@@ -101,17 +101,20 @@
     <Compile Include="BasicResolverSettingsTests\ResolveActor.cs" />
     <Compile Include="BasicResolverSettingsTests\DummyActors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTestFrameworkTests\Examples\Examples4.cs" />
+    <Compile Include="UnitTestFrameworkTests\Examples\Example4_ParentTestProbeHandlers.cs" />
+    <Compile Include="UnitTestFrameworkTests\Examples\Example6_UnhandledExceptions.cs" />
+    <Compile Include="UnitTestFrameworkTests\Examples\Example5_ChildSupervisorStrategies.cs" />
     <Compile Include="UnitTestFrameworkTests\ResolvedSupervisorStrategy.cs" />
     <Compile Include="UnitTestFrameworkTests\CreateFramework.cs" />
     <Compile Include="UnitTestFrameworkTests\DummyActors.cs" />
-    <Compile Include="UnitTestFrameworkTests\Examples\Examples2.cs" />
-    <Compile Include="UnitTestFrameworkTests\Examples\Examples1.cs" />
-    <Compile Include="UnitTestFrameworkTests\Examples\Examples3.cs" />
+    <Compile Include="UnitTestFrameworkTests\Examples\Example2_ChildTestProbeHandlers.cs" />
+    <Compile Include="UnitTestFrameworkTests\Examples\Example1_ChildTestProbes.cs" />
+    <Compile Include="UnitTestFrameworkTests\Examples\Example3_ParentTestProbe.cs" />
     <Compile Include="UnitTestFrameworkTests\ResolvedTestProbe.cs" />
     <Compile Include="UnitTestFrameworkTests\ResolvedType.cs" />
     <Compile Include="UnitTestFrameworkTests\Parent.cs" />
     <Compile Include="UnitTestFrameworkTests\Sut.cs" />
+    <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForExceptions.cs" />
     <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForChildren.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,16 +1,15 @@
 ﻿using Akka.Actor;
-using Akka.DI.Core;
 using Akka.TestKit.Xunit2;
 using Moq;
 using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Examples
 {
-    public class Examples2 : TestKit
+    public class Example4_ParentTestProbeHandlers : TestKit
     {
-        public Examples2() : base(AkkaConfig.Config) { }
+        public Example4_ParentTestProbeHandlers() : base(AkkaConfig.Config) { }
 
-        public class ChildActor : ReceiveActor
+        public class ParentActor : ReceiveActor
         {
             public class ModifiedSave
             {
@@ -28,13 +27,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
             void Save(string value);
         }
 
-        public class ParentActor : ReceiveActor
+        public class SutActor : ReceiveActor
         {
-            public ParentActor(IRepository repo)
+            public SutActor(IRepository repo)
             {
-                var child = Context.ActorOf(Context.DI().Props<ChildActor>(), "child-actor-1");
-                Receive<Save>(s => child.Tell(s));
-                Receive<ChildActor.ModifiedSave>(s => repo.Save(s.Value));
+                Receive<Save>(s => Context.Parent.Tell(s));
+                Receive<ParentActor.ModifiedSave>(s => repo.Save(s.Value));
             }
 
             public class Save
@@ -49,17 +47,17 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
         
         [Fact]
-        public void ParentActor_ReceiveSaveMessage_StoresModifiedSaveMessageFromChildInRepo()
+        public void SutActor_ReceiveSaveMessage_StoresModifiedSaveMessageFromParentInRepo()
         {
             //arrange
             Mock<IRepository> repoMock = new Mock<IRepository>();
-            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .RegisterChildHandler<ChildActor, ParentActor.Save>(s => new ChildActor.ModifiedSave(s.Value.ToUpper()))
-                .CreateFramework<ParentActor>(this, Props.Create(() => new ParentActor(repoMock.Object)), 1);
+                .RegisterParentHandler<SutActor.Save>(s => new ParentActor.ModifiedSave(s.Value.ToUpper()))
+                .CreateFramework<SutActor>(this, Props.Create(() => new SutActor(repoMock.Object)));
 
             //act
-            framework.Sut.Tell(new ParentActor.Save("hello world"));
+            framework.Sut.Tell(new SutActor.Save("hello world"));
 
             //assert
             AwaitAssert(() => repoMock.Verify(repo => repo.Save("HELLO WORLD"), Times.Once));

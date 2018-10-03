@@ -6,15 +6,15 @@ using Xunit;
 
 namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Examples
 {
-    public class Examples1 : TestKit
+    public class Example1_ChildTestProbes : TestKit
     {
-        public Examples1() : base(AkkaConfig.Config) { }
+        public Example1_ChildTestProbes() : base(AkkaConfig.Config) { }
 
         public class ChildActor : ReceiveActor { }
 
-        public class ParentActor : ReceiveActor
+        public class SutActor : ReceiveActor
         {
-            public ParentActor()
+            public SutActor()
             {
                 var child1 = Context.ActorOf(Context.DI().Props<ChildActor>(), "child-actor-1");
                 var child2 = Context.ActorOf(Context.DI().Props<ChildActor>(), "child-actor-2");
@@ -24,12 +24,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
 
         [Fact]
-        public void ParentActor_Constructor_CreatesChildWithCorrectTypeAndName()
+        public void SutActor_Constructor_CreatesChildWithCorrectTypeAndName()
         {
             //act
-            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActor>(this, 2);
+                .CreateFramework<SutActor>(this, 2);
             
             //assert
             framework
@@ -38,12 +38,12 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
 
         [Fact]
-        public void ParentActor_Constructor_SendsChildCorrectMessage()
+        public void SutActor_Constructor_SendsChildCorrectMessage()
         {
             //act
-            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActor>(this, 2);
+                .CreateFramework<SutActor>(this, 2);
 
             //assert
             framework

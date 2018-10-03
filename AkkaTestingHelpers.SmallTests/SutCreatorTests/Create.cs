@@ -1,5 +1,4 @@
 ﻿using System;
-using Akka.Actor;
 using Akka.TestKit;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Abstract;
 using ConnelHooley.AkkaTestingHelpers.Helpers.Concrete;
@@ -67,7 +66,25 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
         }
 
         [Fact]
-        public void SutCreator_CreateWithNullChildWaiterAndTestKitBaseAndProps_ThrowsArgumentNullException()
+        public void SutCreator_CreateWithNullSupervisor_ThrowsArgumentNullException()
+        {
+            //arrange
+            SutCreator sut = CreateSutCreator();
+
+            //act
+            Action act = () => sut.Create<DummyActor>(
+                ChildWaiter,
+                this,
+                Props,
+                ExpectedChildCount,
+                null);
+
+            //assert
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void SutCreator_CreateWithNullChildWaiterAndTestKitBaseAndPropsAndSupervisor_ThrowsArgumentNullException()
         {
             //arrange
             SutCreator sut = CreateSutCreator();
@@ -78,30 +95,12 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.SutCreatorTests
                 null, 
                 null, 
                 ExpectedChildCount, 
-                Supervisor);
+                null);
 
             //assert
             act.Should().Throw<ArgumentNullException>();
         }
         #endregion
-
-        [Fact]
-        public void SutCreator_CreateWithNullSupervisor_CreatesChildWithNoSupervisor()
-        {
-            //arrange
-            SutCreator sut = CreateSutCreator();
-            
-            //act
-            TestActorRef<DummyActor> actor = sut.Create<DummyActor>(
-                ChildWaiter, 
-                this, 
-                Props, 
-                ExpectedChildCount, 
-                null);
-
-            //assert
-            actor.Path.Parent.Should().Be(ActorPath.Parse("akka://test/user"));
-        }
 
         [Fact]
         public void SutCreator_Create_CreatesChildWithCorrectSupervisor()

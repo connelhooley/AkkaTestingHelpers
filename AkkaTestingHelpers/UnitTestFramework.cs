@@ -148,12 +148,40 @@ namespace ConnelHooley.AkkaTestingHelpers
                 sender);
 
         /// <summary>
+        /// Sends the SUT actor a message whilst waiting for the first exception to be thrown before continuing.
+        /// </summary>
+        /// <typeparam name="TMessage">The type of message to send</typeparam>
+        /// <param name="message">The message to send</param>
+        public void TellMessageAndWaitForException<TMessage>(TMessage message) =>
+            _tellWaiter.TellMessage(
+                _exceptionWaiter,
+                _testKit,
+                Sut,
+                message,
+                1);
+
+        /// <summary>
+        /// Sends the SUT actor a message whilst waiting for the first exception to be thrown before continuing.
+        /// </summary>
+        /// <typeparam name="TMessage"></typeparam>
+        /// <param name="message">The message to send</param>
+        /// <param name="sender">The actor to send the message from</param>
+        public void TellMessageAndWaitForException<TMessage>(TMessage message, IActorRef sender) =>
+            _tellWaiter.TellMessage(
+                _exceptionWaiter,
+                _testKit,
+                Sut,
+                message,
+                1,
+                sender);
+
+        /// <summary>
         /// Sends the SUT actor a message whilst waiting for the expected number of exceptions to be thrown before continuing.
         /// </summary>
         /// <typeparam name="TMessage">The type of message to send</typeparam>
         /// <param name="message">The message to send</param>
         /// <param name="waitForExceptionCount">The number exceptions to wait for</param>
-        public void TellMessageAndWaitForExceptions<TMessage>(TMessage message, int waitForExceptionCount = 1) =>
+        public void TellMessageAndWaitForExceptions<TMessage>(TMessage message, int waitForExceptionCount) =>
             _tellWaiter.TellMessage(
                 _exceptionWaiter,
                 _testKit,
@@ -168,7 +196,7 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// <param name="message">The message to send</param>
         /// <param name="sender">The actor to send the message from</param>
         /// <param name="waitForExceptionCount">The number exceptions to wait for</param>
-        public void TellMessageAndWaitForExceptions<TMessage>(TMessage message, IActorRef sender, int waitForExceptionCount = 1) =>
+        public void TellMessageAndWaitForExceptions<TMessage>(TMessage message, IActorRef sender, int waitForExceptionCount) =>
             _tellWaiter.TellMessage(
                 _exceptionWaiter,
                 _testKit,

@@ -40,13 +40,47 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
             Receive<TellChild>(message => Context.Child(message.Name).Forward(message.Message));
             Receive<TellParent>(message => Context.Parent.Forward(message.Message));
         }
-        
+
         private static void CreateChildren(Type childType, int childCount)
         {
             for (int i = 0; i < childCount; i++)
             {
                 Context.ActorOf(Context.DI().Props(childType));
             }
+        }
+    }
+
+    public class ThrowingParentActor : ReceiveActor
+    {
+        private static int _restartCount = 0;
+        
+        public ThrowingParentActor(Exception exception1, Exception exception2)
+        {
+            Thread.Sleep(5);
+            ReceiveAny(o =>
+            {
+                if (_restartCount == 0)
+                {
+                    Thread.Sleep(1000);
+                    _restartCount++;
+                    throw exception1;
+                }
+                else if (_restartCount == 1)
+                {
+                    Thread.Sleep(1000);
+                    _restartCount++;
+                    throw exception2;
+                } else
+                {
+                    _restartCount++;
+                }
+            });
+        }
+
+        protected override void PreRestart(Exception reason, object message)
+        {
+            Context.Self.Tell(message);
+            base.PreRestart(reason, message);
         }
     }
 
@@ -171,7 +205,17 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
         }
     }
 
-    public class GetProps { }
+    public class ThrowExceptions
+    {
+        public Exception Exception1 { get; }
+        public Exception Exception2 { get; }
+
+        public ThrowExceptions(Exception exception1, Exception exception2)
+        {
+            Exception1 = exception1;
+            Exception2 = exception2;
+        }
+    }
 
     #endregion
 }

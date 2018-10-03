@@ -4,7 +4,6 @@ using Akka.Actor;
 using Akka.TestKit.Xunit2;
 using FluentAssertions;
 using Xunit;
-using Akka.TestKit;
 
 namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests
 {
