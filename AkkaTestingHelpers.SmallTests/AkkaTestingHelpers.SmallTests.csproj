@@ -123,6 +123,9 @@
     <Compile Include="TellWaiterTests\Constructor.cs" />
     <Compile Include="TellWaiterTests\TellMessage.cs" />
     <Compile Include="TellWaiterTests\_TestBase.cs" />
+    <Compile Include="TestProbeParentActorCreatorTests\Create.cs" />
+    <Compile Include="TestProbeParentActorCreatorTests\Constructor.cs" />
+    <Compile Include="TestProbeParentActorCreatorTests\_TestBase.cs" />
     <Compile Include="TestProbeParentActorTests\Constructor.cs" />
     <Compile Include="TestProbeParentActorTests\ReceiveMessage.cs" />
     <Compile Include="TestProbeParentActorTests\Ref.cs" />
