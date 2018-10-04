@@ -115,6 +115,10 @@
     <Compile Include="ConcreteDependencyResolverAdderTests\Add.cs" />
     <Compile Include="ConcreteDependencyResolverAdderTests\Constructor.cs" />
     <Compile Include="ConcreteDependencyResolverAdderTests\_TestBase.cs" />
+    <Compile Include="DelayerTests\DelayAsync.cs" />
+    <Compile Include="DelayerTests\Delay.cs" />
+    <Compile Include="DelayerTests\Constructor.cs" />
+    <Compile Include="DelayerTests\_TestBase.cs" />
     <Compile Include="TestHelperConfigurator.cs" />
     <Compile Include="ResolvedTestProbeStoreTests\FindResolvedSupervisorStrategy.cs" />
     <Compile Include="SutSupervisorStrategyGetterTests\Constructor.cs" />
