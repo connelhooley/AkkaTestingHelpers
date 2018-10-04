@@ -211,7 +211,7 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// Calls Thread.Sleep but dilutes the given duration first
         /// </summary>
         /// <param name="duration">The duration to sleep for. This amount is multiplied by the currently configured akka.test.timefactor setting.</param>
-        public void Sleep(TimeSpan duration) => Thread.Sleep(_testKit.Dilated(duration));
+        public void Delay(TimeSpan duration) => Thread.Sleep(_testKit.Dilated(duration));
 
         /// <summary>
         /// Calls Task.Delay but dilutes the given duration first

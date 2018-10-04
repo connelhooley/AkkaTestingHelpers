@@ -1,6 +1,6 @@
 ﻿namespace ConnelHooley.AkkaTestingHelpers.SmallTests.DelayerTests
 {
-    public class Delay : TestBase
+    public class DelayAsync : TestBase
     {
 
     }
