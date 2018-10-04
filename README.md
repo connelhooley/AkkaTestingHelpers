@@ -16,11 +16,13 @@ It can be used to test the following scenarios:
 - That an actor sends the correct messages to its children
 - That an actor sends the correct messages to its parent
 - That an actor processes replies from its children correctly
+- That an actor processes replies from its parent correctly
 - What names an actor gives to its children
 - What types an actor creates as its children
 - What supervisor strategies an actor creates its children with
+- That an actor throws an exception
 
-The framework replaces children with `TestProbe` objects by using `Akka.DI`. This means you must use IOC in your solution for this to work correctly. If you're not creating your child actors like below then this framework will not be able to replace the children with `TestProbe` objects:
+The framework replaces children with `TestProbe` objects by using `Akka.DI`. This means you must use IOC in your solution for this solution to work correctly. If you're not creating your child actors like below then this framework will not be able to replace the children with `TestProbe` objects:
 
 ``` csharp
 var child = Context.ActorOf(Context.DI().Props<ChildActor>(), "child-1");
@@ -48,7 +50,7 @@ public void ParentActor_ReceivesString_SendsChildUpperCaseValue()
 }
 ```
 
-To see some more examples on how to use the `UnitTestFramework`. See the [examples](AkkaTestingHelpers.MediumTests/UnitTestFrameworkTests/Examples) folder. These example are explained in my [blog post](http://connelhooley.uk/blog/2017/09/30/introducing-akka-testing-helpers-di).
+To see some more examples on how to use the `UnitTestFramework`. See the [examples folder](AkkaTestingHelpers.MediumTests/UnitTestFrameworkTests/Examples). These example are explained in my [blog post](http://connelhooley.uk/blog/2017/09/30/introducing-akka-testing-helpers-di).
 
 ### Usage guide
 #### Initiating the unit test framework
@@ -90,7 +92,7 @@ framework.Sut.Tell("hello world");
 If the SUT actor sends messages to its parent/supervisor you can test this like so:
 ``` csharp
 framework.Sut.Tell("hello world");
-framework.Supervisor.Expect("hello world");
+framework.Parent.Expect("hello world");
 ```
 
 If the SUT actor creates a child actor of the type `ExampleActor` with the name `"child-1"` then you can test this like so:
@@ -186,3 +188,27 @@ BasicResolverSettings
 ```
 
 Once the resolver is registered any calls to `Context.DI().Props<ExampleActor>()` will be intercepted by the factory that was registered and an `StubExampleActor` will be constructed.
+
+## Upgrading to V2
+I recently removed the versions of this package from NuGet that were versioned by date (for example `2018.3.6.2`) and replaced them with version `2.0.0`. This is to honour semenatic versioning going forward. There are the following breaking changes between version `2018.3.6.2` and version `2.0.0`:
+
+The `RegisterHandler` method on the settings class is now called `RegisterChildHandler`.
+ 
+``` csharp
+// Old:
+UnitTestFrameworkSettings.Empty.RegisterHandler<ExampleActor, int>(i => i * 2));
+
+// New:
+UnitTestFrameworkSettings.Empty.RegisterChildHandler<ExampleActor, int>(i => i * 2));
+```
+
+The `Supervisor` property has been renamed to `Parent`.
+
+``` csharp
+// Old:
+framework.Supervisor.Expect("hello world");
+
+// New:
+framework.Parent.Expect("hello world");
+```
+A quick find and replace should be all that is needed. Now proper versioning is in place upgrades should be smoother in the future.
