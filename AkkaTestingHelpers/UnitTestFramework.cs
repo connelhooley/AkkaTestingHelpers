@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Threading;
 using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.TestKit;
@@ -15,6 +14,7 @@ namespace ConnelHooley.AkkaTestingHelpers
         private readonly IWaiter _childWaiter;
         private readonly IWaiter _exceptionWaiter;
         private readonly IResolvedTestProbeStore _resolvedProbeStore;
+        private readonly IDelayer _delayer;
         private readonly TestKitBase _testKit;
         private readonly SupervisorStrategy _sutSupervisorStrategy;
 
@@ -31,6 +31,7 @@ namespace ConnelHooley.AkkaTestingHelpers
             ITestProbeChildHandlersMapper testProbeChildHandlersMapper,
             ISutSupervisorStrategyGetter sutSupervisorStrategyGetter,
             ITestProbeParentActorCreator testProbeParentActorCreator,
+            IDelayer delayer,
             ImmutableDictionary<Type, Func<object, object>> parentHandlers,
             ImmutableDictionary<(Type, Type), Func<object, object>> childHandlers,
             TestKitBase testKit,
@@ -47,6 +48,7 @@ namespace ConnelHooley.AkkaTestingHelpers
             _childWaiter = childWaiter;
             _exceptionWaiter = exceptionWaiter;
             _resolvedProbeStore = resolvedProbeStore;
+            _delayer = delayer;
             _testKit = testKit;
 
             testProbeDependencyResolverAdder.Add(
@@ -211,12 +213,14 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// Calls Thread.Sleep but dilates the given duration first
         /// </summary>
         /// <param name="duration">The duration to sleep for. This amount is multiplied by the currently configured akka.test.timefactor setting.</param>
-        public void Delay(TimeSpan duration) => Thread.Sleep(_testKit.Dilated(duration));
+        public void Delay(TimeSpan duration) => 
+            _delayer.Delay(_testKit, duration);
 
         /// <summary>
         /// Calls Task.Delay but dilates the given duration first
         /// </summary>
         /// <param name="duration">The duration to delay for. This amount is multiplied by the currently configured akka.test.timefactor setting.</param>
-        public async Task DelayAsync(TimeSpan duration) => await Task.Delay(_testKit.Dilated(duration)).ConfigureAwait(false);
+        public async Task DelayAsync(TimeSpan duration) => 
+            await _delayer.DelayAsync(_testKit, duration).ConfigureAwait(false);
     }
 }

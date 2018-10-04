@@ -28,6 +28,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal Mock<ISutSupervisorStrategyGetter> SutSupervisorStrategyGetterMock;
         internal Mock<ITestProbeParentActorCreator> TestProbeParentActorCreatorMock;
         internal Mock<ITestProbeParentActor> TestProbeParentActorMock;
+        internal Mock<IDelayer> DelayerMock;
 
         internal ISutCreator SutCreator;
         internal ITellWaiter TellWaiter;
@@ -41,6 +42,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal ITestProbeChildHandlersMapper TestProbeHandlersMapper;
         internal ISutSupervisorStrategyGetter SutSupervisorStrategyGetter;
         internal ITestProbeParentActorCreator TestProbeParentActorCreator;
+        internal IDelayer Delayer;
         
         internal ImmutableDictionary<Type, Func<object, object>> ParentHandlers;
         internal ImmutableDictionary<(Type, Type), Func<object, object>> ChildHandlers;
@@ -57,6 +59,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
         internal string ChildNameWithoutSupervisor;
         internal Type ResolvedType;
         internal TestProbe ResolvedTestProbe;
+        internal TimeSpan DelayDuration;
         internal SupervisorStrategy ResolvedSupervisorStrategy;
         internal SupervisorStrategy SutSupervisorStrategy;
         internal ITestProbeParentActor TestProbeParentActor;
@@ -84,6 +87,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             SutSupervisorStrategyGetterMock = new Mock<ISutSupervisorStrategyGetter>();
             TestProbeParentActorCreatorMock = new Mock<ITestProbeParentActorCreator>();
             TestProbeParentActorMock = new Mock<ITestProbeParentActor>();
+            DelayerMock = new Mock<IDelayer>();
 
             // Create objects passed into sut constructor
             SutCreator = SutCreatorMock.Object;
@@ -98,6 +102,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
             TestProbeHandlersMapper = TestProbeHandlersMapperMock.Object;
             SutSupervisorStrategyGetter = SutSupervisorStrategyGetterMock.Object;
             TestProbeParentActorCreator = TestProbeParentActorCreatorMock.Object;
+            Delayer = DelayerMock.Object;
             ParentHandlers = ImmutableDictionary<Type, Func<object, object>>
                 .Empty
                 .Add((generateType()), message => TestHelper.Generate<object>());
@@ -114,12 +119,13 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                     exception => TestHelper.Generate<Directive>()));
             ExpectedChildCount = TestHelper.GenerateNumber();
             ExpectedExceptionCount = TestHelper.GenerateNumber();
-        
+
             // Create objects passed into sut methods
             Message = TestHelper.Generate<object>();
             ChildName = TestHelper.GenerateString();
             ChildNameWithoutSupervisor = TestHelper.GenerateString();
             Sender = new Mock<IActorRef>().Object;
+            DelayDuration = TestHelper.Generate<TimeSpan>();
 
             // Create objects returned by mocks
             MappedChildHandlers = ImmutableDictionary<Type, ImmutableDictionary<Type, Func<object, object>>>
@@ -204,6 +210,7 @@ namespace ConnelHooley.AkkaTestingHelpers.SmallTests.UnitTestFrameworkTests
                 TestProbeHandlersMapper,
                 SutSupervisorStrategyGetter,
                 TestProbeParentActorCreator,
+                Delayer,
                 ParentHandlers,
                 ChildHandlers,
                 this,

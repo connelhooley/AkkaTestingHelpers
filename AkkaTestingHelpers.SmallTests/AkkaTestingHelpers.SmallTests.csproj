@@ -136,6 +136,8 @@
     <Compile Include="TestProbeParentActorTests\SupervisorStratergy.cs" />
     <Compile Include="TestProbeParentActorTests\UnhandledExceptions.cs" />
     <Compile Include="TestProbeParentActorTests\_TestBase.cs" />
+    <Compile Include="UnitTestFrameworkTests\Delay.cs" />
+    <Compile Include="UnitTestFrameworkTests\DelayAsync.cs" />
     <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForExceptionMessageSender.cs" />
     <Compile Include="UnitTestFrameworkTests\TellMessageAndWaitForExceptionMessage.cs" />
     <Compile Include="UnitTestFrameworkTests\UnhandledExceptions.cs" />
