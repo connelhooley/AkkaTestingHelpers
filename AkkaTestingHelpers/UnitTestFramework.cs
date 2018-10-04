@@ -208,13 +208,13 @@ namespace ConnelHooley.AkkaTestingHelpers
                 sender);
 
         /// <summary>
-        /// Calls Thread.Sleep but dilutes the given duration first
+        /// Calls Thread.Sleep but dilates the given duration first
         /// </summary>
         /// <param name="duration">The duration to sleep for. This amount is multiplied by the currently configured akka.test.timefactor setting.</param>
         public void Delay(TimeSpan duration) => Thread.Sleep(_testKit.Dilated(duration));
 
         /// <summary>
-        /// Calls Task.Delay but dilutes the given duration first
+        /// Calls Task.Delay but dilates the given duration first
         /// </summary>
         /// <param name="duration">The duration to delay for. This amount is multiplied by the currently configured akka.test.timefactor setting.</param>
         public async Task DelayAsync(TimeSpan duration) => await Task.Delay(_testKit.Dilated(duration)).ConfigureAwait(false);

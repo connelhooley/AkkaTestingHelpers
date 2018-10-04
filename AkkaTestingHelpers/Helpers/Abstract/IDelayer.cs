@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Akka.TestKit;
+using System;
 using System.Threading.Tasks;
 
 namespace ConnelHooley.AkkaTestingHelpers.Helpers.Abstract
 {
     internal interface IDelayer
     {
-        void Delay(TimeSpan duration);
+        void Delay(TestKitBase testKit, TimeSpan duration);
 
-        Task DelayAsync(TimeSpan duration);
+        Task DelayAsync(TestKitBase testKit, TimeSpan duration);
     }
 }
