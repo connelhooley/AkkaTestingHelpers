@@ -12,9 +12,9 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
     {
         public Example6_UnhandledExceptions() : base(AkkaConfig.Config) { }
 
-        public class ParentActor : ReceiveActor
+        public class SutActor : ReceiveActor
         {
-            public ParentActor()
+            public SutActor()
             {
                 Receive<Exception>(message => {
                     Thread.Sleep(500);
@@ -24,13 +24,13 @@ namespace ConnelHooley.AkkaTestingHelpers.MediumTests.UnitTestFrameworkTests.Exa
         }
 
         [Fact]
-        public void ParentActor_ReceiveExceptionMessage_ThrowsSameException()
+        public void SutActor_ReceiveExceptionMessage_ThrowsSameException()
         {
             //arrange
             Exception message = new ArithmeticException();
-            UnitTestFramework<ParentActor> framework = UnitTestFrameworkSettings
+            UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
                 .Empty
-                .CreateFramework<ParentActor>(this);
+                .CreateFramework<SutActor>(this);
 
             //act
             framework.TellMessageAndWaitForException(message);
