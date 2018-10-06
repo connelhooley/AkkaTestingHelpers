@@ -22,10 +22,10 @@ It can be used to test the following scenarios:
 
 - [That an actor gives a child the correct name & type](#asserting-children-are-created-with-the-correct-names--types)
 - [That an actor sends the correct messages to its children](#asserting-children-are-sent-the-correct-messages)
-- [That an actor processes replies from its children correctly](#asserting-replies-from-children-are-proccessed-correctly)
-- [That an actor gives a child the correct supervisor strategy](#asserting-the-supervisor-stratergies-that-children-are-created-with)
+- [That an actor processes replies from its children correctly](#asserting-replies-from-children-are-processed-correctly)
+- [That an actor gives a child the correct supervisor strategy](#asserting-the-supervisor-strategies-that-children-are-created-with)
 - [That an actor sends the correct messages to its parent](#asserting-the-correct-messages-are-sent-to-the-parent)
-- [That an actor processes replies from its parent correctly](#asserting-replies-from-the-parent-are-proccessed-correctly)
+- [That an actor processes replies from its parent correctly](#asserting-replies-from-the-parent-are-processed-correctly)
 - [That an actor throws an exception](#asserting-that-exceptions-are-thrown)
 
 It also has a couple features that you may find useful:
@@ -185,7 +185,7 @@ RegisterChildHandler<ChildActor, SutActor.Save>(s => new ChildActor.ModifiedSave
 
 This example results in the following: TestProbes that are replacing `ChildActor` instances, will receive `SutActor.Save` messages and reply with upper-cased `ChildActor.ModifiedSave` messages. You can then test that the actor under test handles messages from its children correctly, without having to use the full implementation of the child.
 
-### Asserting The Supervisor Stratergies That Children Are Created With
+### Asserting The Supervisor Strategies That Children Are Created With
 
 ``` csharp
 public class Example : TestKit
@@ -311,7 +311,7 @@ public class Example : TestKit
 
 The `Parent` property returns the `TestProbe` instance that was used as the supervisor to the actor under test.
 
-### Asserting Replies From The Parent Are Proccessed Correctly
+### Asserting Replies From The Parent Are Processed Correctly
 
 ``` csharp
 public class Example : TestKit
