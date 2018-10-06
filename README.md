@@ -6,7 +6,7 @@ For a detailed explanation as to why I created the package and how it works, see
 
 ## Unit testing
 
-The `UnitTestFramework` class in the package allows you to test an Actor class in full isolation. The framework creates the actor to be tested with a mock parent in the form of a `TestProbe` object. It also replaces any children that the actor under test creates using `Akka.DI` with mocks in the form of `TestProbe` objects. This means you have to create your children like this for the children to be replaced with `TestProbe`s:
+The `UnitTestFramework` class in the package allows you to test an actor class in full isolation. The framework creates the actor to be tested with a mock parent in the form of a `TestProbe` object. It also replaces any children that the actor under test creates using `Akka.DI` with mocks in the form of `TestProbe` objects. This means you have to create your children like this for the children to be replaced with `TestProbe`s:
 
 ``` csharp
 var child = Context.ActorOf(Context.DI().Props<ChildActor>(), "child-1");
