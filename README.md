@@ -40,15 +40,6 @@ The following examples can also be found in the [examples](AkkaTestingHelpers.Me
 ``` csharp
 public class Example : TestKit
 {
-    public Example() : base(AkkaConfig.Config) { }
-
-    public class ChildActor : ReceiveActor { } // Replaced by a TestProbe by the UnitTestFramework
-
-    public class SutActor : ReceiveActor
-    {
-        public SutActor() => Context.ActorOf(Context.DI().Props<ChildActor>(), "child-actor-1");
-    }
-
     [Fact]
     public void SutActor_Constructor_CreatesChildWithCorrectTypeAndName()
     {
@@ -61,6 +52,13 @@ public class Example : TestKit
         framework
             .ResolvedType("child-actor-1")
             .Should().Be<ChildActor>();
+    }
+
+    public class ChildActor : ReceiveActor { } // Replaced by a TestProbe by the UnitTestFramework
+
+    public class SutActor : ReceiveActor
+    {
+        public SutActor() => Context.ActorOf(Context.DI().Props<ChildActor>(), "child-actor-1");
     }
 }
 ```
