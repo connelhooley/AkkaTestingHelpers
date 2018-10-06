@@ -20,7 +20,7 @@ The `UnitTestFramework` framework configures `Actor D` like this:
 
 It can be used to test the following scenarios:
 
-- [That an actor gives a child the correct name & type](#asserting-children-are-created-with-the-correct-names-&-types)
+- [That an actor gives a child the correct name & type](#asserting-children-are-created-with-the-correct-names--types)
 - [That an actor sends the correct messages to its children](#asserting-children-are-sent-the-correct-messages)
 - [That an actor processes replies from its children correctly](#asserting-replies-from-children-are-proccessed-correctly)
 - [That an actor gives a child the correct supervisor strategy](#asserting-the-supervisor-stratergies-that-children-are-created-with)
