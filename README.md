@@ -13,10 +13,10 @@ var child = Context.ActorOf(Context.DI().Props<ChildActor>(), "child-1");
 For a detailed explanation as to why I created the package and how it works, see my [blog post](http://connelhooley.uk/blog/2017/09/30/introducing-akka-testing-helpers-di).
 
 If you want to test `Actor D` in the following hierarchy:
-![Actor hierarchy highlighted where testing actor D](http://connelhooley.uk/assets/images/introducing-akka-testing-helpers-di/actor-hierarchy.png)
+![Actor hierarchy highlighted where testing actor D](http://connelhooley.uk/assets/images/introducing-akka-testing-helpers-di/actor-hierarchy-testing-d.png)
 
 The `UnitTestFramework` framework configures `Actor D` like this:
-![Actor hierarchy highlighted where testing actor D with mocks](http://connelhooley.uk/assets/images/introducing-akka-testing-helpers-di/actor-hierarchy-testing-d.png)
+![Actor hierarchy highlighted where testing actor D with mocks](http://connelhooley.uk/assets/images/introducing-akka-testing-helpers-di/actor-hierarchy-testing-d-mocks.png)
 
 It can be used to test the following scenarios:
 
