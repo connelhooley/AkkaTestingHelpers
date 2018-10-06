@@ -111,7 +111,7 @@ public class Example : TestKit
 }
 ```
 
-The `ResolvedTestProbe` method returns the `TestProbe` instance that the `UnitTestFramework` resolved that child as. It allows you assert messages that are sent to specific children.
+The `ResolvedTestProbe` method returns the `TestProbe` instance that the `UnitTestFramework` resolved that child as. It allows you assert messages are sent to specific children.
 
 ### Asserting Replies From Children Are Processed Correctly
 
