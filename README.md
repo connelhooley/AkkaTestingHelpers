@@ -181,7 +181,7 @@ Above, the `RegisterChildHandler` method is used to register a handler against t
 RegisterChildHandler<ChildActor, SutActor.Save>(s => new ChildActor.ModifiedSave(s.Value.ToUpper()))
 ```
 
-This example results in the following: TestProbes that are replacing `ChildActor` instances, will receive `SutActor.Save` messages and reply with upper-cased `ChildActor.ModifiedSave` messages. You can then test that the actor under test handles messages from its children correctly, without having to use the full implementation of the child.
+This example results in the following: TestProbes that are replacing `ChildActor` instances, will reply with an upper-cased `ChildActor.ModifiedSave` message when they receive a `SutActor.Save` message. You can then assert that the actor under test handles messages from its children correctly, without having to use the full implementation of the child.
 
 ### Asserting The Supervisor Strategies That Children Are Created With
 
@@ -376,7 +376,7 @@ Above, the `RegisterParentHandler` method is used to register a handler against 
 RegisterParentHandler<SutActor.Save>(s => new ParentActor.ModifiedSave(s.Value.ToUpper()))
 ```
 
-This example results in the following: The parent `TestProbe`, will receive `SutActor.Save` messages and reply with upper-cased `ParentActor.ModifiedSave` messages. You can then test that the actor under test handles messages from its parent correctly, without having to use the full implementation of the parent.
+This example results in the following: The parent `TestProbe` will reply with an upper-cased `ParentActor.ModifiedSave` message when it receives a `SutActor.Save` message. You can then assert that the actor under test handles messages from its parent correctly, without having to use the full implementation of the parent.
 
 ### Asserting That Exceptions Are Thrown
 
