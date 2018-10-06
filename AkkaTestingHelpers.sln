@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		.runsettings = .runsettings
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkkaTestingHelpers", "AkkaTestingHelpers\AkkaTestingHelpers.csproj", "{1E037E01-7D5A-4B8B-B7C3-907734C3D942}"
