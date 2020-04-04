@@ -118,7 +118,7 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// <param name="childName">The name of the child</param>
         /// <returns>The SupervisorStrategy used</returns>
         public SupervisorStrategy ResolvedSupervisorStrategy(string childName) =>
-            _resolvedProbeStore.FindResolvedSupervisorStrategy(Sut, childName) ?? 
+            _resolvedProbeStore.FindResolvedSupervisorStrategy(Sut, childName) ??
             _sutSupervisorStrategy;
 
         /// <summary>
@@ -213,14 +213,14 @@ namespace ConnelHooley.AkkaTestingHelpers
         /// Calls Thread.Sleep but dilates the given duration first
         /// </summary>
         /// <param name="duration">The duration to sleep for. This amount is multiplied by the currently configured akka.test.timefactor setting.</param>
-        public void Delay(TimeSpan duration) => 
+        public void Delay(TimeSpan duration) =>
             _delayer.Delay(_testKit, duration);
 
         /// <summary>
         /// Calls Task.Delay but dilates the given duration first
         /// </summary>
         /// <param name="duration">The duration to delay for. This amount is multiplied by the currently configured akka.test.timefactor setting.</param>
-        public async Task DelayAsync(TimeSpan duration) => 
+        public async Task DelayAsync(TimeSpan duration) =>
             await _delayer.DelayAsync(_testKit, duration).ConfigureAwait(false);
     }
 }
