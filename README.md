@@ -249,9 +249,9 @@ public class Example : TestKit
             Context.ActorOf(Context.DI().Props<ChildActor>(), "child-1");
 
             var child2SupervisorStrategy = new AllForOneStrategy( // SupervisorStrategy given to child-2
-                    3,
-                    500,
-                    exception => Directive.Escalate);
+                3,
+                500,
+                exception => Directive.Escalate);
             Context.ActorOf(Context.DI().Props<ChildActor>().WithSupervisorStrategy(child2SupervisorStrategy)), "child-2");
         }
 
@@ -444,10 +444,6 @@ UnitTestFramework<SutActor> framework = UnitTestFrameworkSettings
 ```
 
 The `UnitTestFramework` restarts the actor under test by default.
-
-``` csharp
-var child = Context.ActorOf(Context.DI().Props<ChildActor>(), "child-1");
-```
 
 ## Integration testing
 
